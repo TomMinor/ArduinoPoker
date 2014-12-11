@@ -98,10 +98,10 @@ void hands::bestHand(player &_player, const std::vector<card> &_river)
 
 void hands::winner(const int &_numPlayers, std::vector<player> &_livePlayers, const std::vector<card> &_river)
 {
+    int numPlayers = _livePlayers.size();
     int scores[_numPlayers];
     int topScore;
     std::vector<int> winner;
-    //int tieBreaker[_numPlayers];
     int tieBreakerScore[_numPlayers];
     int topTieBreakerScore;
     std::vector<int> tieWinner;
@@ -109,22 +109,24 @@ void hands::winner(const int &_numPlayers, std::vector<player> &_livePlayers, co
 
     // Find the highest score out of the players
     hands::bestHand(_livePlayers[0],_river);
-    scores[0] = _livePlayers[0].m_score;
+    scores[0] = _livePlayers[0].getScore();
     topScore = scores[0];
+    topScore = _livePlayers[0].getScore();
     for (int i=1;i<_numPlayers;i++)
     {
         std::cout<<"----------next player----------\n";
         hands::bestHand(_livePlayers[i],_river);
         scores[1] = _livePlayers[i].getScore();
         topScore = (scores[i]>topScore)?scores[i]:topScore;
+        topScore = (_livePlayers[i].getScore()>topScore)?_livePlayers[i].getScore():topScore;
     }
 
     // Check how many players had the high score
     for (int i=0;i<_numPlayers;i++)
     {
-        if (scores[i]==topScore)
+        if (_livePlayers[i].getScore()==topScore)
         {
-            // record which player had top score
+            // record player ID that had top score
             winner.push_back(i);
         }
     }
@@ -138,17 +140,19 @@ void hands::winner(const int &_numPlayers, std::vector<player> &_livePlayers, co
         hands::highestCard(_livePlayers[winner[0]],_river);
         tieBreakerScore[0] = _livePlayers[winner[0]].getScore();
         topTieBreakerScore = tieBreakerScore[0];
-        for (unsigned int i=1;i<winner.size();i++)
+        topTieBreakerScore = _livePlayers[winner[0]].getScore();
+        for (unsigned int i=1; i<winner.size()+1; i++)
         {
             // use winner[i] to get player cards for highest card parameter.
             hands::highestCard(_livePlayers[winner[i]],_river);
             tieBreakerScore[i] = _livePlayers[i].getScore();
             topTieBreakerScore = (tieBreakerScore[i]>topTieBreakerScore)?tieBreakerScore[i]:topTieBreakerScore;
+            topTieBreakerScore = (_livePlayers[i].getScore()>topTieBreakerScore)?_livePlayers[i].getScore():topTieBreakerScore;
         }
 
-        for (unsigned int i=1;i<winner.size();i++)
+        for (unsigned int i=0;i<winner.size();i++)
         {
-            if (tieBreakerScore[i] == topTieBreakerScore)
+            if (_livePlayers[winner[i]].getScore() == topTieBreakerScore)
             {
                 tieWinner.push_back(winner[i]);
             }
@@ -156,16 +160,11 @@ void hands::winner(const int &_numPlayers, std::vector<player> &_livePlayers, co
         std::cout<<"There are "<<tieWinner.size()<<"winners\n";
         for (unsigned int i=0;i<tieWinner.size();i++)
         {
-            std::cout<<tieWinner[i]<<", ";
+            std::cout<<tieWinner[i]<<" ";
         }
     }
     else {std::cout<<"winner is player "<<winner[0];}
 
-
-    int a=10;
-    int b=10;
-    int c = (a==b)?1:2;
-    std::cout<<c;
 
     std::cout<<"\n========================================================\n";
     std::cout<<"\tWinner Winner, Chicken Dinner!!!";
