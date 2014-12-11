@@ -3,13 +3,12 @@
 
 int main()
 {
-    card _public[5];
+  std::vector<card> river(5);
+  int numPlayers=4;
+  std::vector<player> livePlayers(numPlayers);
 
-    int numPlayers=4;
-    card players[numPlayers*2];
+  hands::winner(numPlayers,livePlayers,river);
 
-    hands::winner(numPlayers,players,_public);
-
-    return 0;
+  return 0;
 
 }

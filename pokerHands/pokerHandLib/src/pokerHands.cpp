@@ -2,127 +2,120 @@
 #include <iostream>
 #include <vector>
 
-int hands::highestCard()
+void hands::highestCard(player &_player, const std::vector<card> &_river)
 {
     // Only need to check players private cards
-    int score = 0;
     std::cout<<"checking for high card\n";
-    return score;
+    return;
 }
 
-int hands::pair()
+void hands::pair(player &_player, const std::vector<card> &_river)
 {
-    int score = 0;
     std::cout<<"checking for pair\n";
-    return score;
+    return;
 }
 
-int hands::twoPair()
+void hands::twoPair(player &_player, const std::vector<card> &_river)
 {
-    int score = 0;
     std::cout<<"checking for two pair\n";
-    return score;
+    return;
 }
 
-int hands::three()
+void hands::three(player &_player, const std::vector<card> &_river)
 {
-    int score = 0;
     std::cout<<"checking for three of a kind\n";
-    return score;
+    return;
 }
 
-int hands::straight()
+void hands::straight(player &_player, const std::vector<card> &_river)
 {
-    int score = 0;
     std::cout<<"checking for straight\n";
-    return score;
+    return;
 }
 
-int hands::flush()
+void hands::flush(player &_player, const std::vector<card> &_river)
 {
-    int score = 0;
     std::cout<<"checking for flush\n";
-    return score;
+    return;
 }
 
-int hands::four()
+void hands::four(player &_player, const std::vector<card> &_river)
 {
-    int score = 0;
     std::cout<<"checking for four of a kind\n";
-    return score;
+    return;
 }
-int hands::fullHouse()
+void hands::fullHouse(player &_player, const std::vector<card> &_river)
 {
-    int score = 0;
     std::cout<<"checking for full house\n";
-    return score;
+    return;
 }
 
-int hands::straightFlush()
+void hands::straightFlush(player &_player, const std::vector<card> &_river)
 {
-    int score = 0;
     std::cout<<"checking for straight flush\n";
-    return score;
+    return;
 }
 //-----------------------------------------------------------------------------
-int hands::bestHand(const card _player1,const card _player2,const card _public[5])
+void hands::bestHand(player &_player, const std::vector<card> &_river)
 {
-    int score = 0;
+    hands::straightFlush(_player, _river);
+    if (_player.getScore()>0)
+      return;
 
-    score = straightFlush();
-    if (score==0)
-    {
-        score = fullHouse();
-        if (score==0)
-        {
-            score = four();
-            if (score==0)
-            {
-                score = flush();
-                if (score==0)
-                {
-                    score = straight();
-                    if (score==0)
-                    {
-                        score = three();
-                        if (score==0)
-                        {
-                            score = twoPair();
-                            if (score==0)
-                            {
-                                score = pair();
-                                if (score==0)
-                                {
-                                    score = highestCard();
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
+    hands::four(_player, _river);
+    if (_player.getScore()>0)
+      return;
 
-    return score;
+    hands::fullHouse(_player, _river);
+    if (_player.getScore()>0)
+      return;
+
+    hands::flush(_player, _river);
+    if (_player.getScore()>0)
+      return;
+
+    hands::straight(_player, _river);
+    if (_player.getScore()>0)
+      return;
+
+    hands::three(_player, _river);
+    if (_player.getScore()>0)
+      return;
+
+    hands::twoPair(_player, _river);
+    if (_player.getScore()>0)
+      return;
+
+    hands::pair(_player, _river);
+    if (_player.getScore()>0)
+      return;
+
+    hands::highestCard(_player, _river);
+    if (_player.getScore()>0)
+      return;
+
 }
 
-void hands::winner(const int &_numPlayers, const card _players[], const card _public[5])
+void hands::winner(const int &_numPlayers, std::vector<player> &_livePlayers, const std::vector<card> &_river)
 {
     int scores[_numPlayers];
     int topScore;
     std::vector<int> winner;
-    int tieBreaker[_numPlayers];
-    int tieBreakerScore;
+    //int tieBreaker[_numPlayers];
+    int tieBreakerScore[_numPlayers];
+    int topTieBreakerScore;
     std::vector<int> tieWinner;
 
 
     // Find the highest score out of the players
-    scores[0] = hands::bestHand(_players[0],_players[1],_public);
+    hands::bestHand(_livePlayers[0],_river);
+    scores[0] = _livePlayers[0].m_score;
     topScore = scores[0];
     for (int i=1;i<_numPlayers;i++)
     {
         std::cout<<"----------next player----------\n";
-        scores[i] = hands::bestHand(_players[2*i],_players[2*i+1],_public);
+        hands::bestHand(_livePlayers[i],_river);
+        scores[1] = _livePlayers[i].getScore();
         topScore = (scores[i]>topScore)?scores[i]:topScore;
     }
 
@@ -142,24 +135,26 @@ void hands::winner(const int &_numPlayers, const card _players[], const card _pu
         // More than one player has the high score,
         // Now need to check these players highest card,
         // Note: only need to check their private cards.
-        tieBreaker[0] = hands::highestCard();
-        tieBreakerScore = tieBreaker[0];
-        for (int i=1;i<winner.size();i++)
+        hands::highestCard(_livePlayers[winner[0]],_river);
+        tieBreakerScore[0] = _livePlayers[winner[0]].getScore();
+        topTieBreakerScore = tieBreakerScore[0];
+        for (unsigned int i=1;i<winner.size();i++)
         {
             // use winner[i] to get player cards for highest card parameter.
-            tieBreaker[i] = hands::highestCard();
-            tieBreakerScore = (tieBreaker[i]>tieBreakerScore)?tieBreaker[i]:tieBreakerScore;
+            hands::highestCard(_livePlayers[winner[i]],_river);
+            tieBreakerScore[i] = _livePlayers[i].getScore();
+            topTieBreakerScore = (tieBreakerScore[i]>topTieBreakerScore)?tieBreakerScore[i]:topTieBreakerScore;
         }
 
-        for (int i=1;i<winner.size();i++)
+        for (unsigned int i=1;i<winner.size();i++)
         {
-            if (tieBreaker[i] == tieBreakerScore)
+            if (tieBreakerScore[i] == topTieBreakerScore)
             {
                 tieWinner.push_back(winner[i]);
             }
         }
         std::cout<<"There are "<<tieWinner.size()<<"winners\n";
-        for (int i=0;i<tieWinner.size();i++)
+        for (unsigned int i=0;i<tieWinner.size();i++)
         {
             std::cout<<tieWinner[i]<<", ";
         }
