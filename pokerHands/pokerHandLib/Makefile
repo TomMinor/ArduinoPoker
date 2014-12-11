@@ -45,10 +45,12 @@ OBJECTS_DIR   = ./
 
 ####### Files
 
-SOURCES       = src/main.cpp \
+SOURCES       = src/deck.cpp \
+		src/main.cpp \
 		src/player.cpp \
 		src/pokerHands.cpp 
-OBJECTS       = main.o \
+OBJECTS       = deck.o \
+		main.o \
 		player.o \
 		pokerHands.o
 DIST          = /opt/Qt/5.3/gcc_64/mkspecs/features/spec_pre.prf \
@@ -156,7 +158,8 @@ DIST          = /opt/Qt/5.3/gcc_64/mkspecs/features/spec_pre.prf \
 		/opt/Qt/5.3/gcc_64/mkspecs/features/exceptions.prf \
 		/opt/Qt/5.3/gcc_64/mkspecs/features/yacc.prf \
 		/opt/Qt/5.3/gcc_64/mkspecs/features/lex.prf \
-		poker.pro src/main.cpp \
+		poker.pro src/deck.cpp \
+		src/main.cpp \
 		src/player.cpp \
 		src/pokerHands.cpp
 QMAKE_TARGET  = winner
@@ -415,7 +418,7 @@ qmake_all: FORCE
 
 dist: 
 	@test -d .tmp/winner1.0.0 || mkdir -p .tmp/winner1.0.0
-	$(COPY_FILE) --parents $(DIST) .tmp/winner1.0.0/ && $(COPY_FILE) --parents include/card.h include/player.h include/pokerHands.h .tmp/winner1.0.0/ && $(COPY_FILE) --parents src/main.cpp src/player.cpp src/pokerHands.cpp .tmp/winner1.0.0/ && (cd `dirname .tmp/winner1.0.0` && $(TAR) winner1.0.0.tar winner1.0.0 && $(COMPRESS) winner1.0.0.tar) && $(MOVE) `dirname .tmp/winner1.0.0`/winner1.0.0.tar.gz . && $(DEL_FILE) -r .tmp/winner1.0.0
+	$(COPY_FILE) --parents $(DIST) .tmp/winner1.0.0/ && $(COPY_FILE) --parents include/card.h include/deck.h include/player.h include/pokerHands.h .tmp/winner1.0.0/ && $(COPY_FILE) --parents src/deck.cpp src/main.cpp src/player.cpp src/pokerHands.cpp .tmp/winner1.0.0/ && (cd `dirname .tmp/winner1.0.0` && $(TAR) winner1.0.0.tar winner1.0.0 && $(COMPRESS) winner1.0.0.tar) && $(MOVE) `dirname .tmp/winner1.0.0`/winner1.0.0.tar.gz . && $(DEL_FILE) -r .tmp/winner1.0.0
 
 
 clean:compiler_clean 
@@ -451,6 +454,10 @@ compiler_lex_clean:
 compiler_clean: 
 
 ####### Compile
+
+deck.o: src/deck.cpp include/deck.h \
+		include/card.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o deck.o src/deck.cpp
 
 main.o: src/main.cpp include/pokerHands.h \
 		include/card.h \
