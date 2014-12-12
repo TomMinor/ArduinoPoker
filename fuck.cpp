@@ -2,6 +2,7 @@
 #include <SDL2/SDL_ttf.h>
 #include <cstdlib>
 #include <iostream>
+//fuckshitfjkadl;fjkadl
  
 const int WINDOW_WIDTH = 1024;
 const int WINDOW_HEIGHT = 720;
