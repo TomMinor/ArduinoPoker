@@ -4,15 +4,9 @@
 
 Element::Element(SDL_Renderer *_ren,
                  SDL_Texture *_tex,
-<<<<<<< HEAD
                  const SDL_Rect &_srcRect,
                  const SDL_Rect &_destRect,
                  const Orientation &_orient) :
-=======
-                 SDL_Rect _srcRect,
-                 SDL_Rect _destRect,
-                 Orientation _orient) :
->>>>>>> 9a857e697db5c34734e45771dbf4daa043b18f26
                 m_ren(_ren),
                 m_texture(_tex),
                 m_srcRect(_srcRect),
@@ -25,11 +19,7 @@ Element::Element(SDL_Renderer *_ren,
 {
 }
 
-<<<<<<< HEAD
 void Element::setPos(const SDL_Point &_p)
-=======
-void Element::setPos(SDL_Point _p)
->>>>>>> 9a857e697db5c34734e45771dbf4daa043b18f26
 {
     m_pointDest=_p;
     m_progressAmount=1.0;
@@ -37,11 +27,7 @@ void Element::setPos(SDL_Point _p)
     m_destRect.y = _p.y;
 }
 
-<<<<<<< HEAD
 void Element::moveTo(const SDL_Point &_p)
-=======
-void Element::moveTo(SDL_Point _p)
->>>>>>> 9a857e697db5c34734e45771dbf4daa043b18f26
 {
     SDL_Point current = {m_destRect.x, m_destRect.y};
     m_pointPrev = current;
@@ -65,7 +51,6 @@ void Element::update()
 
 void Element::draw() const
 {
-<<<<<<< HEAD
     //wow this bit is bloody useless huh
     //m_destRect.x += static_cast<int>(m_destination.x-m_destRect.x*0.1f);
     //m_destRect.y += static_cast<int>(m_destination.y-m_destRect.y*0.1f);
@@ -97,19 +82,4 @@ int Element::getWidth() const
         return m_destRect.w;
     }
     return m_destRect.h;
-=======
-    //m_destRect.x += static_cast<int>(m_destination.x-m_destRect.x*0.1f);
-    //m_destRect.y += static_cast<int>(m_destination.y-m_destRect.y*0.1f);
-    SDL_Point centre;
-    SDL_RenderGetLogicalSize(m_ren,&centre.x,&centre.y);
-    centre.x/=2;
-    centre.y/=2;
-
-    double angle = static_cast<double>(static_cast<int>(m_orientation)*90);
-
-    //SDL_RenderSetClipRect()
-    //SDL_RenderSetLogicalSize()
-    //SDL_RenderSetViewport()
-    SDL_RenderCopyEx(m_ren,m_texture,&m_srcRect,&m_destRect,angle,&centre,SDL_FLIP_NONE);
->>>>>>> 9a857e697db5c34734e45771dbf4daa043b18f26
 }

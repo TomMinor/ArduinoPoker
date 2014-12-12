@@ -1,7 +1,6 @@
 #ifndef DEALERGUI_H
 #define DEALERGUI_H
 
-<<<<<<< HEAD
 #include "elementmaker.h"
 #include "hand.h"
 #include <vector>
@@ -36,16 +35,6 @@ private:
     float m_messageTimeout;
     //Card m_deck;
     //Element m_pot;
-=======
-class DealerGUI
-{
-public:
-    DealerGUI();
-
-private:
-    unsigned int m_numPlayers;
-
->>>>>>> 9a857e697db5c34734e45771dbf4daa043b18f26
 };
 
 #endif // DEALERGUI_H
