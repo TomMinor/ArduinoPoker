@@ -1,5 +1,6 @@
 #ifndef ELEMENT_H
 #define ELEMENT_H
+//ignore this line, just adding so git will actually notice the fucking changes
 
 #include <SDL.h>
 #include <math.h>

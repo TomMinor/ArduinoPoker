@@ -1,4 +1,5 @@
 #include "include/card.h"
+//ignore this line, just adding so git will actually notice the fucking changes
 
 #define FLIPSPEED 0.2
 #define CARDWIDTH 56

@@ -7,6 +7,7 @@ clang++ -Wall -g PutPixel.cpp -o PutPixel `sdl-config --cflags --libs`
 
 to compile the program
 */
+//ignore this line, just adding so git will actually notice the fucking changes
 
 #include <SDL.h>
 #include <SDL2/SDL_ttf.h>

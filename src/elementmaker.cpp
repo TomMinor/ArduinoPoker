@@ -1,4 +1,5 @@
 #include "include/elementmaker.h"
+//ignore this line, just adding so git will actually notice the fucking changes
 
 ElementMaker::ElementMaker(const CardInfo *_cardInfo, const LabelFormat *_labelFormat) : m_cardInfo(_cardInfo), m_labelFormat(_labelFormat)
 {

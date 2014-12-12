@@ -1,5 +1,6 @@
 #ifndef DEALERGUI_H
 #define DEALERGUI_H
+//ignore this line, just adding so git will actually notice the fucking changes
 
 #include "elementmaker.h"
 #include "hand.h"

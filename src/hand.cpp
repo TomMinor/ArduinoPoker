@@ -1,4 +1,5 @@
 #include "include/hand.h"
+//ignore this line, just adding so git will actually notice the fucking changes
 
 Hand::Hand(const SDL_Point &_origin, const std::vector<Card*> &_cards, const Orientation &_orient) :
     m_cards(_cards),
