@@ -17,6 +17,7 @@ class Element
 public:
     Element(SDL_Renderer *_ren,
             SDL_Texture *_tex,
+<<<<<<< HEAD
             const SDL_Rect &_srcRect,
             const SDL_Rect &_destRect,
             const Orientation &_orient);
@@ -26,6 +27,17 @@ public:
     virtual void draw() const;
     int getHeight() const;
     int getWidth() const;
+=======
+            SDL_Rect _srcRect,
+            SDL_Rect _destRect,
+            Orientation _orient);
+    void setPos(SDL_Point _p);//move to this point instantly
+    void moveTo(SDL_Point _p);//move to this point with cosine interpolation
+    virtual void update();
+    virtual void draw() const;
+    inline int getHeight() const { return m_destRect.h; }
+    inline int getWidth()  const { return m_destRect.w; }
+>>>>>>> 9a857e697db5c34734e45771dbf4daa043b18f26
 
 protected:
     //stuff SDL needs to know

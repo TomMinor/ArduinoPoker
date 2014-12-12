@@ -18,7 +18,11 @@ to compile the program
 #include "label.h"
 #include "card.h"
 #include "listmenu.h"
+<<<<<<< HEAD
 #include "hand.h"
+=======
+#include "testelement.h"
+>>>>>>> 9a857e697db5c34734e45771dbf4daa043b18f26
 //-----------------------------------------------------------------------------
 /// @brief the width of the window
 //-----------------------------------------------------------------------------
@@ -112,7 +116,11 @@ int main()
 
     // Load the playing card sheet
     SDL_Surface *temp;
+<<<<<<< HEAD
     temp = IMG_Load("images/sheet_v2.png");
+=======
+    temp = IMG_Load("images/sheet.png");
+>>>>>>> 9a857e697db5c34734e45771dbf4daa043b18f26
     if (!temp)
     {
         std::cerr << "IMG_Load() Failed: " << IMG_GetError() << "\n";
@@ -134,6 +142,7 @@ int main()
     SDL_FreeSurface(temp);
 
     //set the standard formatting for most of our labels
+<<<<<<< HEAD
     const SDL_Color text_color = {255,255,255,255};
     const LabelFormat standardFormat = {renderer, font, text_color};
     const CardInfo cardstyle = {renderer, cardTexture, 56, 76};
@@ -159,6 +168,36 @@ int main()
     Hand testHand(topleft,cardList,LEFT);
 
     testLabel->setPos(topleft);
+=======
+    LabelFormat standardFormat;
+    const static SDL_Color text_color = {255,255,255,255};
+    standardFormat.colour = text_color;
+    standardFormat.font = font;
+    standardFormat.ren = renderer;
+    standardFormat.scale = 1;
+
+    //set info for our cards
+    CardInfo cardstyle;
+    cardstyle.cardHeight = 76;
+    cardstyle.cardWidth = 56;
+    cardstyle.ren = renderer;
+    cardstyle.scale = 1;
+    cardstyle.texture = cardTexture;
+
+    clearScreen(renderer,2,180,2);
+
+    ElementMaker maker;
+
+    Card testCard = maker.makeCard(cardstyle,ACE,SPADES,BOTTOM);
+
+    SDL_Point topleft = {0,0};
+    SDL_Point topright = {WINDOW_WIDTH-testCard.getWidth(),0};
+    SDL_Point bottomleft = {0,WINDOW_HEIGHT-testCard.getHeight()};
+    SDL_Point bottomright = {WINDOW_WIDTH-testCard.getWidth(),WINDOW_HEIGHT-testCard.getHeight()};
+
+    Label testLabel = maker.makeLabel(standardFormat,std::string("Player 1"),BOTTOM);
+    testLabel.setPos(topleft);
+>>>>>>> 9a857e697db5c34734e45771dbf4daa043b18f26
 
     Uint32 pixelFormat;
     SDL_QueryTexture(cardTexture,&pixelFormat,NULL,NULL,NULL);
@@ -177,12 +216,19 @@ int main()
 
         clearScreen(renderer,2,180,2);
 
+<<<<<<< HEAD
         testLabel->update();
         testLabel->draw();
         //testCard.update();
         //testCard.draw();
         testHand.update();
         testHand.draw();
+=======
+        testLabel.update();
+        testLabel.draw();
+        testCard.update();
+        testCard.draw();
+>>>>>>> 9a857e697db5c34734e45771dbf4daa043b18f26
 
         SDL_SetRenderTarget(renderer, NULL);
 
@@ -206,6 +252,7 @@ int main()
 					{
 						// if it's the escape key quit
 						case SDLK_ESCAPE :  quit = true; break;
+<<<<<<< HEAD
                         case SDLK_UP : testHand.moveTo(topleft); break;
                         case SDLK_RIGHT : testHand.moveTo(topright); break;
                         case SDLK_DOWN : testHand.moveTo(bottomright); break;
@@ -213,6 +260,14 @@ int main()
                         case SDLK_p : testHand.setFlipped(true); break;
                         case SDLK_l : testHand.setFlipped(false); break;
                         case SDLK_b : testHand.burn();
+=======
+                        case SDLK_UP : testCard.moveTo(topleft); break;
+                        case SDLK_RIGHT : testCard.moveTo(topright); break;
+                        case SDLK_DOWN : testCard.moveTo(bottomright); break;
+                        case SDLK_LEFT : testCard.moveTo(bottomleft); break;
+                        case SDLK_p : testCard.setFlipped(true); break;
+                        case SDLK_l : testCard.setFlipped(false); break;
+>>>>>>> 9a857e697db5c34734e45771dbf4daa043b18f26
                         default : break;
 					}
 				}
@@ -224,10 +279,13 @@ int main()
         SDL_Delay(32);
 	} // end processing loop
 
+<<<<<<< HEAD
     //deallocate memory
     delete testCard;
     delete testLabel;
 
+=======
+>>>>>>> 9a857e697db5c34734e45771dbf4daa043b18f26
 	// finally when we are done we need to tidy up SDL by calling SDL_Quit
 	// sometime this is added as the atexit function to make it happen
 	// automatically
@@ -240,7 +298,11 @@ int main()
 //-----------------------------------------------------------------------------
 void clearScreen(SDL_Renderer *_ren,char _r,char _g,char _b	)
 {
+<<<<<<< HEAD
     SDL_SetRenderDrawColor(_ren, _r,_g,_b,255);
+=======
+	SDL_SetRenderDrawColor(_ren, _r,_g,_b,255);
+>>>>>>> 9a857e697db5c34734e45771dbf4daa043b18f26
 	SDL_RenderClear(_ren);
 }
 
