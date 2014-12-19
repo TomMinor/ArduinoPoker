@@ -18,5 +18,7 @@ int main()
   std::cout << "Cards " << (card1==card2 ? "are not" : "are") << " equal\n";
   std::cout << "Cards " << (card1!=card2 ? "are" : "are not") << " equal\n";
 
+  std::cout << bool(card1.IsRank(Rank::ACE)) << std::endl;
+
   return 0;
 }
