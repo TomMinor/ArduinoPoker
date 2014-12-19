@@ -1,6 +1,6 @@
 #include <assert.h>
 
-#include "dealer/card.h"
+#include "dealer/playingcard.h"
 
 const std::string RankLookup[] = {
   "Ace",
@@ -46,12 +46,30 @@ std::string PlayingCard::RankString() const
 
 std::string PlayingCard::SuitString() const
 {
-    if( ISDIAMOND(m_value))    { return SuitLookup[0]; }
-    else if( ISCLUB(m_value))  { return SuitLookup[1]; }
-    else if( ISSPADE(m_value)) { return SuitLookup[2]; }
-    else if( ISHEART(m_value)) { return SuitLookup[3]; }
+    return SuitLookup[getSuit()];
+}
 
-    assert( !"Invalid suit" );
+int PlayingCard::getSuit() const
+{
+  if( ISDIAMOND(m_value))    { return 0; }
+  else if( ISCLUB(m_value))  { return 1; }
+  else if( ISSPADE(m_value)) { return 2; }
+  else if( ISHEART(m_value)) { return 3; }
+
+  assert( !"Invalid suit" );
+}
+
+bool PlayingCard::operator==(const PlayingCard& _card)
+{
+  bool sameRank = RANKOF(m_value) == RANKOF(_card.m_value);
+  bool sameSuit = getSuit() == _card.getSuit();
+
+  return sameRank && sameSuit;
+}
+
+bool PlayingCard::operator!=(const PlayingCard& _card)
+{
+  return !(*this == _card);
 }
 
 std::ostream& operator<<(std::ostream& _stream, const PlayingCard& _card)

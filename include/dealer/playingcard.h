@@ -63,7 +63,21 @@ public:
   std::string inline SuitString() const;
 
   /*!
-   * \brief operator <<
+   * \brief operator ==
+   * \param _card
+   * \return True if both cards are identical
+   */
+  bool operator==(const PlayingCard& _card);
+
+  /*!
+   * \brief operator !=
+   * \param _card
+   * \return True if either rank or suit do not match
+   */
+  bool operator!=(const PlayingCard& _card);
+
+  /*!
+   * \brief operator << Returns a stream containing a string with the format "<RankString()> of <SuitString()>'s"
    * \param _stream
    * \param _card
    * \return
@@ -75,6 +89,8 @@ private:
    * \brief m_value Stores the suit and rank of the playing card in a single byte.
    */
   card_t m_value;
+
+  int getSuit() const;
 };
 
 #endif

@@ -7,7 +7,8 @@ CONFIG -= app_bundle
 TARGET = bin/CardExample
 
 DESTDIR=./
-SOURCES += src/examples/cardUsage.cpp src/dealer/card.cpp
+SOURCES += src/examples/cardUsage.cpp \
+    src/dealer/playingcard.cpp
 HEADERS += include/card.h \
     include/dealer/playingcard.h
 INCLUDEPATH += include/
