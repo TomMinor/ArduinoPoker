@@ -41,28 +41,29 @@ bool PlayingCard::IsSuit(Suit::Value _suit) const
 
 std::string PlayingCard::RankString() const
 {
+  // We subtract 1 to match the array index starting at 0
   return RankLookup[ RANKOF(m_value)-1 ];
 }
 
 std::string PlayingCard::SuitString() const
 {
-    return SuitLookup[getSuit()];
+  return SuitLookup[getSuit()];
 }
 
 int PlayingCard::getSuit() const
 {
   if( ISDIAMOND(m_value))    { return 0; }
-  else if( ISCLUB(m_value))  { return 1; }
-  else if( ISSPADE(m_value)) { return 2; }
-  else if( ISHEART(m_value)) { return 3; }
+  else if( ISHEART(m_value)) { return 1; }
+  else if( ISCLUB(m_value))  { return 2; }
+  else if( ISSPADE(m_value)) { return 3; }
 
   assert( !"Invalid suit" );
 }
 
 bool PlayingCard::operator==(const PlayingCard& _card)
 {
-  bool sameRank = RANKOF(m_value) == RANKOF(_card.m_value);
-  bool sameSuit = getSuit() == _card.getSuit();
+  bool sameRank = (RANKOF(m_value) == RANKOF(_card.m_value));
+  bool sameSuit = (getSuit() == _card.getSuit());
 
   return sameRank && sameSuit;
 }
