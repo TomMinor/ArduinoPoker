@@ -7,11 +7,7 @@ bool sendPacket(uint8_t _flag, uint8_t _size)
    uint8_t packet = 0;
 
    // Exit if we have overflowed the max size (15) of _size and will corrupt left hand bits during the OR operation later
-   assert(!(_size | 0xF0));
-   /* Alternatives :
-   assert(_size < 16)
-   assert(_size < 0x0F)
-   */
+   assert(_size <= 0x0F);
 
    // Combine packet
    packet |= (FLAGMASK & (_flag << 4));
@@ -21,6 +17,7 @@ bool sendPacket(uint8_t _flag, uint8_t _size)
    //serial.write(packet);
 
    //return serial.sent();
+   return true;
 }
 
 //switch(packetType)
