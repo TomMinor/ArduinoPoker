@@ -95,6 +95,7 @@ DIST          = /usr/lib/i386-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/i386-linux-gnu/qt5/mkspecs/features/qt_config.prf \
 		/usr/lib/i386-linux-gnu/qt5/mkspecs/linux-g++/qmake.conf \
 		/usr/lib/i386-linux-gnu/qt5/mkspecs/features/spec_post.prf \
+		../../.qmake.cache \
 		/usr/lib/i386-linux-gnu/qt5/mkspecs/features/exclusive_builds.prf \
 		/usr/lib/i386-linux-gnu/qt5/mkspecs/features/default_pre.prf \
 		/usr/lib/i386-linux-gnu/qt5/mkspecs/features/resolve_config.prf \
@@ -147,7 +148,7 @@ $(TARGET):  $(OBJECTS)
 	$(LINK) $(LFLAGS) -o $(TARGET) $(OBJECTS) $(OBJCOMP) $(LIBS)
 	{ test -n "$(DESTDIR)" && DESTDIR="$(DESTDIR)" || DESTDIR=.; } && test $$(gdb --version | sed -e 's,[^0-9][^0-9]*\([0-9]\)\.\([0-9]\).*,\1\2,;q') -gt 72 && gdb --nx --batch --quiet -ex 'set confirm off' -ex "save gdb-index $$DESTDIR" -ex quit '$(TARGET)' && test -f $(TARGET).gdb-index && objcopy --add-section '.gdb_index=$(TARGET).gdb-index' --set-section-flags '.gdb_index=readonly' '$(TARGET)' '$(TARGET)' && rm -f $(TARGET).gdb-index || true
 
-Makefile: poker.pro /usr/lib/i386-linux-gnu/qt5/mkspecs/linux-g++/qmake.conf /usr/lib/i386-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
+Makefile: poker.pro ../../.qmake.cache /usr/lib/i386-linux-gnu/qt5/mkspecs/linux-g++/qmake.conf /usr/lib/i386-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/i386-linux-gnu/qt5/mkspecs/common/shell-unix.conf \
 		/usr/lib/i386-linux-gnu/qt5/mkspecs/common/unix.conf \
 		/usr/lib/i386-linux-gnu/qt5/mkspecs/common/linux.conf \
@@ -189,6 +190,7 @@ Makefile: poker.pro /usr/lib/i386-linux-gnu/qt5/mkspecs/linux-g++/qmake.conf /us
 		/usr/lib/i386-linux-gnu/qt5/mkspecs/features/qt_config.prf \
 		/usr/lib/i386-linux-gnu/qt5/mkspecs/linux-g++/qmake.conf \
 		/usr/lib/i386-linux-gnu/qt5/mkspecs/features/spec_post.prf \
+		../../.qmake.cache \
 		/usr/lib/i386-linux-gnu/qt5/mkspecs/features/exclusive_builds.prf \
 		/usr/lib/i386-linux-gnu/qt5/mkspecs/features/default_pre.prf \
 		/usr/lib/i386-linux-gnu/qt5/mkspecs/features/resolve_config.prf \
@@ -252,6 +254,7 @@ Makefile: poker.pro /usr/lib/i386-linux-gnu/qt5/mkspecs/linux-g++/qmake.conf /us
 /usr/lib/i386-linux-gnu/qt5/mkspecs/features/qt_config.prf:
 /usr/lib/i386-linux-gnu/qt5/mkspecs/linux-g++/qmake.conf:
 /usr/lib/i386-linux-gnu/qt5/mkspecs/features/spec_post.prf:
+../../.qmake.cache:
 /usr/lib/i386-linux-gnu/qt5/mkspecs/features/exclusive_builds.prf:
 /usr/lib/i386-linux-gnu/qt5/mkspecs/features/default_pre.prf:
 /usr/lib/i386-linux-gnu/qt5/mkspecs/features/resolve_config.prf:

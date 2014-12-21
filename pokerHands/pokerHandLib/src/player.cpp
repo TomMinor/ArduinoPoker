@@ -3,6 +3,8 @@
 
 player::player()
 {
+    m_score = 0;
+    m_tieScore = 0;
 
 }
 
@@ -20,9 +22,9 @@ void player::setName(const std::string &_name)
     m_name = _name;
 }
 
-void player::setCard(const int &_i, const card &_card)
+void player::setHand(const int &_i, const card &_card)
 {
-    m_cards[_i] = _card;
+    m_hand[_i] = _card;
 }
 
 void player::setScore(const int &_score)
@@ -57,6 +59,11 @@ std::string player::getName()const
 card player::getCard(const int &_i)const
 {
     return m_cards[_i];
+}
+
+int player::getNumCards()const
+{
+    return m_cards.size();
 }
 
 int player::getScore()const

@@ -8,7 +8,7 @@ int main()
   std::vector<player> livePlayers(numPlayers);
   for(int i=0;i<numPlayers;i++)
   {
-      livePlayers[i].setScore(4-i);
+      livePlayers[i].setScore(1+i);
   }
 
   hands::winner(numPlayers,livePlayers,river);

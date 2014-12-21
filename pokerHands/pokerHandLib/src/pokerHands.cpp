@@ -2,9 +2,26 @@
 #include <iostream>
 #include <vector>
 
+void hands::highestCard(player &_player)
+{
+    // mutate _player.m_tieScore
+}
+
 void hands::highestCard(player &_player, const std::vector<card> &_river)
 {
-    // Only need to check players private cards
+    if (_player.getNumCards() != 5)
+    {
+        //check all cards and update player.m_score!!
+        for (int i=0;i<7;i++)
+        {
+
+        }
+    }
+    else
+    {
+        (_player.getCard(0).value > _player.getCard(1).value)?
+         _player.setScore(_player.getCard(0).value):_player.setScore(_player.getCard(1).value);
+    }
     std::cout<<"checking for high card\n";
     return;
 }
@@ -137,14 +154,14 @@ void hands::winner(const int &_numPlayers, std::vector<player> &_livePlayers, co
         // More than one player has the high score,
         // Now need to check these players highest card,
         // Note: only need to check their private cards.
-        hands::highestCard(_livePlayers[winner[0]],_river);
+        hands::highestCard(_livePlayers[winner[0]]);
         tieBreakerScore[0] = _livePlayers[winner[0]].getScore();
         topTieBreakerScore = tieBreakerScore[0];
         topTieBreakerScore = _livePlayers[winner[0]].getScore();
         for (unsigned int i=1; i<winner.size()+1; i++)
         {
             // use winner[i] to get player cards for highest card parameter.
-            hands::highestCard(_livePlayers[winner[i]],_river);
+            hands::highestCard(_livePlayers[winner[i]]);
             tieBreakerScore[i] = _livePlayers[i].getScore();
             topTieBreakerScore = (tieBreakerScore[i]>topTieBreakerScore)?tieBreakerScore[i]:topTieBreakerScore;
             topTieBreakerScore = (_livePlayers[i].getScore()>topTieBreakerScore)?_livePlayers[i].getScore():topTieBreakerScore;

@@ -11,6 +11,7 @@ namespace hands
 //-----------------------------------------------------------------------------------------------------------------------------
     // Evaluate hands methods
 //-----------------------------------------------------------------------------------------------------------------------------
+    void highestCard(player &_player);
     void highestCard(player &_player, const std::vector<card> &_river);      // SCORE 1-13    | 13 different valued high cards per suit, Ace is the highest.
     void pair(player &_player, const std::vector<card> &_river);             // SCORE 14-26   | 13 different valued pairs, Ace,Ace being the higest.
     void twoPair(player &_player, const std::vector<card> &_river);          // SCORE 27-104  | 78 different valued 2 pairs, Ace,Ace,King,King being the highest.
@@ -25,6 +26,7 @@ namespace hands
 //-----------------------------------------------------------------------------------------------------------------------------
     void bestHand(player &_player, const std::vector<card> &_river);
     void winner(const int &_numPlayers, std::vector<player> &_livePlayers, const std::vector<card> &_river);
+    //int * winner(const int &_numPlayers, std::vector<player> &_livePlayers, const std::vector<card> &_river);
 }
 
 #endif
