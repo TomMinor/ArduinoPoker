@@ -1,79 +1,109 @@
-#include "pokerHands.h"
+#include "dealer/pokerHands.h"
 #include <iostream>
 #include <vector>
+#include <algorithm>
+
+
+void hands::addHighestCard(player &_player, const std::vector<PlayingCard> &_river)
+{
+    // need to add tie breaker score, change if new score is higher.
+    std::vector<PlayingCard> tmpCards;
+    std::vector<PlayingCard>::iterator it;
+    for (int i=0;i<2;i++)
+    {
+      it=std::find(_player.getHand().begin(),_player.getHand().end(),_player.getCard(i));
+      if(it==_player.getHand().end())
+      {
+        tmpCards.push_back(_player.getCard(i));
+      }
+    }
+    for (int i=0;i<5;i++)
+    {
+        it=std::find(_player.getHand().begin(),_player.getHand().end(),_river[i]);
+        if(it==_player.getHand().end())
+        {
+          tmpCards.push_back(_river[i]);
+        }
+    }
+
+    _player.setHandCard(tmpCards[0]);
+    for (int i=1;i<tmpCards.size();i++)
+    {
+        if (tmpCards[i].getRank()>tmpCards[i-1].getRank())
+        {
+            _player.popHandCard();
+            _player.setHandCard(tmpCards[i]);
+        }
+    }
+
+}
 
 void hands::highestCard(player &_player)
 {
-    // mutate _player.m_tieScore
+    _player.setScore(_player.getHandCard(0).getRank());
+    for (int i=1;i<5;i++)
+    {
+      _player.setScore((_player.getHandCard(i).getRank()>_player.getHandCard(i-1).getRank()) ?
+                        _player.getHandCard(i).getRank():_player.getHandCard(i-1).getRank());
+    }
 }
 
-void hands::highestCard(player &_player, const std::vector<card> &_river)
+void hands::highestCard(player &_player, const std::vector<PlayingCard> &_river)
 {
-    if (_player.getNumCards() != 5)
-    {
-        //check all cards and update player.m_score!!
-        for (int i=0;i<7;i++)
-        {
+    _player.setHandCard((_player.getCard(0).getRank()>_player.getCard(1).getRank())?
+                         _player.getCard(0):_player.getCard(1));
 
+    for (int i=0;i<5;i++)
+    {
+        if(_river[i].getRank()>_player.getHandCard(0).getRank())
+        {
+            _player.setHandCard(_river[i]);
         }
     }
-    else
-    {
-        (_player.getCard(0).value > _player.getCard(1).value)?
-         _player.setScore(_player.getCard(0).value):_player.setScore(_player.getCard(1).value);
-    }
+
     std::cout<<"checking for high card\n";
-    return;
 }
 
-void hands::pair(player &_player, const std::vector<card> &_river)
+void hands::pair(player &_player, const std::vector<PlayingCard> &_river)
 {
     std::cout<<"checking for pair\n";
-    return;
 }
 
-void hands::twoPair(player &_player, const std::vector<card> &_river)
+void hands::twoPair(player &_player, const std::vector<PlayingCard> &_river)
 {
     std::cout<<"checking for two pair\n";
-    return;
 }
 
-void hands::three(player &_player, const std::vector<card> &_river)
+void hands::three(player &_player, const std::vector<PlayingCard> &_river)
 {
     std::cout<<"checking for three of a kind\n";
-    return;
 }
 
-void hands::straight(player &_player, const std::vector<card> &_river)
+void hands::straight(player &_player, const std::vector<PlayingCard> &_river)
 {
     std::cout<<"checking for straight\n";
-    return;
 }
 
-void hands::flush(player &_player, const std::vector<card> &_river)
+void hands::flush(player &_player, const std::vector<PlayingCard> &_river)
 {
     std::cout<<"checking for flush\n";
-    return;
 }
 
-void hands::four(player &_player, const std::vector<card> &_river)
+void hands::four(player &_player, const std::vector<PlayingCard> &_river)
 {
-    std::cout<<"checking for four of a kind\n";
-    return;
+    std::cout<<"checking for four of a kind\n";;
 }
-void hands::fullHouse(player &_player, const std::vector<card> &_river)
+void hands::fullHouse(player &_player, const std::vector<PlayingCard> &_river)
 {
     std::cout<<"checking for full house\n";
-    return;
 }
 
-void hands::straightFlush(player &_player, const std::vector<card> &_river)
+void hands::straightFlush(player &_player, const std::vector<PlayingCard> &_river)
 {
     std::cout<<"checking for straight flush\n";
-    return;
 }
 //-----------------------------------------------------------------------------
-void hands::bestHand(player &_player, const std::vector<card> &_river)
+void hands::bestHand(player &_player, const std::vector<PlayingCard> &_river)
 {
     hands::straightFlush(_player, _river);
     if (_player.getScore()>0)
@@ -113,8 +143,9 @@ void hands::bestHand(player &_player, const std::vector<card> &_river)
 
 }
 
-void hands::winner(const int &_numPlayers, std::vector<player> &_livePlayers, const std::vector<card> &_river)
+void hands::winner(const int &_numPlayers, std::vector<player> &_livePlayers, const std::vector<PlayingCard> &_river)
 {
+    std::vector<player> WINNERS;
     int numPlayers = _livePlayers.size();
     int scores[_numPlayers];
     int topScore;
@@ -160,7 +191,7 @@ void hands::winner(const int &_numPlayers, std::vector<player> &_livePlayers, co
         topTieBreakerScore = _livePlayers[winner[0]].getScore();
         for (unsigned int i=1; i<winner.size()+1; i++)
         {
-            // use winner[i] to get player cards for highest card parameter.
+            // use winner[i] to get player for highest card parameter.
             hands::highestCard(_livePlayers[winner[i]]);
             tieBreakerScore[i] = _livePlayers[i].getScore();
             topTieBreakerScore = (tieBreakerScore[i]>topTieBreakerScore)?tieBreakerScore[i]:topTieBreakerScore;
@@ -171,6 +202,7 @@ void hands::winner(const int &_numPlayers, std::vector<player> &_livePlayers, co
         {
             if (_livePlayers[winner[i]].getScore() == topTieBreakerScore)
             {
+                //tieWinner contains ID of players with highest card
                 tieWinner.push_back(winner[i]);
             }
         }
@@ -178,9 +210,13 @@ void hands::winner(const int &_numPlayers, std::vector<player> &_livePlayers, co
         for (unsigned int i=0;i<tieWinner.size();i++)
         {
             std::cout<<tieWinner[i]<<" ";
+            WINNERS.push_back(_livePlayers[tieWinner[i]]);
         }
     }
-    else {std::cout<<"winner is player "<<winner[0];}
+    else
+    {   std::cout<<"winner is player "<<winner[0];
+        WINNERS.push_back(_livePlayers[winner[0]]);
+    }
 
 
     std::cout<<"\n========================================================\n";

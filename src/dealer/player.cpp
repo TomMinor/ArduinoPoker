@@ -1,4 +1,4 @@
-#include "player.h"
+#include "dealer/player.h"
 
 
 player::player()
@@ -22,9 +22,9 @@ void player::setName(const std::string &_name)
     m_name = _name;
 }
 
-void player::setHand(const int &_i, const card &_card)
+void player::setHandCard(const PlayingCard &_card)
 {
-    m_hand[_i] = _card;
+    m_hand.push_back(_card);
 }
 
 void player::setScore(const int &_score)
@@ -47,6 +47,12 @@ void player::receivePot(const int &_pot)
     m_money += _pot;
 }
 
+
+void player::popHandCard()
+{
+    m_hand.pop_back();
+}
+
 //------------------------------------------------------
 //==========Get methods==========
 //------------------------------------------------------
@@ -56,14 +62,24 @@ std::string player::getName()const
     return m_name;
 }
 
-card player::getCard(const int &_i)const
+PlayingCard player::getCard(const int &_i)const
 {
     return m_cards[_i];
 }
 
+PlayingCard player::getHandCard(const int &_i)const
+{
+    return m_hand[_i];
+}
+
+std::vector<PlayingCard> player::getHand()const
+{
+    return m_hand;
+}
+
 int player::getNumCards()const
 {
-    return m_cards.size();
+    return m_hand.size();
 }
 
 int player::getScore()const

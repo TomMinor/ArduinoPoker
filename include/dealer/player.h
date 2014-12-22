@@ -3,7 +3,7 @@
 
 #include <string>
 #include <vector>
-#include "card.h"
+#include "playingcard.h"
 
 class player
 {
@@ -12,23 +12,28 @@ public:
   ~player();
 
   void setName(const std::string &_name);
-  void setHand(const int &_i, const card &_card);
+  void setHandCard(const PlayingCard &_card);
   void setScore(const int &_score);
   void setMoney(const int &_money);
   void takeBet(const int &_bet);
   void receivePot(const int &_pot);
 
+  void popHandCard();
+
   std::string getName()const;
-  card getCard(const int &_i)const;
-  card getHandCard(const int &_i)const;
+  PlayingCard getCard(const int &_i)const;
+  PlayingCard getHandCard(const int &_i)const;
+  std::vector<PlayingCard> getHand()const;
   int getNumCards()const;
   int getScore()const;
   int getMoney()const;
 
+
+
 private:
   std::string m_name;
-  std::vector<card> m_cards;
-  std::vector<card> m_hand;
+  std::vector<PlayingCard> m_cards;
+  std::vector<PlayingCard> m_hand;
   int m_score;
   int m_tieScore;
   int m_money;

@@ -1,9 +1,9 @@
 #include <iostream>
-#include "pokerHands.h"
+#include "dealer/pokerHands.h"
 
 int main()
 {
-  std::vector<card> river(5);
+  std::vector<PlayingCard> river;
   int numPlayers=4;
   std::vector<player> livePlayers(numPlayers);
   for(int i=0;i<numPlayers;i++)

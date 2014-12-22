@@ -1,4 +1,4 @@
-#include "deck.h"
+#include "dealer/deck.h"
 
 
 deck::deck()
@@ -26,9 +26,9 @@ void deck::shuffle()
 
 }
 
-card deck::deal()
+PlayingCard deck::deal()
 {
-  card a = m_cards[0];
+  PlayingCard a = m_cards[0];
 
-  return card();
+  return a;
 }

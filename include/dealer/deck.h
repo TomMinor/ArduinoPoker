@@ -2,7 +2,7 @@
 #define _DECK__H_
 
 #include <vector>
-#include "card.h"
+#include "playingcard.h"
 
 class deck
 {
@@ -14,10 +14,10 @@ public:
   void init();
   void reset();
   void shuffle();
-  card deal();
+  PlayingCard deal();
 
 private:
-  std::vector<card> m_cards;
+  std::vector<PlayingCard> m_cards;
 
 };
 

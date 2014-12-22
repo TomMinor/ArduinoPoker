@@ -62,6 +62,9 @@ public:
    */
   std::string inline SuitString() const;
 
+  int getRank()const;
+  int getSuit() const;
+
   /*!
    * \brief operator ==
    * \param _card
@@ -90,7 +93,7 @@ private:
    */
   card_t m_value;
 
-  int getSuit() const;
+  int getSuitID() const;
 };
 
 #endif
