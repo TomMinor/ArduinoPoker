@@ -1,12 +1,12 @@
-#ifndef CAR_H__
-#define CAR_H__
+#ifndef INPUT_H__
+#define INPUT_H__
 
 class input
 {
 
 public:
 
-    input();
+    input(int _pin);
     ~input();
 
     bool buttonUP();
@@ -18,7 +18,7 @@ public:
 
 private:
 
-
+    int m_x;
 
 };
 
