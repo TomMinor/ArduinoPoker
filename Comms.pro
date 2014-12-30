@@ -16,6 +16,5 @@ HEADERS += include/card.h \
 INCLUDEPATH += include/
 OBJECTS_DIR = obj
 
-cache()
 
 QMAKE_CFLAGS = -std=c99
