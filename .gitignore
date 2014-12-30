@@ -28,5 +28,5 @@
 *.app
 
 *.qmake.cache
-*.pro.user
+*.pro.user*
 
