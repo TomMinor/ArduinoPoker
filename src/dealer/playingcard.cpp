@@ -12,6 +12,7 @@ const std::string RankLookup[] = {
   "7",
   "8",
   "9",
+  "10",
   "Jack",
   "Queen",
   "King"
@@ -27,29 +28,6 @@ const std::string SuitLookup[] = {
 PlayingCard::PlayingCard(Rank::Value _rank, Suit::Value _suit)
 {
   m_value = _rank | _suit;
-}
-
-// Gotta fix these
-bool PlayingCard::IsRank(Rank::Value _rank) const
-{
-  return RANKOF(m_value) == _rank;
-}
-
-// Gotta fix these
-bool PlayingCard::IsSuit(Suit::Value _suit) const
-{
-  return false;
-}
-
-std::string PlayingCard::RankString() const
-{
-  // We subtract 1 to match the array index starting at 0
-  return RankLookup[ RANKOF(m_value)-1 ];
-}
-
-std::string PlayingCard::SuitString() const
-{
-  return SuitLookup[getSuit()];
 }
 
 int PlayingCard::getSuit() const

@@ -15,10 +15,11 @@ int main()
   std::cout << card2 << std::endl;
   std::cout << card3 << std::endl;
 
-  std::cout << "Cards " << (card1==card2 ? "are not" : "are") << " equal\n";
-  std::cout << "Cards " << (card1!=card2 ? "are" : "are not") << " equal\n";
+  std::cout << "Cards " << (card1!=card2 ? "are not" : "are") << " equal\n";
+  std::cout << "Cards " << (card1==card2 ? "are" : "are not") << " equal\n";
 
   std::cout << bool(card1.IsRank(Rank::ACE)) << std::endl;
+  std::cout << bool(card1.IsSuit(Suit::DIAMOND)) << std::endl;
 
   return 0;
 }
