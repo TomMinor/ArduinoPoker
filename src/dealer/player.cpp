@@ -4,7 +4,7 @@
 player::player()
 {
     m_score = 0;
-    m_tieScore = 0;
+    m_kicker = 0;
 
 }
 
@@ -22,6 +22,11 @@ void player::setName(const std::string &_name)
     m_name = _name;
 }
 
+void player::setHoleCard(const PlayingCard &_card)
+{
+    m_cards.push_back(_card);
+}
+
 void player::setHandCard(const PlayingCard &_card)
 {
     m_hand.push_back(_card);
@@ -30,6 +35,11 @@ void player::setHandCard(const PlayingCard &_card)
 void player::setScore(const int &_score)
 {
     m_score = _score;
+}
+
+void player::setKicker(const int &_kicker)
+{
+    m_kicker = _kicker;
 }
 
 void player::setMoney(const int &_money)
@@ -62,7 +72,7 @@ std::string player::getName()const
     return m_name;
 }
 
-PlayingCard player::getCard(const int &_i)const
+PlayingCard player::getHoleCard(const int &_i)const
 {
     return m_cards[_i];
 }
@@ -85,6 +95,11 @@ int player::getNumCards()const
 int player::getScore()const
 {
     return m_score;
+}
+
+int player::getKicker()const
+{
+    return m_kicker;
 }
 
 int player::getMoney()const

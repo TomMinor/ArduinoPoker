@@ -27,10 +27,11 @@ namespace Rank
     SEVEN = (0x06),
     EIGHT = (0x07),
     NINE  = (0x08),
-    JACK  = (0x09),
-    QUEEN = (0x0A),
-    KING  = (0x0B),
-    ACE   = (0x0C),
+    TEN   = (0x09),
+    JACK  = (0x0A),
+    QUEEN = (0x0B),
+    KING  = (0x0C),
+    ACE   = (0x0D)
   };
 }
 

@@ -21,4 +21,4 @@ private:
 
 };
 
-#endif _DECK__H_
+#endif

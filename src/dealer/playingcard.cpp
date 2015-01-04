@@ -1,4 +1,5 @@
 #include <assert.h>
+#include <iostream>
 
 #include "dealer/playingcard.h"
 
@@ -62,6 +63,7 @@ int PlayingCard::getSuitID() const
   else if( ISHEART(m_value)) { return 1; }
   else if( ISCLUB(m_value))  { return 2; }
   else if( ISSPADE(m_value)) { return 3; }
+  else if( SUITOF(m_value) & ( 0x30|0x50|0x60|0x70)){std::cout<<"-----------\nwrong suit!!!\n--------\n";}
 
   assert( !"Invalid suit" );
 }

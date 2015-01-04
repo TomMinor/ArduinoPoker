@@ -11,6 +11,8 @@ namespace hands
 //-----------------------------------------------------------------------------------------------------------------------------
     // Evaluate hands methods
 //-----------------------------------------------------------------------------------------------------------------------------
+    void findSpareCards(const player &_player, const std::vector<PlayingCard> &_river, std::vector<PlayingCard> _spareCards);
+
     void addHighestCard(player &_player, const std::vector<PlayingCard> &_river);   // Used to add high cards to hand to complete hand, Does not effect score.
     void highestCard(player &_player);                                              // Used during tiebreak
     void highestCard(player &_player, const std::vector<PlayingCard> &_river);      // SCORE 1-13    | 13 different valued high cards per suit, Ace is the highest.

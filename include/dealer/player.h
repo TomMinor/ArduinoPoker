@@ -12,8 +12,10 @@ public:
   ~player();
 
   void setName(const std::string &_name);
+  void setHoleCard(const PlayingCard &_card);
   void setHandCard(const PlayingCard &_card);
   void setScore(const int &_score);
+  void setKicker(const int &_kicker);
   void setMoney(const int &_money);
   void takeBet(const int &_bet);
   void receivePot(const int &_pot);
@@ -21,11 +23,12 @@ public:
   void popHandCard();
 
   std::string getName()const;
-  PlayingCard getCard(const int &_i)const;
+  PlayingCard getHoleCard(const int &_i)const;
   PlayingCard getHandCard(const int &_i)const;
   std::vector<PlayingCard> getHand()const;
   int getNumCards()const;
   int getScore()const;
+  int getKicker()const;
   int getMoney()const;
 
 
@@ -35,7 +38,7 @@ private:
   std::vector<PlayingCard> m_cards;
   std::vector<PlayingCard> m_hand;
   int m_score;
-  int m_tieScore;
+  int m_kicker;
   int m_money;
 
 };
