@@ -7,10 +7,10 @@ namespace SUIT_NAMESPACE
 {
   enum Value
   {
-    DIAMOND = (1<<4),
-    HEART   = (1<<5),
-    CLUB    = (1<<6),
-    SPADE   = (1<<7)
+    DIAMOND = (1<<4), // 00010000
+    HEART   = (1<<5), // 00100000
+    CLUB    = (1<<6), // 01000000
+    SPADE   = (1<<7)  // 10000000
   };
 }
 
@@ -32,6 +32,7 @@ namespace Rank
     QUEEN = (0x0B),
     KING  = (0x0C),
     ACE   = (0x0D)
+
   };
 }
 
@@ -43,7 +44,9 @@ namespace Rank
 #define SUITMASK (0xF0)
 #define SUITOF(card)    (card & SUITMASK)
 
-#define RANKMASK (0x0F)
-#define RANKOF(card) (card & RANKMASK)
+#define ISSUIT(card, suit)    (card & suit)
+
+#define RANKMASK        (0x0F)
+#define RANKOF(card)    (card & RANKMASK)
 
 #endif

@@ -14,7 +14,7 @@ typedef uint8_t card_t;
 /*!
  * \brief RankLookup A lookup for table for the rank's string representation
  */
-extern const std::string RankLookup[12];
+extern const std::string RankLookup[13];
 
 /*!
  * \brief SuitLookup  A lookup for table for the suit's string representation
@@ -41,26 +41,26 @@ public:
    * \param _rank
    * \return True if _rank equals the playing card's rank
    */
-  bool inline IsRank(Rank::Value _rank) const;
+  bool IsRank(Rank::Value _rank) const;
 
   /*!
    * \brief IsSuit
    * \param _suit
    * \return True if _rank equals the playing card's suit
    */
-  bool inline IsSuit(Suit::Value _suit) const;
+  bool IsSuit(Suit::Value _suit) const;
 
   /*!
    * \brief RankString
    * \return The string representation of the playing card's rank.
    */
-  std::string inline RankString() const;
+  std::string RankString() const;
 
   /*!
    * \brief SuitString
    * \return The string representation of the playing card's suit.
    */
-  std::string inline SuitString() const;
+  std::string SuitString() const;
 
   int getRank()const;
   int getSuit() const;

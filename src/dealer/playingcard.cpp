@@ -12,6 +12,7 @@ const std::string RankLookup[] = {
   "7",
   "8",
   "9",
+  "10",
   "Jack",
   "Queen",
   "King",
@@ -30,10 +31,12 @@ PlayingCard::PlayingCard(Rank::Value _rank, Suit::Value _suit)
   m_value = _rank | _suit;
 }
 
+
 // Gotta fix these
+
 bool PlayingCard::IsRank(Rank::Value _rank) const
 {
-  return RANKOF(m_value) == _rank;
+    return RANKOF(m_value) == _rank;
 }
 
 // Gotta fix these
