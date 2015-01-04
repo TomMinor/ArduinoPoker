@@ -41,7 +41,7 @@ namespace Rank
 #define ISHEART(card)   (card & SUIT_NAMESPACE::HEART)
 #define ISSPADE(card)   (card & SUIT_NAMESPACE::SPADE)
 #define ISDIAMOND(card) (card & SUIT_NAMESPACE::DIAMOND)
-#define SUITMASK (0xF0)
+#define SUITMASK        (0xF0)
 #define SUITOF(card)    (card & SUITMASK)
 
 #define ISSUIT(card, suit)    (card & suit)

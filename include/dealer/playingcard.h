@@ -43,6 +43,7 @@ public:
    */
   bool IsRank(Rank::Value _rank) const;
 
+
   /*!
    * \brief IsSuit
    * \param _suit
@@ -50,11 +51,13 @@ public:
    */
   bool IsSuit(Suit::Value _suit) const;
 
+
   /*!
    * \brief RankString
    * \return The string representation of the playing card's rank.
    */
   std::string RankString() const;
+
 
   /*!
    * \brief SuitString
@@ -63,7 +66,8 @@ public:
   std::string SuitString() const;
 
   int getRank()const;
-  int getSuit() const;
+  int getSuitID() const;
+
 
   /*!
    * \brief operator ==
@@ -93,7 +97,7 @@ private:
    */
   card_t m_value;
 
-  int getSuitID() const;
+  int getSuit() const;
 };
 
 #endif
