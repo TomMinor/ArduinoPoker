@@ -1,5 +1,5 @@
 #include "input.h"
-
+/*
 
 input::input(int _pin)
 {
@@ -40,3 +40,5 @@ bool input::buttonSELECT()
     if(m_x < 600 && m_x > 400){return true;  }
     else                      {return false; }
 }
+
+*/

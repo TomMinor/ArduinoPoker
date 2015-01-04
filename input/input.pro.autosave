@@ -1,6 +1,0 @@
-TARGET=input
-
-LIBS += ~/ar
-
-SOURCES=input.cpp
-HEADERS=input.h
