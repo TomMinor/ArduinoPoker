@@ -91,7 +91,7 @@ int main()
    
     // Load a font
     TTF_Font *font;
-    font = TTF_OpenFont("fonts/ATARI400800_original.TTF", 8);
+    font = TTF_OpenFont("/home/i7245660/OOPG/IanPoker/fonts/ATARI400800_original.TTF", 8);
     if (!font)
     {
         std::cerr << "TTF_OpenFont() Failed: " << TTF_GetError() << "\n";
@@ -112,7 +112,7 @@ int main()
 
     // Load the playing card sheet
     SDL_Surface *temp;
-    temp = IMG_Load("images/sheet_v2.png");
+    temp = IMG_Load("/home/i7245660/OOPG/IanPoker/images/sheet_v2.png");
     if (!temp)
     {
         std::cerr << "IMG_Load() Failed: " << IMG_GetError() << "\n";

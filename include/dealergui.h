@@ -4,10 +4,11 @@
 #include "elementmaker.h"
 #include "hand.h"
 #include <vector>
+#include <boost/shared_ptr.hpp>
 
 typedef struct
 {
-    Uint8 id;
+    uint8 id;
     SDL_Point pos_onScreen;
     SDL_Point pos_offScreen;
     std::string name;
@@ -29,12 +30,15 @@ public:
     void draw();
 
 private:
-    unsigned int m_numPlayers;
+    SDL_Renderer* m_renderer;
+    //unsigned int m_numPlayers;
     ElementMaker m_maker;
-    //Hand* m_publicCards;
     float m_messageTimeout;
-    //Card m_deck;
-    //Element m_pot;
+    std::vector<Player> m_players;
+    std::vector< boost::shared_ptr<Element> > m_elements;
+
+    Player createPlayer(const std::string &_name, const Orientation &_orient, const int _offset);
+    void removeFromElementVector(Element* _element);
 };
 
 #endif // DEALERGUI_H

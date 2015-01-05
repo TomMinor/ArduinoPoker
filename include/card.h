@@ -69,7 +69,6 @@ private:
     Rank m_rank;
     Suit m_suit;
     bool m_shouldBurn;
-    bool m_burned;
     int m_burnLevel;
     void continueFlip();
 };

@@ -6,8 +6,10 @@ OBJECTS_DIR= obj
 cache()
 #To add source files
 SOURCES+= $$PWD/src/*.cpp
+SOURCES-= $$PWD/src/listmenu.cpp
 #To add headers
 HEADERS+= $$PWD/include/*.h
+HEADERS-= $$PWD/include/listmenu.h
 #Where to search for includes
 INCLUDEPATH+= include
 INCLUDEPATH+= $$(HOME)/NGL/include

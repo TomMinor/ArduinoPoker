@@ -3,6 +3,9 @@
 #define FLIPSPEED 0.2
 #define CARDWIDTH 56
 
+#define FullyFlipped    ( m_isFlipped && m_flippedAmount >= 1.0f )
+#define FullyUnflipped  (!m_isFlipped && m_flippedAmount <= -1.0f)
+
 Card::Card(SDL_Renderer *_ren,
            SDL_Texture *_tex,
            const SDL_Rect &_srcRect,
@@ -16,16 +19,22 @@ Card::Card(SDL_Renderer *_ren,
             m_rank(_type.rank),
             m_suit(_type.suit),
             m_shouldBurn(false),
-            m_burned(false),
             m_burnLevel(0)
 {
 }
 
 void Card::update()
 {
+    //-------------------------------------------------------------- Check 1: should the card burn?
     if(m_shouldBurn)
     {
-        if(m_isFlipped && m_flippedAmount >= 1.0f)//if fully flipped
+        if(!FullyFlipped)
+        {
+            setFlipped(true);
+            continueFlip();
+            return;
+        }
+        else
         {
             m_xOffset=0;
             if(m_burnLevel < 24)
@@ -35,26 +44,14 @@ void Card::update()
             }
             else
             {
-                m_burned=true;
+                m_shouldKill=true;
             }
             return;
         }
-        else
-        {
-            setFlipped(true);
-            continueFlip();
-        }
     }
 
-    else if((!m_isFlipped && m_flippedAmount <= -1.0f) || (m_isFlipped && m_flippedAmount >= 1.0f))
-    // if it's fully flipped or fully upright
-    {
-        //no need to continue
-        Element::update();
-        return;
-    }
-
-    else
+    //-------------------------------------------------------------- Check 2: is the card midway between flips?
+    else if(!FullyFlipped || !FullyUnflipped)
     {
         continueFlip();
     }
@@ -65,7 +62,7 @@ void Card::update()
 void Card::continueFlip()
 {
     float amount = m_flippedAmount + (m_isFlipped ? FLIPSPEED : -FLIPSPEED);
-    m_flippedAmount = std::max(-1.0f, std::min(amount, 1.0f));
+    m_flippedAmount = std::max(-1.0f, std::min(amount, 1.0f));//clamp
 
     if (m_flippedAmount > 0.0f)
     {
@@ -87,10 +84,7 @@ void Card::continueFlip()
 
 void Card::draw()
 {
-    if(!m_burned)
-    {
-        m_destRect.x += m_xOffset;
-        Element::draw();
-        m_destRect.x -= m_xOffset;
-    }
+    m_destRect.x += m_xOffset;
+    Element::draw();
+    m_destRect.x -= m_xOffset;
 }

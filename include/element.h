@@ -27,6 +27,7 @@ public:
     virtual void draw() const;
     int getHeight() const;
     int getWidth() const;
+    inline bool shouldKill() const {return m_shouldKill;}
 
 protected:
     //stuff SDL needs to know
@@ -40,6 +41,8 @@ protected:
     SDL_Point m_pointPrev;
     SDL_Point m_pointDest;
     float m_progressAmount;
+
+    bool m_shouldKill;//if true then the object will be deleted on the next update()
 };
 
 #endif // ELEMENT_H
