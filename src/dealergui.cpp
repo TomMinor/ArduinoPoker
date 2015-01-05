@@ -25,7 +25,7 @@ DealerGUI::DealerGUI(const unsigned int &_numPlayers, CardInfo *_cardInfo, Label
             break;
         default :
             std::cout<<"Invalid player count!\n";
-            m_players.push_back(createPlayer(std::string("You silly bish"),BOTTOM,64));
+            m_players.push_back(createPlayer(1,std::string("You silly bish"),BOTTOM,64));
     }
 }
 
@@ -56,7 +56,7 @@ void DealerGUI::draw()
     }
 }
 
-Player DealerGUI::createPlayer(const std::string &_name, const Orientation &_orient, const int _offset)
+Player DealerGUI::createPlayer(const Uint8 &_id, const std::string &_name, const Orientation &_orient, const int _offset)
 {
     //onScreen is the position where this player's public items will be drawn
     //offScreen is where items will be moved to make it look like they are being given to this player
@@ -102,6 +102,6 @@ Player DealerGUI::createPlayer(const std::string &_name, const Orientation &_ori
             offScreen.y = height/2;
     }
 
-    Player temp = {onScreen, offScreen, _name, _orient};
+    Player temp = {_id, onScreen, offScreen, _name, _orient};
     return temp;
 }

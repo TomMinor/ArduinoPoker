@@ -19,15 +19,17 @@ public:
             SDL_Texture *_tex,
             const SDL_Rect &_srcRect,
             const SDL_Rect &_destRect,
-            const Orientation &_orient);
+            const Orientation &_orient,
+            const SDL_Point &_origin);
     virtual ~Element() {}
     void setPos(const SDL_Point &_p);//move to this point instantly
     void moveTo(const SDL_Point &_p);//move to this point with cosine interpolation
     virtual void update();
     virtual void draw() const;
-    int getHeight() const;
-    int getWidth() const;
+    int getHeight() const;//the height the element takes up on screen, taking rotation into account
+    int getWidth() const;//the width the element takes up on screen, taking rotation into account
     inline bool shouldKill() const {return m_shouldKill;}
+    SDL_Point aligned(const Orientation &);//returns the point the element should move to to align with the specified orientation on the screen
 
 protected:
     //stuff SDL needs to know
@@ -38,6 +40,7 @@ protected:
     Orientation m_orientation;
 
     //movement stuff
+    SDL_Point m_origin;
     SDL_Point m_pointPrev;
     SDL_Point m_pointDest;
     float m_progressAmount;

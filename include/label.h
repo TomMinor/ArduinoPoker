@@ -22,7 +22,8 @@ public:
     Label(SDL_Renderer *_ren,
           SDL_Texture *_tex,
           const SDL_Rect &_rect,
-          const Orientation &_orient);
+          const Orientation &_orient,
+          const SDL_Point &_origin);
 };
 
 #endif // LABEL_H

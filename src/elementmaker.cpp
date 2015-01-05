@@ -15,9 +15,12 @@ Card* ElementMaker::makeCard(const CardType &_type, const Orientation &_orient)
 
     destRect.h = m_cardInfo->cardHeight;
     destRect.w = m_cardInfo->cardWidth;
-    destRect.x = 0;
-    destRect.y = 0;
-    return new Card(m_cardInfo->ren,m_cardInfo->texture,srcRect,destRect,_orient,_type);
+    destRect.x = -m_cardInfo->cardWidth/2;
+    destRect.y = -m_cardInfo->cardHeight/2;
+
+    SDL_Point origin = {0,0};
+
+    return new Card(m_cardInfo->ren,m_cardInfo->texture,srcRect,destRect,_orient,origin,_type);
 }
 
 Label *ElementMaker::makeLabel(const std::string &_inputString, const Orientation &_orient)
@@ -50,7 +53,9 @@ Label *ElementMaker::makeLabel(const std::string &_inputString, const Orientatio
     rect.x=0,
     rect.y=0;
     SDL_QueryTexture(tex, NULL, NULL, &rect.w, &rect.h);
-    std::cout<<"Rectangle: W="<<rect.w<<", H="<<rect.h<<", X="<<rect.x<<", Y="<<rect.y<<"\n";
+    //std::cout<<"Rectangle: W="<<rect.w<<", H="<<rect.h<<", X="<<rect.x<<", Y="<<rect.y<<"\n";
 
-    return new Label(m_labelFormat->ren,tex,rect,_orient);
+    SDL_Point origin = {0,0};
+
+    return new Label(m_labelFormat->ren,tex,rect,_orient,origin);
 }

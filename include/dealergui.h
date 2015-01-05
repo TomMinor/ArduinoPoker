@@ -8,7 +8,7 @@
 
 typedef struct
 {
-    uint8 id;
+    Uint8 id;
     SDL_Point pos_onScreen;
     SDL_Point pos_offScreen;
     std::string name;
@@ -37,7 +37,7 @@ private:
     std::vector<Player> m_players;
     std::vector< boost::shared_ptr<Element> > m_elements;
 
-    Player createPlayer(const std::string &_name, const Orientation &_orient, const int _offset);
+    Player createPlayer(const Uint8 &_id, const std::string &_name, const Orientation &_orient, const int _offset);
     void removeFromElementVector(Element* _element);
 };
 

@@ -76,6 +76,7 @@ int main()
 	{
 		SDLErrorExit("error creating renderer");
 	}
+    SDL_RenderSetLogicalSize(renderer,320,256);
     SDL_RenderSetScale(renderer,PIXEL_SCALE,PIXEL_SCALE);
     SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "0");
 	
@@ -142,8 +143,8 @@ int main()
 
     ElementMaker maker(&cardstyle, &standardFormat);
 
-    Label* testLabel = maker.makeLabel(std::string("Player 1"),BOTTOM);
-    Card* testCard = maker.makeCard(CardType(),LEFT);
+    Label* testLabel = maker.makeLabel(std::string("Player 1"),LEFT);
+    Card* testCard = maker.makeCard(CardType(),BOTTOM);
 //    std::vector<Card*> cardList;
 //    cardList.push_back(testCard);
 //    cardList.push_back(testCard);
@@ -152,9 +153,9 @@ int main()
 //    cardList.push_back(testCard);
 
     SDL_Point topleft = {0,0};
-    SDL_Point topright = {WINDOW_WIDTH-testLabel->getWidth(),0};
-    SDL_Point bottomleft = {0,WINDOW_HEIGHT-testLabel->getHeight()};
-    SDL_Point bottomright = {WINDOW_WIDTH-testLabel->getWidth(),WINDOW_HEIGHT-testLabel->getHeight()};
+//    SDL_Point topright = {WINDOW_WIDTH-testLabel->getWidth(),0};
+//    SDL_Point bottomleft = {0,WINDOW_HEIGHT-testLabel->getHeight()};
+//    SDL_Point bottomright = {WINDOW_WIDTH-testLabel->getWidth(),WINDOW_HEIGHT-testLabel->getHeight()};
 
     //Hand testHand(topleft,cardList,LEFT);
 
@@ -171,13 +172,16 @@ int main()
 	SDL_Event event;
 	bool quit=false;
 	// now we loop until the quit flag is set to true
+
+    testLabel->setPos(testLabel->aligned(BOTTOM));
+    testLabel->moveTo(testLabel->aligned(LEFT));
 	while(!quit)
 	{
         SDL_SetRenderTarget(renderer, RTtest);
 
         clearScreen(renderer,2,180,2);
 
-        //testLabel->update();//don't need to update this, hopefully?
+        testLabel->update();//don't need to update this, hopefully?
         testLabel->draw();
         testCard->update();
         testCard->draw();
@@ -206,12 +210,12 @@ int main()
 					{
 						// if it's the escape key quit
 						case SDLK_ESCAPE :  quit = true; break;
-                        case SDLK_UP : testCard->moveTo(topleft); break;
-                        case SDLK_RIGHT : testCard->moveTo(topright); break;
-                        case SDLK_DOWN : testCard->moveTo(bottomright); break;
-                        case SDLK_LEFT : testCard->moveTo(bottomleft); break;
-                        case SDLK_p : testCard->setFlipped(true); break;
-                        case SDLK_l : testCard->setFlipped(false); break;
+                        case SDLK_UP : testCard->moveTo(testCard->aligned(TOP)); testLabel->moveTo(testLabel->aligned(BOTTOM)); break;
+                        case SDLK_RIGHT : testCard->moveTo(testCard->aligned(RIGHT)); testLabel->moveTo(testLabel->aligned(LEFT)); break;
+                        case SDLK_DOWN : testCard->moveTo(testCard->aligned(BOTTOM)); testLabel->moveTo(testLabel->aligned(TOP)); break;
+                        case SDLK_LEFT : testCard->moveTo(testCard->aligned(LEFT)); testLabel->moveTo(testLabel->aligned(RIGHT)); break;
+                        case SDLK_PAGEDOWN : testCard->setFlipped(true); break;
+                        case SDLK_PAGEUP : testCard->setFlipped(false); break;
                         case SDLK_b : testCard->burn();
                         default : break;
 					}
