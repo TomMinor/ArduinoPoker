@@ -56,6 +56,7 @@ void hands::addHighestCard(player &_player, const std::vector<PlayingCard> &_riv
       }
       if(!cardInHand)
       {
+          std::cout<<"card present, adding to spareCards\n";
           spareCards.push_back(_player.getHoleCard(i));
       }
     }
