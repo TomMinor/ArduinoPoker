@@ -1,5 +1,4 @@
 #include "include/listmenu.h"
-//ignore this line, just adding so git will actually notice the fucking changes
 
 ListMenu::ListMenu(LabelFormat _format, std::vector<std::string> _strings, SDL_Point _origin) :
     m_currentSelected(0),

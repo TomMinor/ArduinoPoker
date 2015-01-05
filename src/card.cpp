@@ -1,5 +1,4 @@
 #include "include/card.h"
-//ignore this line, just adding so git will actually notice the fucking changes
 
 #define FLIPSPEED 0.2
 #define CARDWIDTH 56
@@ -13,9 +12,9 @@ Card::Card(SDL_Renderer *_ren,
             Element(_ren,_tex,_srcRect,_destRect,_orient),
             m_isFlipped(false),
             m_flippedAmount(-1.0f),
+            m_xOffset(0),
             m_rank(_type.rank),
             m_suit(_type.suit),
-            m_xOffset(0),
             m_shouldBurn(false),
             m_burned(false),
             m_burnLevel(0)

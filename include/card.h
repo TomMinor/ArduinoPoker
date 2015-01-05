@@ -1,6 +1,5 @@
 #ifndef CARD_H
 #define CARD_H
-//ignore this line, just adding so git will actually notice the fucking changes
 
 #include <cstdlib>
 #include <SDL2/SDL.h>

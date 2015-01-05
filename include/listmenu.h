@@ -1,6 +1,5 @@
 #ifndef LISTMENU_H
 #define LISTMENU_H
-//ignore this line, just adding so git will actually notice the fucking changes
 
 #include <vector>
 #include <string>

@@ -1,6 +1,5 @@
 #ifndef HAND_H
 #define HAND_H
-//ignore this line, just adding so git will actually notice the fucking changes
 
 #include "elementmaker.h"
 #include <vector>
@@ -9,6 +8,7 @@ class Hand
 {
 public:
     Hand(const SDL_Point &_origin, const std::vector<Card *> &_cards, const Orientation &_orient);
+    virtual ~Hand();
     void moveTo(const SDL_Point &_p);
     void setFlipped(const bool &_isFlipped);
     void burn();

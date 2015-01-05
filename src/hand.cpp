@@ -1,5 +1,4 @@
 #include "include/hand.h"
-//ignore this line, just adding so git will actually notice the fucking changes
 
 Hand::Hand(const SDL_Point &_origin, const std::vector<Card*> &_cards, const Orientation &_orient) :
     m_cards(_cards),
@@ -66,5 +65,13 @@ void Hand::draw()
     for (std::vector<Card*>::iterator it = m_cards.begin(); it!=m_cards.end(); ++it)
     {
         (*it)->draw();
+    }
+}
+
+Hand::~Hand()
+{
+    for (std::vector<Card*>::iterator it = m_cards.begin(); it!=m_cards.end(); ++it)
+    {
+        delete (*it);
     }
 }

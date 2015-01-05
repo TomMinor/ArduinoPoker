@@ -7,7 +7,6 @@ clang++ -Wall -g PutPixel.cpp -o PutPixel `sdl-config --cflags --libs`
 
 to compile the program
 */
-//ignore this line, just adding so git will actually notice the fucking changes
 
 #include <SDL.h>
 #include <SDL2/SDL_ttf.h>
@@ -145,19 +144,19 @@ int main()
 
     Label* testLabel = maker.makeLabel(std::string("Player 1"),BOTTOM);
     Card* testCard = maker.makeCard(CardType(),LEFT);
-    std::vector<Card*> cardList;
-    cardList.push_back(testCard);
-    cardList.push_back(testCard);
-    cardList.push_back(testCard);
-    cardList.push_back(testCard);
-    cardList.push_back(testCard);
+//    std::vector<Card*> cardList;
+//    cardList.push_back(testCard);
+//    cardList.push_back(testCard);
+//    cardList.push_back(testCard);
+//    cardList.push_back(testCard);
+//    cardList.push_back(testCard);
 
     SDL_Point topleft = {0,0};
     SDL_Point topright = {WINDOW_WIDTH-testLabel->getWidth(),0};
     SDL_Point bottomleft = {0,WINDOW_HEIGHT-testLabel->getHeight()};
     SDL_Point bottomright = {WINDOW_WIDTH-testLabel->getWidth(),WINDOW_HEIGHT-testLabel->getHeight()};
 
-    Hand testHand(topleft,cardList,LEFT);
+    //Hand testHand(topleft,cardList,LEFT);
 
     testLabel->setPos(topleft);
 
@@ -178,12 +177,12 @@ int main()
 
         clearScreen(renderer,2,180,2);
 
-        testLabel->update();
+        //testLabel->update();//don't need to update this, hopefully?
         testLabel->draw();
-        //testCard.update();
-        //testCard.draw();
-        testHand.update();
-        testHand.draw();
+        testCard->update();
+        testCard->draw();
+        //testHand.update();
+        //testHand.draw();
 
         SDL_SetRenderTarget(renderer, NULL);
 
@@ -207,13 +206,13 @@ int main()
 					{
 						// if it's the escape key quit
 						case SDLK_ESCAPE :  quit = true; break;
-                        case SDLK_UP : testHand.moveTo(topleft); break;
-                        case SDLK_RIGHT : testHand.moveTo(topright); break;
-                        case SDLK_DOWN : testHand.moveTo(bottomright); break;
-                        case SDLK_LEFT : testHand.moveTo(bottomleft); break;
-                        case SDLK_p : testHand.setFlipped(true); break;
-                        case SDLK_l : testHand.setFlipped(false); break;
-                        case SDLK_b : testHand.burn();
+                        case SDLK_UP : testCard->moveTo(topleft); break;
+                        case SDLK_RIGHT : testCard->moveTo(topright); break;
+                        case SDLK_DOWN : testCard->moveTo(bottomright); break;
+                        case SDLK_LEFT : testCard->moveTo(bottomleft); break;
+                        case SDLK_p : testCard->setFlipped(true); break;
+                        case SDLK_l : testCard->setFlipped(false); break;
+                        case SDLK_b : testCard->burn();
                         default : break;
 					}
 				}

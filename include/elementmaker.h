@@ -1,6 +1,5 @@
 #ifndef ELEMENTMAKER_H
 #define ELEMENTMAKER_H
-//ignore this line, just adding so git will actually notice the fucking changes
 
 #include <SDL.h>
 #include "element.h"

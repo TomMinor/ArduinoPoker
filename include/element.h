@@ -1,6 +1,5 @@
 #ifndef ELEMENT_H
 #define ELEMENT_H
-//ignore this line, just adding so git will actually notice the fucking changes
 
 #include <SDL.h>
 #include <math.h>
@@ -21,6 +20,7 @@ public:
             const SDL_Rect &_srcRect,
             const SDL_Rect &_destRect,
             const Orientation &_orient);
+    virtual ~Element() {}
     void setPos(const SDL_Point &_p);//move to this point instantly
     void moveTo(const SDL_Point &_p);//move to this point with cosine interpolation
     virtual void update();
