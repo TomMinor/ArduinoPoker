@@ -74,14 +74,14 @@ public:
    * \param _card
    * \return True if both cards are identical
    */
-  bool operator==(const PlayingCard& _card);
+  bool operator==(const PlayingCard& _card)const;
 
   /*!
    * \brief operator !=
    * \param _card
    * \return True if either rank or suit do not match
    */
-  bool operator!=(const PlayingCard& _card);
+  bool operator!=(const PlayingCard& _card)const;
 
   /*!
    * \brief operator << Returns a stream containing a string with the format "<RankString()> of <SuitString()>'s"
