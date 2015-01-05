@@ -10,35 +10,26 @@ int main()
 //      river.push_back(PlayingCard(Rank::TEN,Suit::SPADE));
 //  }
 
-  river.push_back(PlayingCard(Rank::THREE,Suit::SPADE));
+  river.push_back(PlayingCard(Rank::KING,Suit::SPADE));
   river.push_back(PlayingCard(Rank::TWO,Suit::HEART));
   river.push_back(PlayingCard(Rank::FIVE,Suit::CLUB));
   river.push_back(PlayingCard(Rank::FOUR,Suit::SPADE));
   river.push_back(PlayingCard(Rank::SIX,Suit::HEART));
 
-  int numPlayers=2;
+
+  int numPlayers=4;
   std::vector<player> livePlayers(numPlayers);
+  livePlayers[0].setHoleCard(PlayingCard(Rank::ACE,Suit::DIAMOND));
+  livePlayers[0].setHoleCard(PlayingCard(Rank::KING,Suit::DIAMOND));
 
-//  for(int i=0;i<numPlayers;i++)
-//  {
-//      //livePlayers[i].setScore(4-i);
-//      for (int j=0;j<2;j++)
-//      {
-//          livePlayers[i].setHoleCard(PlayingCard(Rank::ACE,Suit::DIAMOND));
-//      }
-//  }
+  livePlayers[1].setHoleCard(PlayingCard(Rank::THREE,Suit::DIAMOND));
+  livePlayers[1].setHoleCard(PlayingCard(Rank::FOUR,Suit::DIAMOND));
 
-livePlayers[0].setHoleCard(PlayingCard(Rank::ACE,Suit::DIAMOND));
-livePlayers[0].setHoleCard(PlayingCard(Rank::KING,Suit::DIAMOND));
+  livePlayers[2].setHoleCard(PlayingCard(Rank::ACE,Suit::DIAMOND));
+  livePlayers[2].setHoleCard(PlayingCard(Rank::SIX,Suit::DIAMOND));
 
-//livePlayers[1].setHoleCard(PlayingCard(Rank::THREE,Suit::DIAMOND));
-//livePlayers[1].setHoleCard(PlayingCard(Rank::FOUR,Suit::DIAMOND));
-
-//livePlayers[1].setHoleCard(PlayingCard(Rank::FIVE,Suit::DIAMOND));
-//livePlayers[1].setHoleCard(PlayingCard(Rank::SIX,Suit::DIAMOND));
-
-livePlayers[1].setHoleCard(PlayingCard(Rank::NINE,Suit::DIAMOND));
-livePlayers[1].setHoleCard(PlayingCard(Rank::EIGHT,Suit::DIAMOND));
+  livePlayers[3].setHoleCard(PlayingCard(Rank::NINE,Suit::DIAMOND));
+  livePlayers[3].setHoleCard(PlayingCard(Rank::EIGHT,Suit::DIAMOND));
 
 
 

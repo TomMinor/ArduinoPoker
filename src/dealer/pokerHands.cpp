@@ -3,41 +3,9 @@
 #include <vector>
 #include <algorithm>
 
-//void hands::findSpareCards(const player &_player, const std::vector<PlayingCard> &_river, std::vector<PlayingCard> _spareCards)
-//{
-//    std::cout<<"finsing spare cards!\n";
-//    // Firstly put all remaining cards not in players best hand into a temporary vector spareCards.
-//    //std::vector<PlayingCard> spareCards;
-//    std::vector<PlayingCard>::iterator it;
-//    for (int i=0;i<2;i++)
-//    {
-//      it=std::find(_player.getHand().begin(),_player.getHand().end(),_player.getHoleCard(i));
-//      if(it==_player.getHand().end())
-//      {
-//        _spareCards.push_back(_player.getHoleCard(i));
-//      }
-//    }
-
-
-//    for (int i=0;i<5;i++)
-//    {
-//        it=std::find(_player.getHand().begin(),_player.getHand().end(),_river[i]);
-//        if(it==_player.getHand().end())
-//        {
-//          _spareCards.push_back(_river[i]);
-//        }
-//    }
-//    // All remaining cards now in spareCards.
-
-//}
-
-void hands::addHighestCard(player &_player, const std::vector<PlayingCard> &_river)
+void hands::findSpareCards(const player &_player, const std::vector<PlayingCard> &_river, std::vector<PlayingCard> _spareCards)
 {
-    std::cout<<"\n\nADDING HIGHEST CARD\n------------------\n";
-    // need to add tie breaker score, change if new score is higher.
-    // Firstly put all remaining cards not in players best hand into a temporary vector tmp.
-    std::vector<PlayingCard> spareCards;
-    std::vector<PlayingCard>::iterator it;
+    //std::vector<PlayingCard> _spareCards;
 
     std::cout<<"CHECKING hand "<<_player.getHand().size()<<": "<<_player.getHandCard(0)<<"\n\n";
 
@@ -46,37 +14,74 @@ void hands::addHighestCard(player &_player, const std::vector<PlayingCard> &_riv
     for (int i=0;i<2;i++)
     {
       cardInHand = false;
-      for(unsigned int j=0;j<_player.getHand().size();i++)
+      for(unsigned int j=0;j<_player.getHand().size();j++)
       {
           if(_player.getHoleCard(i)==_player.getHandCard(j))
           {
               std::cout<<"card present in hand\n";
               cardInHand = true;
           }
+          std::cout<<"I'm here\n";
       }
+      std::cout<<"I'm still here\n";
       if(!cardInHand)
       {
-          std::cout<<"card present, adding to spareCards\n";
-          spareCards.push_back(_player.getHoleCard(i));
+          std::cout<<"card not present, adding to spareCards\n";
+          _spareCards.push_back(_player.getHoleCard(i));
       }
     }
-
-      /*it=std::find(_player.getHand().begin(),_player.getHand().end(),_player.getHoleCard(i));
-      if(it ==_player.getHand().end())
-      //if(*it == _player.getHoleCard(i))
-      {
-        std::cout<<*it<<"\n";
-        std::cout<<*_player.getHand().end()<<"\n";
-        std::cout<<"Hole card not in hand, adding to spare cards: ";
-        std::cout<<_player.getHoleCard(i)<<"\n";
-        spareCards.push_back(_player.getHoleCard(i));
-      }*/
-
 
     for (int i=0;i<5;i++)
     {
       cardInHand = false;
-      for(unsigned int j=0;j<_player.getHand().size();i++)
+      for(unsigned int j=0;j<_player.getHand().size();j++)
+      {
+          if(_river[i]==_player.getHandCard(j))
+          {
+              cardInHand = true;
+          }
+      }
+      if(!cardInHand)
+      {
+          _spareCards.push_back(_river[i]);
+      }
+    }
+}
+
+void hands::addHighestCard(player &_player, const std::vector<PlayingCard> &_river)
+{
+    std::cout<<"\n\nADDING HIGHEST CARD\n------------------\n";
+    // need to add tie breaker score, change if new score is higher.
+    // Firstly put all remaining cards not in players best hand into a temporary vector tmp.
+    std::vector<PlayingCard> spareCards;
+
+    std::cout<<"CHECKING hand "<<_player.getHand().size()<<": "<<_player.getHandCard(0)<<"\n\n";
+
+    bool cardInHand;
+    for (int i=0;i<2;i++)
+    {
+      cardInHand = false;
+      for(unsigned int j=0;j<_player.getHand().size();j++)
+      {
+          if(_player.getHoleCard(i)==_player.getHandCard(j))
+          {
+              std::cout<<"card present in hand\n";
+              cardInHand = true;
+          }
+          std::cout<<"I'm here\n";
+      }
+      std::cout<<"I'm still here\n";
+      if(!cardInHand)
+      {
+          std::cout<<"card not present, adding to spareCards\n";
+          spareCards.push_back(_player.getHoleCard(i));
+      }
+    }
+
+    for (int i=0;i<5;i++)
+    {
+      cardInHand = false;
+      for(unsigned int j=0;j<_player.getHand().size();j++)
       {
           if(_river[i]==_player.getHandCard(j))
           {
@@ -89,16 +94,6 @@ void hands::addHighestCard(player &_player, const std::vector<PlayingCard> &_riv
       }
     }
 
-    /*for (int i=0;i<5;i++)
-    {
-        it=std::find(_player.getHand().begin(),_player.getHand().end(),_river[i]);
-        if(it==_player.getHand().end())
-        {
-          std::cout<<"River card not in hand, adding to spare cards: ";
-          std::cout<<_river[i]<<"\n";
-          spareCards.push_back(_river[i]);
-        }
-    }*/
 
     // All remaining cards now in tmp.
 
