@@ -4,6 +4,7 @@ SOURCES+=$$PWD/src/dealer/dealerLib.cpp \
 		 $$PWD/src/dealer/deck.cpp \
 		 $$PWD/src/dealer/playingcard.cpp \
 		 $$PWD/src/dealer/player.cpp \
+     $$PWD/src/dealer/dealerLibMain.cpp \
 
 HEADERS+=$$PWD/include/*.h \
          $$PWD/include/dealer/dealerLib.h \

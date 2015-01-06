@@ -21,6 +21,7 @@ public:
   void receivePot(const int &_pot);
 
   void popHandCard();
+  void popHoleCard();
 
   std::string getName()const;
   PlayingCard getHoleCard(const int &_i)const;
