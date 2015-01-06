@@ -36,6 +36,7 @@ std::vector<PlayingCard> hands::findSpareCards(const player &_player, const std:
 
     return spareCards;
 }
+//--------------------------------------------------------------------------------------
 
 bool hands::lowToHigh(const PlayingCard &_a,const PlayingCard &_b)
 {
@@ -46,22 +47,15 @@ bool hands::highToLow(const PlayingCard &_a, const PlayingCard &_b)
 {
     return (_a.getRank()>_b.getRank());
 }
-
+//--------------------------------------------------------------------------------------
 void hands::addHighestCard(player &_player, const std::vector<PlayingCard> &_river)
 {
     std::vector<PlayingCard> spareCards;
     spareCards=findSpareCards(_player,_river);
-
     // Find the highest card in spareCards and add to hand.
+    std::sort(spareCards.begin(),spareCards.end(),highToLow);
     _player.setHandCard(spareCards[0]);
-    for (unsigned int i=1;i<spareCards.size();i++)
-    {
-        if (spareCards[i].getRank()>_player.getHandCard(_player.getNumCards()-1).getRank())
-        {
-            _player.popHandCard();
-            _player.setHandCard(spareCards[i]);
-        }
-    }
+
 
 }
 
@@ -129,19 +123,16 @@ void hands::highestCard(player &_player, const std::vector<PlayingCard> &_river)
 {
     std::cout<<"checking for high card\n";
 
-    _player.setHandCard((_player.getHoleCard(1).getRank()>_player.getHoleCard(0).getRank())?
-                         _player.getHoleCard(1):_player.getHoleCard(0));
+    std::vector<PlayingCard> spareCards;
+    // Find spare cards and sort
+    spareCards=findSpareCards(_player,_river);
+    std::sort(spareCards.begin(),spareCards.end(),highToLow);
 
-    for (unsigned int i=0;i<_river.size();i++)
-    {
-        if(_river[i].getRank()>_player.getHandCard(0).getRank())
-        {
-            _player.popHandCard();
-            _player.setHandCard(_river[i]);
-        }
-    }
+    // Add highest card to players hand
+    _player.setHandCard(spareCards[0]);
     _player.setScore(_player.getHandCard(0).getRank());
 
+    // Fill players hand with remaining high cards.
     fillHand(_player,_river);
 
 }
@@ -157,12 +148,10 @@ void hands::pairs(player &_player, const std::vector<PlayingCard> &_river)
     int majorS = _player.getScore();
     if(majorS > 0)
     {
-        std::cout<<majorS<<", ";
         findPair(_player,_river);
         int minorS = _player.getScore();
         if(minorS>0)
         {
-            std::cout<<majorS<<"\n";
             fillHand(_player,_river);
             int finalScore = (((majorS-2)*(majorS-1))/2)+ (minorS) + 26;
             _player.setScore(finalScore);
@@ -172,37 +161,133 @@ void hands::pairs(player &_player, const std::vector<PlayingCard> &_river)
             _player.setScore(13+majorS);
             fillHand(_player,_river);
         }
-
     }
-
 }
 
 void hands::three(player &_player, const std::vector<PlayingCard> &_river)
 {
     std::cout<<"checking for three of a kind\n";
+
+    bool threeFound = false;
+    unsigned int origHandSize = _player.getHand().size();
+    std::vector<PlayingCard> spareCards;
+    spareCards = findSpareCards(_player,_river);
+    std::sort(spareCards.begin(),spareCards.end(),highToLow);
+
+
+    for(unsigned int i=0; !threeFound && i<spareCards.size()-2;i++)
+    {
+        for(unsigned int j=i+1; !threeFound && j<spareCards.size()-1;j++)
+        {
+            if(spareCards[i].getRank()==spareCards[j].getRank())
+            {
+                for(unsigned int k=j+1; !threeFound && k<spareCards.size();k++)
+                {
+                    if(spareCards[i].getRank()==spareCards[k].getRank())
+                    {
+                        _player.setHandCard(spareCards[i]);
+                        _player.setHandCard(spareCards[j]);
+                        _player.setHandCard(spareCards[k]);
+
+                        int finalScore = 104+_player.getHandCard(origHandSize).getRank();
+                        _player.setScore(finalScore);
+
+                        fillHand(_player,_river);
+                        threeFound = true;
+                    }
+                }
+            }
+
+        }
+    }
 }
 
 void hands::straight(player &_player, const std::vector<PlayingCard> &_river)
 {
+    std::vector<PlayingCard> spareCards;
+    spareCards = findSpareCards(_player,_river);
+    std::sort(spareCards.begin(),spareCards.end(),highToLow);
+
+    bool straightFound = false;
+    bool fiveHighFound = false;
+    for(unsigned int i=0; !straightFound && i<spareCards.size();i++)
+    {   // First in straight
+        for(unsigned int j=i+1; !straightFound && j<spareCards.size();j++)
+        {   // Second in straight
+            if((  spareCards[i].getRank()==spareCards[j].getRank()+1)
+               ||(spareCards[i].getRank()==Rank::ACE) && (spareCards[j].getRank()==Rank::FIVE))
+            {
+                for(unsigned int k=j+1; !straightFound && k<spareCards.size();k++)
+                {   // Third in straight
+                    if(spareCards[j].getRank()==spareCards[k].getRank()+1)
+                    {
+                        for(unsigned int l=j+1; !straightFound && l<spareCards.size();l++)
+                        {   // Fourth in straight
+                            if(spareCards[k].getRank()==spareCards[l].getRank()+1)
+                            {
+                                for(unsigned int m=l+1; !straightFound && m<spareCards.size();m++)
+                                {   // Fifth in straight
+                                    if(spareCards[l].getRank()==spareCards[m].getRank()+1)
+                                    {   // Player has a straight
+                                        for(char id=i;id<=m;id++)
+                                        {_player.setHandCard(spareCards[id]);}
+
+                                        int finalScore = 117-3;
+                                        if((spareCards[i].getRank()==Rank::ACE) && (spareCards[j].getRank()==Rank::FIVE))
+                                        { // 5 high straight with trailing Ace (wheel).
+                                            finalScore += Rank::FIVE;
+                                            _player.setScore(finalScore);
+                                            fiveHighFound = true;
+                                            straightFound = true;
+                                        }
+                                        else
+                                        {
+                                            finalScore += _player.getHandCard(0).getRank();
+                                            _player.setScore(finalScore);
+                                            straightFound = true;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     std::cout<<"checking for straight\n";
 }
 
 void hands::flush(player &_player, const std::vector<PlayingCard> &_river)
 {
+  std::vector<PlayingCard> spareCards;
+  spareCards = findSpareCards(_player,_river);
+  std::sort(spareCards.begin(),spareCards.end(),highToLow);
+
+  bool flushFound = false;
+
+
+  //score rank +127
     std::cout<<"checking for flush\n";
+}
+
+void hands::fullHouse(player &_player, const std::vector<PlayingCard> &_river)
+{
+  //(((B-3)*(B-2))/2)+S-1 + 140 = score!!
+    std::cout<<"checking for full house\n";
 }
 
 void hands::four(player &_player, const std::vector<PlayingCard> &_river)
 {
+  //score rank +296
     std::cout<<"checking for four of a kind\n";;
-}
-void hands::fullHouse(player &_player, const std::vector<PlayingCard> &_river)
-{
-    std::cout<<"checking for full house\n";
+    //fillHand(_player,_river);
 }
 
 void hands::straightFlush(player &_player, const std::vector<PlayingCard> &_river)
 {
+  //score = rank +309
     std::cout<<"checking for straight flush\n";
 }
 //-----------------------------------------------------------------------------
@@ -257,6 +342,7 @@ void hands::winner(std::vector<player> &_livePlayers, const std::vector<PlayingC
     topScore = _livePlayers[0].getScore();
     for (unsigned int i=1;i<numPlayers;i++)
     {
+        std::cout<<"-------------------------------\n";
         hands::bestHand(_livePlayers[i],_river);
         topScore = (_livePlayers[i].getScore()>topScore)?
                     _livePlayers[i].getScore():topScore;

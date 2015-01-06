@@ -45,21 +45,21 @@ OBJECTS_DIR   = ./
 
 ####### Files
 
-SOURCES       = src/dealer/deck.cpp \
-		src/dealer/main.cpp \
-		src/dealer/player.cpp \
+SOURCES       = src/dealer/main.cpp \
+		src/dealer/deck.cpp \
 		src/dealer/playingcard.cpp \
+		src/dealer/player.cpp \
 		src/dealer/pokerHands.cpp 
-OBJECTS       = deck.o \
-		main.o \
-		player.o \
+OBJECTS       = main.o \
+		deck.o \
 		playingcard.o \
+		player.o \
 		pokerHands.o
 DIST          = .qmake.cache \
-		poker.pro src/dealer/deck.cpp \
-		src/dealer/main.cpp \
-		src/dealer/player.cpp \
+		poker.pro src/dealer/main.cpp \
+		src/dealer/deck.cpp \
 		src/dealer/playingcard.cpp \
+		src/dealer/player.cpp \
 		src/dealer/pokerHands.cpp
 QMAKE_TARGET  = winner
 DESTDIR       = #avoid trailing-slash linebreak
@@ -319,7 +319,7 @@ qmake_all: FORCE
 
 dist: 
 	@test -d .tmp/winner1.0.0 || mkdir -p .tmp/winner1.0.0
-	$(COPY_FILE) --parents $(DIST) .tmp/winner1.0.0/ && $(COPY_FILE) --parents include/card.h include/dealer/basicCard.h include/dealer/deck.h include/dealer/player.h include/dealer/playingcard.h include/dealer/pokerHands.h .tmp/winner1.0.0/ && $(COPY_FILE) --parents src/dealer/deck.cpp src/dealer/main.cpp src/dealer/player.cpp src/dealer/playingcard.cpp src/dealer/pokerHands.cpp .tmp/winner1.0.0/ && (cd `dirname .tmp/winner1.0.0` && $(TAR) winner1.0.0.tar winner1.0.0 && $(COMPRESS) winner1.0.0.tar) && $(MOVE) `dirname .tmp/winner1.0.0`/winner1.0.0.tar.gz . && $(DEL_FILE) -r .tmp/winner1.0.0
+	$(COPY_FILE) --parents $(DIST) .tmp/winner1.0.0/ && $(COPY_FILE) --parents include/card.h include/dealer/deck.h include/dealer/playingcard.h include/dealer/player.h include/dealer/pokerHands.h .tmp/winner1.0.0/ && $(COPY_FILE) --parents src/dealer/main.cpp src/dealer/deck.cpp src/dealer/playingcard.cpp src/dealer/player.cpp src/dealer/pokerHands.cpp .tmp/winner1.0.0/ && (cd `dirname .tmp/winner1.0.0` && $(TAR) winner1.0.0.tar winner1.0.0 && $(COMPRESS) winner1.0.0.tar) && $(MOVE) `dirname .tmp/winner1.0.0`/winner1.0.0.tar.gz . && $(DEL_FILE) -r .tmp/winner1.0.0
 
 
 clean:compiler_clean 
@@ -356,25 +356,25 @@ compiler_clean:
 
 ####### Compile
 
-deck.o: src/dealer/deck.cpp include/dealer/deck.h \
-		include/dealer/playingcard.h \
-		include/card.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o deck.o src/dealer/deck.cpp
-
 main.o: src/dealer/main.cpp include/dealer/pokerHands.h \
 		include/dealer/playingcard.h \
 		include/card.h \
 		include/dealer/player.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o src/dealer/main.cpp
 
-player.o: src/dealer/player.cpp include/dealer/player.h \
+deck.o: src/dealer/deck.cpp include/dealer/deck.h \
 		include/dealer/playingcard.h \
 		include/card.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o player.o src/dealer/player.cpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o deck.o src/dealer/deck.cpp
 
 playingcard.o: src/dealer/playingcard.cpp include/dealer/playingcard.h \
 		include/card.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o playingcard.o src/dealer/playingcard.cpp
+
+player.o: src/dealer/player.cpp include/dealer/player.h \
+		include/dealer/playingcard.h \
+		include/card.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o player.o src/dealer/player.cpp
 
 pokerHands.o: src/dealer/pokerHands.cpp include/dealer/pokerHands.h \
 		include/dealer/playingcard.h \
