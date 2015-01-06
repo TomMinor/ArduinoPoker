@@ -17,7 +17,7 @@ public:
   PlayingCard deal();
 
 private:
-  std::vector<PlayingCard> m_cards;
+  std::vector<PlayingCard> m_pack;
 
 };
 

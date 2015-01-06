@@ -62,6 +62,10 @@ void player::popHandCard()
 {
     m_hand.pop_back();
 }
+void player::popHoleCard()
+{
+    m_cards.pop_back();
+}
 
 //------------------------------------------------------
 //==========Get methods==========
