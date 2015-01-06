@@ -3,107 +3,56 @@
 #include <vector>
 #include <algorithm>
 
-void hands::findSpareCards(const player &_player, const std::vector<PlayingCard> &_river, std::vector<PlayingCard> _spareCards)
+std::vector<PlayingCard> hands::findSpareCards(const player &_player, const std::vector<PlayingCard> &_river)
 {
-    //std::vector<PlayingCard> _spareCards;
-
-    std::cout<<"CHECKING hand "<<_player.getHand().size()<<": "<<_player.getHandCard(0)<<"\n\n";
-
-
+    std::vector<PlayingCard> spareCards;
     bool cardInHand;
-    for (int i=0;i<2;i++)
+
+    // Find unsued cards in player Hole cards
+    for (unsigned int i=0;i<_player.getHole().size();i++)
     {
       cardInHand = false;
       for(unsigned int j=0;j<_player.getHand().size();j++)
       {
           if(_player.getHoleCard(i)==_player.getHandCard(j))
-          {
-              std::cout<<"card present in hand\n";
-              cardInHand = true;
-          }
-          std::cout<<"I'm here\n";
+          {cardInHand = true;}
       }
-      std::cout<<"I'm still here\n";
       if(!cardInHand)
-      {
-          std::cout<<"card not present, adding to spareCards\n";
-          _spareCards.push_back(_player.getHoleCard(i));
-      }
+      {spareCards.push_back(_player.getHoleCard(i));}
     }
 
-    for (int i=0;i<5;i++)
+    // Find unsued cards in river cards
+    for (unsigned int i=0;i<_river.size();i++)
     {
       cardInHand = false;
       for(unsigned int j=0;j<_player.getHand().size();j++)
       {
           if(_river[i]==_player.getHandCard(j))
-          {
-              cardInHand = true;
-          }
+          {cardInHand = true;}
       }
       if(!cardInHand)
-      {
-          _spareCards.push_back(_river[i]);
-      }
+      {spareCards.push_back(_river[i]);}
     }
+
+    return spareCards;
+}
+
+bool hands::lowToHigh(const PlayingCard &_a,const PlayingCard &_b)
+{
+    return (_a.getRank()<_b.getRank());
+}
+
+bool hands::highToLow(const PlayingCard &_a, const PlayingCard &_b)
+{
+    return (_a.getRank()>_b.getRank());
 }
 
 void hands::addHighestCard(player &_player, const std::vector<PlayingCard> &_river)
 {
-    std::cout<<"\n\nADDING HIGHEST CARD\n------------------\n";
-    // need to add tie breaker score, change if new score is higher.
-    // Firstly put all remaining cards not in players best hand into a temporary vector tmp.
     std::vector<PlayingCard> spareCards;
+    spareCards=findSpareCards(_player,_river);
 
-    std::cout<<"CHECKING hand "<<_player.getHand().size()<<": "<<_player.getHandCard(0)<<"\n\n";
-
-    bool cardInHand;
-    for (int i=0;i<2;i++)
-    {
-      cardInHand = false;
-      for(unsigned int j=0;j<_player.getHand().size();j++)
-      {
-          if(_player.getHoleCard(i)==_player.getHandCard(j))
-          {
-              std::cout<<"card present in hand\n";
-              cardInHand = true;
-          }
-          std::cout<<"I'm here\n";
-      }
-      std::cout<<"I'm still here\n";
-      if(!cardInHand)
-      {
-          std::cout<<"card not present, adding to spareCards\n";
-          spareCards.push_back(_player.getHoleCard(i));
-      }
-    }
-
-    for (int i=0;i<5;i++)
-    {
-      cardInHand = false;
-      for(unsigned int j=0;j<_player.getHand().size();j++)
-      {
-          if(_river[i]==_player.getHandCard(j))
-          {
-              cardInHand = true;
-          }
-      }
-      if(!cardInHand)
-      {
-          spareCards.push_back(_river[i]);
-      }
-    }
-
-
-    // All remaining cards now in tmp.
-
-    //print cards in spareCards
-    for(unsigned int i=0;i<spareCards.size();i++)
-    {
-        std::cout<<spareCards[i]<<"\n";
-    }
-
-    // Find the highest card in tmp and add to hand.
+    // Find the highest card in spareCards and add to hand.
     _player.setHandCard(spareCards[0]);
     for (unsigned int i=1;i<spareCards.size();i++)
     {
@@ -115,24 +64,75 @@ void hands::addHighestCard(player &_player, const std::vector<PlayingCard> &_riv
     }
 
 }
+
+void hands::findPair(player &_player, const std::vector<PlayingCard> &_river)
+{
+    bool pairFound = false;
+    unsigned int origHandSize = _player.getHand().size();
+    std::vector<PlayingCard> spareCards;
+    spareCards = findSpareCards(_player,_river);
+    std::sort(spareCards.begin(),spareCards.end(),highToLow);
+
+    // Find pairs and push them into players hand.
+    for(unsigned int i=0;i<spareCards.size()-1;i++)
+    {
+        for(unsigned int j=i+1;j<spareCards.size();j++)
+        {
+            if(spareCards[i].getRank()==spareCards[j].getRank())
+            {
+                pairFound = true;
+                _player.setHandCard(spareCards[i]);
+                _player.setHandCard(spareCards[j]);
+            }
+        }
+    }
+
+    // Only keep the first and hence largest pair found
+    while(_player.getHand().size()>origHandSize+2)
+    {
+        _player.popHandCard();
+    }
+
+    // Set score if pair found
+    if(pairFound)
+    {
+        _player.setScore(_player.getHandCard(origHandSize).getRank());
+    }
+    else{_player.setScore(0);}
+}
+
+void hands::fillHand(player &_player, const std::vector<PlayingCard> &_river)
+{
+    unsigned int kickerID = _player.getHand().size();
+    for(unsigned int i=0;i<5-_player.getHand().size();i++)
+    {
+        addHighestCard(_player,_river);
+    }
+    _player.setKicker(_player.getHandCard(kickerID).getRank());
+}
+
 //---------------------------------------------------------------------------------------------------------
-//void hands::highestCard(player &_player)
-//{
-//    _player.setScore(_player.getHandCard(0).getRank());
-//    for (int i=1;i<5;i++)
-//    {
-//      _player.setScore((_player.getHandCard(i).getRank()>_player.getHandCard(i-1).getRank()) ?
-//                        _player.getHandCard(i).getRank():_player.getHandCard(i-1).getRank());
-//    }
-//}
+void hands::highestCard(player &_player)
+{
+    _player.setKicker(_player.getHandCard(0).getRank());
+    for (unsigned int i=1;i<_player.getHand().size();i++)
+    {
+      if(_player.getHandCard(i).getRank()>_player.getKicker())
+      {
+          _player.setKicker(_player.getHandCard(i).getRank());
+      }
+    }
+}
+//---------------------------------------------------------------------------------------------------------
 //---------------------------------------------------------------------------------------------------------
 void hands::highestCard(player &_player, const std::vector<PlayingCard> &_river)
 {
+    std::cout<<"checking for high card\n";
+
     _player.setHandCard((_player.getHoleCard(1).getRank()>_player.getHoleCard(0).getRank())?
                          _player.getHoleCard(1):_player.getHoleCard(0));
 
-
-    for (int i=0;i<5;i++)
+    for (unsigned int i=0;i<_river.size();i++)
     {
         if(_river[i].getRank()>_player.getHandCard(0).getRank())
         {
@@ -141,24 +141,40 @@ void hands::highestCard(player &_player, const std::vector<PlayingCard> &_river)
         }
     }
     _player.setScore(_player.getHandCard(0).getRank());
-    std::cout<<"highest card->hand cards: "<<_player.getHandCard(0)<<"\n";
 
-    for(int i=0;i<4;i++)
-    {
-        addHighestCard(_player,_river);
-    }
-    _player.setKicker(_player.getHandCard(1).getRank());
-    std::cout<<"checking for high card\n";
+    fillHand(_player,_river);
+
 }
 //---------------------------------------------------------------------------------------------------------
-void hands::pair(player &_player, const std::vector<PlayingCard> &_river)
-{
-    std::cout<<"checking for pair\n";
-}
 
-void hands::twoPair(player &_player, const std::vector<PlayingCard> &_river)
+void hands::pairs(player &_player, const std::vector<PlayingCard> &_river)
 {
     std::cout<<"checking for two pair\n";
+
+    //(((B-3)*(B-2))/2)+S-1 + 26(max 1Pair) = score!!
+
+    findPair(_player,_river);
+    int majorS = _player.getScore();
+    if(majorS > 0)
+    {
+        std::cout<<majorS<<", ";
+        findPair(_player,_river);
+        int minorS = _player.getScore();
+        if(minorS>0)
+        {
+            std::cout<<majorS<<"\n";
+            fillHand(_player,_river);
+            int finalScore = (((majorS-2)*(majorS-1))/2)+ (minorS) + 26;
+            _player.setScore(finalScore);
+        }
+        else
+        {   // Must pop off the first pair
+            _player.setScore(13+majorS);
+            fillHand(_player,_river);
+        }
+
+    }
+
 }
 
 void hands::three(player &_player, const std::vector<PlayingCard> &_river)
@@ -216,11 +232,7 @@ void hands::bestHand(player &_player, const std::vector<PlayingCard> &_river)
     if (_player.getScore()>0)
       return;
 
-    hands::twoPair(_player, _river);
-    if (_player.getScore()>0)
-      return;
-
-    hands::pair(_player, _river);
+    hands::pairs(_player, _river);
     if (_player.getScore()>0)
       return;
 
@@ -230,72 +242,56 @@ void hands::bestHand(player &_player, const std::vector<PlayingCard> &_river)
 
 }
 
-void hands::winner(const int &_numPlayers, std::vector<player> &_livePlayers, const std::vector<PlayingCard> &_river)
+void hands::winner(std::vector<player> &_livePlayers, const std::vector<PlayingCard> &_river)
 {
-    std::vector<player> WINNERS;
-    int scores[_numPlayers];
+    unsigned int numPlayers = _livePlayers.size();
+
     int topScore;
     std::vector<int> winner;
-    int kicker[_numPlayers];
     int topkicker;
     std::vector<int> tieWinner;
-
+    std::vector<player> WINNERS;
 
     // Find the highest score out of the players
     hands::bestHand(_livePlayers[0],_river);
-    scores[0] = _livePlayers[0].getScore();
-    topScore = scores[0];
-    //topScore = _livePlayers[0].getScore();
-    for (int i=1;i<_numPlayers;i++)
+    topScore = _livePlayers[0].getScore();
+    for (unsigned int i=1;i<numPlayers;i++)
     {
-        std::cout<<"----------next player----------\n";
         hands::bestHand(_livePlayers[i],_river);
-        scores[i] = _livePlayers[i].getScore();
-        topScore = (scores[i]>topScore)?scores[i]:topScore;
-        topScore = (_livePlayers[i].getScore()>topScore)?_livePlayers[i].getScore():topScore;
+        topScore = (_livePlayers[i].getScore()>topScore)?
+                    _livePlayers[i].getScore():topScore;
     }
 
-    // Check how many players had the high score
-    for (int i=0;i<_numPlayers;i++)
+    // Record player ID's that have top score
+    for (unsigned int i=0;i<numPlayers;i++)
     {
         if (_livePlayers[i].getScore()==topScore)
-        {
-            // record player ID that had top score
-            winner.push_back(i);
-        }
+        {   winner.push_back(i);    }
     }
 
-    //Find the player with the high score
     if (winner.size()>1)
     {
         // More than one player has the high score,
-        // Now need to check these players highest card,
-        // Note: only need to check their private cards.
-        //hands::highestCard(_livePlayers[winner[0]]);
-        kicker[0] = _livePlayers[winner[0]].getKicker();
-        topkicker = kicker[0];
+        // Now need to check these players Kicker,
         topkicker = _livePlayers[winner[0]].getKicker();
-        for (unsigned int i=1; i<winner.size()+1; i++)
+        for (unsigned int i=1; i<winner.size(); i++)
         {
-            // use winner[i] to get player for highest card parameter.
-            //hands::highestCard(_livePlayers[winner[i]]);
-            kicker[i] = _livePlayers[i].getScore();
-            topkicker = (kicker[i]>topkicker)?kicker[i]:topkicker;
-            topkicker = (_livePlayers[i].getScore()>topkicker)?_livePlayers[i].getScore():topkicker;
+            // use winner[i] to get playerID for highest card parameter.
+            topkicker = (_livePlayers[i].getKicker()>topkicker)?
+                         _livePlayers[i].getKicker():topkicker;
         }
 
         for (unsigned int i=0;i<winner.size();i++)
-        {
-            if (_livePlayers[winner[i]].getScore() == topkicker)
-            {
-                //tieWinner contains ID of players with highest card
-                tieWinner.push_back(winner[i]);
-            }
+        {   //tieWinner contains ID of players with highest card
+            if (_livePlayers[winner[i]].getKicker() == topkicker)
+            {   tieWinner.push_back(winner[i]);  }
         }
-        std::cout<<"There are "<<tieWinner.size()<<"winners\n";
+        std::cout<<"There are "<<tieWinner.size()<<" winners\n";
         for (unsigned int i=0;i<tieWinner.size();i++)
         {
             std::cout<<tieWinner[i]<<" ";
+            std::cout<<"score of: "<<_livePlayers[tieWinner[i]].getScore()<<"\n";
+            std::cout<<"kicker of: "<<_livePlayers[tieWinner[i]].getKicker()<<"\n";
             WINNERS.push_back(_livePlayers[tieWinner[i]]);
         }
     }

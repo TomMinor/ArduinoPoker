@@ -77,6 +77,11 @@ PlayingCard player::getHoleCard(const int &_i)const
     return m_cards[_i];
 }
 
+std::vector<PlayingCard> player::getHole()const
+{
+    return m_cards;
+}
+
 PlayingCard player::getHandCard(const int &_i)const
 {
     return m_hand[_i];

@@ -24,6 +24,7 @@ public:
 
   std::string getName()const;
   PlayingCard getHoleCard(const int &_i)const;
+  std::vector<PlayingCard> getHole()const;
   PlayingCard getHandCard(const int &_i)const;
   std::vector<PlayingCard> getHand()const;
   int getNumCards()const;
