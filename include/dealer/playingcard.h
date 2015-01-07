@@ -66,7 +66,8 @@ public:
   std::string SuitString() const;
 
   int getRank()const;
-  int getSuitID() const;
+  int getSuit() const;
+
 
 
   /*!
@@ -96,8 +97,9 @@ private:
    * \brief m_value Stores the suit and rank of the playing card in a single byte.
    */
   card_t m_value;
+  int getSuitID() const;
 
-  int getSuit() const;
+
 };
 
 #endif
