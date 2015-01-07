@@ -30,10 +30,6 @@ deck ::~deck()
 
 }
 
-void deck::init()
-{
-
-}
 
 void deck::reset()
 {
@@ -42,7 +38,7 @@ void deck::reset()
 
 void deck::shuffle()
 {
-
+    std::random_shuffle(m_pack.begin(), m_pack.end());
 }
 
 PlayingCard deck::deal()
@@ -51,4 +47,15 @@ PlayingCard deck::deal()
   m_pack.pop_back();
 
   return a;
+}
+
+void deck::printDeck()
+{
+  std::vector<PlayingCard>::iterator it;
+
+  for(it=m_pack.begin(); it!=m_pack.end(); it++)
+  {
+    std::cout<< it->getRank() <<"  "<< it->getSuitID()<< "\n";
+  }
+
 }

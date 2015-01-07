@@ -13,8 +13,6 @@ public:
   void dealHands(deck _pack);
   void dealFlop(deck _pack);
   void dealRiverTurn(deck _pack);
-
-
   void resetCards();//player.popHole card x2 and thn set cards
 
 private:
