@@ -2,6 +2,7 @@
 #define _DECK__H_
 
 #include <vector>
+#include <algorithm>
 #include "playingcard.h"
 
 class deck

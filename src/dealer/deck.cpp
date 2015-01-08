@@ -42,7 +42,7 @@ void deck::reset()
 
 void deck::shuffle()
 {
-
+  std::random_shuffle(m_pack.begin(), m_pack.end());
 }
 
 PlayingCard deck::deal()

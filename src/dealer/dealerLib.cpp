@@ -38,3 +38,4 @@ void dealerLib::dealHands(deck _pack)
   }
 
 }
+
