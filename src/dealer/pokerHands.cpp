@@ -36,6 +36,24 @@ std::vector<PlayingCard> hands::findSpareCards(const player &_player, const std:
 
     return spareCards;
 }
+
+void hands::removeCard (const PlayingCard &_card, player &_tmpPlayer, std::vector<PlayingCard> &_tmpRiver)
+{
+  bool cardFound;
+
+  // Find card in player Hole cards
+  for (unsigned int i=0;i<_tmpPlayer.getHole().size();i++)
+  {
+    cardFound= false;
+    if(_tmpPlayer.getHoleCard(i)==_card)
+    {
+        _tmpPlayer.getHole().erase(_tmpPlayer.getHole().begin()+i,_tmpPlayer.getHole().begin()+i+1);
+        cardFound = true;
+    }
+  }
+
+}
+
 //--------------------------------------------------------------------------------------
 
 bool hands::lowToHigh(const PlayingCard &_a,const PlayingCard &_b)
@@ -152,7 +170,7 @@ void hands::pairs(player &_player, const std::vector<PlayingCard> &_river)
     findPair(_player,_river);
     int majorS = _player.getScore();
     if(majorS > 0)
-    {
+    {  // First pair found
         _player.setScore(0);
         findPair(_player,_river);
         int minorS = _player.getScore();
@@ -353,6 +371,16 @@ void hands::fullHouse(player &_player, const std::vector<PlayingCard> &_river)
 
 void hands::four(player &_player, const std::vector<PlayingCard> &_river)
 {
+
+  player tmp1,tmp2,tmp3;
+  //findPair(_player,_river);
+  //tmp1.setHandCard(_player.getHandCard(0));
+  //tmp1.setHandCard(_player.getHandCard(1));
+  //_player.popHandCard();
+  //_player.popHandCard();
+
+
+
 
   //score rank +296
     std::cout<<"checking for four of a kind\n";;

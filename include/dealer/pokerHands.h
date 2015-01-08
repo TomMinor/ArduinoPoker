@@ -12,6 +12,7 @@ namespace hands
     // Evaluate hands methods
 //-----------------------------------------------------------------------------------------------------------------------------
     std::vector<PlayingCard> findSpareCards(const player &_player, const std::vector<PlayingCard> &_river);
+    void removeCard (const PlayingCard &_card, player &_tmpPlayer, std::vector<PlayingCard> &_tmpRiver);
     bool lowToHigh(const PlayingCard &_a, const PlayingCard &_b);
     bool highToLow(const PlayingCard &_a,const PlayingCard &_b);
     void addHighestCard(player &_player, const std::vector<PlayingCard> &_river);   // Used to add high cards to hand to complete hand, Does not effect score.
