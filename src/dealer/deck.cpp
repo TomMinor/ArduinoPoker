@@ -38,7 +38,7 @@ void deck::reset()
 
 void deck::shuffle()
 {
-    std::random_shuffle(m_pack.begin(), m_pack.end());
+  std::random_shuffle(m_pack.begin(), m_pack.end());
 }
 
 PlayingCard deck::deal()
@@ -55,7 +55,7 @@ void deck::printDeck()
 
   for(it=m_pack.begin(); it!=m_pack.end(); it++)
   {
-    std::cout<<*it;
+    std::cout<<*it<<"\n";
   }
 
 }

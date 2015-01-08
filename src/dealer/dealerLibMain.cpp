@@ -3,7 +3,7 @@
 #include <ctime>
 #include <cstdlib>
 
-std::vector<PlayingCard>::iterator it;
+//std::vector<PlayingCard>::iterator it;
 
 //int myRandom(int i)
 //{
@@ -21,6 +21,6 @@ int main()
   Deck.printDeck();
 
 
-
+  return EXIT_SUCCESS;
 
 }
