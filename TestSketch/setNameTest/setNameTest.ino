@@ -64,7 +64,12 @@ void loop() {
     delay(400);
   }
   else if (x> 600 && x < 800){ //SELECT
+    
+    //not sure why currentPosX is being used for the array thingy.
+    //the reason its only printing one character is because the the new char is being added writing over the first value in the array, needs to iterate.
+    //checkout how im handling input, just a bit neater. trying to write a class for it.
     name[currentPosX] = alphabet[index];
+    
     //Testing bit
     lcd.setCursor(11,1);
     lcd.print(name);

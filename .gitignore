@@ -30,6 +30,5 @@
 # qt project file
 # because i'm only using QT for IDE purposes
 
-*.pro
 *.pro.user
 *.autosave

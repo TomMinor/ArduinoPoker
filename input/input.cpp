@@ -1,44 +1,44 @@
 #include "input.h"
-/*
+
 
 input::input(int _pin)
 {
-  m_x = analogRead(_pin);
+    m_pin = _pin;
 }
 
-input::~input()
+
+bool input::right()
 {
 
+    if(m_value <= 60 )  {return true;}
+    return false;
 }
 
-bool input::buttonUP()
+bool input::left()
+  {
+    if(m_value <= 600 && m_value >= 401)  {return true;}
+    return false;
+}
+
+bool input::up()
+  {
+    if(m_value <= 200 && m_value >= 61 )  {return true;}
+    return false;
+}
+
+bool input::down()
+  {
+    if(m_value <= 400 && m_value >= 201)  {return true;}
+    return false;
+}
+
+bool input::select()
+  {
+    if(m_value <= 800 && m_value >= 601)  {return true;}
+    return false;
+}
+
+void input::updateValue()
 {
-  if(m_x < 200 && m_x > 60) {return true;  }
-  else                      {return false; }
+    m_value = analogRead(m_pin);
 }
-
-bool input::buttonDOWN()
-{
-  if(m_x < 400 && m_x > 200){return true;  }
-  else                      {return false; }
-}
-
-bool input::buttonLEFT()
-{
-  if(m_x < 600 && m_x > 400){return true;  }
-  else                      {return false; }
-}
-
-bool input::buttonRIGHT()
-{
-  if(m_x < 60) {return true;  }
-  else         {return false; }
-}
-
-bool input::buttonSELECT()
-{
-    if(m_x < 600 && m_x > 400){return true;  }
-    else                      {return false; }
-}
-
-*/
