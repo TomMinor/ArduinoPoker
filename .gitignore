@@ -30,3 +30,4 @@
 *.qmake.cache
 *.pro.user*
 
+Makefile
