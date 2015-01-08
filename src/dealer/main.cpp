@@ -1,17 +1,18 @@
 #include <iostream>
 #include "dealer/pokerHands.h"
+#include "dealer/cardStack.h"
 
 int main()
 {
-  std::vector<PlayingCard> river;
+  cardStack river;
 
 
 
-  river.push_back(PlayingCard(Rank::THREE,Suit::SPADE));
-  river.push_back(PlayingCard(Rank::ACE,Suit::SPADE));
-  river.push_back(PlayingCard(Rank::ACE,Suit::CLUB));
-  river.push_back(PlayingCard(Rank::QUEEN,Suit::SPADE));
-  river.push_back(PlayingCard(Rank::KING,Suit::HEART));
+  river.addCard(PlayingCard(Rank::FIVE,Suit::HEART));
+  river.addCard(PlayingCard(Rank::ACE,Suit::SPADE));
+  river.addCard(PlayingCard(Rank::NINE,Suit::HEART));
+  river.addCard(PlayingCard(Rank::THREE,Suit::SPADE));
+  river.addCard(PlayingCard(Rank::TWO,Suit::DIAMOND));
 
 
 
@@ -19,19 +20,19 @@ int main()
   player a,b,c,d;
 
   a.setHoleCard(PlayingCard(Rank::ACE,Suit::DIAMOND));
-  a.setHoleCard(PlayingCard(Rank::ACE,Suit::HEART));
+  a.setHoleCard(PlayingCard(Rank::TWO,Suit::HEART));
   livePlayers.push_back(a);
 
-  b.setHoleCard(PlayingCard(Rank::KING,Suit::DIAMOND));
-  b.setHoleCard(PlayingCard(Rank::FIVE,Suit::DIAMOND));
+  b.setHoleCard(PlayingCard(Rank::TWO,Suit::DIAMOND));
+  b.setHoleCard(PlayingCard(Rank::THREE,Suit::CLUB));
   livePlayers.push_back(b);
 
-  c.setHoleCard(PlayingCard(Rank::NINE,Suit::DIAMOND));
-  c.setHoleCard(PlayingCard(Rank::EIGHT,Suit::DIAMOND));
+  c.setHoleCard(PlayingCard(Rank::TWO,Suit::CLUB));
+  c.setHoleCard(PlayingCard(Rank::SIX,Suit::DIAMOND));
   livePlayers.push_back(c);
 
-  d.setHoleCard(PlayingCard(Rank::FIVE,Suit::DIAMOND));
-  d.setHoleCard(PlayingCard(Rank::SEVEN,Suit::SPADE));
+  d.setHoleCard(PlayingCard(Rank::FOUR,Suit::SPADE));
+  d.setHoleCard(PlayingCard(Rank::SIX,Suit::SPADE));
   livePlayers.push_back(d);
 
 

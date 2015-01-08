@@ -68,7 +68,8 @@ int PlayingCard::getSuitID() const
 
 int PlayingCard::getRank()const
 {
-  return RANKOF(m_value);
+  //return RANKOF(m_value);
+  return (RANKMASK & m_value);
 }
 int PlayingCard::getSuit()const
 {

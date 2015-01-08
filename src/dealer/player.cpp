@@ -1,5 +1,5 @@
 #include "dealer/player.h"
-
+#include <iostream>
 
 player::player()
 {
@@ -24,12 +24,12 @@ void player::setName(const std::string &_name)
 
 void player::setHoleCard(const PlayingCard &_card)
 {
-    m_cards.push_back(_card);
+    m_cards.addCard(_card);
 }
 
 void player::setHandCard(const PlayingCard &_card)
 {
-    m_hand.push_back(_card);
+    m_hand.addCard(_card);
 }
 
 void player::setScore(const int &_score)
@@ -57,14 +57,38 @@ void player::receivePot(const int &_pot)
     m_money += _pot;
 }
 
-
-void player::popHandCard()
+//=======Remove cards============
+void player::removeLastHandCard()
 {
     m_hand.pop_back();
 }
-void player::popHoleCard()
+void player::removeHandCard(const int _i)
+{
+  m_hand.removeCard(_i);
+}
+
+void player::removeHandCard(const PlayingCard &_card)
+{
+  m_hand.removeCard(_card);
+}
+
+void player::removeLastHoleCard()
 {
     m_cards.pop_back();
+}
+void player::removeHoleCard(const int _i)
+{
+  m_cards.removeCard(_i);
+}
+
+void player::removeHoleCard(const PlayingCard &_card)
+{
+  m_cards.removeCard(_card);
+}
+
+void player::emptyHand()
+{
+  m_hand.emptyStack();
 }
 
 //------------------------------------------------------
@@ -81,7 +105,7 @@ PlayingCard player::getHoleCard(const int &_i)const
     return m_cards[_i];
 }
 
-std::vector<PlayingCard> player::getHole()const
+cardStack player::getHole()const
 {
     return m_cards;
 }
@@ -91,7 +115,7 @@ PlayingCard player::getHandCard(const int &_i)const
     return m_hand[_i];
 }
 
-std::vector<PlayingCard> player::getHand()const
+cardStack player::getHand()const
 {
     return m_hand;
 }
