@@ -8,6 +8,44 @@
 #define SetName        4
 #define GetName        5
 
+// initialize the library with the numbers of the interface pins
+LiquidCrystal lcd(8, 9, 4, 5, 6, 7);
+
+class button
+{
+  public:
+  
+  button(){};
+  ~button(){};
+  
+  boolean right(int _val)  
+  {
+      if(_val <= 60 )  {return true;} 
+      return false;
+  }
+  boolean left(int _val)
+    {
+      if(_val <= 600 && _val >= 401)  {return true;} 
+      return false;
+  }
+  boolean up(int _val)     
+    {
+      if(_val <= 200 && _val >= 61 )  {return true;} 
+      return false;
+  }
+  boolean down(int _val)
+    {
+      if(_val <= 400 && _val >= 201)  {return true;} 
+      return false;
+  }
+  boolean select(int _val)
+    {
+      if(_val <= 800 && _val >= 601)  {return true;} 
+      return false;
+  }
+  
+};
+
 class player
 {
 private:
@@ -16,12 +54,13 @@ private:
     int m_currentHandNum;
 
   public:
-    player();
-    ~player();
+    player(unsigned int _money, int _cardNum);
+    ~player(){};
 
-    void placeBet();
-    void recieveCard();
-    void setName();
+    boolean placeBet(unsigned int _max, unsigned int _min);
+    void recieveCard(){};
+    void setName(){};
+    unsigned int getMoney() { return m_money; }
 };
 
 player::player(unsigned int _money, int _cardNum)
@@ -30,52 +69,113 @@ player::player(unsigned int _money, int _cardNum)
   m_currentHandNum = _cardNum;
 }
 
-player::placeBet()
+boolean player::placeBet(unsigned int _max, unsigned int _min)
 {
-}
-
-player::setName()
-{
-  lcd.clear();
-  lcd.print("Enter Name:")
-  int button = 0;
-  while()
-  {
-    button = analogRead(0); 
+   boolean quit = false;
+   button but;
+   
+   //need to find a better way of not hardcoding the pin number.
+   while(!quit) 
+   {
+     boolean exit = false;
+     boolean confirm = false;
+     unsigned int bet = _min;
+     int x;
+     
+     lcd.clear();
+     
+     lcd.print("Place bet:");
+     
+     //fixes it from selecting autimatically needs better fix.
+     delay(1000);
+     
+     while(!exit)
+     { 
+      x= analogRead(0); 
+      lcd.setCursor(0,1);
+      
+      if      (but.right(x) && bet <= (_max-10) && bet < (m_money-10))  { bet+=10;    }
+      else if (but.up(x) && bet < _max && bet < m_money)                { bet++;      } 
+      else if (but.down(x) && bet > _min && bet < m_money)              { bet--;      }
+      else if (but.left(x) && bet >= (_max+10) && bet < (m_money+10))   { bet-=10;    } 
+      else if (but.select(x))                                           { exit = true;}
+      
+      // have to use delay, no ideal
+      delay(125);
+      
+      // print the bet
+      lcd.print(String(bet));
+     }
+        
+     lcd.clear();
+     lcd.print("Confirm bet: "+String(bet));
+     char check = 0;
+     
+     while(!confirm)
+     {
+       x = analogRead(0);
+       
+       lcd.setCursor(0,1);
+       lcd.print("yes:");
+       
+       lcd.setCursor(7,1);
+       lcd.print("no:");
+       
+       if(but.right(x))        
+       {
+         lcd.setCursor(5,1); 
+         lcd.print(" ");
+         lcd.setCursor(11,1); 
+         lcd.print("X");
+         if(check != 2) {check = 2;}
+       }
+       else if(but.left(x))    
+       {
+         lcd.setCursor(5,1); 
+         lcd.print("X");
+         lcd.setCursor(11,1); 
+         lcd.print(" ");
+         if(check != 1) {check = 1;}
+       }
+       else if(but.select(x) && check==1)  
+       {
+         confirm = true; 
+         quit = true;
+       }
+       else if(but.select(x) && check==2)  
+       {
+         break;
+       }       
+     }
+     m_money = m_money - bet;
   }
 }
-
-
-
-// initialize the library with the numbers of the interface pins
-LiquidCrystal lcd(8, 9, 4, 5, 6, 7);
 
 void setup() 
 {
   // set up the LCD's number of columns and rows:
   lcd.begin(16, 2);
+  player test(100, 2);
   
-  int command;
   
 }
 
 void loop() 
 {
+  player test(100, 2);
   
-  //command = comms.GetCommand();
+  lcd.clear();
+  lcd.print(String(test.getMoney()));
   
-  switch (command) 
-  {
-    case PlaceBet:
-    {
-      //receive more data
-      
-      player.placeBet();
-      break;
-    }
-    default: 
-      // statements
-  }
+  delay(2000);
+  
+  test.placeBet(200, 10);
+  
+  lcd.clear();
+  lcd.print(String(test.getMoney()));
+  
+  delay(5000);
+ 
   
   
   
