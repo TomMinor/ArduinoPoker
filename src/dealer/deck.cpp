@@ -30,10 +30,6 @@ deck ::~deck()
 
 }
 
-void deck::init()
-{
-
-}
 
 void deck::reset()
 {
@@ -51,4 +47,15 @@ PlayingCard deck::deal()
   m_pack.pop_back();
 
   return a;
+}
+
+void deck::printDeck()
+{
+  std::vector<PlayingCard>::iterator it;
+
+  for(it=m_pack.begin(); it!=m_pack.end(); it++)
+  {
+    std::cout<<*it<<"\n";
+  }
+
 }

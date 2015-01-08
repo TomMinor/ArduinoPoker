@@ -12,20 +12,37 @@ dealerLib::~dealerLib()
 
 void dealerLib::Betting()
 {
+//  std::vector<int> playerBets;
+//  std::vector<int>::iterator betItr;
+//  betItr = playerBets.begin();
+
+//  std::vector<player>::iterator playerItr;
+//  while()
+//  for(playerItr = m_table.begin(); playerItr != m_table.end; playerItr++)
+//  {
+//    playerBets.push_back(playerItr->getBet());
+
+//  }
+
 
 }
-
+//--------------------------------------------------------------
+//deals out the first three community cards
 void dealerLib::dealFlop(deck _pack)
 {
   for(int i=0; i<3; i++)
     m_communityCards.push_back(_pack.deal());
 }
+//--------------------------------------------------------------
 
+//deals adds an extra card to the community cards. Used for the river and the turn
 void dealerLib::dealRiverTurn(deck _pack)
 {
   m_communityCards.push_back(_pack.deal());
 }
+//--------------------------------------------------------------
 
+//deals 2 cards to the players
 void dealerLib::dealHands(deck _pack)
 {
   std::vector<player>::iterator playerIt;

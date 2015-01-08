@@ -1,8 +1,15 @@
 TARGET=winner
 
-SOURCES+=$$PWD/src/dealer/*.cpp
+SOURCES+=$$PWD/src/dealer/main.cpp \
+         $$PWD/src/dealer/deck.cpp \
+         $$PWD/src/dealer/playingcard.cpp \
+         $$PWD/src/dealer/player.cpp \
+         $$PWD/src/dealer/pokerHands.cpp
 
 HEADERS+=$$PWD/include/*.h \
-         $$PWD/include/dealer/*.h
+         $$PWD/include/dealer/deck.h \
+         $$PWD/include/dealer/playingcard.h \
+         $$PWD/include/dealer/player.h \
+         $$PWD/include/dealer/pokerHands.h
 
 INCLUDEPATH +=./include
