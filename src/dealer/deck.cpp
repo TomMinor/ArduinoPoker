@@ -55,7 +55,7 @@ void deck::printDeck()
 
   for(it=m_pack.begin(); it!=m_pack.end(); it++)
   {
-    std::cout<< it->getRank() <<"  "<< it->getSuitID()<< "\n";
+    std::cout<<*it;
   }
 
 }

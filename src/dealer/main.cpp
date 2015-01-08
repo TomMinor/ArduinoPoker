@@ -22,17 +22,17 @@ int main()
   a.setHoleCard(PlayingCard(Rank::TWO,Suit::HEART));
   livePlayers.push_back(a);
 
-//  b.setHoleCard(PlayingCard(Rank::KING,Suit::DIAMOND));
-//  b.setHoleCard(PlayingCard(Rank::FIVE,Suit::DIAMOND));
-//  livePlayers.push_back(b);
+  b.setHoleCard(PlayingCard(Rank::KING,Suit::DIAMOND));
+  b.setHoleCard(PlayingCard(Rank::FIVE,Suit::DIAMOND));
+  livePlayers.push_back(b);
 
-//  c.setHoleCard(PlayingCard(Rank::NINE,Suit::DIAMOND));
-//  c.setHoleCard(PlayingCard(Rank::EIGHT,Suit::DIAMOND));
-//  livePlayers.push_back(c);
+  c.setHoleCard(PlayingCard(Rank::NINE,Suit::DIAMOND));
+  c.setHoleCard(PlayingCard(Rank::EIGHT,Suit::DIAMOND));
+  livePlayers.push_back(c);
 
-//  d.setHoleCard(PlayingCard(Rank::FIVE,Suit::DIAMOND));
-//  d.setHoleCard(PlayingCard(Rank::SEVEN,Suit::SPADE));
-//  livePlayers.push_back(d);
+  d.setHoleCard(PlayingCard(Rank::FIVE,Suit::DIAMOND));
+  d.setHoleCard(PlayingCard(Rank::SEVEN,Suit::SPADE));
+  livePlayers.push_back(d);
 
 
   //hands::bestHand(livePlayers[0],river);
