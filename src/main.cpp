@@ -15,6 +15,7 @@ to compile the program
 #include <iostream>
 #include <vector>
 
+#include "dealergui.h"
 #include "label.h"
 #include "card.h"
 #include "listmenu.h"
@@ -141,10 +142,12 @@ int main()
 
     clearScreen(renderer,2,180,2);
 
-    ElementMaker maker(&cardstyle, &standardFormat);
+    DealerGUI gui = DealerGUI(4,&cardstyle,&standardFormat);
 
-    Label* testLabel = maker.makeLabel(std::string("Player 1"),LEFT);
-    Card* testCard = maker.makeCard(CardType(),BOTTOM);
+    //ElementMaker maker(&cardstyle, &standardFormat);
+
+    //Label* testLabel = maker.makeLabel(std::string("Player 1"),LEFT);
+    //Card* testCard = maker.makeCard(CardType(),BOTTOM);
 //    std::vector<Card*> cardList;
 //    cardList.push_back(testCard);
 //    cardList.push_back(testCard);
@@ -159,12 +162,14 @@ int main()
 
     //Hand testHand(topleft,cardList,LEFT);
 
-    testLabel->setPos(topleft);
+    //testLabel->setPos(topleft);
 
     Uint32 pixelFormat;
     SDL_QueryTexture(cardTexture,&pixelFormat,NULL,NULL,NULL);
 
     SDL_Texture* RTtest = SDL_CreateTexture(renderer,pixelFormat,SDL_TEXTUREACCESS_TARGET,WINDOW_WIDTH,WINDOW_HEIGHT);
+    CardType type = {SEVEN,CLUBS};
+    Uint16 amount = 100;
 
 //============================================================================================================
 	SDL_RenderPresent(renderer);
@@ -173,20 +178,22 @@ int main()
 	bool quit=false;
 	// now we loop until the quit flag is set to true
 
-    testLabel->setPos(testLabel->aligned(BOTTOM));
-    testLabel->moveTo(testLabel->aligned(LEFT));
+    //testLabel->setPos(testLabel->aligned(BOTTOM));
+    //testLabel->moveTo(testLabel->aligned(LEFT));
 	while(!quit)
 	{
         SDL_SetRenderTarget(renderer, RTtest);
 
         clearScreen(renderer,2,180,2);
 
-        testLabel->update();//don't need to update this, hopefully?
-        testLabel->draw();
-        testCard->update();
-        testCard->draw();
+        //testLabel->update();//don't need to update this, hopefully?
+        //testLabel->draw();
+        //testCard->update();
+        //testCard->draw();
         //testHand.update();
         //testHand.draw();
+        gui.update();
+        gui.draw();
 
         SDL_SetRenderTarget(renderer, NULL);
 
@@ -210,13 +217,13 @@ int main()
 					{
 						// if it's the escape key quit
 						case SDLK_ESCAPE :  quit = true; break;
-                        case SDLK_UP : testCard->moveTo(testCard->aligned(TOP)); testLabel->moveTo(testLabel->aligned(BOTTOM)); break;
-                        case SDLK_RIGHT : testCard->moveTo(testCard->aligned(RIGHT)); testLabel->moveTo(testLabel->aligned(LEFT)); break;
-                        case SDLK_DOWN : testCard->moveTo(testCard->aligned(BOTTOM)); testLabel->moveTo(testLabel->aligned(TOP)); break;
-                        case SDLK_LEFT : testCard->moveTo(testCard->aligned(LEFT)); testLabel->moveTo(testLabel->aligned(RIGHT)); break;
-                        case SDLK_PAGEDOWN : testCard->setFlipped(true); break;
-                        case SDLK_PAGEUP : testCard->setFlipped(false); break;
-                        case SDLK_b : testCard->burn();
+                        //case SDLK_UP : testCard->moveTo(testCard->aligned(TOP)); testLabel->moveTo(testLabel->aligned(BOTTOM)); break;
+                        //case SDLK_RIGHT : testCard->moveTo(testCard->aligned(RIGHT)); testLabel->moveTo(testLabel->aligned(LEFT)); break;
+                        //case SDLK_DOWN : testCard->moveTo(testCard->aligned(BOTTOM)); testLabel->moveTo(testLabel->aligned(TOP)); break;
+                        //case SDLK_LEFT : testCard->moveTo(testCard->aligned(LEFT)); testLabel->moveTo(testLabel->aligned(RIGHT)); break;
+                        //case SDLK_PAGEDOWN : testCard->setFlipped(true); break;
+                        //case SDLK_PAGEUP : testCard->setFlipped(false); break;
+                        case SDLK_b : gui.receiveBetFrom(1,amount); break;
                         default : break;
 					}
 				}
@@ -229,8 +236,8 @@ int main()
 	} // end processing loop
 
     //deallocate memory
-    delete testCard;
-    delete testLabel;
+    //delete testCard;
+    //delete testLabel;
 
 	// finally when we are done we need to tidy up SDL by calling SDL_Quit
 	// sometime this is added as the atexit function to make it happen

@@ -22,6 +22,11 @@ Element::Element(SDL_Renderer *_ren,
 {
 }
 
+Element::~Element()
+{
+    std::cout<<"element destructor called\n";
+}
+
 void Element::setPos(const SDL_Point &_p)
 {
     m_pointDest=_p;
@@ -61,8 +66,8 @@ void Element::update()
     m_destRect.x -= (m_srcRect.w - getWidth())/2;
     m_destRect.y -= (m_srcRect.h - getHeight())/2;
 
-    std::cout<<"rect x: "<<m_destRect.x<<" rect y: "<<m_destRect.y<<"\n";
-    std::cout<<"origin x: "<<m_origin.x<<" origin y: "<<m_origin.y<<"\n";
+    //std::cout<<"rect x: "<<m_destRect.x<<" rect y: "<<m_destRect.y<<"\n";
+    //std::cout<<"origin x: "<<m_origin.x<<" origin y: "<<m_origin.y<<"\n";
 }
 
 void Element::draw() const
