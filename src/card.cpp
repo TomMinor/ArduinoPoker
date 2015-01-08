@@ -85,7 +85,9 @@ void Card::continueFlip()
 
 void Card::draw()
 {
+    std::cout<<"proper draw() called";
     m_destRect.x += m_xOffset;
+    std::cout<<"offset: "<<m_xOffset<<"\n";
     Element::draw();
     m_destRect.x -= m_xOffset;
 }

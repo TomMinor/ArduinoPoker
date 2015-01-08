@@ -69,15 +69,15 @@ void DealerGUI::receiveBetFrom(const unsigned int &_playerID, Uint16 &_amount)
         std::cerr<<"ID of non-existent player passed!\n";
         return;
     }
+    Player thatPlayer = m_players[_playerID];
 
-    std::cout<<"Receiving bet of £"<<_amount<<" from player "<<_playerID<<"\n";
+    std::cout<<"Receiving bet of £"<<_amount<<" from "<<thatPlayer.name<<"\n";
 
     std::stringstream amountStream;
     amountStream << _amount;
-    std::string betString = std::string("£") + amountStream.str();
+    std::string betString = std::string("$") + amountStream.str();
 
-    Player thatPlayer = m_players[_playerID];
-    boost::shared_ptr<Element> betLabel(m_maker.makeLabel(betString,thatPlayer.orient));
+    boost::shared_ptr<Element> betLabel(m_maker.makeLabel(betString,thatPlayer.orient,32));
     m_elements.push_back(betLabel);
 
     SDL_Point point = {160,128};//fix this later
@@ -88,7 +88,6 @@ void DealerGUI::receiveBetFrom(const unsigned int &_playerID, Uint16 &_amount)
 
 void DealerGUI::update()
 {
-    std::cout<<"==========Begin update:\n";
 //    for (std::vector< boost::shared_ptr<Element> >::iterator it; it!=m_elements.end(); ++it)
 //    {
 //        if((*it).get()->shouldKill())
@@ -105,15 +104,13 @@ void DealerGUI::update()
 
     for (int i=0; i<(int)m_elements.size(); ++i)
     {
-        if(m_elements[i]->shouldKill())
+        if(m_elements[i]->shouldKillNow())
         {
-            std::cout<<"erasing an element\n";
             std::vector< boost::shared_ptr<Element> >::iterator it = m_elements.begin() + i;
             m_elements.erase(it);//delete the element; the use of shared_ptr should ensure the memory is cleared up
         }
         else
         {
-            std::cout<<"updating an element at ("<<m_elements[i]->getPos().x<<", "<<m_elements[i]->getPos().y<<")\n";
             m_elements[i]->update();
         }
     }
@@ -132,8 +129,6 @@ void DealerGUI::update()
 //            --m_taskCooldown;
 //        }
 //    }
-
-    std::cout<<"==========End update\n";
 }
 
 void DealerGUI::draw()
@@ -145,7 +140,7 @@ void DealerGUI::draw()
 
     for (int i=0; i<(int)m_elements.size(); ++i)
     {
-        m_elements[i]->draw();
+            m_elements[i]->draw();
     }
 }
 
@@ -177,14 +172,14 @@ Player DealerGUI::createPlayer(const Uint8 &_id, const std::string &_name, const
             offScreen.y = -OFFSCREENOFFSET;
             break;
 
-        case LEFT :
+        case RIGHT :
             onScreen.x = _offset;
             offScreen.x = -OFFSCREENOFFSET;
             onScreen.y = height/2;
             offScreen.y = height/2;
             break;
 
-        case RIGHT :
+        case LEFT :
             onScreen.x = width - _offset;
             offScreen.x = width + OFFSCREENOFFSET;
             onScreen.y = height/2;
@@ -204,11 +199,25 @@ Player DealerGUI::createPlayer(const Uint8 &_id, const std::string &_name, const
     return temp;
 }
 
-SDL_Point DealerGUI::getCentre()
+SDL_Point DealerGUI::getCentre()//THIS IS BROKEN :c
 {
     SDL_Point centre;
     SDL_RenderGetLogicalSize(m_renderer,&centre.x,&centre.y);
     centre.x /= 2;
     centre.y /= 2;
     return centre;
+}
+
+boost::shared_ptr<Card> DealerGUI::uniqueCard(const CardType &_type, const Orientation &_orient)
+{
+    boost::shared_ptr<Card> temp(m_maker.makeCard(_type,_orient));
+    m_elements.push_back(temp);
+    return temp;
+}
+
+boost::shared_ptr<Label> DealerGUI::uniqueLabel(const std::string &_inputString, const Orientation &_orient, const int &_lifetime)
+{
+    boost::shared_ptr<Label> temp(m_maker.makeLabel(_inputString,_orient,_lifetime));
+    m_elements.push_back(temp);
+    return temp;
 }

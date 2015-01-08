@@ -28,6 +28,10 @@ public:
     void reset();
     void showWinner(std::vector<Player> _winners, std::vector<Hand> _winningHands);
 
+    //use these functions to store references to cards/labels that you can control manually but will be drawn/updated automatically
+    boost::shared_ptr<Card> uniqueCard(const CardType &_type, const Orientation &_orient);
+    boost::shared_ptr<Label> uniqueLabel(const std::string &_inputString, const Orientation &_orient, const int &_lifetime = 0);
+
     void update();
     void draw();
 

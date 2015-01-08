@@ -23,7 +23,7 @@ Card* ElementMaker::makeCard(const CardType &_type, const Orientation &_orient)
     return new Card(m_cardInfo->ren,m_cardInfo->texture,srcRect,destRect,_orient,origin,_type);
 }
 
-Label *ElementMaker::makeLabel(const std::string &_inputString, const Orientation &_orient)
+Label *ElementMaker::makeLabel(const std::string &_inputString, const Orientation &_orient, const int &_lifetime)
 {
     //write text to surface
     SDL_Surface *temp;
@@ -57,5 +57,5 @@ Label *ElementMaker::makeLabel(const std::string &_inputString, const Orientatio
 
     SDL_Point origin = {0,0};
 
-    return new Label(m_labelFormat->ren,tex,rect,_orient,origin);
+    return new Label(m_labelFormat->ren,tex,rect,_orient,origin,_lifetime);
 }

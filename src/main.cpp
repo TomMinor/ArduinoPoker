@@ -146,8 +146,8 @@ int main()
 
     //ElementMaker maker(&cardstyle, &standardFormat);
 
-    //Label* testLabel = maker.makeLabel(std::string("Player 1"),LEFT);
-    //Card* testCard = maker.makeCard(CardType(),BOTTOM);
+    boost::shared_ptr<Label> testLabel = gui.uniqueLabel(std::string("hey this is a thing that i'm testing"),TOP);
+    boost::shared_ptr<Card> testCard = gui.uniqueCard(CardType(),BOTTOM);
 //    std::vector<Card*> cardList;
 //    cardList.push_back(testCard);
 //    cardList.push_back(testCard);
@@ -168,7 +168,6 @@ int main()
     SDL_QueryTexture(cardTexture,&pixelFormat,NULL,NULL,NULL);
 
     SDL_Texture* RTtest = SDL_CreateTexture(renderer,pixelFormat,SDL_TEXTUREACCESS_TARGET,WINDOW_WIDTH,WINDOW_HEIGHT);
-    CardType type = {SEVEN,CLUBS};
     Uint16 amount = 100;
 
 //============================================================================================================
@@ -217,13 +216,14 @@ int main()
 					{
 						// if it's the escape key quit
 						case SDLK_ESCAPE :  quit = true; break;
-                        //case SDLK_UP : testCard->moveTo(testCard->aligned(TOP)); testLabel->moveTo(testLabel->aligned(BOTTOM)); break;
-                        //case SDLK_RIGHT : testCard->moveTo(testCard->aligned(RIGHT)); testLabel->moveTo(testLabel->aligned(LEFT)); break;
-                        //case SDLK_DOWN : testCard->moveTo(testCard->aligned(BOTTOM)); testLabel->moveTo(testLabel->aligned(TOP)); break;
-                        //case SDLK_LEFT : testCard->moveTo(testCard->aligned(LEFT)); testLabel->moveTo(testLabel->aligned(RIGHT)); break;
-                        //case SDLK_PAGEDOWN : testCard->setFlipped(true); break;
-                        //case SDLK_PAGEUP : testCard->setFlipped(false); break;
-                        case SDLK_b : gui.receiveBetFrom(1,amount); break;
+                        case SDLK_UP : testCard->moveTo(testCard->aligned(TOP)); testLabel->moveTo(testLabel->aligned(BOTTOM)); break;
+                        case SDLK_RIGHT : testCard->moveTo(testCard->aligned(RIGHT)); testLabel->moveTo(testLabel->aligned(LEFT)); break;
+                        case SDLK_DOWN : testCard->moveTo(testCard->aligned(BOTTOM)); testLabel->moveTo(testLabel->aligned(TOP)); break;
+                        case SDLK_LEFT : testCard->moveTo(testCard->aligned(LEFT)); testLabel->moveTo(testLabel->aligned(RIGHT)); break;
+                        case SDLK_PAGEDOWN : testCard->setFlipped(true); break;
+                        case SDLK_PAGEUP : testCard->setFlipped(false); break;
+                        case SDLK_b : testCard->burn(); break;
+                        case SDLK_n : gui.receiveBetFrom(1,amount); break;
                         default : break;
 					}
 				}

@@ -8,7 +8,8 @@ Element::Element(SDL_Renderer *_ren,
                  const SDL_Rect &_srcRect,
                  const SDL_Rect &_destRect,
                  const Orientation &_orient,
-                 const SDL_Point &_origin) :
+                 const SDL_Point &_origin,
+                 const int &_lifetime) :
                 m_ren(_ren),
                 m_texture(_tex),
                 m_srcRect(_srcRect),
@@ -18,7 +19,8 @@ Element::Element(SDL_Renderer *_ren,
                 m_origin(_origin),
                 m_pointPrev(),
                 m_pointDest(),
-                m_progressAmount(1.0f)
+                m_progressAmount(1.0f),
+                m_life(_lifetime)
 {
 }
 
@@ -46,10 +48,16 @@ void Element::moveTo(const SDL_Point &_p)
 
 void Element::update()
 {
-    if(m_progressAmount>=1.0f)//we have already reached the destination
+    if(m_progressAmount>=1.0f)//we have reached the destination
     {
+        if (m_life != 0)//if the lifetime is not infinite
+        {
+            m_life = m_life == 1 ? -1 : m_life-1;//skip decrementing to 0 so we don't accidentally make it immortal
+        }
+
         return;
     }
+
     m_progressAmount += SPEED;
     int moveX = m_pointDest.x - m_pointPrev.x;
     int moveY = m_pointDest.y - m_pointPrev.y;

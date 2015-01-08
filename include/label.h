@@ -23,7 +23,8 @@ public:
           SDL_Texture *_tex,
           const SDL_Rect &_rect,
           const Orientation &_orient,
-          const SDL_Point &_origin);
+          const SDL_Point &_origin,
+          const int &_lifetime);
 };
 
 #endif // LABEL_H
