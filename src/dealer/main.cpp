@@ -18,8 +18,8 @@ int main()
   std::vector<player> livePlayers;
   player a,b,c,d;
 
-  a.setHoleCard(PlayingCard(Rank::KING,Suit::DIAMOND));
-  a.setHoleCard(PlayingCard(Rank::TWO,Suit::HEART));
+  a.setHoleCard(PlayingCard(Rank::ACE,Suit::DIAMOND));
+  a.setHoleCard(PlayingCard(Rank::ACE,Suit::HEART));
   livePlayers.push_back(a);
 
   b.setHoleCard(PlayingCard(Rank::KING,Suit::DIAMOND));
