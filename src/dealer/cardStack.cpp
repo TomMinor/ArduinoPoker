@@ -145,11 +145,8 @@ void cardStack::reverseSort()
 void cardStack::sortAceLow()
 {
     sort();
-    if(getCard(1).getRank() < Rank::KING)
-
-    {
         //move any aces to back of pack.
-        for (unsigned int i=0; i<3; i++)
+        for (unsigned int i=0; i<size(); i++)
         {
             int aceID = -1;
             aceID = findRankInStack(Rank::ACE);
@@ -161,5 +158,4 @@ void cardStack::sortAceLow()
             }
         }
 
-    }
 }

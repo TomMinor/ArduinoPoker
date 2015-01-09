@@ -5,39 +5,42 @@
 int main()
 {
   cardStack river;
+  river.addCard(PlayingCard(Rank::KING,Suit::SPADE));
+  river.addCard(PlayingCard(Rank::QUEEN,Suit::DIAMOND));
+  river.addCard(PlayingCard(Rank::QUEEN,Suit::SPADE));
+  river.addCard(PlayingCard(Rank::ACE,Suit::SPADE));
+  river.addCard(PlayingCard(Rank::TWO,Suit::DIAMOND));
 
-
-
-  river.addCard(PlayingCard(Rank::SEVEN,Suit::HEART));
-  river.addCard(PlayingCard(Rank::FIVE,Suit::SPADE));
-  river.addCard(PlayingCard(Rank::FOUR,Suit::SPADE));
-  river.addCard(PlayingCard(Rank::THREE,Suit::SPADE));
-  river.addCard(PlayingCard(Rank::TWO,Suit::SPADE));
-
-
+//---------------------------------------------------------
 
   std::vector<player> livePlayers;
   player a,b,c,d;
-
-  a.setHoleCard(PlayingCard(Rank::ACE,Suit::DIAMOND));
+//---------------------------------------------------------
+  // Player: 0
+  a.setHoleCard(PlayingCard(Rank::FOUR,Suit::DIAMOND));
   a.setHoleCard(PlayingCard(Rank::TWO,Suit::HEART));
   livePlayers.push_back(a);
-
-  b.setHoleCard(PlayingCard(Rank::TWO,Suit::DIAMOND));
-  b.setHoleCard(PlayingCard(Rank::THREE,Suit::CLUB));
+//---------------------------------------------------------
+  // Player: 1
+  b.setHoleCard(PlayingCard(Rank::KING,Suit::DIAMOND));
+  b.setHoleCard(PlayingCard(Rank::SIX,Suit::CLUB));
   livePlayers.push_back(b);
-
-  c.setHoleCard(PlayingCard(Rank::TWO,Suit::CLUB));
-  c.setHoleCard(PlayingCard(Rank::SIX,Suit::DIAMOND));
+//---------------------------------------------------------
+  // Player: 2
+  c.setHoleCard(PlayingCard(Rank::KING,Suit::CLUB));
+  c.setHoleCard(PlayingCard(Rank::NINE,Suit::DIAMOND));
   livePlayers.push_back(c);
-
-  d.setHoleCard(PlayingCard(Rank::SIX,Suit::SPADE));
-  d.setHoleCard(PlayingCard(Rank::ACE,Suit::SPADE));
+//---------------------------------------------------------
+  // Player: 3
+  d.setHoleCard(PlayingCard(Rank::NINE,Suit::SPADE));
+  d.setHoleCard(PlayingCard(Rank::NINE,Suit::HEART));
   livePlayers.push_back(d);
 
+//---------------------------------------------------------
 
-  //hands::bestHand(livePlayers[0],river);
-  hands::winner(livePlayers,river);
+  std::vector<player> winners;
+  winners = hands::winner(livePlayers,river);
+  std::cout<<winners.size()<<" Winners\n";
 
   return 0;
 

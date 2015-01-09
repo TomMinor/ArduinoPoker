@@ -17,7 +17,7 @@ namespace hands
     void highestCard(player &_player);                                              // Used during tiebreak
     void findPair(player &_player, const cardStack &_river);
     void fillHand(player &_player, const cardStack &_river);         // Fills the rest of the hand and sets Kicker
-    bool checkStraightFlush(player &_player, const cardStack &_river, const Suit::Value _suit, unsigned int _numSuit);
+    bool checkStraightHasFlush(player &_player, const cardStack &_river, const Suit::Value _suit, unsigned int _numSuit);
 
 //-----------------------------------------------------------------------------------------------------------------------------
     void highestCard(player &_player, const cardStack &_river);      // SCORE 1-13    | 13 different valued high cards per suit, Ace is the highest.
@@ -33,8 +33,7 @@ namespace hands
     // Decide winner methods
 //-----------------------------------------------------------------------------------------------------------------------------
     void bestHand(player &_player, const cardStack &_river);
-    void winner(std::vector<player> &_livePlayers, const cardStack &_river);
-    //std::vector<player> winner(const int &_numPlayers, std::vector<player> &_livePlayers, const std::vector<card> &_river);
+    std::vector<player> winner(std::vector<player> &_livePlayers, const cardStack &_river);
 }
 
 #endif
