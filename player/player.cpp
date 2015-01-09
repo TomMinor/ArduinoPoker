@@ -11,10 +11,10 @@ player::~player()
 
 }
 
-unsigned int player::placeBet(unsigned int _max, unsigned int _min)
+void player::placeBet(unsigned int _max, unsigned int _min)
 {
    bool quit = false;
-   button but(0);
+   input button(0);
 
    //need to find a better way of not hardcoding the pin number.
    while(!quit)
@@ -33,14 +33,14 @@ unsigned int player::placeBet(unsigned int _max, unsigned int _min)
 
      while(!exit)
      {
-      but.updateValue();
+      button.updateValue();
       lcd.setCursor(0,1);
 
-      if      (but.right() && bet <= (_max-10) && bet < (m_money-10))  { bet+=10;    }
-      else if (but.up() && bet < _max && bet < m_money)                { bet++;      }
-      else if (but.down() && bet > _min && bet < m_money)              { bet--;      }
-      else if (but.left() && bet >= (_max+10) && bet < (m_money+10))   { bet-=10;    }
-      else if (but.select())                                           { exit = true;}
+      if      (button.right() && bet <= (_max-10) && bet < (m_money-10))  { bet+=10;    }
+      else if (button.up() && bet < _max && bet < m_money)                { bet++;      }
+      else if (button.down() && bet > _min && bet < m_money)              { bet--;      }
+      else if (button.left() && bet >= (_max+10) && bet < (m_money+10))   { bet-=10;    }
+      else if (button.select())                                           { exit = true;}
 
       // have to use delay, no ideal
       delay(125);
@@ -55,7 +55,7 @@ unsigned int player::placeBet(unsigned int _max, unsigned int _min)
 
      while(!confirm)
      {
-       but.updateValue();
+       button.updateValue();
 
        lcd.setCursor(0,1);
        lcd.print("yes:");
@@ -63,7 +63,7 @@ unsigned int player::placeBet(unsigned int _max, unsigned int _min)
        lcd.setCursor(7,1);
        lcd.print("no:");
 
-       if(but.right())
+       if(button.right())
        {
          lcd.setCursor(5,1);
          lcd.print(" ");
@@ -71,7 +71,7 @@ unsigned int player::placeBet(unsigned int _max, unsigned int _min)
          lcd.print("X");
          if(check != 2) {check = 2;}
        }
-       else if(but.left())
+       else if(button.left())
        {
          lcd.setCursor(5,1);
          lcd.print("X");
@@ -79,18 +79,18 @@ unsigned int player::placeBet(unsigned int _max, unsigned int _min)
          lcd.print(" ");
          if(check != 1) {check = 1;}
        }
-       else if(but.select() && check==1)
+       else if(button.select() && check==1)
        {
          confirm = true;
          quit = true;
          m_money = m_money - bet;
          return bet;
        }
-       else if(but.select() && check==2)
+       else if(button.select() && check==2)
        {
          break;
        }
      }
-     ;
+ 
   }
 }

@@ -6,6 +6,7 @@
 #include <stdlib.h>
 
 #include <arduino.h>
+#include <input.h
 
 class player
 {
@@ -21,12 +22,10 @@ private:
     player(unsigned int _money, int _cardNum);
     ~player();
 
-    unsigned int getMoney();
-
-    unsigned int placeBet(unsigned int _max, unsigned int _min);
+    void placeBet(unsigned int _max, unsigned int _min);
     void receiveCard(){};
     void setName(){};
-    unsigned int getMoney() { return m_money; }
+    //unsigned int getMoney() { return m_money; }
 
 };
 
