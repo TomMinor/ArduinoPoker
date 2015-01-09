@@ -36,9 +36,9 @@ typedef enum
 typedef enum
 {
     CLUBS,
-    DIAMONDS,
-    HEARTS,
     SPADES,
+    HEARTS,
+    DIAMONDS
 } Suit;
 
 //stuff we need to know to create a particular card
@@ -61,12 +61,11 @@ public:
     inline void setFlipped(const bool &_isFlipped) {m_isFlipped = _isFlipped;}
     inline void burn() {m_shouldBurn = true;}
     virtual void update(); //implement flipping
-    virtual void draw(); //implement X offset
+    virtual inline bool shouldKillNow() const {return m_shouldKill;}
 
 private:
     bool m_isFlipped;
     float m_flippedAmount;
-    int m_xOffset;//used to offset the rect while the card is flipping to give the illusion of flipping around its centre
     Rank m_rank;
     Suit m_suit;
     bool m_shouldBurn;

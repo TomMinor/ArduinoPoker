@@ -27,11 +27,11 @@ public:
     inline SDL_Point getPos() {return m_origin;}
     void moveTo(const SDL_Point &_p);//move to this point with cosine interpolation
     virtual void update();
-    virtual void draw() const;
+    void draw() const;
     int getHeight() const;//the height the element takes up on screen, taking rotation into account
     int getWidth() const;//the width the element takes up on screen, taking rotation into account
     inline void kill() {m_shouldKill = true;}
-    inline bool shouldKillNow() const {return m_shouldKill && m_progressAmount >= 1.0f && m_life < 0;}
+    virtual inline bool shouldKillNow() const {return m_shouldKill && m_progressAmount >= 1.0f && m_life < 0;}
     SDL_Point aligned(const Orientation &);//returns the point the element should move to to align with the specified edge of the screen
 
 protected:

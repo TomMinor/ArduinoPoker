@@ -16,7 +16,6 @@ Card::Card(SDL_Renderer *_ren,
             Element(_ren,_tex,_srcRect,_destRect,_orient,_origin),
             m_isFlipped(false),
             m_flippedAmount(-1.0f),
-            m_xOffset(0),
             m_rank(_type.rank),
             m_suit(_type.suit),
             m_shouldBurn(false),
@@ -37,10 +36,9 @@ void Card::update()
         }
         else
         {
-            m_xOffset=0;
             if(m_burnLevel < 24)
             {
-                m_burnLevel++;
+                ++m_burnLevel;
                 m_srcRect.x=(m_burnLevel/2)*56;
             }
             else
@@ -80,14 +78,4 @@ void Card::continueFlip()
     float xScale = (float)fabs(sin(m_flippedAmount*M_PI*0.5f));
     //std::cout<<"flippedAmount: "<<m_flippedAmount<<" xscale: "<<xScale<<"\n";
     m_destRect.w = static_cast<int>(CARDWIDTH * xScale);
-    m_xOffset = CARDWIDTH/2 - static_cast<int>(CARDWIDTH * xScale * 0.5);
-}
-
-void Card::draw()
-{
-    std::cout<<"proper draw() called";
-    m_destRect.x += m_xOffset;
-    std::cout<<"offset: "<<m_xOffset<<"\n";
-    Element::draw();
-    m_destRect.x -= m_xOffset;
 }

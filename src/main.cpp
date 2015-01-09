@@ -146,8 +146,10 @@ int main()
 
     //ElementMaker maker(&cardstyle, &standardFormat);
 
-    boost::shared_ptr<Label> testLabel = gui.uniqueLabel(std::string("hey this is a thing that i'm testing"),TOP);
-    boost::shared_ptr<Card> testCard = gui.uniqueCard(CardType(),BOTTOM);
+    CardType aceofspades = {ACE, SPADES};
+
+    boost::shared_ptr<Label> testLabel = gui.uniqueLabel(std::string("hey this is a thing that i'm testing"),BOTTOM);
+    boost::shared_ptr<Card> testCard = gui.uniqueCard(aceofspades,LEFT);
 //    std::vector<Card*> cardList;
 //    cardList.push_back(testCard);
 //    cardList.push_back(testCard);

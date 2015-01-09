@@ -1,4 +1,6 @@
 #include "include/dealergui.h"
+#include <SDL.h>
+#include <SDL2/SDL_image.h>
 #include <sstream>
 
 #define OFFSCREENOFFSET 36
@@ -6,7 +8,8 @@
 
 DealerGUI::DealerGUI(const unsigned int &_numPlayers, const CardInfo *_cardInfo, const LabelFormat *_labelFormat) :
     //m_publicCards(Hand(SDL_Point(),std::vector<Card>(),BOTTOM)),
-    m_maker(ElementMaker(_cardInfo, _labelFormat))
+    m_maker(ElementMaker(_cardInfo, _labelFormat)),
+    m_renderer(_cardInfo->ren)
 {
     switch (_numPlayers)
     {

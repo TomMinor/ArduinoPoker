@@ -36,6 +36,8 @@ public:
     void draw();
 
 private:
+    SDL_Texture* m_debugDotTexture;
+
     SDL_Renderer* m_renderer;
     //unsigned int m_numPlayers;
     ElementMaker m_maker;
