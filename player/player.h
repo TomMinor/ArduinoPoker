@@ -5,8 +5,8 @@
 #include <stddef.h>
 #include <stdlib.h>
 
-#include <arduino.h>
-#include <input.h
+//#include <arduino.h>
+//#include <input.h>
 
 class player
 {
@@ -23,8 +23,11 @@ private:
     ~player();
 
     void placeBet(unsigned int _max, unsigned int _min);
-    void receiveCard(){};
-    void setName(){};
+    void receiveMoney(unsigned int _money);
+    void receiveCard();
+    void setName();
+    void resetPlayer(unsigned int _money, unsigned int _cardNum);
+    void resetCards();
     //unsigned int getMoney() { return m_money; }
 
 };

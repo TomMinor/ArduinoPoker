@@ -94,3 +94,29 @@ void player::placeBet(unsigned int _max, unsigned int _min)
  
   }
 }
+
+void player::placeBet(unsigned int _money)
+{
+    m_money = m_money + _money;
+}
+
+void player::receiveCard()
+{
+
+}
+
+void player::setName()
+{
+
+}
+
+void player::resetPlayer(unsigned int _money, unsigned int _cardNum)
+{
+
+}
+
+void player::resetCards()
+{
+
+}
+
