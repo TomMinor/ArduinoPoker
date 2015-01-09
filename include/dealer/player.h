@@ -33,7 +33,7 @@ public:
   PlayingCard getHoleCard(const int &_i)const;
   cardStack getHole()const;
   PlayingCard getHandCard(const int &_i)const;
-  cardStack getHand()const;
+  cardStack getHand() const;
   int getNumCards()const;
   int getScore()const;
   int getKicker()const;

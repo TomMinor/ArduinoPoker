@@ -12,7 +12,7 @@ public:
   void addCard(const PlayingCard &_card);
 
   PlayingCard getHighestCard();
-  bool findCard(const PlayingCard &_card);
+  int findCard(const PlayingCard &_card);
   int findRankInStack(const int _rank);
   int findSuitInStack(const int _suit);
 
@@ -24,6 +24,7 @@ public:
 
   void sort();
   void reverseSort();
+  void sortAceLow();
 
 private:
   static bool lowToHigh(const PlayingCard &_a,const PlayingCard &_b);

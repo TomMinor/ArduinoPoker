@@ -8,11 +8,11 @@ int main()
 
 
 
-  river.addCard(PlayingCard(Rank::FIVE,Suit::HEART));
-  river.addCard(PlayingCard(Rank::ACE,Suit::SPADE));
-  river.addCard(PlayingCard(Rank::NINE,Suit::HEART));
+  river.addCard(PlayingCard(Rank::SEVEN,Suit::HEART));
+  river.addCard(PlayingCard(Rank::FIVE,Suit::SPADE));
+  river.addCard(PlayingCard(Rank::FOUR,Suit::SPADE));
   river.addCard(PlayingCard(Rank::THREE,Suit::SPADE));
-  river.addCard(PlayingCard(Rank::TWO,Suit::DIAMOND));
+  river.addCard(PlayingCard(Rank::TWO,Suit::SPADE));
 
 
 
@@ -31,8 +31,8 @@ int main()
   c.setHoleCard(PlayingCard(Rank::SIX,Suit::DIAMOND));
   livePlayers.push_back(c);
 
-  d.setHoleCard(PlayingCard(Rank::FOUR,Suit::SPADE));
   d.setHoleCard(PlayingCard(Rank::SIX,Suit::SPADE));
+  d.setHoleCard(PlayingCard(Rank::ACE,Suit::SPADE));
   livePlayers.push_back(d);
 
 

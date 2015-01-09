@@ -31,6 +31,10 @@ PlayingCard::PlayingCard(Rank::Value _rank, Suit::Value _suit)
   m_value = _rank | _suit;
 }
 
+PlayingCard::PlayingCard(card_t _value)
+{
+    m_value = _value;
+}
 
 // Gotta fix these
 
@@ -76,6 +80,15 @@ int PlayingCard::getSuit()const
   return SUITOF(m_value);
 }
 
+card_t PlayingCard::getValue()const
+{
+    return m_value;
+}
+
+void PlayingCard::operator=(const PlayingCard &_card)
+{
+    m_value = _card.getValue();
+}
 
 bool PlayingCard::operator==(const PlayingCard& _card)const
 {

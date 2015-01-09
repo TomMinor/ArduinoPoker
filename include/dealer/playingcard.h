@@ -36,6 +36,8 @@ public:
    */
   PlayingCard(Rank::Value _rank, Suit::Value _suit);
 
+  PlayingCard(card_t _value);
+
   /*!
    * \brief IsRank
    * \param _rank
@@ -67,6 +69,9 @@ public:
 
   int getRank()const;
   int getSuit() const;
+  card_t getValue()const;
+
+  void operator=(const PlayingCard &_card);
 
 
 

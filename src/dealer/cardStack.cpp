@@ -52,23 +52,26 @@ PlayingCard cardStack::getHighestCard()
   return highCard;
 }
 //----------------------------------------------------------------------
-bool cardStack::findCard(const PlayingCard &_card)
+int cardStack::findCard(const PlayingCard &_card)
 {
-//  for(unsigned int i=0; i<size();i++)
-//  {
-
-//  }
-
+  int cardID = -1;
+  for(unsigned int i=0; i<size();i++)
+  {
+      if(_card == getCard(i))
+      {
+          cardID = i;
+          return cardID;
+      }
+  }
+  return cardID;
 }
 int cardStack::findRankInStack(const int _rank)
 {
-  bool rankFound = false;
 
   for(unsigned int i=0; i<size();i++)
   {
     if(_rank == getCard(i).getRank())
     {
-        rankFound = true;
         return i;
     }
   }
@@ -126,7 +129,6 @@ void cardStack::replaceCard(const int _i, const PlayingCard &_card)
   ((std::vector<PlayingCard>)*this)[_i] = _card;
 }
 
-
 //----------------------------------------------------------------------
 //----------------------------------------------------------------------
 void cardStack::sort()
@@ -140,3 +142,24 @@ void cardStack::reverseSort()
 }
 //----------------------------------------------------------------------
 
+void cardStack::sortAceLow()
+{
+    sort();
+    if(getCard(1).getRank() < Rank::KING)
+
+    {
+        //move any aces to back of pack.
+        for (unsigned int i=0; i<3; i++)
+        {
+            int aceID = -1;
+            aceID = findRankInStack(Rank::ACE);
+            if(aceID !=-1)
+            {
+                PlayingCard tmp = getCard(aceID);
+                removeCard(aceID);
+                addCard(tmp);
+            }
+        }
+
+    }
+}

@@ -3,7 +3,7 @@
 #include <vector>
 #include <algorithm>
 
-cardStack hands::findSpareCards(const player &_player, const cardStack &_river)
+cardStack hands::findSpareCards( const player &_player, const cardStack &_river)
 {
     cardStack spareCards;
     bool cardInHand;
@@ -203,7 +203,9 @@ void hands::straight(player &_player, const cardStack &_river)
   std::cout<<"checking for straight\n";
     cardStack spareCards;
     spareCards = findSpareCards(_player,_river);
-    spareCards.sort();
+    //spareCards.sort();
+    spareCards.sortAceLow();
+    std::cout<<spareCards[4]<<"\n";
 
     bool straightFound = false;
     bool fiveHighFound = false;
@@ -211,8 +213,7 @@ void hands::straight(player &_player, const cardStack &_river)
     {   // First in straight
         for(unsigned int j=i+1; !straightFound && j<spareCards.size()-3;j++)
         {   // Second in straight
-            if((  spareCards[i].getRank()==spareCards[j].getRank()+1) ||
-                ((spareCards[i].getRank()==Rank::ACE) && (spareCards[j].getRank()==Rank::FIVE)))
+            if((  spareCards[i].getRank()==spareCards[j].getRank()+1))
             {
                 for(unsigned int k=j+1; !straightFound && k<spareCards.size()-2;k++)
                 {   // Third in straight
@@ -224,27 +225,35 @@ void hands::straight(player &_player, const cardStack &_river)
                             {
                                 for(unsigned int m=l+1; !straightFound && m<spareCards.size();m++)
                                 {   // Fifth in straight
-                                    if(spareCards[l].getRank()==spareCards[m].getRank()+1)
+                                    if((spareCards[l].getRank()==spareCards[m].getRank()+1) ||
+                                      ((spareCards[i].getRank()==Rank::FIVE) && (spareCards[m].getRank()==Rank::ACE)))
                                     {   // Player has a straight
                                         _player.setHandCard(spareCards[i]);
                                         _player.setHandCard(spareCards[j]);
                                         _player.setHandCard(spareCards[k]);
                                         _player.setHandCard(spareCards[l]);
                                         _player.setHandCard(spareCards[m]);
-                                        //for(int id=i;id<=m;id++)
-                                        //{_player.setHandCard(spareCards[id]);}
 
-                                        int finalScore = 117-3;
+                                        int finalScore = 117;
                                         if((spareCards[i].getRank()==Rank::ACE) && (spareCards[j].getRank()==Rank::FIVE))
                                         { // 5 high straight with trailing Ace (wheel).
-                                            finalScore += Rank::FIVE;
+                                            int sixID = _player.getHand().findRankInStack(Rank::SIX);
+                                            if(sixID!=-1){std::cout<<"OH SNAPPP\n";}
+
+                                            std::cout<<"5 HIGH\n";
+                                            //PlayingCard tmp = _player.getHandCard(0);
+                                            //_player.removeHandCard(0);
+                                            //_player.setHandCard(tmp);
+
+                                            finalScore += _player.getHandCard(3).getRank();
                                             _player.setScore(finalScore);
+
                                             fiveHighFound = true;
                                             straightFound = true;
                                         }
                                         else
                                         {
-                                            finalScore += _player.getHandCard(0).getRank();
+                                            finalScore += _player.getHandCard(3).getRank();
                                             _player.setScore(finalScore);
                                             straightFound = true;
                                         }
@@ -419,7 +428,18 @@ bool hands::checkStraightFlush(player &_player, const cardStack &_river, const S
       {
           // Card of same suit present, now check whether it can go in straight
           int rankID = _player.getHand().findRankInStack(spareCards[i].getRank());
-          if(rankID != -1)
+          if(_player.getHand().findRankInStack(spareCards[i].getRank()-1)!=-1)
+            {
+                _numSuit++;
+                // Card of same suit but small straight found
+                if(_numSuit == _player.getHand().size())
+                {
+                    _player.removeHandCard(0);
+                    _player.setHandCard(spareCards[i]);
+                    _flushFound = true;
+                }
+            }
+          else if(rankID != -1)
           {
               // Replacement card of correct suit found.
               _numSuit++;
@@ -431,17 +451,7 @@ bool hands::checkStraightFlush(player &_player, const cardStack &_river, const S
               }
               // else only 4 cards of correct suit
           }
-          else if(_player.getHand().findRankInStack(spareCards[i].getRank()-1)!=-1)
-          {
-              _numSuit++;
-              // Card of same suit but small straight found
-              if(_numSuit == _player.getHand().size())
-              {
-                  _player.removeHandCard(0);
-                  _player.setHandCard(spareCards[i]);
-                  _flushFound = true;
-              }
-          }
+
       }
   spareCards.removeCard(i);
   }
@@ -474,7 +484,7 @@ void hands::straightFlush(player &_player, const cardStack &_river)
         flushFound = checkStraightFlush(_player,_river,Suit::SPADE,numSpades);
         if(flushFound)
         {
-            int finalScore = 309 + _player.getHandCard(4).getRank();
+            int finalScore = 309 + _player.getHandCard(3).getRank();
             _player.setScore(finalScore);
             return;
         }
@@ -482,7 +492,7 @@ void hands::straightFlush(player &_player, const cardStack &_river)
         flushFound = checkStraightFlush(_player,_river,Suit::CLUB,numClubs);
         if(flushFound)
         {
-            int finalScore = 309 + _player.getHandCard(4).getRank();
+            int finalScore = 309 + _player.getHandCard(3).getRank();
             _player.setScore(finalScore);
             return;
         }
@@ -490,7 +500,7 @@ void hands::straightFlush(player &_player, const cardStack &_river)
         flushFound = checkStraightFlush(_player,_river,Suit::HEART,numHearts);
         if(flushFound)
         {
-            int finalScore = 309 + _player.getHandCard(4).getRank();
+            int finalScore = 309 + _player.getHandCard(3).getRank();
             _player.setScore(finalScore);
             return;
         }
@@ -498,7 +508,7 @@ void hands::straightFlush(player &_player, const cardStack &_river)
         flushFound = checkStraightFlush(_player,_river,Suit::DIAMOND,numDiamonds);
         if(flushFound)
         {
-            int finalScore = 309 + _player.getHandCard(4).getRank();
+            int finalScore = 309 + _player.getHandCard(3).getRank();
             _player.setScore(finalScore);
             return;
         }
