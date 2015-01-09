@@ -148,16 +148,17 @@ int main()
 
     CardType aceofspades = {ACE, SPADES};
 
-    boost::shared_ptr<Label> testLabel = gui.uniqueLabel(std::string("hey this is a thing that i'm testing"),BOTTOM);
-    boost::shared_ptr<Card> testCard = gui.uniqueCard(aceofspades,LEFT);
-//    std::vector<Card*> cardList;
-//    cardList.push_back(testCard);
-//    cardList.push_back(testCard);
-//    cardList.push_back(testCard);
-//    cardList.push_back(testCard);
-//    cardList.push_back(testCard);
+    Label* testLabel = gui.uniqueLabel(std::string("test"),LEFT);
+    Card* testCard = gui.uniqueCard(aceofspades,LEFT);
+    std::vector<CardType> cardList;
+    cardList.push_back(aceofspades);
+    cardList.push_back(aceofspades);
+    cardList.push_back(aceofspades);
+    cardList.push_back(aceofspades);
+    cardList.push_back(aceofspades);
+    Hand testHand = gui.uniqueHand(cardList,LEFT);
 
-    SDL_Point topleft = {0,0};
+//    SDL_Point topleft = {0,0};
 //    SDL_Point topright = {WINDOW_WIDTH-testLabel->getWidth(),0};
 //    SDL_Point bottomleft = {0,WINDOW_HEIGHT-testLabel->getHeight()};
 //    SDL_Point bottomright = {WINDOW_WIDTH-testLabel->getWidth(),WINDOW_HEIGHT-testLabel->getHeight()};
@@ -171,6 +172,7 @@ int main()
 
     SDL_Texture* RTtest = SDL_CreateTexture(renderer,pixelFormat,SDL_TEXTUREACCESS_TARGET,WINDOW_WIDTH,WINDOW_HEIGHT);
     Uint16 amount = 100;
+    SDL_Point centre = {160, 128};
 
 //============================================================================================================
 	SDL_RenderPresent(renderer);
@@ -218,14 +220,33 @@ int main()
 					{
 						// if it's the escape key quit
 						case SDLK_ESCAPE :  quit = true; break;
-                        case SDLK_UP : testCard->moveTo(testCard->aligned(TOP)); testLabel->moveTo(testLabel->aligned(BOTTOM)); break;
-                        case SDLK_RIGHT : testCard->moveTo(testCard->aligned(RIGHT)); testLabel->moveTo(testLabel->aligned(LEFT)); break;
-                        case SDLK_DOWN : testCard->moveTo(testCard->aligned(BOTTOM)); testLabel->moveTo(testLabel->aligned(TOP)); break;
-                        case SDLK_LEFT : testCard->moveTo(testCard->aligned(LEFT)); testLabel->moveTo(testLabel->aligned(RIGHT)); break;
-                        case SDLK_PAGEDOWN : testCard->setFlipped(true); break;
-                        case SDLK_PAGEUP : testCard->setFlipped(false); break;
-                        case SDLK_b : testCard->burn(); break;
+
+                        case SDLK_UP : testHand.moveTo(testHand.aligned(TOP));
+                        testLabel->moveTo(testLabel->aligned(BOTTOM));
+                        testCard->moveTo(testCard->aligned(TOP));
+                        break;
+
+                        case SDLK_RIGHT : testHand.moveTo(testHand.aligned(RIGHT));
+                        testLabel->moveTo(testLabel->aligned(LEFT));
+                        testCard->moveTo(testCard->aligned(RIGHT));
+                        break;
+
+                        case SDLK_DOWN : testHand.moveTo(testHand.aligned(BOTTOM));
+                        testLabel->moveTo(testLabel->aligned(TOP));
+                        testCard->moveTo(testCard->aligned(BOTTOM));
+                        break;
+
+                        case SDLK_LEFT : testHand.moveTo(testHand.aligned(LEFT));
+                        testLabel->moveTo(testLabel->aligned(RIGHT));
+                        testCard->moveTo(testCard->aligned(LEFT));
+                        break;
+
+                        case SDLK_c : testHand.moveTo(centre); testCard->moveTo(centre); break;
+                        case SDLK_PAGEDOWN : testHand.setFlipped(true); break;
+                        case SDLK_PAGEUP : testHand.setFlipped(false); break;
+                        case SDLK_b : testHand.burn(); break;
                         case SDLK_n : gui.receiveBetFrom(1,amount); break;
+                        case SDLK_m : gui.broadcastMessage(std::string("Oh hey look a message")); break;
                         default : break;
 					}
 				}

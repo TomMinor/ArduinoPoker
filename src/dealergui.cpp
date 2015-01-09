@@ -8,8 +8,8 @@
 
 DealerGUI::DealerGUI(const unsigned int &_numPlayers, const CardInfo *_cardInfo, const LabelFormat *_labelFormat) :
     //m_publicCards(Hand(SDL_Point(),std::vector<Card>(),BOTTOM)),
-    m_maker(ElementMaker(_cardInfo, _labelFormat)),
-    m_renderer(_cardInfo->ren)
+    m_renderer(_cardInfo->ren),
+    m_maker(ElementMaker(_cardInfo, _labelFormat))
 {
     switch (_numPlayers)
     {
@@ -40,8 +40,14 @@ DealerGUI::~DealerGUI()
     m_elements.erase(m_elements.begin(),m_elements.end());
 }
 
-void DealerGUI::broadcastMessage(const std::string &_message)
+void DealerGUI::broadcastMessage(const std::string &_message, const unsigned int &_duration)
 {
+    for (unsigned int i = 0; i < m_players.size(); ++i)
+    {
+        Label* messageLabel = uniqueLabel(_message,m_players[i].orient,_duration);
+        messageLabel->setPos(m_players[i].pos_offScreen);
+        messageLabel->moveTo(m_players[i].pos_onScreen);
+    }
 }
 
 void DealerGUI::dealCardTo(const unsigned int &_playerID, const CardType &_type)
@@ -205,22 +211,35 @@ Player DealerGUI::createPlayer(const Uint8 &_id, const std::string &_name, const
 SDL_Point DealerGUI::getCentre()//THIS IS BROKEN :c
 {
     SDL_Point centre;
-    SDL_RenderGetLogicalSize(m_renderer,&centre.x,&centre.y);
-    centre.x /= 2;
-    centre.y /= 2;
+    int width, height;
+    SDL_RenderGetLogicalSize(m_renderer,&width,&height);
+    centre.x = width / 2;
+    centre.y = height / 2;
     return centre;
 }
 
-boost::shared_ptr<Card> DealerGUI::uniqueCard(const CardType &_type, const Orientation &_orient)
+Card* DealerGUI::uniqueCard(const CardType &_type, const Orientation &_orient)
 {
     boost::shared_ptr<Card> temp(m_maker.makeCard(_type,_orient));
     m_elements.push_back(temp);
-    return temp;
+    return temp.get();
 }
 
-boost::shared_ptr<Label> DealerGUI::uniqueLabel(const std::string &_inputString, const Orientation &_orient, const int &_lifetime)
+Label* DealerGUI::uniqueLabel(const std::string &_inputString, const Orientation &_orient, const int &_lifetime)
 {
     boost::shared_ptr<Label> temp(m_maker.makeLabel(_inputString,_orient,_lifetime));
     m_elements.push_back(temp);
-    return temp;
+    return temp.get();
+}
+
+Hand DealerGUI::uniqueHand(const std::vector<CardType> &_cards, const Orientation &_orient)
+{
+    std::vector<Card*> handCards;
+    for (std::vector<CardType>::const_iterator it = _cards.begin(); it != _cards.end(); ++it)
+    {
+        boost::shared_ptr<Card> temp(m_maker.makeCard((*it),_orient));
+        m_elements.push_back(temp);
+        handCards.push_back(temp.get());
+    }
+    return Hand(handCards,_orient);
 }

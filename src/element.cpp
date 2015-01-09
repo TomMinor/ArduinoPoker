@@ -1,7 +1,7 @@
 #include "element.h"
 #include <iostream>
 
-#define SPEED 0.1
+#define SPEED 0.1f
 
 Element::Element(SDL_Renderer *_ren,
                  SDL_Texture *_tex,
@@ -17,10 +17,12 @@ Element::Element(SDL_Renderer *_ren,
                 m_orientation(_orient),
 
                 m_origin(_origin),
-                m_shouldKill(false),
                 m_pointPrev(),
                 m_pointDest(),
-                m_progressAmount(0.9f),
+                m_progressAmount(0.9f),//so it updates once when it is created
+                m_shouldKillSoon(false),
+                m_shouldKillNow(false),
+                m_isImmortal(_lifetime == 0 ? true : false),
                 m_life(_lifetime)
 {
 }
@@ -51,11 +53,16 @@ void Element::update()
 {
     if(m_progressAmount>=1.0f)//we have reached the destination
     {
-        if (m_life != 0)//if the lifetime is not infinite
+        if(m_isImmortal)
         {
-            m_life = m_life == 1 ? -1 : m_life-1;//skip 0 so we don't accidentally make it immortal
+            return;
         }
-
+        if(m_life <= 0)
+        {
+            m_shouldKillNow = true;
+            return;
+        }
+        --m_life;
         return;
     }
 
@@ -70,20 +77,6 @@ void Element::update()
 
     m_destRect.x = m_origin.x - m_destRect.w/2;
     m_destRect.y = m_origin.y - m_destRect.h/2;
-
-    /*if (m_orientation == RIGHT)
-    {
-        m_destRect.x += (m_destRect.h - m_destRect.w)/2;
-        m_destRect.y += (m_destRect.w - m_destRect.h)/2;
-    }
-    if (m_orientation == LEFT)
-    {
-        m_destRect.x -= (m_destRect.h - m_destRect.w)/2;
-        m_destRect.y -= (m_destRect.w - m_destRect.h)/2;
-    }*/
-
-    //std::cout<<"rect x: "<<m_destRect.x<<" rect y: "<<m_destRect.y<<"\n";
-    //std::cout<<"origin x: "<<m_origin.x<<" origin y: "<<m_origin.y<<"\n";
 }
 
 void Element::draw() const
@@ -99,13 +92,12 @@ void Element::draw() const
     //centre.y = m_destRect.y;
 
     double angle = static_cast<double>(static_cast<int>(m_orientation)*90);
-    //std::cout<<"width: "<<m_destRect.w<<"\n";
     SDL_Point centre = {m_origin.x - m_destRect.x, m_origin.y - m_destRect.y};
 
-    SDL_RenderCopyEx(m_ren,m_texture,&m_srcRect,&m_destRect,-angle,&centre,SDL_FLIP_NONE);
+    SDL_RenderCopyEx(m_ren,m_texture,&m_srcRect,&m_destRect,angle,&centre,SDL_FLIP_NONE);
 }
 
-int Element::getHeight() const
+unsigned int Element::getHeight() const
 {
     if (m_orientation == BOTTOM || m_orientation == TOP)
     {
@@ -114,7 +106,7 @@ int Element::getHeight() const
     return m_destRect.w;
 }
 
-int Element::getWidth() const
+unsigned int Element::getWidth() const
 {
     if (m_orientation == BOTTOM || m_orientation == TOP)
     {

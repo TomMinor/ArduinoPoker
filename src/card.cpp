@@ -43,7 +43,7 @@ void Card::update()
             }
             else
             {
-                m_shouldKill=true;
+                m_shouldKillNow=true;
             }
             return;
         }

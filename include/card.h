@@ -61,7 +61,7 @@ public:
     inline void setFlipped(const bool &_isFlipped) {m_isFlipped = _isFlipped;}
     inline void burn() {m_shouldBurn = true;}
     virtual void update(); //implement flipping
-    virtual inline bool shouldKillNow() const {return m_shouldKill;}
+    virtual inline void kill() {m_shouldKillNow = true;}
 
 private:
     bool m_isFlipped;
