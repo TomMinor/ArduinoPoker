@@ -28,7 +28,7 @@ private:
     void setName();
     void resetPlayer(unsigned int _money, unsigned int _cardNum);
     void resetCards();
-    //unsigned int getMoney() { return m_money; }
+    unsigned int getMoney() { return m_money; }
 
 };
 

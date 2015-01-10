@@ -1,6 +1,7 @@
+#include <player.h>
+
 // include the library code:
 #include <LiquidCrystal.h>
-#include <player.h>
 
 
 
@@ -23,7 +24,9 @@ void setup()
 
 void loop() 
 {
-  player test(100, 2);
+  static player test(500, 2);
+  
+  int command = 1;
   
   lcd.clear();
   lcd.print(String(test.getMoney()));
