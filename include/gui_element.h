@@ -27,13 +27,17 @@ public:
     inline SDL_Point getPos() {return m_origin;}
     void moveTo(const SDL_Point &_p);//move to this point with cosine interpolation
     virtual void update();
+    inline void updateRect() {m_destRect.x = m_origin.x - m_destRect.w/2; m_destRect.y = m_origin.y - m_destRect.h/2;}
     void draw() const;
-    virtual inline void kill() {m_shouldKillSoon = true;}
+    inline void kill() {m_isImmortal = false; m_shouldKillSoon = true;}
+    inline void killNow() {m_shouldKillNow = true;}
     inline bool shouldKillNow() const {return m_shouldKillNow;}
     unsigned int getHeight() const;//the height the element takes up on screen, taking rotation into account
     unsigned int getWidth() const;//the width the element takes up on screen, taking rotation into account
     SDL_Point aligned(const GUI_Orientation &_orient);//returns the point the element should move to to align with the specified edge of the screen
+    SDL_Point aligned();//pass with no arguments to return the screen centre
     inline SDL_Renderer* getRenderer() {return m_ren;}
+    void printRect();
 
 protected:
     //stuff SDL needs to know

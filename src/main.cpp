@@ -16,10 +16,6 @@ to compile the program
 #include <vector>
 
 #include "gui_dealergui.h"
-#include "gui_label.h"
-#include "gui_card.h"
-#include "gui_listmenu.h"
-#include "gui_hand.h"
 //-----------------------------------------------------------------------------
 /// @brief the width of the window
 //-----------------------------------------------------------------------------
@@ -30,7 +26,7 @@ const int WINDOW_WIDTH = 320;
 const int WINDOW_HEIGHT = 256;
 
 //the global texture scale for lovely pixelation
-const int PIXEL_SCALE = 4;
+const int PIXEL_SCALE = 3;
 
 //-----------------------------------------------------------------------------
 /// @brief simple SDL clear screen function
@@ -47,7 +43,7 @@ void clearScreen(SDL_Renderer *_ren,char _r,char _g,char _b);
 //-----------------------------------------------------------------------------
 void SDLErrorExit(const std::string &_msg);
 
-int main()
+int main_old()
 {
 	//-----------------------------------------------------------------------------
 	// First thing we need to do is initialise SDL in this case we are
@@ -63,7 +59,7 @@ int main()
 	// next we create a window and make sure it works
 	//-----------------------------------------------------------------------------
     SDL_Window *win = 0;
-    win = SDL_CreateWindow("Poker GUI", 100, 100, WINDOW_WIDTH*PIXEL_SCALE, WINDOW_HEIGHT*PIXEL_SCALE, SDL_WINDOW_SHOWN);
+    win = SDL_CreateWindow("Arduino Poker", 100, 100, WINDOW_WIDTH*PIXEL_SCALE, WINDOW_HEIGHT*PIXEL_SCALE, SDL_WINDOW_SHOWN);
 	if (win == 0)
 	{
 			SDLErrorExit("Error creating Window");

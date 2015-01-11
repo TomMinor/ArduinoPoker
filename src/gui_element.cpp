@@ -39,12 +39,14 @@ void GUI_Element::setPos(const SDL_Point &_p)
     //pre-origin: m_destRect.x = _p.x;
     //pre-origin: m_destRect.y = _p.y;
     m_origin = _p;
+
+    std::cout<<"element position set to: ("<<_p.x<<", "<<_p.y<<")\n";
 }
 
 void GUI_Element::moveTo(const SDL_Point &_p)
 {
-    SDL_Point current = m_origin;
-    m_pointPrev = current;
+    //SDL_Point current = m_origin;
+    m_pointPrev = m_origin;
     m_pointDest = _p;
     m_progressAmount = 0.0f;
 }
@@ -75,8 +77,7 @@ void GUI_Element::update()
     m_origin.x = m_pointPrev.x + static_cast<int>(multiplier*moveX);
     m_origin.y = m_pointPrev.y + static_cast<int>(multiplier*moveY);
 
-    m_destRect.x = m_origin.x - m_destRect.w/2;
-    m_destRect.y = m_origin.y - m_destRect.h/2;
+    updateRect();
 }
 
 void GUI_Element::draw() const
@@ -94,7 +95,7 @@ void GUI_Element::draw() const
     double angle = static_cast<double>(static_cast<int>(m_orientation)*90);
     SDL_Point centre = {m_origin.x - m_destRect.x, m_origin.y - m_destRect.y};
 
-    SDL_RenderCopyEx(m_ren,m_texture,&m_srcRect,&m_destRect,angle,&centre,SDL_FLIP_NONE);
+    SDL_RenderCopyEx(m_ren,m_texture,&m_srcRect,&m_destRect,-angle,&centre,SDL_FLIP_NONE);
 }
 
 unsigned int GUI_Element::getHeight() const
@@ -129,4 +130,17 @@ SDL_Point GUI_Element::aligned(const GUI_Orientation &_orient)
         case LEFT : temp.x = getWidth()/2;
     }
     return temp;
+}
+
+SDL_Point GUI_Element::aligned()
+{
+    int width, height;
+    SDL_RenderGetLogicalSize(m_ren,&width,&height);
+    SDL_Point temp = {width, height};
+    return temp;
+}
+
+void GUI_Element::printRect()
+{
+    std::cout<<"Width: "<<m_destRect.w<<" Height: "<<m_destRect.h<<" X: "<<m_destRect.x<<" Y: "<<m_destRect.y<<"\n";
 }

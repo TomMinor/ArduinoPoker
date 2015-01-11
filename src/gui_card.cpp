@@ -25,7 +25,7 @@ GUI_Card::GUI_Card(SDL_Renderer *_ren,
 
 void GUI_Card::update()
 {
-    //-------------------------------------------------------------- Check 1: should the card burn?
+    //Check 1: should the card burn?
     if(m_shouldBurn)
     {
         if(!FullyFlipped)
@@ -49,7 +49,7 @@ void GUI_Card::update()
         }
     }
 
-    //-------------------------------------------------------------- Check 2: is the card midway between flips?
+    //Check 2: is the card midway between flips?
     else if(!FullyFlipped || !FullyUnflipped)
     {
         continueFlip();
@@ -78,4 +78,16 @@ void GUI_Card::continueFlip()
     float xScale = (float)fabs(sin(m_flippedAmount*M_PI*0.5f));
     //std::cout<<"flippedAmount: "<<m_flippedAmount<<" xscale: "<<xScale<<"\n";
     m_destRect.w = static_cast<int>(CARDWIDTH * xScale);
+}
+
+void GUI_Card::setFlipped(const bool &_isFlipped, const bool &_instantly)
+{
+    m_isFlipped = _isFlipped;
+    if (!instantly)
+    {
+        return;
+    }
+
+    m_flippedAmount = _isFlipped ? 1.0f : -1.0f;
+    continueFlip();
 }

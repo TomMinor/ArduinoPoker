@@ -58,10 +58,9 @@ public:
          const GUI_Orientation &_orient,
          const SDL_Point &_origin,
          const GUI_CardType &_type);
-    inline void setFlipped(const bool &_isFlipped) {m_isFlipped = _isFlipped;}
+    void setFlipped(const bool &_isFlipped, const bool &_instantly = false);
     inline void burn() {m_shouldBurn = true;}
     virtual void update(); //implement flipping
-    virtual inline void kill() {m_shouldKillNow = true;}
 
 private:
     bool m_isFlipped;
