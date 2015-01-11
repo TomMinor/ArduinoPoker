@@ -15,11 +15,11 @@ to compile the program
 #include <iostream>
 #include <vector>
 
-#include "dealergui.h"
-#include "label.h"
-#include "card.h"
-#include "listmenu.h"
-#include "hand.h"
+#include "gui_dealergui.h"
+#include "gui_label.h"
+#include "gui_card.h"
+#include "gui_listmenu.h"
+#include "gui_hand.h"
 //-----------------------------------------------------------------------------
 /// @brief the width of the window
 //-----------------------------------------------------------------------------
@@ -137,26 +137,26 @@ int main()
 
     //set the standard formatting for most of our labels
     const SDL_Color text_color = {255,255,255,255};
-    const LabelFormat standardFormat = {renderer, font, text_color};
-    const CardInfo cardstyle = {renderer, cardTexture, 56, 76};
+    const GUI_LabelFormat standardFormat = {renderer, font, text_color};
+    const GUI_CardInfo cardstyle = {renderer, cardTexture, 56, 76};
 
     clearScreen(renderer,2,180,2);
 
-    DealerGUI gui = DealerGUI(4,&cardstyle,&standardFormat);
+    GUI_DealerGUI gui = GUI_DealerGUI(4,&cardstyle,&standardFormat);
 
     //ElementMaker maker(&cardstyle, &standardFormat);
 
-    CardType aceofspades = {ACE, SPADES};
+    GUI_CardType aceofspades = {ACE, SPADES};
 
-    Label* testLabel = gui.uniqueLabel(std::string("test"),LEFT);
-    Card* testCard = gui.uniqueCard(aceofspades,LEFT);
-    std::vector<CardType> cardList;
+    GUI_Label* testLabel = gui.uniqueLabel(std::string("test"),LEFT);
+    GUI_Card* testCard = gui.uniqueCard(aceofspades,LEFT);
+    std::vector<GUI_CardType> cardList;
     cardList.push_back(aceofspades);
     cardList.push_back(aceofspades);
     cardList.push_back(aceofspades);
     cardList.push_back(aceofspades);
     cardList.push_back(aceofspades);
-    Hand testHand = gui.uniqueHand(cardList,LEFT);
+    GUI_Hand testHand = gui.uniqueHand(cardList,LEFT);
 
 //    SDL_Point topleft = {0,0};
 //    SDL_Point topright = {WINDOW_WIDTH-testLabel->getWidth(),0};
