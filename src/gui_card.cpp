@@ -83,7 +83,7 @@ void GUI_Card::continueFlip()
 void GUI_Card::setFlipped(const bool &_isFlipped, const bool &_instantly)
 {
     m_isFlipped = _isFlipped;
-    if (!instantly)
+    if (!_instantly)
     {
         return;
     }

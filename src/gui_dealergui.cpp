@@ -156,6 +156,7 @@ void GUI_DealerGUI::broadcastMessage(const std::string &_message, const unsigned
         messageLabel->setPos(m_players[i].pos_offScreen);
         messageLabel->moveTo(m_players[i].pos_onScreen);
     }
+    std::cout<<"Broadcasting message: \""<<_message<<"\"\n";
 }
 
 void GUI_DealerGUI::dealCardTo(const unsigned int &_playerID, const GUI_CardType &_type)
@@ -169,11 +170,12 @@ void GUI_DealerGUI::dealCardTo(const unsigned int &_playerID, const GUI_CardType
     std::cout<<"Dealing card "<<_type.rank<<" of "<<_type.suit<<" to player "<<_playerID<<"\n";
 
     GUI_Player thatPlayer = m_players[_playerID];
-    boost::shared_ptr<GUI_Element> newCard(m_maker.makeCard(_type, thatPlayer.orient));
-    std::cout<<"new card created at "<<&newCard<<"\n";
+    boost::shared_ptr<GUI_Card> newCard(m_maker.makeCard(_type, thatPlayer.orient));
+    //std::cout<<"new card created at "<<&newCard<<"\n";
     m_elements.push_back(newCard);
 
     newCard->setPos(getCentre());
+    newCard->setFlipped(true,true);
     newCard->moveTo(thatPlayer.pos_offScreen);
     newCard->kill();
 }

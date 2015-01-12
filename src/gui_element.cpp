@@ -29,7 +29,6 @@ GUI_Element::GUI_Element(SDL_Renderer *_ren,
 
 GUI_Element::~GUI_Element()
 {
-    std::cout<<"element destructor called\n";
 }
 
 void GUI_Element::setPos(const SDL_Point &_p)
@@ -39,8 +38,6 @@ void GUI_Element::setPos(const SDL_Point &_p)
     //pre-origin: m_destRect.x = _p.x;
     //pre-origin: m_destRect.y = _p.y;
     m_origin = _p;
-
-    std::cout<<"element position set to: ("<<_p.x<<", "<<_p.y<<")\n";
 }
 
 void GUI_Element::moveTo(const SDL_Point &_p)

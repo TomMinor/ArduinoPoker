@@ -71,7 +71,7 @@ int main()
                         case SDLK_n : gui.receiveBetFrom(rand()%4,amount); break;
                         case SDLK_v : gui.dealCardTo(rand()%4,aceOfSpades); break;
                         case SDLK_m : gui.broadcastMessage(std::string("Oh hey look a message")); break;
-                        case SDLK_c : gui.setPlayerName(1,std::string("dickbutt")); break;
+                        case SDLK_c : gui.setPlayerName(0,std::string("dickbutt")); break;
                         default : break;
                     }
                 }
