@@ -6,6 +6,7 @@
 #include <algorithm>
 #include "playingcard.h"
 #include <algorithm>
+#include "dealer/cardStack.h"
 
 class deck
 {
@@ -21,7 +22,7 @@ public:
   PlayingCard deal();
 
 private:
-  std::vector<PlayingCard> m_pack;
+  cardStack m_pack;
 
 };
 

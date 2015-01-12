@@ -1,6 +1,7 @@
 #include "dealer/deck.h"
 
 
+
 deck::deck()
 {
   for(int i = Rank::TWO; i<=Rank::ACE; i++)
@@ -51,7 +52,7 @@ PlayingCard deck::deal()
 
 void deck::printDeck()
 {
-  std::vector<PlayingCard>::iterator it;
+  cardStack::iterator it;
 
   for(it=m_pack.begin(); it!=m_pack.end(); it++)
   {
