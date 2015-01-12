@@ -1,76 +1,52 @@
-#ifndef CARD_H
-#define CARD_H
+#ifndef __CARD_H_
+#define __CARD_H_
 
-#include <cstdlib>
-#include <SDL2/SDL.h>
-#include <iostream>
-
-#include "element.h"
-
-//vars SDL deals with that will be the same for most cards
-typedef struct
+/* Store suit in left nybble */
+#define SUIT_NAMESPACE Suit
+namespace SUIT_NAMESPACE
 {
-    SDL_Renderer *ren;
-    SDL_Texture *texture;
-    unsigned int cardWidth;
-    unsigned int cardHeight;
-} CardInfo;
+  enum Value
+  {
+    DIAMOND = (1<<4), // 00010000
+    HEART   = (1<<5), // 00100000
+    CLUB    = (1<<6), // 01000000
+    SPADE   = (1<<7)  // 10000000
+  };
+}
 
-typedef enum
+/* Store rank in right nybble */
+namespace Rank
 {
-    ACE,
-    TWO,
-    THREE,
-    FOUR,
-    FIVE,
-    SIX,
-    SEVEN,
-    EIGHT,
-    NINE,
-    TEN,
-    JACK,
-    QUEEN,
-    KING
-} Rank;
+  enum Value
+  {
+    TWO   = (0x01),
+    THREE = (0x02),
+    FOUR  = (0x03),
+    FIVE  = (0x04),
+    SIX   = (0x05),
+    SEVEN = (0x06),
+    EIGHT = (0x07),
+    NINE  = (0x08),
+    TEN   = (0x09),
+    JACK  = (0x0A),
+    QUEEN = (0x0B),
+    KING  = (0x0C),
+    ACE   = (0x0D)
 
-typedef enum
-{
-    CLUBS,
-    SPADES,
-    HEARTS,
-    DIAMONDS
-} Suit;
+  };
+}
 
-//stuff we need to know to create a particular card
-typedef struct
-{
-    Rank rank;
-    Suit suit;
-} CardType;
+/* Utility macros*/
+#define ISCLUB(card)    (card & SUIT_NAMESPACE::CLUB)
+#define ISHEART(card)   (card & SUIT_NAMESPACE::HEART)
+#define ISSPADE(card)   (card & SUIT_NAMESPACE::SPADE)
+#define ISDIAMOND(card) (card & SUIT_NAMESPACE::DIAMOND)
+#define SUITMASK        (0xF0)
+#define SUITOF(card)    (card & SUITMASK)
 
-class Card : public Element
-{
-public:
-    Card(SDL_Renderer *_ren,
-         SDL_Texture *_tex,
-         const SDL_Rect &_srcRect,
-         const SDL_Rect &_destRect,
-         const Orientation &_orient,
-         const SDL_Point &_origin,
-         const CardType &_type);
-    inline void setFlipped(const bool &_isFlipped) {m_isFlipped = _isFlipped;}
-    inline void burn() {m_shouldBurn = true;}
-    virtual void update(); //implement flipping
-    virtual inline void kill() {m_shouldKillNow = true;}
+#define ISSUIT(card, suit)    (card & suit)
 
-private:
-    bool m_isFlipped;
-    float m_flippedAmount;
-    Rank m_rank;
-    Suit m_suit;
-    bool m_shouldBurn;
-    int m_burnLevel;
-    void continueFlip();
-};
+#define RANKMASK        (0x0F)
+#define RANKOF(card)    (card & RANKMASK)
 
-#endif // CARD_H
+#endif
