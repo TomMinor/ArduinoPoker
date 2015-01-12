@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 #include "playingcard.h"
+#include "cardStack.h"
 
 class player
 {
@@ -20,12 +21,19 @@ public:
   void takeBet(const int &_bet);
   void receivePot(const int &_pot);
 
-  void popHandCard();
+  void removeLastHandCard();
+  void removeHandCard(const int _i);
+  void removeHandCard(const PlayingCard &_card);
+  void removeLastHoleCard();
+  void removeHoleCard(const int _i);
+  void removeHoleCard(const PlayingCard &_card);
+  void emptyHand();
 
   std::string getName()const;
   PlayingCard getHoleCard(const int &_i)const;
+  cardStack getHole()const;
   PlayingCard getHandCard(const int &_i)const;
-  std::vector<PlayingCard> getHand()const;
+  cardStack getHand() const;
   int getNumCards()const;
   int getScore()const;
   int getKicker()const;
@@ -35,8 +43,8 @@ public:
 
 private:
   std::string m_name;
-  std::vector<PlayingCard> m_cards;
-  std::vector<PlayingCard> m_hand;
+  cardStack m_cards;
+  cardStack m_hand;
   int m_score;
   int m_kicker;
   int m_money;

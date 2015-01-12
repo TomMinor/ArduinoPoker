@@ -3,6 +3,12 @@
 
 #include "gui_elementmaker.h"
 #include "gui_hand.h"
+
+#include "include/dealer/playingcard.h"
+#include "include/dealer/deck.h"
+#include "include/dealer/player.h"
+#include "include/dealer/pokerHands.h"
+
 #include <vector>
 #include <boost/shared_ptr.hpp>
 
@@ -23,16 +29,20 @@ public:
     ~GUI_DealerGUI();
     void initialise();//init SDL and bring up the window etc.
     void broadcastMessage(const std::string &_message, const unsigned int &_duration = 128);
-    void setPlayerName(const unsigned int &_id, std::string _name);
+    void setPlayerName(const unsigned int &_playerID, std::string _name);
     void dealCardTo(const unsigned int &_playerID, const GUI_CardType &_type);
     void receiveBetFrom(const unsigned int &_playerID, Uint16 &_amount, bool _isFirstBet = false);
-    void reset();
-    void showWinner(std::vector<GUI_Player> _winners, std::vector<GUI_Hand> _winningHands);
+    void showWinner(std::vector<GUI_Player> _winners, std::vector< std::vector<GUI_CardType> > _winningHands);
+
+    //use these functions to convert the other systems' classes/structs to the GUI system's
+    GUI_CardType convert(const PlayingCard &_card);
+    GUI_Player convert(const player &_player);
+    GUI_Hand convert(const std::vector<PlayingCard> &_cards);
 
     SDL_Point getCentre();
     SDL_Point getScreenDimensions();
 
-    //use these functions to store references to cards/labels that you
+    //use these functions to store references to elements that you
     //want to control manually but draw/update/destroy automatically
     GUI_Card* uniqueCard(const GUI_CardType &_type, const unsigned int &_playerID);
     GUI_Card* uniqueCard(const GUI_CardType &_type, const GUI_Orientation &_orient);

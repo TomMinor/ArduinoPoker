@@ -6,9 +6,9 @@
 #define ONSCREENOFFSET 16
 #define OFFSCREENOFFSET 38
 #define COOLDOWNTIME 32
-#define PIXEL_SCALE 4
-#define WINDOW_WIDTH 320
-#define WINDOW_HEIGHT 256
+#define PIXEL_SCALE 3
+#define WINDOW_WIDTH 400
+#define WINDOW_HEIGHT 300
 
 GUI_DealerGUI::GUI_DealerGUI(const unsigned int &_numPlayers, const GUI_CardInfo *_cardInfo, const GUI_LabelFormat *_labelFormat) :
     //m_publicCards(Hand(SDL_Point(),std::vector<Card>(),BOTTOM)),
@@ -43,7 +43,7 @@ void GUI_DealerGUI::initialise()
     // next we create a window and make sure it works
     //-----------------------------------------------------------------------------
     SDL_Window *win = 0;
-    win = SDL_CreateWindow("Arduino Poker", 100, 100, WINDOW_WIDTH*PIXEL_SCALE, WINDOW_HEIGHT*PIXEL_SCALE, SDL_WINDOW_SHOWN);
+    win = SDL_CreateWindow("Arduino™ Poker Simulator 1992", 100, 100, WINDOW_WIDTH*PIXEL_SCALE, WINDOW_HEIGHT*PIXEL_SCALE, SDL_WINDOW_SHOWN);
     if (win == 0)
     {
             SDLErrorExit("Error creating Window");
@@ -57,7 +57,7 @@ void GUI_DealerGUI::initialise()
     {
         SDLErrorExit("error creating renderer");
     }
-    SDL_RenderSetLogicalSize(m_renderer,320,256);
+    SDL_RenderSetLogicalSize(m_renderer,WINDOW_WIDTH,WINDOW_HEIGHT);
     SDL_RenderSetScale(m_renderer,PIXEL_SCALE,PIXEL_SCALE);
     SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "0");
 
@@ -423,19 +423,63 @@ void GUI_DealerGUI::clearScreen(SDL_Renderer *_ren,char _r,char _g,char _b	)
     SDL_RenderClear(_ren);
 }
 
-void GUI_DealerGUI::setPlayerName(const unsigned int &_id, std::string _name)
+void GUI_DealerGUI::setPlayerName(const unsigned int &_playerID, std::string _name)
 {
-    m_players[_id].name = _name;
-    m_players[_id].nameLabel->killNow();
+    m_players[_playerID].name = _name;
+    m_players[_playerID].nameLabel->killNow();
 
-    boost::shared_ptr<GUI_Label> playerLabel(m_maker.makeLabel(_name,m_players[_id].orient,0));
+    boost::shared_ptr<GUI_Label> playerLabel(m_maker.makeLabel(_name,m_players[_playerID].orient,0));
     GUI_Label* labelPtr = playerLabel.get();
     m_elements.push_back(playerLabel);
 
     //move it into a corner
     labelPtr->setPos(getCentre());
-    labelPtr->setPos(labelPtr->aligned(m_players[_id].orient));
+    labelPtr->setPos(labelPtr->aligned(m_players[_playerID].orient));
     labelPtr->updateRect();
 
-    m_players[_id].nameLabel = labelPtr;
+    m_players[_playerID].nameLabel = labelPtr;
+}
+
+GUI_CardType GUI_DealerGUI::convert(const PlayingCard &_card)
+{
+    GUI_CardType temp;
+
+    switch (_card.getRank())
+    {
+        case ACE    : temp.rank = ACE;      break;
+        case TWO    : temp.rank = TWO;      break;
+        case THREE  : temp.rank = THREE;    break;
+        case FOUR   : temp.rank = FOUR;     break;
+        case FIVE   : temp.rank = FIVE;     break;
+        case SIX    : temp.rank = SIX;      break;
+        case SEVEN  : temp.rank = SEVEN;    break;
+        case EIGHT  : temp.rank = EIGHT;    break;
+        case NINE   : temp.rank = NINE;     break;
+        case TEN    : temp.rank = TEN;      break;
+        case JACK   : temp.rank = JACK;     break;
+        case QUEEN  : temp.rank = QUEEN;    break;
+        case KING   : temp.rank = KING;     break;
+        default     : temp.rank = ACE;      break;
+    }
+
+    switch (_card.getSuitID())
+    {
+        case Suit::CLUB     : temp.suit = CLUBS;    break;
+        case Suit::SPADE    : temp.suit = SPADES;   break;
+        case Suit::DIAMOND  : temp.suit = DIAMONDS; break;
+        case Suit::HEART    : temp.suit = HEARTS;   break;
+        default             : temp.suit = SPADES;   break;
+    }
+
+    return temp;
+}
+
+GUI_Hand GUI_DealerGUI::convert(std::vector<PlayingCard> &_cards)
+{
+    std::vector<GUI_CardType> handCards;
+    for (std::vector<PlayingCard>::iterator it; it !=_cards.end(); ++it)
+    {
+        handCards.push_back(convert((*it)));
+    }
+    return uniqueHand(handCards,BOTTOM);
 }

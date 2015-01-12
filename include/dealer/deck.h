@@ -1,8 +1,12 @@
 #ifndef _DECK__H_
 #define _DECK__H_
 
+#include <iostream>
 #include <vector>
+#include <algorithm>
 #include "playingcard.h"
+#include <algorithm>
+#include "dealer/cardStack.h"
 
 class deck
 {
@@ -14,10 +18,11 @@ public:
   void init();
   void reset();
   void shuffle();
+  void printDeck();
   PlayingCard deal();
 
 private:
-  std::vector<PlayingCard> m_cards;
+  cardStack m_pack;
 
 };
 

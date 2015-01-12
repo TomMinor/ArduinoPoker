@@ -6,6 +6,7 @@
 
 //This class is simply for easy manipulation of a number of cards at once.
 //It should be obtained using DealerGUI::UniqueHand() to ensure all the cards are updated and destroyed properly.
+//NOTE: Currently, only the BOTTOM orientation works properly.
 class GUI_Hand
 {
 public:
@@ -15,8 +16,8 @@ public:
     void burn();
     void kill();
     void setFlipped(const bool &_isFlipped);
-    unsigned int getHeight();
-    unsigned int getWidth();
+    int getHeight();
+    int getWidth();
     SDL_Point aligned(const GUI_Orientation &_orient);
 private:
     std::vector<GUI_Card*> m_cards;

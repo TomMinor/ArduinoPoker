@@ -1,49 +1,46 @@
 #include <iostream>
 #include "dealer/pokerHands.h"
+#include "dealer/cardStack.h"
 
 int main()
 {
-  std::vector<PlayingCard> river;
+  cardStack river;
+  river.addCard(PlayingCard(Rank::KING,Suit::SPADE));
+  river.addCard(PlayingCard(Rank::QUEEN,Suit::DIAMOND));
+  river.addCard(PlayingCard(Rank::QUEEN,Suit::SPADE));
+  river.addCard(PlayingCard(Rank::ACE,Suit::SPADE));
+  river.addCard(PlayingCard(Rank::TWO,Suit::DIAMOND));
 
-//  for(int i=0;i<5;i++)
-//  {
-//      river.push_back(PlayingCard(Rank::TEN,Suit::SPADE));
-//  }
+//---------------------------------------------------------
 
-  river.push_back(PlayingCard(Rank::THREE,Suit::SPADE));
-  river.push_back(PlayingCard(Rank::TWO,Suit::HEART));
-  river.push_back(PlayingCard(Rank::FIVE,Suit::CLUB));
-  river.push_back(PlayingCard(Rank::FOUR,Suit::SPADE));
-  river.push_back(PlayingCard(Rank::SIX,Suit::HEART));
+  std::vector<player> livePlayers;
+  player a,b,c,d;
+//---------------------------------------------------------
+  // Player: 0
+  a.setHoleCard(PlayingCard(Rank::FOUR,Suit::DIAMOND));
+  a.setHoleCard(PlayingCard(Rank::TWO,Suit::HEART));
+  livePlayers.push_back(a);
+//---------------------------------------------------------
+  // Player: 1
+  b.setHoleCard(PlayingCard(Rank::KING,Suit::DIAMOND));
+  b.setHoleCard(PlayingCard(Rank::SIX,Suit::CLUB));
+  livePlayers.push_back(b);
+//---------------------------------------------------------
+  // Player: 2
+  c.setHoleCard(PlayingCard(Rank::KING,Suit::CLUB));
+  c.setHoleCard(PlayingCard(Rank::NINE,Suit::DIAMOND));
+  livePlayers.push_back(c);
+//---------------------------------------------------------
+  // Player: 3
+  d.setHoleCard(PlayingCard(Rank::NINE,Suit::SPADE));
+  d.setHoleCard(PlayingCard(Rank::NINE,Suit::HEART));
+  livePlayers.push_back(d);
 
-  int numPlayers=2;
-  std::vector<player> livePlayers(numPlayers);
+//---------------------------------------------------------
 
-//  for(int i=0;i<numPlayers;i++)
-//  {
-//      //livePlayers[i].setScore(4-i);
-//      for (int j=0;j<2;j++)
-//      {
-//          livePlayers[i].setHoleCard(PlayingCard(Rank::ACE,Suit::DIAMOND));
-//      }
-//  }
-
-livePlayers[0].setHoleCard(PlayingCard(Rank::ACE,Suit::DIAMOND));
-livePlayers[0].setHoleCard(PlayingCard(Rank::KING,Suit::DIAMOND));
-
-//livePlayers[1].setHoleCard(PlayingCard(Rank::THREE,Suit::DIAMOND));
-//livePlayers[1].setHoleCard(PlayingCard(Rank::FOUR,Suit::DIAMOND));
-
-//livePlayers[1].setHoleCard(PlayingCard(Rank::FIVE,Suit::DIAMOND));
-//livePlayers[1].setHoleCard(PlayingCard(Rank::SIX,Suit::DIAMOND));
-
-livePlayers[1].setHoleCard(PlayingCard(Rank::NINE,Suit::DIAMOND));
-livePlayers[1].setHoleCard(PlayingCard(Rank::EIGHT,Suit::DIAMOND));
-
-
-
-  //hands::bestHand(livePlayers[0],river);
-  hands::winner(numPlayers,livePlayers,river);
+  std::vector<player> winners;
+  winners = hands::winner(livePlayers,river);
+  std::cout<<winners.size()<<" Winners\n";
 
   return 0;
 

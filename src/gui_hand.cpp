@@ -67,12 +67,12 @@ void GUI_Hand::moveTo(const SDL_Point &_p)
     if (m_orient == BOTTOM || m_orient == TOP)
     {
         current.x -= getWidth() / 2;
-        std::cout<<"incrementing x by: "<<-getWidth() / 2<<"\n";
+        current.x += m_cards[0]->getWidth()/2;
     }
     else
     {
         current.y += getHeight() / 2;
-        std::cout<<"incrementing y by: "<<(int)(getHeight() / 2)<<"\n";
+        current.x -= m_cards[0]->getHeight();
     }
 
     for (std::vector<GUI_Card*>::iterator it = m_cards.begin(); it!=m_cards.end(); ++it)
@@ -98,7 +98,7 @@ void GUI_Hand::burn()
     }
 }
 
-unsigned int GUI_Hand::getHeight()
+int GUI_Hand::getHeight()
 {
     if (m_orient == BOTTOM || m_orient == TOP)
     {
@@ -117,7 +117,7 @@ unsigned int GUI_Hand::getHeight()
     }
 }
 
-unsigned int GUI_Hand::getWidth()
+int GUI_Hand::getWidth()
 {
     if (m_orient == LEFT || m_orient == RIGHT)
     {

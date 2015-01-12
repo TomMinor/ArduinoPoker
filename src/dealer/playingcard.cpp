@@ -31,6 +31,10 @@ PlayingCard::PlayingCard(Rank::Value _rank, Suit::Value _suit)
   m_value = _rank | _suit;
 }
 
+PlayingCard::PlayingCard(card_t _value)
+{
+    m_value = _value;
+}
 
 // Gotta fix these
 
@@ -62,22 +66,29 @@ int PlayingCard::getSuitID() const
   else if( ISHEART(m_value)) { return 1; }
   else if( ISCLUB(m_value))  { return 2; }
   else if( ISSPADE(m_value)) { return 3; }
-//  else if( SUITOF(m_value) & ( 0x30|0x50|0x60|0x70)){std::cout<<"-----------\nwrong suit!!!\n--------\n";}
-  //else {std::cout<<"-----------\nwrong suit!!!\n--------\n";
-    //    std::cout<<SUITOF(m_value)<<"\n";}
 
   assert( !"Invalid suit" );
 }
 
 int PlayingCard::getRank()const
 {
-  return RANKOF(m_value);
+  //return RANKOF(m_value);
+  return (RANKMASK & m_value);
 }
 int PlayingCard::getSuit()const
 {
   return SUITOF(m_value);
 }
 
+card_t PlayingCard::getValue()const
+{
+    return m_value;
+}
+
+void PlayingCard::operator=(const PlayingCard &_card)
+{
+    m_value = _card.getValue();
+}
 
 bool PlayingCard::operator==(const PlayingCard& _card)const
 {
