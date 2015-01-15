@@ -16,7 +16,6 @@ player::~player()
 //------------------------------------------------------
 //==========Set methods==========
 //------------------------------------------------------
-
 void player::setName(const std::string &_name)
 {
     m_name = _name;
@@ -57,7 +56,9 @@ void player::receivePot(const int &_pot)
     m_money += _pot;
 }
 
+//------------------------------------------------------
 //=======Remove cards============
+//------------------------------------------------------
 void player::removeLastHandCard()
 {
     m_hand.pop_back();
@@ -94,7 +95,6 @@ void player::emptyHand()
 //------------------------------------------------------
 //==========Get methods==========
 //------------------------------------------------------
-
 std::string player::getName()const
 {
     return m_name;
@@ -138,4 +138,14 @@ int player::getKicker()const
 int player::getMoney()const
 {
     return m_money;
+}
+
+//--------------------------------------------------------------------
+void player::printInfo()const
+{
+  std::cout<<getName()<<" | ";
+  std::cout<<"score of: "<<getScore()<<" | ";
+  std::cout<<"kicker of: "<<getKicker()<<"\n";
+  getHand().printStack();
+  std::cout<<"\n";
 }
