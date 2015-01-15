@@ -39,6 +39,8 @@ public:
   int getKicker()const;
   int getMoney()const;
 
+  void printInfo()const;
+
 
 
 private:

@@ -29,8 +29,18 @@ void cardStack::addCard(const PlayingCard &_card)
   push_back(_card);
 }
 //----------------------------------------------------------------------
+
+void cardStack::printStack()const
+{
+  for (unsigned int i =0; i<size();i++)
+    {
+      std::cout<<getCard(i)<<" | ";
+    }
+  std::cout<<"\n";
+}
+
 //----------------------------------------------------------------------
-PlayingCard cardStack::getCard(const int _i)
+PlayingCard cardStack::getCard(const int _i)const
 {
   return ((std::vector<PlayingCard>)*this)[_i];
 }
