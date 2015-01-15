@@ -5,18 +5,18 @@ int main()
 {
     GUI_CardInfo cardInfo = GUI_CardInfo();
     GUI_LabelFormat labelFormat = GUI_LabelFormat();
-    GUI_DealerGUI gui(4,&cardInfo,&labelFormat);
+    GUI_DealerGUI gui(4);
     gui.initialise();
 
-    GUI_CardType aceOfSpades = {ACE, SPADES};
+    PlayingCard aceOfSpades = PlayingCard(Rank::TWO,Suit::HEART);
 //    GUI_Label* testLabel = gui.uniqueLabel(std::string("test"),LEFT);
 //    GUI_Card* testCard = gui.uniqueCard(aceOfSpades,LEFT);
-    std::vector<GUI_CardType> cardList;
+    std::vector<PlayingCard> cardList;
     cardList.push_back(aceOfSpades);
-    cardList.push_back(aceOfSpades);
-    cardList.push_back(aceOfSpades);
-    cardList.push_back(aceOfSpades);
-    cardList.push_back(aceOfSpades);
+//    cardList.push_back(aceOfSpades);
+//    cardList.push_back(aceOfSpades);
+//    cardList.push_back(aceOfSpades);
+//    cardList.push_back(aceOfSpades);
     GUI_Hand testHand = gui.uniqueHand(cardList,BOTTOM);
     Uint16 amount = 100;
 //    SDL_Point centre = {160, 128};
@@ -72,6 +72,7 @@ int main()
                         case SDLK_v : gui.dealCardTo(rand()%4,aceOfSpades); break;
                         case SDLK_m : gui.broadcastMessage(std::string("Oh hey look a message")); break;
                         case SDLK_x : gui.setPlayerName(0,std::string("dickbutt")); break;
+                        case SDLK_z : testHand.addCard(gui.uniqueCard(aceOfSpades,BOTTOM)); break;
                         default : break;
                     }
                 }

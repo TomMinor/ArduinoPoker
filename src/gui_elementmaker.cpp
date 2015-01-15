@@ -4,14 +4,16 @@ GUI_ElementMaker::GUI_ElementMaker(const GUI_CardInfo *_cardInfo, const GUI_Labe
 {
 }
 
-GUI_Card* GUI_ElementMaker::makeCard(const GUI_CardType &_type, const GUI_Orientation &_orient)
+GUI_Card* GUI_ElementMaker::makeCard(const PlayingCard &_type, const GUI_Orientation &_orient)
 {
+    std::cout<<"Returned rank: "<<_type.getRank()<<" suit: "<<_type.getSuit()<<"\n";
+    std::cout<<"Modified rank: "<<(_type.getRank()-1)%13<<" suit: "<<_type.getSuit()%4<<"\n";
     SDL_Rect srcRect;
     SDL_Rect destRect;
     srcRect.h = m_cardInfo->cardHeight;
     srcRect.w = m_cardInfo->cardWidth;
-    srcRect.x = static_cast<int>(_type.rank)*(m_cardInfo->cardWidth);
-    srcRect.y = static_cast<int>(_type.suit)*(m_cardInfo->cardHeight);
+    srcRect.x = ((_type.getRank()-1)%13)*(m_cardInfo->cardWidth);
+    srcRect.y = (_type.getSuit()%4)*(m_cardInfo->cardHeight);
 
     destRect.h = m_cardInfo->cardHeight;
     destRect.w = m_cardInfo->cardWidth;

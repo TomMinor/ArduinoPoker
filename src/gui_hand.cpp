@@ -151,3 +151,9 @@ SDL_Point GUI_Hand::aligned(const GUI_Orientation &_orient)
     }
     return temp;
 }
+
+void GUI_Hand::addCard(GUI_Card* _inputCard)
+{
+    m_cards.push_back(_inputCard);
+    moveTo(m_origin);
+}

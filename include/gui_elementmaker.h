@@ -10,7 +10,7 @@ class GUI_ElementMaker
 {
 public:
     GUI_ElementMaker(const GUI_CardInfo* _cardInfo, const GUI_LabelFormat* _labelFormat);
-    GUI_Card *makeCard(const GUI_CardType &_type, const GUI_Orientation &_orient);
+    GUI_Card *makeCard(const PlayingCard &_type, const GUI_Orientation &_orient);
     GUI_Label *makeLabel(const std::string &_inputString, const GUI_Orientation &_orient, const int &_lifetime);
 
 private:

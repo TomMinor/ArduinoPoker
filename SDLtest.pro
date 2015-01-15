@@ -5,7 +5,7 @@ OBJECTS_DIR= obj
 #Get Qt to cache stuff
 cache()
 #To add source files
-SOURCES+= $$PWD/src/gui*.cpp #$$PWD/src/dealer/*.cpp
+SOURCES+= $$PWD/src/gui*.cpp $$PWD/src/dealer/*.cpp
 SOURCES-= $$PWD/src/gui_listmenu.cpp $$PWD/src/gui_task.cpp
 #To add headers
 HEADERS+= $$PWD/include/gui_*.h $$PWD/include/dealer/*.h

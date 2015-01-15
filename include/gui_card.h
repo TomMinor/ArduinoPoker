@@ -6,6 +6,7 @@
 #include <iostream>
 
 #include "gui_element.h"
+#include "dealer/playingcard.h"
 
 //vars SDL deals with that will be the same for most cards
 typedef struct
@@ -57,7 +58,7 @@ public:
          const SDL_Rect &_destRect,
          const GUI_Orientation &_orient,
          const SDL_Point &_origin,
-         const GUI_CardType &_type);
+         const PlayingCard &_card);
     void setFlipped(const bool &_isFlipped, const bool &_instantly = false);
     inline void burn() {m_shouldBurn = true;}
     virtual void update(); //implement flipping
@@ -65,8 +66,7 @@ public:
 private:
     bool m_isFlipped;
     float m_flippedAmount;
-    GUI_Rank m_rank;
-    GUI_Suit m_suit;
+    PlayingCard m_cardType;
     bool m_shouldBurn;
     int m_burnLevel;
     void continueFlip();

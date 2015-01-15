@@ -12,12 +12,11 @@ GUI_Card::GUI_Card(SDL_Renderer *_ren,
            const SDL_Rect &_destRect,
            const GUI_Orientation &_orient,
            const SDL_Point &_origin,
-           const GUI_CardType &_type) :
+           const PlayingCard &_card) :
             GUI_Element(_ren,_tex,_srcRect,_destRect,_orient,_origin),
             m_isFlipped(false),
             m_flippedAmount(-1.0f),
-            m_rank(_type.rank),
-            m_suit(_type.suit),
+            m_cardType(_card),
             m_shouldBurn(false),
             m_burnLevel(0)
 {
@@ -71,8 +70,8 @@ void GUI_Card::continueFlip()
     }
     else
     {
-        m_srcRect.x = CARDWIDTH*static_cast<int>(m_rank);
-        m_srcRect.y = m_srcRect.h*static_cast<int>(m_suit);
+        m_srcRect.x = ((m_cardType.getRank())-1)*CARDWIDTH;
+        m_srcRect.y = ((m_cardType.getSuit()))*m_srcRect.h;
     }
 
     float xScale = (float)fabs(sin(m_flippedAmount*M_PI*0.5f));

@@ -12,15 +12,15 @@
 
 
 
-int main()
-{
-  std::srand( unsigned ( std::time(0) ) );
+//int main()
+//{
+//  std::srand( unsigned ( std::time(0) ) );
 
-  deck Deck;
-  Deck.shuffle();
-  Deck.printDeck();
+//  deck Deck;
+//  Deck.shuffle();
+//  Deck.printDeck();
 
 
-  return EXIT_SUCCESS;
+//  return EXIT_SUCCESS;
 
-}
+//}

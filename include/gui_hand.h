@@ -11,6 +11,7 @@ class GUI_Hand
 {
 public:
     GUI_Hand(const std::vector<GUI_Card*> &_cards, const GUI_Orientation &_orient);
+    void addCard(GUI_Card*_inputCard);
     void setPos(const SDL_Point &_p);
     void moveTo(const SDL_Point &_p);
     void burn();

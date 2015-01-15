@@ -10,10 +10,10 @@
 #define WINDOW_WIDTH 400
 #define WINDOW_HEIGHT 300
 
-GUI_DealerGUI::GUI_DealerGUI(const unsigned int &_numPlayers, const GUI_CardInfo *_cardInfo, const GUI_LabelFormat *_labelFormat) :
+GUI_DealerGUI::GUI_DealerGUI(const unsigned int &_numPlayers) :
     //m_publicCards(Hand(SDL_Point(),std::vector<Card>(),BOTTOM)),
-    m_renderer(_cardInfo->ren),
-    m_maker(GUI_ElementMaker(_cardInfo, _labelFormat)),
+    m_renderer(NULL),
+    m_maker(GUI_ElementMaker(NULL, NULL)),
     m_numPlayers(_numPlayers)
 {
 }
@@ -92,7 +92,7 @@ void GUI_DealerGUI::initialise()
 
     // Load the playing card sheet
     SDL_Surface *temp;
-    temp = IMG_Load("/home/i7245660/OOPG/IanPoker/images/sheet_v2.png");
+    temp = IMG_Load("/home/i7245660/OOPG/IanPoker/images/sheet_v3.png");
     if (!temp)
     {
         std::cerr << "IMG_Load() Failed: " << IMG_GetError() << "\n";
@@ -124,6 +124,12 @@ void GUI_DealerGUI::initialise()
     SDL_QueryTexture(cardTexture,&pixelFormat,NULL,NULL,NULL);
 
     m_renderTarget = SDL_CreateTexture(m_renderer,pixelFormat,SDL_TEXTUREACCESS_TARGET,WINDOW_WIDTH,WINDOW_HEIGHT);
+
+    SDL_Point centre = getCentre();
+    centre.x -= 64;
+    m_deckPos = centre;
+    centre.x += 128;
+    m_potPos = centre;
 
     switch (m_numPlayers)
     {
@@ -159,7 +165,7 @@ void GUI_DealerGUI::broadcastMessage(const std::string &_message, const unsigned
     std::cout<<"Broadcasting message: \""<<_message<<"\"\n";
 }
 
-void GUI_DealerGUI::dealCardTo(const unsigned int &_playerID, const GUI_CardType &_type)
+void GUI_DealerGUI::dealCardTo(const unsigned int &_playerID, const PlayingCard &_type)
 {
     if (_playerID > m_players.size())
     {
@@ -167,14 +173,14 @@ void GUI_DealerGUI::dealCardTo(const unsigned int &_playerID, const GUI_CardType
         return;
     }
 
-    std::cout<<"Dealing card "<<_type.rank<<" of "<<_type.suit<<" to player "<<_playerID<<"\n";
+    std::cout<<"Dealing card "<<_type.getRank()<<" of "<<_type.getSuit()<<" to player "<<_playerID<<"\n";
 
     GUI_Player thatPlayer = m_players[_playerID];
     boost::shared_ptr<GUI_Card> newCard(m_maker.makeCard(_type, thatPlayer.orient));
     //std::cout<<"new card created at "<<&newCard<<"\n";
     m_elements.push_back(newCard);
 
-    newCard->setPos(getCentre());
+    newCard->setPos(m_deckPos);
     newCard->setFlipped(true,true);
     newCard->moveTo(thatPlayer.pos_offScreen);
     newCard->kill();
@@ -208,7 +214,7 @@ void GUI_DealerGUI::receiveBetFrom(const unsigned int &_playerID, Uint16 &_amoun
     m_elements.push_back(betLabel);
 
     betLabel->setPos(thatPlayer.pos_offScreen);
-    betLabel->moveTo(getCentre());
+    betLabel->moveTo(m_potPos);
     betLabel->kill();
 }
 
@@ -357,14 +363,14 @@ SDL_Point GUI_DealerGUI::getCentre()
     return temp;
 }
 
-GUI_Card* GUI_DealerGUI::uniqueCard(const GUI_CardType &_type, const unsigned int &_playerID)
+GUI_Card* GUI_DealerGUI::uniqueCard(const PlayingCard &_type, const unsigned int &_playerID)
 {
     boost::shared_ptr<GUI_Card> temp(m_maker.makeCard(_type,m_players[_playerID].orient));
     m_elements.push_back(temp);
     return temp.get();
 }
 
-GUI_Card* GUI_DealerGUI::uniqueCard(const GUI_CardType &_type, const GUI_Orientation &_orient)
+GUI_Card* GUI_DealerGUI::uniqueCard(const PlayingCard &_type, const GUI_Orientation &_orient)
 {
     boost::shared_ptr<GUI_Card> temp(m_maker.makeCard(_type,_orient));
     m_elements.push_back(temp);
@@ -385,10 +391,10 @@ GUI_Label* GUI_DealerGUI::uniqueLabel(const std::string &_inputString, const GUI
     return temp.get();
 }
 
-GUI_Hand GUI_DealerGUI::uniqueHand(const std::vector<GUI_CardType> &_cards, const unsigned int &_playerID)
+GUI_Hand GUI_DealerGUI::uniqueHand(const std::vector<PlayingCard> &_cards, const unsigned int &_playerID)
 {
     std::vector<GUI_Card*> handCards;
-    for (std::vector<GUI_CardType>::const_iterator it = _cards.begin(); it != _cards.end(); ++it)
+    for (std::vector<PlayingCard>::const_iterator it = _cards.begin(); it != _cards.end(); ++it)
     {
         boost::shared_ptr<GUI_Card> temp(m_maker.makeCard((*it),m_players[_playerID].orient));
         m_elements.push_back(temp);
@@ -397,10 +403,10 @@ GUI_Hand GUI_DealerGUI::uniqueHand(const std::vector<GUI_CardType> &_cards, cons
     return GUI_Hand(handCards,m_players[_playerID].orient);
 }
 
-GUI_Hand GUI_DealerGUI::uniqueHand(const std::vector<GUI_CardType> &_cards, const GUI_Orientation &_orient)
+GUI_Hand GUI_DealerGUI::uniqueHand(const std::vector<PlayingCard> &_cards, const GUI_Orientation &_orient)
 {
     std::vector<GUI_Card*> handCards;
-    for (std::vector<GUI_CardType>::const_iterator it = _cards.begin(); it != _cards.end(); ++it)
+    for (std::vector<PlayingCard>::const_iterator it = _cards.begin(); it != _cards.end(); ++it)
     {
         boost::shared_ptr<GUI_Card> temp(m_maker.makeCard((*it),_orient));
         m_elements.push_back(temp);
@@ -462,7 +468,7 @@ GUI_CardType GUI_DealerGUI::convert(const PlayingCard &_card)
         default     : temp.rank = ACE;      break;
     }
 
-    switch (_card.getSuitID())
+    switch (_card.getSuit())
     {
         case Suit::CLUB     : temp.suit = CLUBS;    break;
         case Suit::SPADE    : temp.suit = SPADES;   break;
@@ -474,12 +480,12 @@ GUI_CardType GUI_DealerGUI::convert(const PlayingCard &_card)
     return temp;
 }
 
-GUI_Hand GUI_DealerGUI::convert(std::vector<PlayingCard> &_cards)
+GUI_Hand GUI_DealerGUI::convert(const std::vector<PlayingCard> &_cards)
 {
-    std::vector<GUI_CardType> handCards;
+    std::vector<PlayingCard> handCards;
     for (std::vector<PlayingCard>::iterator it; it !=_cards.end(); ++it)
     {
-        handCards.push_back(convert((*it)));
+        handCards.push_back((*it));
     }
     return uniqueHand(handCards,BOTTOM);
 }
