@@ -112,7 +112,8 @@ void player::setName()
 
 void player::resetPlayer(unsigned int _money, unsigned int _cardNum)
 {
-
+    m_money = _money;
+    m_numCards = _cardNum;
 }
 
 void player::resetCards()

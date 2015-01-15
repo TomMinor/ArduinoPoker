@@ -5,8 +5,6 @@
 #include <stddef.h>
 #include <stdlib.h>
 
-//#include <arduino.h>
-//#include <input.h>
 
 class player
 {
@@ -15,7 +13,7 @@ private:
     unsigned int m_money;
     int m_numCards;
     char m_playerName[];
-    int m_currentHandNum;
+    //PlayingCard m_cards[];
 
   public:
 
