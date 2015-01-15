@@ -8,7 +8,7 @@ int main()
   river.addCard(PlayingCard(Rank::KING,Suit::SPADE));
   river.addCard(PlayingCard(Rank::QUEEN,Suit::DIAMOND));
   river.addCard(PlayingCard(Rank::QUEEN,Suit::SPADE));
-  river.addCard(PlayingCard(Rank::ACE,Suit::SPADE));
+  river.addCard(PlayingCard(Rank::FOUR,Suit::SPADE));
   river.addCard(PlayingCard(Rank::TWO,Suit::DIAMOND));
 
 //---------------------------------------------------------
@@ -46,8 +46,7 @@ int main()
   std::cout<<winners.size()<<" Winners\n";
   for(unsigned int i=0;i<winners.size();i++)
   {
-      std::cout<<winners[i].getScore()<<"\n";
-      std::cout<<winners[i].getName()<<"\n";
+      winners[i].printInfo();
   }
 
   return 0;

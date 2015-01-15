@@ -292,15 +292,15 @@ void hands::flush(player &_player, const cardStack &_river)
 
                                       _player.setScore(finalScore);
                                       flushFound=true;
-                                  }
-                              }
-                          }
-                      }
-                  }
-              }
-          }
-      }
-  }
+                                  }// end if
+                              }// end for
+                          }//end if
+                      }//end for
+                  }//end if
+              }//end for
+          }//end if
+      }//end for
+  }//end for
 }
 
 //--------------------------------------------------------------------------------------
@@ -318,7 +318,6 @@ void hands::fullHouse(player &_player, const cardStack &_river)
         {
             // Player has full house
             int minorS = _player.getScore()-13;
-            //12*(B-1)+S+140(138) = score!!
             int finalScore = 140 + (12*(majorS - 1)) + minorS;
             _player.setScore(finalScore);
             _player.setKicker(0);
@@ -396,7 +395,7 @@ void hands::four(player &_player, const cardStack &_river)
 
 //--------------------------------------------------------------------------------------
 bool hands::checkStraightHasFlush(player &_player,          const cardStack &_river,
-                                  const Suit::Value _suit,  unsigned int _numSuit)
+                                  const Suit::Value _suit,  unsigned int    _numSuit)
 {
   if(_numSuit ==5){return true;}
   else if(_numSuit < 3){return false;}
@@ -554,31 +553,33 @@ void hands::bestHand(player &_player, const cardStack &_river)
 }
 
 //--------------------------------------------------------------------------------------
-//std::vector<player> hands::tieBreak(std::vector<player> _livePlayers, const std::vector<int> _ID)
-//{
-//  int topKicker = -1;
-//  std::vector<int> tieWinner;
-//  for (unsigned int i=0; i<_ID.size(); i++)
-//  {
-//      // Find highest kicker
-//      topKicker = (_livePlayers[_ID[i]].getKicker()>topKicker)?
-//                   _livePlayers[_ID[i]].getKicker():topKicker;
-//  }
+std::vector<player> hands::tieBreak(std::vector<player> &_livePlayers, const std::vector<int> _ID)
+{
+  int topKicker = -1;
+  std::vector<int> tieWinnerID;
+  std::vector<player> tieWinners;
+  for (unsigned int i=0; i<_ID.size(); i++)
+  {
+      // Find highest kicker
+      topKicker = (_livePlayers[_ID[i]].getKicker()>topKicker)?
+                   _livePlayers[_ID[i]].getKicker():topKicker;
+  }
 
-//  // Check players that have top kicker
-//  for (unsigned int i=0;i<_ID.size();i++)
-//  {
-//      if (_livePlayers[_ID[i]].getKicker() == topKicker)
-//      {   tieWinner.push_back(_ID[i]);  }
-//  }
+  // Check players that have top kicker
+  for (unsigned int i=0;i<_ID.size();i++)
+  {
+      if (_livePlayers[_ID[i]].getKicker() == topKicker)
+      {   tieWinnerID.push_back(_ID[i]);  }
+  }
 
-//  // Push players with top kicker
-//  for (unsigned int i=0;i<tieWinner.size();i++)
-//  {
-//      _livePlayers[tieWinner[i]].printInfo();
-//      WINNERS.push_back(_livePlayers[tieWinner[i]]);
-//  }
-//}
+  // Push players with top kicker
+  for (unsigned int i=0;i<tieWinnerID.size();i++)
+  {
+      _livePlayers[tieWinnerID[i]].printInfo();
+      tieWinners.push_back(_livePlayers[tieWinnerID[i]]);
+  }
+  return tieWinners;
+}
 
 //--------------------------------------------------------------------------------------
 std::vector<player> hands::winner(std::vector<player> &_livePlayers, const cardStack &_river)
@@ -586,9 +587,7 @@ std::vector<player> hands::winner(std::vector<player> &_livePlayers, const cardS
     unsigned int numPlayers = _livePlayers.size();
 
     int topScore = 0;
-    std::vector<int> winner;
-    int topkicker = -1;
-    std::vector<int> tieWinner;
+    std::vector<int> winnerID;
     std::vector<player> WINNERS;
 
     // Find the highest score out of the players
@@ -605,44 +604,24 @@ std::vector<player> hands::winner(std::vector<player> &_livePlayers, const cardS
     for (unsigned int i=0;i<numPlayers;i++)
     {
         if (_livePlayers[i].getScore()==topScore)
-        {   winner.push_back(i);    }
+        {   winnerID.push_back(i);    }
     }
 
     std::cout<<"\n------------------------------------------------------\n\n";
 
     //check if there are multiple players with top score
-    if (winner.size()>1)
+    if (winnerID.size()>1)
     {
         // More than one player has the high score,
         // Now need to check these players Kicker,
-        for (unsigned int i=0; i<winner.size(); i++)
-        {
-            // Find highest kicker
-            topkicker = (_livePlayers[winner[i]].getKicker()>topkicker)?
-                         _livePlayers[winner[i]].getKicker():topkicker;
-        }
-
-        // Check players that have top kicker
-        for (unsigned int i=0;i<winner.size();i++)
-        {
-            if (_livePlayers[winner[i]].getKicker() == topkicker)
-            {   tieWinner.push_back(winner[i]);  }
-        }
-
-        // Push players with top kicker
-        for (unsigned int i=0;i<tieWinner.size();i++)
-        {
-            _livePlayers[tieWinner[i]].printInfo();
-            WINNERS.push_back(_livePlayers[tieWinner[i]]);
-        }
+        WINNERS = tieBreak(_livePlayers,winnerID);
     }
     else
     {
         // Only one winner
-        _livePlayers[winner[0]].printInfo();
-        WINNERS.push_back(_livePlayers[winner[0]]);
+        _livePlayers[winnerID[0]].printInfo();
+        WINNERS.push_back(_livePlayers[winnerID[0]]);
     }
-
 
     std::cout<<"\n========================================================\n";
     std::cout<<"\tWinner Winner, Chicken Dinner!!!";
