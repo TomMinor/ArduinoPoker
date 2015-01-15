@@ -40,7 +40,8 @@ void dealerLib::Betting()
     }
     if(otherPlayersBet == playerBets.end()) {otherPlayersBet = playerBets.begin();}
 
-    otherPlayersBet++;
+    else {otherPlayersBet++;}
+
 
   }
 
@@ -70,9 +71,16 @@ void dealerLib::dealHands(deck _pack)
   {
     for(playerIt = m_table.begin(); playerIt != m_table.end(); playerIt++)
     {
+
       playerIt->setHoleCard(_pack.deal());
+      sendCard(playerIt, )
     }
   }
 
+}
+
+void dealerLib::update()
+{
+//do some gui shiz
 }
 
