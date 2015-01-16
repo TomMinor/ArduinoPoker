@@ -6,10 +6,10 @@ int main()
 {
   cardStack river;
   river.addCard(PlayingCard(Rank::KING,Suit::SPADE));
-  river.addCard(PlayingCard(Rank::QUEEN,Suit::DIAMOND));
-  river.addCard(PlayingCard(Rank::QUEEN,Suit::SPADE));
+  river.addCard(PlayingCard(Rank::SIX,Suit::DIAMOND));
+  river.addCard(PlayingCard(Rank::FIVE,Suit::SPADE));
   river.addCard(PlayingCard(Rank::FOUR,Suit::SPADE));
-  river.addCard(PlayingCard(Rank::TWO,Suit::DIAMOND));
+  river.addCard(PlayingCard(Rank::THREE,Suit::SPADE));
 
 //---------------------------------------------------------
 
@@ -20,24 +20,24 @@ int main()
   a.setName("Alan");
   a.setHoleCard(PlayingCard(Rank::FOUR,Suit::DIAMOND));
   a.setHoleCard(PlayingCard(Rank::TWO,Suit::HEART));
-  livePlayers.push_back(a);
+  //livePlayers.push_back(a);
 //---------------------------------------------------------
   // Player: 1
   b.setName("Ben");
   b.setHoleCard(PlayingCard(Rank::KING,Suit::DIAMOND));
   b.setHoleCard(PlayingCard(Rank::SIX,Suit::CLUB));
-  livePlayers.push_back(b);
+  //livePlayers.push_back(b);
 //---------------------------------------------------------
   // Player: 2
   c.setName("Charlie");
   c.setHoleCard(PlayingCard(Rank::KING,Suit::CLUB));
   c.setHoleCard(PlayingCard(Rank::NINE,Suit::DIAMOND));
-  livePlayers.push_back(c);
+  //livePlayers.push_back(c);
 //---------------------------------------------------------
   // Player: 3
   d.setName("Dave");
-  d.setHoleCard(PlayingCard(Rank::NINE,Suit::SPADE));
-  d.setHoleCard(PlayingCard(Rank::NINE,Suit::HEART));
+  d.setHoleCard(PlayingCard(Rank::TWO,Suit::SPADE));
+  d.setHoleCard(PlayingCard(Rank::ACE,Suit::SPADE));
   livePlayers.push_back(d);
 //---------------------------------------------------------
 

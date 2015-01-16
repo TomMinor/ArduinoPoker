@@ -101,19 +101,7 @@ void hands::fillHand(player &_player, const cardStack &_river)
     _player.setKicker(_player.getHandCard(kickerID).getRank());
 }
 
-//--------------------------------------------------------------------------------------
-void hands::highestCard(player &_player)
-{
-    _player.setKicker(_player.getHandCard(0).getRank());
-    // Add cards to players hand until hand is full (5)
-    for (unsigned int i=1;i<_player.getHand().size();i++)
-    {
-      if(_player.getHandCard(i).getRank()>_player.getKicker())
-      {
-          _player.setKicker(_player.getHandCard(i).getRank());
-      }
-    }
-}
+
 //--------------------------------------------------------------------------------------
   //========== Hands ===========
 //--------------------------------------------------------------------------------------
@@ -400,48 +388,50 @@ bool hands::checkStraightHasFlush(player &_player,          const cardStack &_ri
   if(_numSuit ==5){return true;}
   else if(_numSuit < 3){return false;}
 
+  std::cout<<"Checking if the straight is also a flush!!\n\n";
   bool _flushFound = false;
   cardStack spareCards;
   spareCards = findSpareCards(_player,_river);
   spareCards.sort();
   for(unsigned int i=0; !_flushFound && i<spareCards.size()+1;i++)
   {
-      bool suitFound = spareCards[i].getSuit() == _suit;
+      bool suitFound = (spareCards[i].getSuitValue() == _suit);
+
       if(suitFound)
       {
           // Card of same suit present, now check whether it can go in straight
           int rankID = _player.getHand().findRankInStack(spareCards[i].getRank());
-          if(_player.getHand().findRankInStack(spareCards[i].getRank()+1)!=-1)
-          {
-                _numSuit++;
-                // Card of same suit but small straight found
-                if(_numSuit == _player.getHand().size())
-                {
-                    _player.removeHandCard(0);
-                    _player.setHandCard(spareCards[i]);
-                    _flushFound = true;
-                }
-          }
-          else if(rankID != -1)
+
+          if(rankID != -1)
           {
               // Replacement card of correct suit found.
               _numSuit++;
+              std::cout<<"need to swap cards!!\n";
+              _player.getHand().replaceCard(rankID,spareCards[i]);
               if(_numSuit == _player.getHand().size())
               {
                   //player has straight flush.
                   _player.getHand().replaceCard(rankID,spareCards[i]);
                   _flushFound = true;
               }
-              // else only 4 cards of correct suit
           }
-          else if(_player.getHand().findRankInStack(spareCards[i].getRank()-1)!=-1)
+          //else if(_player.getHand().findRankInStack(spareCards[i].getRank()+1)!=-1)
+          else if((_player.getHandCard(4).getRank() == spareCards[i].getRank()+1) ||
+                  (_player.getHandCard(4).getRank() == Rank::TWO &&
+                   spareCards[i].getRank() == Rank::ACE))
           {
-                _numSuit++;
+                if(_player.getHandCard(0).getSuitValue() != _suit)
+                {
+                    _numSuit++;
+                }
+
+                _player.removeHandCard(0);
+                _player.setHandCard(spareCards[i]);
                 // Card of same suit but small straight found
                 if(_numSuit == _player.getHand().size())
                 {
-                    _player.removeHandCard(0);
-                    _player.setHandCard(spareCards[i]);
+                    //playe has straight flush
+
                     _flushFound = true;
                 }
           }
@@ -455,6 +445,7 @@ bool hands::checkStraightHasFlush(player &_player,          const cardStack &_ri
 //--------------------------------------------------------------------------------------
 void hands::straightFlush(player &_player, const cardStack &_river)
 {
+  std::cout<<"checking straight flush!!\n";
     bool flushFound = false;
     unsigned int numHearts = 0;
     unsigned int numDiamonds = 0;
@@ -464,13 +455,19 @@ void hands::straightFlush(player &_player, const cardStack &_river)
     straight(_player,_river);
     if(_player.getHand().size() != 0)
     {
+        // Straight found now need to check for flush
         for(unsigned int i=0; i<_player.getHand().size();i++)
         {
-            if(_player.getHandCard(i).getSuit() == Suit::SPADE)       {numSpades++;}
-            else if(_player.getHandCard(i).getSuit() == Suit::CLUB)   {numClubs++;}
-            else if(_player.getHandCard(i).getSuit() == Suit::HEART)  {numHearts++;}
-            else if(_player.getHandCard(i).getSuit() == Suit::DIAMOND){numDiamonds++;}
+            if     (_player.getHandCard(i).getSuitValue() == Suit::SPADE)  {numSpades++;}
+            else if(_player.getHandCard(i).getSuitValue() == Suit::CLUB)   {numClubs++;}
+            else if(_player.getHandCard(i).getSuitValue() == Suit::HEART)  {numHearts++;}
+            else if(_player.getHandCard(i).getSuitValue() == Suit::DIAMOND){numDiamonds++;}
         }
+
+        std::cout<<numSpades<<" spades in straight\n";
+        std::cout<<numClubs<<" clubs in straight\n";
+        std::cout<<numHearts<<" hearts in straight\n";
+        std::cout<<numDiamonds<<" diamonds in straight\n";
 
         flushFound = checkStraightHasFlush(_player,_river,Suit::SPADE,numSpades);
         if(flushFound)
@@ -506,6 +503,7 @@ void hands::straightFlush(player &_player, const cardStack &_river)
 
         if(!flushFound)
         {
+            // No straight flush under straight.
             flushFound = false;
             _player.setScore(0);
             _player.setKicker(0);
@@ -606,8 +604,6 @@ std::vector<player> hands::winner(std::vector<player> &_livePlayers, const cardS
         if (_livePlayers[i].getScore()==topScore)
         {   winnerID.push_back(i);    }
     }
-
-    std::cout<<"\n------------------------------------------------------\n\n";
 
     //check if there are multiple players with top score
     if (winnerID.size()>1)

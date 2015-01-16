@@ -69,6 +69,7 @@ public:
 
   int getRank()const;
   int getSuit() const;
+  int getSuitValue()const;
   card_t getValue()const;
 
   void operator=(const PlayingCard &_card);
@@ -102,8 +103,6 @@ private:
    * \brief m_value Stores the suit and rank of the playing card in a single byte.
    */
   card_t m_value;
-  int getSuitID() const;
-
 
 };
 
