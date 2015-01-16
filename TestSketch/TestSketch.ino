@@ -1,5 +1,4 @@
-#include <player.h>
-
+//#include <player.h>
 // include the library code:
 #include <LiquidCrystal.h>
 
@@ -24,21 +23,21 @@ void setup()
 
 void loop() 
 {
-  static player test(500, 2);
+  //static player test(500, 2);
   
-  int command = 1;
+  int command = getCommand();
   
   lcd.clear();
-  lcd.print(String(test.getMoney()));
+  lcd.print(String(command));
   
   delay(2000);
   
-  test.placeBet(200, 10);
+  //test.placeBet(200, 10);
   
-  lcd.clear();
-  lcd.print(String(test.getMoney()));
-  
-  delay(5000);
+//  lcd.clear();
+//  //lcd.print(String(test.getMoney()));
+//  
+//  delay(5000);
  
   
   
