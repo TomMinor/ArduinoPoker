@@ -36,14 +36,11 @@ PlayingCard::PlayingCard(card_t _value)
     m_value = _value;
 }
 
-// Gotta fix these
-
 bool PlayingCard::IsRank(Rank::Value _rank) const
 {
     return RANKOF(m_value) == _rank;
 }
 
-// Gotta fix these
 bool PlayingCard::IsSuit(Suit::Value _suit) const
 {
   return (SUITOF(m_value)==_suit);
@@ -57,27 +54,20 @@ std::string PlayingCard::RankString() const
 
 std::string PlayingCard::SuitString() const
 {
-  return SuitLookup[getSuitID()];
+  return SuitLookup[getSuit()];
 }
 
-int PlayingCard::getSuitID() const
+int PlayingCard::getRank()const
+{
+  return RANKOF(m_value);
+}
+int PlayingCard::getSuit()const
 {
   if( ISDIAMOND(m_value))    { return 0; }
   else if( ISHEART(m_value)) { return 1; }
   else if( ISCLUB(m_value))  { return 2; }
   else if( ISSPADE(m_value)) { return 3; }
-
-  assert( !"Invalid suit" );
-}
-
-int PlayingCard::getRank()const
-{
-  //return RANKOF(m_value);
-  return (RANKMASK & m_value);
-}
-int PlayingCard::getSuit()const
-{
-  return SUITOF(m_value);
+  else                       {return -1;}
 }
 
 card_t PlayingCard::getValue()const
@@ -93,7 +83,7 @@ void PlayingCard::operator=(const PlayingCard &_card)
 bool PlayingCard::operator==(const PlayingCard& _card)const
 {
   bool sameRank = (RANKOF(m_value) == RANKOF(_card.m_value));
-  bool sameSuit = (getSuitID() == _card.getSuitID());
+  bool sameSuit = (getSuit() == _card.getSuit());
 
   return sameRank && sameSuit;
 }
