@@ -60,7 +60,7 @@ void GUI_Hand::setPos(const SDL_Point &_p)
 
 void GUI_Hand::moveTo(const SDL_Point &_p)
 {
-    std::cout<<"moving hand to: ("<<_p.x<<", "<<_p.y<<")\n";
+    //std::cout<<"moving hand to: ("<<_p.x<<", "<<_p.y<<")\n";
     m_origin = _p;
     SDL_Point current = _p;
 
@@ -78,7 +78,7 @@ void GUI_Hand::moveTo(const SDL_Point &_p)
     for (std::vector<GUI_Card*>::iterator it = m_cards.begin(); it!=m_cards.end(); ++it)
     {
         (*it)->moveTo(current);
-        std::cout<<"moving a card to: ("<<current.x<<", "<<current.y<<")\n";
+        //std::cout<<"moving a card to: ("<<current.x<<", "<<current.y<<")\n";
         if (m_orient == BOTTOM || m_orient == TOP)
         {
             current.x += (m_orient == BOTTOM) ? (*it)->getWidth() : -(*it)->getWidth();

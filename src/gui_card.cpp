@@ -70,8 +70,8 @@ void GUI_Card::continueFlip()
     }
     else
     {
-        m_srcRect.x = ((m_cardType.getRank())-1)*CARDWIDTH;
-        m_srcRect.y = ((m_cardType.getSuit()))*m_srcRect.h;
+        m_srcRect.x = (m_cardType.getRank()%13)*CARDWIDTH;
+        m_srcRect.y = (m_cardType.getSuit()>>4)*m_srcRect.h;
     }
 
     float xScale = (float)fabs(sin(m_flippedAmount*M_PI*0.5f));
