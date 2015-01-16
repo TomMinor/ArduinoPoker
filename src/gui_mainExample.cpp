@@ -26,7 +26,7 @@ int main()
 
     gui.initialise(players);
 
-    PlayingCard aceOfSpades = PlayingCard(Rank::KING,Suit::SPADE);
+    PlayingCard aceOfSpades = PlayingCard(Rank::KING,Suit::DIAMOND);
 //    GUI_Label* testLabel = gui.uniqueLabel(std::string("test"),LEFT);
 //    GUI_Card* testCard = gui.uniqueCard(aceOfSpades,LEFT);
     std::vector<PlayingCard> cardList;
