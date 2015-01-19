@@ -4,7 +4,7 @@
 #include <string>
 #include <stdint.h>
 
-#include "../card.h"
+#include "../shared/card.h"
 
 /*!
  * \brief card_t Represents a card with a single byte

@@ -1,0 +1,9 @@
+Todo list
+
+create 3 functions
+
+1.int getCommand() //this will return a int that represents a state of the command called 
+2.getData()//To get the data from the dealer to arduino
+3.sendData()//send data to the dealer
+
+

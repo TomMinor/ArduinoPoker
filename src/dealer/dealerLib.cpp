@@ -12,38 +12,35 @@ dealerLib::~dealerLib()
 
 void dealerLib::Betting()
 {
-  std::vector<int> playerBets;
-  std::vector<int>::iterator firstPlayersBet;
-  std::vector<int>::iterator otherPlayersBet;
-  std::vector<int>::iterator betItr;
-  int count = 0;
+//  std::vector<int> playerBets;
+//  std::vector<int>::iterator firstPlayersBet;
+//  std::vector<int>::iterator otherPlayersBet;
+//  std::vector<int>::iterator betItr;
+//  int count = 0;
 
-  firstPlayersBet = playerBets.begin();
-  otherPlayersBet = playerBets.begin();
+//  firstPlayersBet = playerBets.begin();
+//  otherPlayersBet = playerBets.begin();
 
+//  std::vector<player>::iterator playerItr;
 
+//  while(std::distance(playerBets.begin(), playerBets.end()) != count)
+//  {
 
+//    playerBets.push_back(m_bet); //playerItr->m_table.getBet() need to implement a getBet function
+//    if(*firstPlayersBet == *otherPlayersBet)
+//    {
+//      count++;
+//    }
+//    else
+//    {count = 0;
+//     firstPlayersBet = otherPlayersBet;
+//    }
+//    if(otherPlayersBet == playerBets.end()) {otherPlayersBet = playerBets.begin();}
 
-  std::vector<player>::iterator playerItr;
-
-  while(std::distance(playerBets.begin(), playerBets.end()) != count)
-  {
-
-    playerBets.push_back(m_bet); //playerItr->m_table.getBet() need to implement a getBet function
-    if(*firstPlayersBet == *otherPlayersBet)
-    {
-      count++;
-    }
-    else
-    {count = 0;
-     firstPlayersBet = otherPlayersBet;
-    }
-    if(otherPlayersBet == playerBets.end()) {otherPlayersBet = playerBets.begin();}
-
-    else {otherPlayersBet++;}
+//    else {otherPlayersBet++;}
 
 
-  }
+//  }
 
 
 }
@@ -73,7 +70,7 @@ void dealerLib::dealHands(deck _pack)
     {
 
       playerIt->setHoleCard(_pack.deal());
-      sendHand(playerIt, m_hand);
+      //sendHand(playerIt, m_hand);
     }
   }
 
