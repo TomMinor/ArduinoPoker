@@ -46,10 +46,12 @@ public:
 private:
   std::string m_name;
   cardStack m_cards;
-  cardStack m_hand;
   int m_score;
   int m_kicker;
   int m_money;
+
+protected:
+  cardStack m_hand;
 
 };
 

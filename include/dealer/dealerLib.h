@@ -18,12 +18,13 @@ public:
   void update();
 
 
-  bool sendBetInfo(player _player, unsigned int _bet, unsigned int _timeout = 4);
+  bool sendBetLimits(player _player, unsigned int _min, unsigned int _max);
   bool sendMoney(player _player, unsigned int _amount);
   bool sendCard(player _player, PlayingCard _card);
+  bool sendHand(player _player, cardStack _cards);
 
-  bool recieveBetInfo(player _player, unsigned int _bet, unsigned int _timeout = 4);
-  bool
+  bool recieveBet(player _player, unsigned int &_bet, unsigned int _timeout = 4);
+  bool recieveName(player _player, std::string &_name, unsigned int _timeout = 4);
 
 
 private:
