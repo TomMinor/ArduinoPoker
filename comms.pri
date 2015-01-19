@@ -13,7 +13,9 @@ SOURCES += src/dealer/playingcard.cpp \
 
 HEADERS += include/card.h \
     include/dealer/playingcard.h \
-    include/comms/packet.h
+    include/comms/packet.h \
+    $$PWD/include/comms/PacketTypes.h \
+    $$PWD/include/comms/PacketErrors.h
 INCLUDEPATH += include/
 OBJECTS_DIR = obj
 
