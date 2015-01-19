@@ -2,18 +2,19 @@
 #include "pokerDisplay.h"
 #include "player.h"
 #include "input.h"
-player p(100,2);
+
+
+LiquidCrystal lcd(8, 9, 4, 5, 6, 7);
+
 
 void setup() 
 {
   // set up the LCD's number of columns and rows:
   lcd.begin(16,2);
-  
 }
 
 void loop() 
 {
    
-  //lcd.print("butt");
-  p.setName();
+  lcd.print("butt");
 }
