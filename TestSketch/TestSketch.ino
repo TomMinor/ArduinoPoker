@@ -1,3 +1,4 @@
+//#include <player.h>
 // include the library code:
 #include <LiquidCrystal.h>
 
@@ -26,14 +27,25 @@ void setup()
 
 void loop() 
 {
-   boolean dick;
-   input test(0);
+   //boolean dick;
+   //input test(0);
    
-   uint8_t but;
+   //uint8_t but;
    
-   dick = test.menuYesNo(1);  
+   //dick = test.menuYesNo(1);  
+  //static player test(500, 2);
   
+  int command = getCommand();
   
+  lcd.clear();
+  lcd.print(String(command));
   
-
+  delay(2000);
+  
+  //test.placeBet(200, 10);
+  
+//  lcd.clear();
+//  //lcd.print(String(test.getMoney()));
+//  
+//  delay(5000);
 }
