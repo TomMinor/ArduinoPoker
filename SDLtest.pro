@@ -6,10 +6,8 @@ OBJECTS_DIR= obj
 cache()
 #To add source files
 SOURCES+= $$PWD/src/gui*.cpp $$PWD/src/dealer/*.cpp
-SOURCES-= $$PWD/src/gui_listmenu.cpp $$PWD/src/gui_task.cpp
 #To add headers
 HEADERS+= $$PWD/include/gui_*.h $$PWD/include/dealer/*.h
-HEADERS-= $$PWD/include/gui_listmenu.h $$PWD/include/gui_task.h
 INCLUDEPATH+= include
 INCLUDEPATH+= $$(HOME)/NGL/include
 #Tell Qt to include OpenGL
