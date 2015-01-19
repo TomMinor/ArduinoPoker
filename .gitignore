@@ -31,3 +31,8 @@
 *.pro.user*
 
 Makefile
+# qt project file
+# because i'm only using QT for IDE purposes
+
+*.pro.user
+*.autosave
