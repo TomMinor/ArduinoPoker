@@ -29,7 +29,7 @@ void dealerLib::Betting()
   while(std::distance(playerBets.begin(), playerBets.end()) != count)
   {
 
-    playerBets.push_back(10); //playerItr->m_table.getBet() need to implement a getBet function
+    playerBets.push_back(m_bet); //playerItr->m_table.getBet() need to implement a getBet function
     if(*firstPlayersBet == *otherPlayersBet)
     {
       count++;
@@ -73,7 +73,7 @@ void dealerLib::dealHands(deck _pack)
     {
 
       playerIt->setHoleCard(_pack.deal());
-      //sendCard(playerIt,)
+      sendHand(playerIt, m_hand);
     }
   }
 
@@ -84,3 +84,27 @@ void dealerLib::update()
 //do some gui shiz
 }
 
+bool dealerLib::sendBetLimits(player _player, unsigned int _min, unsigned int _max)
+{
+
+}
+
+bool dealerLib::sendCard(player _player, PlayingCard _card)
+{
+
+}
+
+bool dealerLib::sendHand(player _player, cardStack _cards)
+{
+
+}
+
+bool dealerLib::recieveBet(player _player, unsigned int &_bet, unsigned int _timeout)
+{
+
+}
+
+bool dealerLib::recieveName(player _player, std::string &_name, unsigned int _timeout)
+{
+
+}

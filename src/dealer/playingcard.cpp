@@ -70,6 +70,11 @@ int PlayingCard::getSuit()const
   else                       {return -1;}
 }
 
+int PlayingCard::getSuitValue()const
+{
+  return SUITOF(m_value);
+}
+
 card_t PlayingCard::getValue()const
 {
     return m_value;
