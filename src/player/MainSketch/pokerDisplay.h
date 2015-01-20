@@ -12,6 +12,7 @@ class display
   
       display();
       ~display();
+      void createCustomChar();
       void displayCard();
   
   private:
