@@ -4,6 +4,7 @@
 #include <algorithm>
 
 //--------------------------------------------------------------------------------------
+//--------------------------------------------------------------------------------------
 cardStack hands::findSpareCards( const player &_player, const cardStack &_river)
 {
     cardStack spareCards;
@@ -103,7 +104,7 @@ void hands::fillHand(player &_player, const cardStack &_river)
 
 
 //--------------------------------------------------------------------------------------
-  //========== Hands ===========
+  //========== Decide hands methods ===========
 //--------------------------------------------------------------------------------------
 void hands::highestCard(player &_player, const cardStack &_river)
 {
@@ -505,6 +506,8 @@ void hands::straightFlush(player &_player, const cardStack &_river)
     }
 }
 
+//-----------------------------------------------------------------------------
+  //=========decide winner methods=========
 //-----------------------------------------------------------------------------
 void hands::bestHand(player &_player, const cardStack &_river)
 {

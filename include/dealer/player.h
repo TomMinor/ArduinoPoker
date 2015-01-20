@@ -6,6 +6,10 @@
 #include "playingcard.h"
 #include "cardStack.h"
 
+/// @author Idris Miles
+/// @version 1.0
+/// @date 16/01/2015
+
 class player
 {
 public:

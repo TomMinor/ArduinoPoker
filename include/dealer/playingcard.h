@@ -3,8 +3,11 @@
 
 #include <string>
 #include <stdint.h>
-
 #include "../shared/card.h"
+
+/// @author Tom Minor
+/// @version 1.0
+/// @date 16/01/2015
 
 /*!
  * \brief card_t Represents a card with a single byte
