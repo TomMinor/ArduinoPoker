@@ -13,7 +13,7 @@ private:
 
     uint16_t m_money;
     uint8_t m_numCards;
-    uint8_t m_playerName[];
+    char[16] m_playerName[];
     //PlayingCard m_cards[];
 
 
@@ -26,6 +26,7 @@ private:
     void receiveMoney(uint16_t _money);
     void receiveCard();
     void setName();
+    char* getName();
     void resetPlayer(uint16_t _money, uint16_t _cardNum);
     void resetCards();
     uint16_t getMoney() { return m_money; }

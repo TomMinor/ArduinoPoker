@@ -83,9 +83,92 @@ void player::receiveCard()
 
 void player::setName()
 {
-  
-
+    input button (0);
+    bool exit = false;
+    
+    while( !exit )
+    {
+        char alphabet [ 27 ] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        int index = 26;
+        int currentPosX = 0;
+        int currentPosY = 1;
+        int nLetters = 1;
+        char tmp[ 16 ];
+        
+        lcd.clear();
+        bool select = false;
+        
+        while( !select )
+        {
+            lcd.setCursor( 0, 0 );
+            lcd.print( "Enter Name:" );
+            button.updateValue();
+            lcd.setCursor( currentPosX, currentPosY );
+            
+            if ( button.right() ) {
+                currentPosX += 1;
+                lcd.setCursor( currentPosX, currentPosY );
+                index = 26;
+                delay( 400 );
+                ++nLetters;
+            }
+            else if ( button.up() ) {
+                
+                if ( alphabet[ index ] == 'Z'|| alphabet[ index ] == '\0' ) { index = 0; }
+                else { index+=1; }
+                lcd.print( alphabet[ index ] );
+                tmp[ currentPosX ] = alphabet[ index ];
+                delay( 400 );
+                
+            }
+            else if ( button.down() ) {
+                
+                if( alphabet[ index ] == 'A'|| alphabet[ index ] == '\0' ) { index = 25; }
+                else { index-=1; }
+                lcd.print( alphabet[ index ] );
+                tmp[ currentPosX ] = alphabet[ index ];
+                delay( 400 );
+                
+            }
+            else if ( button.left() ) {
+                
+                currentPosX -= 1;
+                lcd.setCursor(currentPosX,currentPosY);
+                delay( 400 );
+                
+            }
+            else if ( button.select() ) { select = true; }
+            
+        }
+        
+        for ( int i = 0; i < nLetters; ++i )
+        {
+            m_playerName[ i ] = tmp[ i ];
+        }
+        
+        lcd.clear();
+        lcd.print( "Confirm: "+ String( m_playerName ) );
+        
+        bool confirm = button.menuYesNo(1);
+        
+        if( confirm )
+        {
+            lcd.clear();
+            lcd.print( "Welcome " + String( m_playerName ) + "!" );
+            delay( 2000 );
+            exit = true;
+        }
+        
+    }
+    
 }
+
+char* player::getName()
+{
+    return m_playerName;
+    
+}
+
 
 void player::resetPlayer(uint16_t _money, uint16_t _cardNum)
 {
