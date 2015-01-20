@@ -9,6 +9,7 @@ namespace Comms
       E_TIMEOUT = -1,
       E_CORRUPT = -2
     };
+
 }
 
 #endif // PACKETERRORS_H
