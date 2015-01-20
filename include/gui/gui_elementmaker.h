@@ -6,17 +6,22 @@
 #include "gui_card.h"
 #include "gui_label.h"
 
-class GUI_ElementMaker
+namespace GUI
+{
+
+class ElementMaker
 {
 public:
-    GUI_ElementMaker(const GUI_CardInfo* _cardInfo, const GUI_LabelFormat* _labelFormat);
-    GUI_Element *makeElement(SDL_Texture *_tex, const GUI_Orientation &_orient = BOTTOM);
-    GUI_Card *makeCard(const PlayingCard &_type, const GUI_Orientation &_orient = BOTTOM);
-    GUI_Label *makeLabel(const std::string &_inputString, const GUI_Orientation &_orient = BOTTOM, const int &_lifetime = 0);
+    ElementMaker(const CardInfo* _cardInfo, const LabelFormat* _labelFormat);
+    Element *makeElement(SDL_Texture *_tex, const Orientation &_orient = BOTTOM);
+    Card *makeCard(const PlayingCard &_type, const Orientation &_orient = BOTTOM);
+    Label *makeLabel(const std::string &_inputString, const Orientation &_orient = BOTTOM, const int &_lifetime = 0);
 
 private:
-    const GUI_CardInfo* m_cardInfo;
-    const GUI_LabelFormat* m_labelFormat;
+    const CardInfo* m_cardInfo;
+    const LabelFormat* m_labelFormat;
 };
+
+}
 
 #endif // ELEMENTMAKER_H

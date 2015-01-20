@@ -1,10 +1,10 @@
 #include "include/gui/gui_elementmaker.h"
 
-GUI_ElementMaker::GUI_ElementMaker(const GUI_CardInfo *_cardInfo, const GUI_LabelFormat *_labelFormat) : m_cardInfo(_cardInfo), m_labelFormat(_labelFormat)
+GUI::ElementMaker::ElementMaker(const GUI::CardInfo *_cardInfo, const GUI::LabelFormat *_labelFormat) : m_cardInfo(_cardInfo), m_labelFormat(_labelFormat)
 {
 }
 
-GUI_Element* GUI_ElementMaker::makeElement(SDL_Texture *_tex, const GUI_Orientation &_orient)
+GUI::Element* GUI::ElementMaker::makeElement(SDL_Texture *_tex, const GUI::Orientation &_orient)
 {
     SDL_Rect rect;
     rect.x=0,
@@ -13,10 +13,10 @@ GUI_Element* GUI_ElementMaker::makeElement(SDL_Texture *_tex, const GUI_Orientat
 
     SDL_Point origin = {0,0};
 
-    return new GUI_Element(m_cardInfo->ren,_tex,rect,rect,_orient,origin);
+    return new GUI::Element(m_cardInfo->ren,_tex,rect,rect,_orient,origin);
 }
 
-GUI_Card* GUI_ElementMaker::makeCard(const PlayingCard &_type, const GUI_Orientation &_orient)
+GUI::Card* GUI::ElementMaker::makeCard(const PlayingCard &_type, const GUI::Orientation &_orient)
 {
     //std::cout<<"Returned rank: "<<_type.getRank()<<" suit: "<<_type.getSuit()<<"\n";
     //std::cout<<"Modified rank: "<<(_type.getRank()-1)%13<<" suit: "<<_type.getSuit()%4<<"\n";
@@ -37,10 +37,10 @@ GUI_Card* GUI_ElementMaker::makeCard(const PlayingCard &_type, const GUI_Orienta
 
     SDL_Point origin = {0,0};
 
-    return new GUI_Card(m_cardInfo->ren,m_cardInfo->texture,srcRect,destRect,_orient,origin,_type);
+    return new GUI::Card(m_cardInfo->ren,m_cardInfo->texture,srcRect,destRect,_orient,origin,_type);
 }
 
-GUI_Label *GUI_ElementMaker::makeLabel(const std::string &_inputString, const GUI_Orientation &_orient, const int &_lifetime)
+GUI::Label *GUI::ElementMaker::makeLabel(const std::string &_inputString, const GUI::Orientation &_orient, const int &_lifetime)
 {
     //write text to surface
     SDL_Surface *temp;
@@ -74,5 +74,5 @@ GUI_Label *GUI_ElementMaker::makeLabel(const std::string &_inputString, const GU
 
     SDL_Point origin = {0,0};
 
-    return new GUI_Label(m_labelFormat->ren,tex,rect,_orient,origin,_lifetime);
+    return new GUI::Label(m_labelFormat->ren,tex,rect,_orient,origin,_lifetime);
 }

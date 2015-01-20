@@ -3,7 +3,7 @@
 
 int main()
 {
-    GUI_DealerGUI gui;
+    GUI::DealerGUI gui;
 
     std::vector<player*> players;
 
@@ -99,7 +99,7 @@ int main()
                         case SDLK_v : gui.dealCardTo(rand()%4,aceOfSpades); break;
                         case SDLK_m : gui.broadcastMessage(std::string("Oh hey look a message")); break;
                         case SDLK_t : gui.setPlayerName(0,std::string("dickfuck")); break;
-                        case SDLK_z : gui.m_publicCards->addCard(gui.uniqueCard(aceOfSpades,BOTTOM)); break;
+                        case SDLK_z : gui.addPublicCard(PlayingCard(Rank::ACE,Suit::SPADE)); break;
                         case SDLK_x : gui.showWinner(winningPlayers); break;
                         case SDLK_r : gui.reset(players,cardList); break;
                         //case SDLK_UP : gui.m_deckCard->setFlipped(true); break;

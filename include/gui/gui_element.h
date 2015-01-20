@@ -4,25 +4,28 @@
 #include <SDL.h>
 #include <math.h>
 
+namespace GUI
+{
+
 typedef enum
 {
     BOTTOM,
     RIGHT,
     TOP,
     LEFT
-} GUI_Orientation;
+} Orientation;
 
-class GUI_Element
+class Element
 {
 public:
-    GUI_Element(SDL_Renderer *_ren,
+    Element(SDL_Renderer *_ren,
             SDL_Texture *_tex,
             const SDL_Rect &_srcRect,
             const SDL_Rect &_destRect,
-            const GUI_Orientation &_orient,
+            const Orientation &_orient,
             const SDL_Point &_origin,
             const int &_lifetime = 0);
-    virtual ~GUI_Element();
+    virtual ~Element();
     void setPos(const SDL_Point &_p);//move to this point instantly
     inline SDL_Point getPos() {return m_origin;}
     void moveTo(const SDL_Point &_p);//move to this point with cosine interpolation
@@ -34,7 +37,7 @@ public:
     inline bool shouldKillNow() const {return m_shouldKillNow;}
     unsigned int getHeight() const;//the height the element takes up on screen, taking rotation into account
     unsigned int getWidth() const;//the width the element takes up on screen, taking rotation into account
-    SDL_Point aligned(const GUI_Orientation &_orient);//returns the point the element should move to to align with the specified edge of the screen
+    SDL_Point aligned(const Orientation &_orient);//returns the point the element should move to to align with the specified edge of the screen
     SDL_Point aligned();//pass with no arguments to return the screen centre
     inline SDL_Renderer* getRenderer() {return m_ren;}
     void printRect();
@@ -45,7 +48,7 @@ protected:
     SDL_Texture *m_texture;
     SDL_Rect m_srcRect;
     SDL_Rect m_destRect;
-    GUI_Orientation m_orientation;
+    Orientation m_orientation;
 
     //movement stuff
     SDL_Point m_origin;
@@ -58,5 +61,7 @@ protected:
     bool m_isImmortal;//if true then the object will never set shouldKillNow to true
     int m_life;//how many cycles the element should last while stationary; set to 0 for it to last infinitely
 };
+
+}
 
 #endif // ELEMENT_H
