@@ -13,7 +13,7 @@ private:
 
     uint16_t m_money;
     uint8_t m_numCards;
-    char[16] m_playerName[];
+    char m_playerName[16];
     //PlayingCard m_cards[];
 
 
