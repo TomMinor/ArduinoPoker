@@ -17,7 +17,8 @@ uint8_t cards[4]={0,0,0,0};
 unsigned int bet=0;
 bool betState=true;
 bool recieved=false;
-bool PlayerConnected=true;
+
+
 LiquidCrystal lcd(8, 9, 4, 5, 6, 7);
 
 display d(1);
@@ -51,38 +52,40 @@ void loop()
       }
       else
       {
-      lcd.clear();
       
-      d.displayCard(cards[2], cards[3], 1, 0, 1);
-      delay(1000);
       
       Serial.write("listening \n");
       lcd.clear();
       lcd.print("listening");
       }  
+      lcd.clear();
+      d.displayCard(cards[2], cards[3], 1, 0, 1);
+      delay(1000);
    }
    
    
    if(betState!=false)
    {
       
-      betState,bet=test.placeBet(100, 50);
-      lcd.clear();
+     
+        lcd.print(String(bet));
+        betState,bet=test.placeBet(100, 50);
+        lcd.clear();
+        
+        test.sendData(bet,2,"int");
+        if (bet==0)
+        {
+          betState=false;
+        }
+       
       
-      test.sendData(bet,2,"int");
-      if (bet==0)
-      {
-        betState=false;
-      }
-      lcd.print(String(bet));
    }
    else
    {
       lcd.clear();
       Serial.print("Disconnected");
       lcd.print("You Folded");
-      PlayerConnected=false;
-      delay(2000);
+      delay(1000);
       exit(0);
       
    }

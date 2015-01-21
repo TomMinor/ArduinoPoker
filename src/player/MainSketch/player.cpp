@@ -64,10 +64,10 @@ uint16_t player::placeBet(uint16_t _max, uint16_t _min)
 
      if(confirm == true)
      {
-       quit = true;
+        quit=true;
        if(fold == true)  { sendData(fold,1,"bool"); return 0; }
        else              { m_money = m_money - bet; return bet; }
-     }
+    }
   }
 }
 
