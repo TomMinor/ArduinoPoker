@@ -1,14 +1,16 @@
 #include "../../include/comms/packet.h"
 
 #include <assert.h>
+#include <string>
 
 namespace Comms
 {
 
-PacketError sendPacket(const Packet& _packet)
+PacketError sendPacket(const std::string& _port, const Packet& _packet)
 {
-   uint8_t header = 0;
+   uint8_t header = _packet.header;
    uint8_t payload[_packet.payloadSize];
+
 
 
    // Send over serial
