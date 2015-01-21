@@ -39,8 +39,8 @@ uint16_t player::placeBet(uint16_t _max, uint16_t _min)
       //clear the bottom line
       lcd.setCursor(0,1);
    
-      if      (button.right() && bet <= (_max-10) && bet <= (m_money-10)) { bet+=10; fold = false;    }
-      else if (button.up() && bet < _max && bet < m_money)                { bet++; fold = false;      }
+      if      (button.right()&& bet <= (_max-10) && bet <= (m_money-10)) { bet+=10; fold = false;    }
+      else if (button.up()   && bet < _max && bet < m_money)                { bet++; fold = false;      }
       else if (button.down() && bet > _min && bet <= m_money)             { bet--; fold = false;      }
       else if (button.left() && bet >= (_min+10) && bet < (m_money+10))   { bet-=10; fold = false;    }
       else if (button.left() && bet == _min)                              { fold = true;              }
@@ -65,7 +65,7 @@ uint16_t player::placeBet(uint16_t _max, uint16_t _min)
      if(confirm == true)
      {
        quit = true;
-       if(fold == true)  { /*return fold*/   }
+       if(fold == true)  { sendData(fold,1,"bool"); return 0; }
        else              { m_money = m_money - bet; return bet; }
      }
   }
@@ -181,3 +181,4 @@ void player::resetCards()
 
 }
 
+    
