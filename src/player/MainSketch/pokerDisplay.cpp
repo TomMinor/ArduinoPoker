@@ -91,109 +91,94 @@ sendData(MyCard, ..)
 
 void display::displayCard(uint8_t _rank, uint8_t _suit, int _x, int _y, int _nCard)
 {
-    //Suit
+    
     m_x = _x;
     m_y = _y;
     m_nCard = _nCard;
    
-    if (_suit == 16){
-        strcpy(m_suit,"DIAMOND");
-        lcd.setCursor(m_x,m_y);
-        lcd.write(byte(0));
-    }
-    else if( _suit == 32){
-        strcpy(m_suit,"HEART");
-        lcd.setCursor(m_x,m_y);
-        lcd.write(1);
-    }
-    else if(_suit == 64){
-        strcpy(m_suit,"CLUB");
-        lcd.setCursor(m_x,m_y);
-        lcd.write(2);
-    }
-    else if(_suit == 128){
-        strcpy(m_suit,"SPADE");
-        lcd.setCursor(m_x,m_y);
-        lcd.write(3);
-    }
-    else{
-        lcd.clear();
-        lcd.print("No valid suit.");
-        delay(1000);
-    }
-   
-    //Rank
-   
-    if (_rank == 1){
-        strcpy(m_rank,"TWO");
-        lcd.setCursor(m_x+1,m_y);
-        lcd.print("2");
-    }
-    else if(_rank == 2) {
-        strcpy(m_rank,"THREE");
-        lcd.setCursor(m_x+1,m_y);
-        lcd.print("3");
-    }
-    else if(_rank == 3){
-        strcpy(m_rank,"FOUR");
-        lcd.setCursor(m_x+1,m_y);
-        lcd.print("4");
-    }
-    else if(_rank == 4){
-        strcpy(m_rank,"FIVE");
-        lcd.setCursor(m_x+1,m_y);
-        lcd.print("5");
-    }
-    else if(_rank == 5){
-        strcpy(m_rank,"SIX");
-        lcd.setCursor(m_x+1,m_y);
-        lcd.print("6");
-    }
-    else if(_rank == 6){
-        strcpy(m_rank,"SEVEN");
-        lcd.setCursor(m_x+1,m_y);
-        lcd.print("7");
-    }
-    else if(_rank == 7){
-        strcpy(m_rank,"EIGHT");
-        lcd.setCursor(m_x+1,m_y);
-        lcd.print("8");
-    }
-    else if(_rank == 8){
-        strcpy(m_rank,"NINE");
-        lcd.setCursor(m_x+1,m_y);
-        lcd.print("9");
-    }
-    else if(_rank == 9){
-        strcpy(m_rank,"TEN");
-        lcd.setCursor(m_x+1,m_y);
-        lcd.print("T");
-    }
-    else if(_rank == 10){
-        strcpy(m_rank,"JACK");
-        lcd.setCursor(m_x+1,m_y);
-        lcd.print("J");
-    }
-    else if(_rank == 11){
-        strcpy(m_rank,"QUEEN");
-        lcd.setCursor(m_x+1,m_y);
-        lcd.print("Q");
-    }
-    else if(_rank == 12){
-        strcpy(m_rank,"KING");
-        lcd.setCursor(m_x+1,m_y);
-        lcd.print("K");
-    }
-    else if(_rank == 13){
-        strcpy(m_rank,"ACE");
-        lcd.setCursor(m_x+1,m_y);
-        lcd.print("A");
-    }
-    else{
-        lcd.clear();
-        lcd.print("No valid rank.");
-        delay(1000);
-    }
+   switch(_suit) {
+     case Suit::DIAMOND:
+       lcd.setCursor( m_x, m_y );
+       lcd.write( byte( 0 ) );
+       break;
+     case Suit::HEART:
+       lcd.setCursor( m_x, m_y );
+       lcd.write( 1 );
+       break;
+     case Suit::CLUB:
+       lcd.setCursor(m_x,m_y);
+       lcd.write(2);
+       break;
+     case Suit::SPADE:
+       lcd.setCursor(m_x,m_y);
+       lcd.write(3);
+       break;
+     default:
+       lcd.clear();
+       lcd.setCursor(0,1);
+       lcd.print("No valid suit.");
+       delay(1000);
+   }
+     
+    switch(_rank) {
+     case byte(Rank::TWO):
+       lcd.setCursor(m_x+1,m_y);
+       lcd.print("2");
+       break;
+     case byte(Rank::THREE):
+       lcd.setCursor(m_x+1,m_y);
+       lcd.print("3");
+       break;
+     case byte(Rank::FOUR):
+       lcd.setCursor(m_x+1,m_y);
+       lcd.print("4");
+       break;
+     case byte(Rank::FIVE):
+       lcd.setCursor(m_x+1,m_y);
+       lcd.print("5");
+       break;
+     case byte(Rank::SIX):
+       lcd.setCursor(m_x+1,m_y);
+       lcd.print("6");
+       break;
+     case byte(Rank::SEVEN):
+       lcd.setCursor(m_x+1,m_y);
+       lcd.print("7");
+       break;
+     case byte(Rank::EIGHT):
+       lcd.setCursor(m_x+1,m_y);
+       lcd.print("8");
+       break;
+      case byte(Rank::NINE):
+       lcd.setCursor(m_x+1,m_y);
+       lcd.print("9");
+       break;
+     case byte(Rank::TEN):
+       lcd.setCursor(m_x+1,m_y);
+       lcd.print("T");
+       break;
+     case byte(Rank::JACK):
+       lcd.setCursor(m_x+1,m_y);
+       lcd.print("J");
+       break;
+     case byte(Rank::QUEEN):
+       lcd.setCursor(m_x+1,m_y);
+       lcd.print("Q");
+       break;
+     case byte(Rank::KING):
+       lcd.setCursor(m_x+1,m_y);
+       lcd.print("K");
+       break;
+     case byte(Rank::ACE):
+       lcd.setCursor(m_x+1,m_y);
+       lcd.print("A");
+       break;
+     default:
+       lcd.clear();
+       lcd.setCursor(0,1);
+       lcd.print("No valid rank.");
+       delay(1000);
+   }
    
     if(m_nCard != m_totCards)
     {

@@ -3,6 +3,7 @@
 
 #include "Arduino.h"
 #include <LiquidCrystal.h>
+#include "card.h"
 
 extern LiquidCrystal lcd;
 
@@ -19,8 +20,6 @@ class display
   
     int m_x;
     int m_y;
-    char m_rank[6];
-    char m_suit[8];
     int m_totCards;
     int m_nCard;
 
