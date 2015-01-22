@@ -22,15 +22,11 @@ private:
 
     /// @brief Number of cards being held by the player.
     uint8_t m_numCards;
-<<<<<<< HEAD
-    char m_playerName[15];
-=======
 
     /// @brief Array of chars storing the players name.
-    char m_playerName[16];
+    char m_playerName[15];
 
     /// @brief Array of cards.
->>>>>>> ab88fa89839743c326b7b6bb735a1cdf7df883b3
     //PlayingCard m_cards[];
     
     /// @brief Eddy's variables
