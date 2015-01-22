@@ -7,6 +7,8 @@
 #define PLAYER_H__
 
 #include "input.h"
+#include "comms.h"
+#include "pokerDisplay.h"
 #include <LiquidCrystal.h>
 #include <Arduino.h>
 
@@ -27,12 +29,17 @@ private:
     char m_playerName[15];
 
     /// @brief Array of cards.
-    //PlayingCard m_cards[];
+    uint8_t m_cards[10];
+    
+    /// @brief Display
+    display m_display;
     
     /// @brief Eddy's variables
     //eddy variables
-    char character   =0;
-    uint16_t uInteger=0;
+    char character;
+    uint16_t uInteger;
+    
+    
     
 
   public:
@@ -57,7 +64,7 @@ private:
 
     /// @brief recieveCard
     /// @brief Recieve card from dealer and add to the players own card array.
-    void receiveCard();
+    void receiveCard(uint8_t _cards[]);
 
     /// @brief setName
     /// @brief asks the player to set their name.
