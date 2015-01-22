@@ -11,17 +11,15 @@ class display
 {
 public:
     
-    display(int _totCards);
+    display();
     ~display();
-    void displayCard( uint8_t _rank, uint8_t _suit, int _x, int _y, int _nCard );
+    void displayCard( uint8_t _rank, uint8_t _suit, int _x, int _y, int _nCard, int _totCards );
     void createCustomChar();
     
 private:
     
     int m_x;
     int m_y;
-    int m_totCards;
-    int m_nCard;
     
 };
 

@@ -1,8 +1,7 @@
 #include "pokerDisplay.h"
 
-display::display(int _totCards)
+display::display()
 {
-  m_totCards = _totCards;
 }
 
 display::~display()
