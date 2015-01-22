@@ -31,8 +31,8 @@ private:
     
     /// @brief Eddy's variables
     //eddy variables
-    char character   =0;
-    uint16_t uInteger=0;
+    char character = 0;
+    uint16_t uInteger =0;
     
 
   public:
