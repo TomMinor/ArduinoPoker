@@ -15,6 +15,7 @@ public:
     ~display();
     void displayCard( uint8_t _rank, uint8_t _suit, int _x, int _y, int _nCard, int _totCards );
     void createCustomChar();
+    void waitCards();
     
 private:
     

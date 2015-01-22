@@ -88,12 +88,11 @@ sendData(MyCard, ..)
 }
 **/
 
-void display::displayCard(uint8_t _rank, uint8_t _suit, int _x, int _y, int _nCard)
+void display::displayCard(uint8_t _rank, uint8_t _suit, int _x, int _y, int _nCard, int _totCards)
 {
     
     m_x = _x;
     m_y = _y;
-    m_nCard = _nCard;
    
    switch(_suit) {
      case Suit::DIAMOND:
@@ -179,7 +178,7 @@ void display::displayCard(uint8_t _rank, uint8_t _suit, int _x, int _y, int _nCa
        delay(1000);
    }
    
-    if(m_nCard != m_totCards)
+    if(_nCard != _totCards)
     {
         lcd.setCursor(_x+2,0);
         lcd.print("|");
@@ -187,3 +186,26 @@ void display::displayCard(uint8_t _rank, uint8_t _suit, int _x, int _y, int _nCa
    
 }
 
+
+void display::waitCards()
+{
+  lcd.clear();
+  lcd.print( " Waiting cards" );
+  
+  int pos = 6;
+  for( int i = 0; i < 3 ; ++i )
+  {
+    for ( int posCounter = 0; posCounter < 3; ++posCounter )
+    {
+      lcd.setCursor( pos, 1 );
+      lcd.print( "." );
+      ++pos;
+      delay( 700 );
+    }
+    pos = 6;
+    lcd.setCursor( pos, 1);
+    lcd.print("   ");
+    delay(200);
+    
+  }
+}
