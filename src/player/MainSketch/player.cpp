@@ -1,5 +1,5 @@
 #include "player.h"
-
+#include "comms.h"
 player::player(uint16_t _money, uint8_t _cardNum)
 {
     m_money = _money;
@@ -93,7 +93,7 @@ void player::setName()
         int currentPosX = 0;
         int currentPosY = 1;
         int nLetters = 1;
-        char tmp[ 16 ];
+        char tmp[ 15 ];
         
         lcd.clear();
         bool select = false;
@@ -179,6 +179,8 @@ void player::resetPlayer(uint16_t _money, uint16_t _cardNum)
 void player::resetCards()
 {
 
+     
 }
+
 
     

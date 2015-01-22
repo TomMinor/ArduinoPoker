@@ -14,7 +14,7 @@ private:
 
     uint16_t m_money;
     uint8_t m_numCards;
-    char m_playerName[16];
+    char m_playerName[15];
     //PlayingCard m_cards[];
     
     //eddy variables
@@ -57,6 +57,7 @@ private:
     
     
     template<class TYPE> bool sendData(TYPE data, uint8_t byteSize, char datatype[])
+   
     {
        Serial.print("Action");
        Serial.print("\t");
@@ -65,7 +66,6 @@ private:
        Serial.print(data);
        Serial.print("\n");
     }
-    
 
 
 };

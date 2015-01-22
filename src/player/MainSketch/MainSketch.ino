@@ -2,6 +2,8 @@
 #include "pokerDisplay.h"
 #include "player.h"
 #include "input.h"
+#include "card.h"
+
 /**To George and Michelle*
 To test the code first send 18 through the serial Monitor
 then input the 22 for the first packet 
@@ -21,10 +23,10 @@ bool recieved=false;
 
 LiquidCrystal lcd(8, 9, 4, 5, 6, 7);
 
-display d(1);
+display d(2);
 player test(80, 2);
 
-;
+
 
 void setup() 
 {
@@ -41,56 +43,47 @@ void loop()
   
   while(recieved!=true)
   {
+    //code to test input
+    //test.setName();
+    //Serial.print(test.getName());
     if (getHeader(cards))
       {  
         Serial.write("Data Sent \n");
         lcd.clear();
         lcd.print("Data Processed");
         recieved=true;
-        delay(1000);
         
+                
       }
-      else
-      {
-      
-      
-      Serial.write("listening \n");
-      lcd.clear();
-      lcd.print("listening");
-      }  
-      lcd.clear();
-      d.displayCard(cards[2], cards[3], 1, 0, 1);
-      delay(1000);
-   }
-   
-   
-   if(betState!=false)
-   {
-      
+           
+    Serial.write("listening \n");
+    
+    lcd.clear();
+    d.displayCard(cards[0], cards[1], 1, 0, 1);
+    d.displayCard(cards[2], cards[3], 4, 0, 2);
+    delay(2000);
      
+  }
+  if(betState!=false)
+    {     
         lcd.print(String(bet));
-        betState,bet=test.placeBet(100, 50);
-        lcd.clear();
-        
+        bet=test.placeBet(100, 50);
+        lcd.clear();        
         test.sendData(bet,2,"int");
+        
         if (bet==0)
         {
           betState=false;
+        }       
+        else
+        {
+          lcd.clear();
+          Serial.print("Disconnected");
+          lcd.print("You Folded");
+          delay(1000);
+          exit(0);      
         }
-       
-      
-   }
-   else
-   {
-      lcd.clear();
-      Serial.print("Disconnected");
-      lcd.print("You Folded");
-      delay(1000);
-      exit(0);
-      
-   }
-  
+      }
+}
 
-  
-  }
 
