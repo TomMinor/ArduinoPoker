@@ -15,9 +15,8 @@
 
 
 class player
-
 {
-private:
+  private:
 
     /// @brief The players money
     uint16_t m_money;
@@ -64,6 +63,7 @@ private:
 
     /// @brief recieveCard
     /// @brief Recieve card from dealer and add to the players own card array.
+    /// @param [in] _cards[], array of cards sent by comms.
     void receiveCard(uint8_t _cards[]);
 
     /// @brief setName

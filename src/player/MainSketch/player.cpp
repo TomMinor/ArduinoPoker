@@ -1,5 +1,6 @@
 #include "player.h"
-#include "comms.h"
+
+
 player::player(uint16_t _money, uint8_t _cardNum)
 {
     m_money = _money;
@@ -69,15 +70,43 @@ uint16_t player::placeBet(uint16_t _max, uint16_t _min)
   }
 }
 
+
 void player::receiveMoney(uint16_t _money)
 {
     m_money = m_money + _money;
 }
 
-void player::receiveCard()
-{
 
+void player::receiveCard( uint8_t _cards[] )
+{
+  bool received = false;
+  m_display.createCustomChar();
+  
+  while(!received)
+  {
+    m_display.waitCards(); 
+
+    for( int i = 0; i < ( m_numCards * 2 ); ++i)
+      {
+        m_cards[i] = _cards[i];
+        
+        if( m_cards[i] == 0 ) { 
+          lcd.clear();
+          lcd.print( "No card received" ); 
+          delay(1000);
+         }
+        else {
+          received = true;       
+        }
+      }
+  }
+    lcd.clear();
+    m_display.displayCard( m_cards[0], m_cards[1], 1, 0, 1, m_numCards );
+    m_display.displayCard( m_cards[2], m_cards[3], 4, 0, 2, m_numCards );
+    delay(2000);
+    
 }
+
 
 void player::setName()
 {
@@ -121,7 +150,7 @@ void player::setName()
             }
             else if ( button.down() ) {
                 
-                if( alphabet[ index ] == 'A'|| alphabet[ index ] == '\0' ) { index = 25; }
+                if ( alphabet[ index ] == 'A'|| alphabet[ index ] == '\0' ) { index = 25; }
                 else { index-=1; }
                 lcd.print( alphabet[ index ] );
                 tmp[ currentPosX ] = alphabet[ index ];
@@ -168,10 +197,13 @@ void player::resetPlayer(uint16_t _money, uint16_t _cardNum)
     m_numCards = _cardNum;
 }
 
+
 void player::resetCards()
 {
-
-     
+    for ( int i = 0; i < ( m_numCards * 2 ); ++i )
+    {
+      m_cards[ i ] = 0;
+    }
 }
 
 
