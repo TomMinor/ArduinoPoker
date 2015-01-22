@@ -1,3 +1,8 @@
+/// @brief player class
+/// @author George Madges, Michelle Wu
+/// @version 1.0
+/// @date 21/01/2015
+
 #ifndef PLAYER_H__
 #define PLAYER_H__
 
@@ -12,11 +17,23 @@ class player
 {
 private:
 
+    /// @brief The players money
     uint16_t m_money;
+
+    /// @brief Number of cards being held by the player.
     uint8_t m_numCards;
+<<<<<<< HEAD
     char m_playerName[15];
+=======
+
+    /// @brief Array of chars storing the players name.
+    char m_playerName[16];
+
+    /// @brief Array of cards.
+>>>>>>> ab88fa89839743c326b7b6bb735a1cdf7df883b3
     //PlayingCard m_cards[];
     
+    /// @brief Eddy's variables
     //eddy variables
     char character   =0;
     uint16_t uInteger=0;
@@ -24,17 +41,48 @@ private:
 
   public:
 
+    /// @brief ctor
+    /// @param _money, amount of money the player starts with.
+    /// @param _cardNum, amount of cards the player will be given.
     player(uint16_t _money, uint8_t _cardNum);
+
+    /// @brief dtor
     ~player();
 
+    /// @brief placeBet
+    /// @param [in] _max, maximum bet limit.
+    /// @param [in] _min, minimum bet limit.
+    /// @param [out] amount of bet being placed.
     uint16_t placeBet(uint16_t _max, uint16_t _min);
+
+    /// @brief receiveMoney
+    /// @param [in] _money, amount of money being given to the player.
     void receiveMoney(uint16_t _money);
+
+    /// @brief recieveCard
+    /// @brief Recieve card from dealer and add to the players own card array.
     void receiveCard();
+
+    /// @brief setName
+    /// @brief asks the player to set their name.
     void setName();
-    char* getName();
+
+    /// @brief resetPlayer
+    /// @param _money, amount of money the player starts with.
+    /// @param _cardNum, amount of cards the player will be given.
     void resetPlayer(uint16_t _money, uint16_t _cardNum);
+
+    /// @brief resetCards
+    /// @brief reset only the cards. leave everything else.
     void resetCards();
+
+    /// @brief getMoney
+    /// @param [out] returns value of players money.
     uint16_t getMoney() { return m_money; }
+
+    /// @brief getName
+    /// @param [out] returns name of player.
+    char* getName() { return m_playerName; }
     
     
     //Eddy's stuff

@@ -66,24 +66,18 @@ void loop()
   }
   if(betState!=false)
     {     
-        lcd.print(String(bet));
-        bet=test.placeBet(100, 50);
-        lcd.clear();        
-        test.sendData(bet,2,"int");
         
-        if (bet==0)
+        do
         {
-          betState=false;
-        }       
-        else
-        {
-          lcd.clear();
-          Serial.print("Disconnected");
-          lcd.print("You Folded");
-          delay(1000);
-          exit(0);      
-        }
-      }
+          bet=test.placeBet(100, 50);            
+        }while(bet!=0); 
+        
+        lcd.clear();
+        Serial.print("Disconnected");
+        lcd.print("You Folded");
+        delay(1000);
+        exit(0); 
+     }
 }
 
 
