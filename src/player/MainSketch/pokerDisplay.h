@@ -9,22 +9,20 @@ extern LiquidCrystal lcd;
 
 class display
 {
-  public:
-  
+public:
+    
     display(int _totCards);
     ~display();
     void displayCard( uint8_t _rank, uint8_t _suit, int _x, int _y, int _nCard );
     void createCustomChar();
-  
-  private:
-  
+    
+private:
+    
     int m_x;
     int m_y;
     int m_totCards;
     int m_nCard;
-
+    
 };
 
 #endif
-
-
