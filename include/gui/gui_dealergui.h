@@ -62,7 +62,7 @@ public:
 
     //use these functions to store references to elements that you
     //want to control manually but draw/update/destroy automatically
-    //avoid creating elements without using these, otherwise there is no guarantee the memory will be deallocated
+    //avoid creating elements outside of the GUI class without using these, otherwise there is no guarantee the memory will be deallocated
     Card* uniqueCard(const PlayingCard &_type, const unsigned int &_playerID);
     Card* uniqueCard(const PlayingCard &_type, const Orientation &_orient = BOTTOM);
     Label* uniqueLabel(const std::string &_inputString, const unsigned int &_playerID, const int &_lifetime = 0);

@@ -9,6 +9,10 @@
 namespace GUI
 {
 
+/// \brief This class serves as a factory for visual elements.
+///
+/// This layer of abstraction is needed because each type of visual element should ideally have a specialised constructor, but they are derived from the same class and
+/// C++ does not support virtual constructors.
 class ElementMaker
 {
 public:
