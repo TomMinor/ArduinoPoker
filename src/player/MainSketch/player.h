@@ -12,6 +12,8 @@
 #include <LiquidCrystal.h>
 #include <Arduino.h>
 
+
+
 struct card
 {
   uint8_t suit;
@@ -43,7 +45,11 @@ class player
     uint16_t uInteger;
     
     
-    
+        ///@brief checkHeader, a function send header info of an outgoing packet.
+    ///@brief The serial, header contains :[dataType][total bytes]
+    ///@param [in] _data type  : defined by the header enum, the type of data, eg card,betstate,.... 
+    void sendHeader(uint8_t _datatype) ;
+    bool RecieveConfirmation();
 
   public:
 
@@ -66,7 +72,7 @@ class player
     /// @brief recieveCard
     /// @brief Recieve card from dealer and add to the players own card array.
     /// @param [in] _cards[], array of cards sent by comms.
-    void receiveCard(uint8_t _block, uint8_t _cards[]);
+    void receiveCard(uint8_t _block, uint8_t _cards[] );
 
     /// @brief setName
     /// @brief asks the player to set their name.
@@ -96,34 +102,13 @@ class player
     
        
     //Eddy's stuff
-    
-    template< typename _A ,typename _B > String CompareType( _A a, _B b,char dataType[] )
-    {
-         if (dataType=="bool")
-        {
-          return "folded";  
-        }
-    }
-    
-    template< typename _A > String CompareType( _A a, _A b ,char dataType[])
-    {
-       
-        
-          return "betted";
-         
-    }
-    
-    
-    template<class TYPE> bool sendData(TYPE data, uint8_t byteSize, char datatype[])
-   
-    {
-       Serial.print("Action");
-       Serial.print("\t");
-       Serial.print(CompareType(data,uInteger,datatype));
-       Serial.print("\t");
-       Serial.print(data);
-       Serial.print("\n");
-    }
+  ///@Comms funtion declerations
+    ///@brief sendData , A set of overloaded functions to handle different data types , bool, uint8_t, uin16_t and char arrays
+    ///@param [in] _data       : The data to send
+    ///@param [in] _data type  : defined by the header enum, the type of data, eg card,betstate,.... 
+    bool sendBet (uint16_t _data,     uint8_t _datatype);
+    bool sendName(char     _data[15], uint8_t _datatype);
+    bool sendFold(bool     _data,     uint8_t _datatype);
 
 
 };

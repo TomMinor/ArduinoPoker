@@ -191,15 +191,14 @@ void GUI::DealerGUI::dealCardTo(const unsigned int &_playerID, const PlayingCard
         return;
     }
 
+    GUI::Player* thatPlayer = &m_players[_playerID];
+
     std::cout<<"Dealing card "<<_type.getRank()<<" of "<<_type.getSuit()<<" to player "<<_playerID<<"\n";
 
-    GUI::Player thatPlayer = m_players[_playerID];
-    boost::shared_ptr<GUI::Card> newCard(m_maker.makeCard(_type, thatPlayer.orient));
-    //std::cout<<"new card created at "<<&newCard<<"\n";
-    m_elements.push_back(newCard);
+    Card* newCard = uniqueCard(_type,thatPlayer->orient);
 
-    SDL_Point destination = thatPlayer.pos_offScreen;
-    if (thatPlayer.orient == TOP || thatPlayer.orient == BOTTOM)
+    SDL_Point destination = thatPlayer->pos_offScreen;
+    if (thatPlayer->orient == TOP || thatPlayer->orient == BOTTOM)
     {
         destination.x += rand()%128;
         destination.x -= 64;
@@ -223,9 +222,9 @@ void GUI::DealerGUI::receiveBetFrom(const unsigned int &_playerID, Uint16 &_amou
         std::cerr<<"ID of non-existent player passed!\n";
         return;
     }
-    GUI::Player thatPlayer = m_players[_playerID];
+    GUI::Player* thatPlayer = &m_players[_playerID];
 
-    std::cout<<"Receiving bet of $"<<_amount<<" from "<<thatPlayer.playerClass->getName()<<"\n";
+    std::cout<<"Receiving bet of $"<<_amount<<" from "<<thatPlayer->playerClass->getName()<<"\n";
 
     std::stringstream amountStream;
     amountStream << _amount;
@@ -233,18 +232,17 @@ void GUI::DealerGUI::receiveBetFrom(const unsigned int &_playerID, Uint16 &_amou
 
     if (_isFirstBet)
     {
-        broadcastMessage(thatPlayer.playerClass->getName() + std::string(" makes a bet of ") + betString,64);
+        broadcastMessage(thatPlayer->playerClass->getName() + std::string(" makes a bet of ") + betString,64);
     }
     else
     {
-        broadcastMessage(thatPlayer.playerClass->getName() + std::string(" raises the bet to ") + betString,64);
+        broadcastMessage(thatPlayer->playerClass->getName() + std::string(" raises the bet to ") + betString,64);
     }
 
-    boost::shared_ptr<GUI::Element> betLabel(m_maker.makeLabel(betString,thatPlayer.orient,32));
-    m_elements.push_back(betLabel);
+    GUI::Label* betLabel = uniqueLabel(betString,thatPlayer->orient,32);
 
     SDL_Point thatPoint = m_potPos;
-    switch (thatPlayer.orient)
+    switch (thatPlayer->orient)
     {
         case TOP: thatPoint.y -= 48;    break;
         case BOTTOM: thatPoint.y += 48; break;
@@ -252,7 +250,7 @@ void GUI::DealerGUI::receiveBetFrom(const unsigned int &_playerID, Uint16 &_amou
         case RIGHT: thatPoint.x += 48;  break;
     }
 
-    betLabel->setPos(thatPlayer.pos_offScreen);
+    betLabel->setPos(thatPlayer->pos_offScreen);
     betLabel->moveTo(thatPoint);
     betLabel->kill();
 }
@@ -371,9 +369,7 @@ GUI::Player GUI::DealerGUI::createPlayer(player *_playerRef, const GUI::Orientat
 
 //    std::cout<<_name<<"'s off-screen position at ("<<offScreen.x<<", "<<offScreen.y<<")\n";
 
-    boost::shared_ptr<GUI::Label> playerLabel(m_maker.makeLabel(_playerRef->getName(),_orient,0));
-    GUI::Label* labelPtr = playerLabel.get();
-    m_elements.push_back(playerLabel);
+    GUI::Label* labelPtr = uniqueLabel(_playerRef->getName(),_orient);
 
     //move it into a corner
     labelPtr->setPos(getCentre());
@@ -388,11 +384,11 @@ GUI::Player GUI::DealerGUI::createPlayer(player *_playerRef, const GUI::Orientat
 
 void GUI::DealerGUI::setPlayerName(const unsigned int &_playerID, std::string _name)
 {
-    GUI::Player thatPlayer = m_players[_playerID];
-    thatPlayer.nameLabel->killNow();
-    GUI::Label* newLabel = uniqueLabel(_name,thatPlayer.orient);
+    GUI::Player* thatPlayer = &m_players[_playerID];
+    thatPlayer->nameLabel->killNow();
+    GUI::Label* newLabel = uniqueLabel(_name,thatPlayer->orient);
     newLabel->setPos(getCentre());
-    newLabel->setPos(newLabel->aligned(thatPlayer.orient));
+    newLabel->setPos(newLabel->aligned(thatPlayer->orient));
     newLabel->updateRect();
 }
 
@@ -693,4 +689,45 @@ void GUI::DealerGUI::addPublicCard(const PlayingCard &_type)
     newCard->setFlipped(true,true);
     newCard->setFlipped(false);
     m_publicCards->addCard(newCard);
+}
+
+void GUI::DealerGUI::kickPlayer(const unsigned int &_playerID, const unsigned int &_money)
+{
+    GUI::Player* thatPlayer = &m_players[_playerID];
+    SDL_Point newPos = thatPlayer->nameLabel->getPos();
+    switch (thatPlayer->orient)
+    {
+        case BOTTOM : newPos.y += thatPlayer->nameLabel->getHeight(); break;
+        case TOP    : newPos.y -= thatPlayer->nameLabel->getHeight(); break;
+        case LEFT   : newPos.x -= thatPlayer->nameLabel->getWidth();  break;
+        case RIGHT  : newPos.x += thatPlayer->nameLabel->getWidth();  break;
+    }
+    thatPlayer->nameLabel->moveTo(newPos);
+    broadcastMessage(thatPlayer->playerClass->getName() + std::string(" has been kicked for this round"));
+
+    std::stringstream amountStream;
+    amountStream << _money;
+    std::string betString = std::string("$") + amountStream.str();
+
+    GUI::Label* betLabel = uniqueLabel(betString, thatPlayer->orient, 32);
+
+    SDL_Point thisPoint = m_potPos;
+    switch (thatPlayer->orient)
+    {
+        case TOP: thisPoint.y -= 48;    break;
+        case BOTTOM: thisPoint.y += 48; break;
+        case LEFT: thisPoint.x -= 48;   break;
+        case RIGHT: thisPoint.x += 48;  break;
+    }
+
+    betLabel->setPos(thisPoint);
+    betLabel->moveTo(thatPlayer->pos_offScreen);
+    betLabel->kill();
+}
+
+void GUI::DealerGUI::addPlayerBack(const unsigned int &_playerID)
+{
+    GUI::Player* thatPlayer = &m_players[_playerID];
+    thatPlayer->nameLabel->align(thatPlayer->orient);
+    broadcastMessage(thatPlayer->playerClass->getName() + std::string(" is back in play"));
 }

@@ -7,6 +7,8 @@
 namespace GUI
 {
 
+/// \brief Since the game is meant to be played with the monitor laying flat as a "poker table" with the players sitting around it, this enum is used to specify which
+/// side of the "table" a given visual element should be facing.
 typedef enum
 {
     BOTTOM,
@@ -15,6 +17,10 @@ typedef enum
     LEFT
 } Orientation;
 
+/// \brief The base class for any visual elements on the screen.
+///
+/// It and any derived classes include functions to move the element to a point on the screen (optionally aligned with an edge of the screen) instantly or with cosine
+/// interpolation. The lifetime of the element (after which it will be destroyed automatically) can be set in the constructor.
 class Element
 {
 public:
@@ -27,20 +33,24 @@ public:
             const int &_lifetime = 0);
     virtual ~Element();
     void setPos(const SDL_Point &_p);//move to this point instantly
-    inline SDL_Point getPos() {return m_origin;}
     void moveTo(const SDL_Point &_p);//move to this point with cosine interpolation
-    virtual void update();
-    inline void updateRect() {m_destRect.x = m_origin.x - m_destRect.w/2; m_destRect.y = m_origin.y - m_destRect.h/2;}
-    void draw() const;
     inline void kill() {m_isImmortal = false; m_shouldKillSoon = true;}
     inline void killNow() {m_shouldKillNow = true;}
+    void align(const Orientation &_orient, const bool &_instantly = false);
+    void centre(const bool &_instantly = false);
+    SDL_Point aligned(const Orientation &_orient);//returns the point the element should move to to align with the specified edge of the screen
+    SDL_Point getCentre();
+
+    //the following functions probably won't need to be called outside of the GUI class
     inline bool shouldKillNow() const {return m_shouldKillNow;}
     unsigned int getHeight() const;//the height the element takes up on screen, taking rotation into account
     unsigned int getWidth() const;//the width the element takes up on screen, taking rotation into account
-    SDL_Point aligned(const Orientation &_orient);//returns the point the element should move to to align with the specified edge of the screen
-    SDL_Point aligned();//pass with no arguments to return the screen centre
+    inline SDL_Point getPos() {return m_origin;}
     inline SDL_Renderer* getRenderer() {return m_ren;}
     void printRect();
+    virtual void update();
+    inline void updateRect() {m_destRect.x = m_origin.x - m_destRect.w/2; m_destRect.y = m_origin.y - m_destRect.h/2;}
+    void draw() const;
 
 protected:
     //stuff SDL needs to know

@@ -30,9 +30,11 @@ typedef struct
 ///
 /// The GUI class includes functions to be called for most of the events that will happen in the game such as dealing a card to a player, receiving a bet from a player or
 /// adding a card to the public set. A unique example is the "showWinner()" function which returns a std::vector of Hands which must be burned outside of the GUI class
-///  before a new round is started.
+/// before a new round is started.
 /// There are also functions to return dynamically allocated instances of visual elements (e.g. cards, text) that will be drawn, updated, and destroyed by the GUI class but
 /// can be controlled externally.
+/// Finally, there are the update() and draw() functions which should be called about 30 times a second during gameplay and the reset() function which should be used when
+/// a new round is started.
 class DealerGUI
 {
 public:
@@ -45,6 +47,8 @@ public:
     void setPlayerName(const unsigned int &_playerID, std::string _name);
     void dealCardTo(const unsigned int &_playerID, const PlayingCard &_type);
     void receiveBetFrom(const unsigned int &_playerID, Uint16 &_amount, bool _isFirstBet = false);
+    void kickPlayer(const unsigned int &_playerID, const unsigned int &_money);
+    void addPlayerBack(const unsigned int &_playerID);
     void addPublicCard(const PlayingCard &_type);
     //this returns a vector of hands; make sure to store it and burn each one before starting a new round
     std::vector<Hand*> showWinner(std::vector<player*> _winners);
@@ -60,7 +64,7 @@ public:
 
     //use these functions to store references to elements that you
     //want to control manually but draw/update/destroy automatically
-    //avoid creating elements without using these, otherwise there is no guarantee the memory will be deallocated
+    //avoid creating elements outside of the GUI class without using these, otherwise there is no guarantee the memory will be deallocated
     Card* uniqueCard(const PlayingCard &_type, const unsigned int &_playerID);
     Card* uniqueCard(const PlayingCard &_type, const Orientation &_orient = BOTTOM);
     Label* uniqueLabel(const std::string &_inputString, const unsigned int &_playerID, const int &_lifetime = 0);
