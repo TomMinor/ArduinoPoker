@@ -121,6 +121,7 @@ public:
   /// players name (m_name), score (m_score), kicker (m_kicker) and poker hand (m_hand)
   void printInfo()const;
 
+  int m_bet;
 
 
 private:
