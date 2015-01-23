@@ -23,4 +23,24 @@ int main()
 
   return EXIT_SUCCESS;
 
+  dealerLib table;
+
+  /*
+   * table.dealHands();
+     table.Betting();
+    table.dealFlop();
+    table.Betting();
+    table.dealRiverTurn();
+    table.Betting();
+    table.dealRiverTurn();
+    table.betting();
+  check whose won and stuff
+  table.checkLosersandkick();
+
+  */
+
+
+
 }
+
+

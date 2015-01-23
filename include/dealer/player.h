@@ -122,6 +122,7 @@ public:
   void printInfo()const;
 
   int m_bet;
+  cardStack m_hand;
 
 
 private:
@@ -132,7 +133,7 @@ private:
   int m_money;
 
 protected:
-  cardStack m_hand;
+
 
 };
 

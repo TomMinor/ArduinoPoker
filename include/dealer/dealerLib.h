@@ -17,13 +17,16 @@ public:
   void dealRiverTurn(deck _pack);
   void resetCards();//player.popHole card x2 and thn set cards
   void update();
+  int checkMaxBet();
+  void initialisePlayers();
+  void clearTable();
+  void removePlayer(std::vector<player>::iterator it);
 
 
 private:
   cardStack m_communityCards;
   cardStack::iterator cardItr;
   int m_numPlayers;
-  bool fold = true;
 
   std::vector<player> m_table;
 };
