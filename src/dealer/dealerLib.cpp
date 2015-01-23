@@ -39,7 +39,7 @@ void dealerLib::Betting()
   while(std::distance(playerBets.begin(), playerBets.end()) != count)
   {
     int maxBet = checkMaxBet();
-    thing.sendBetLimits(*playerItr, (*playerItr).m_bet, maxBet);
+    thing.sendBetLimits(*playerItr, (*playerItr).getBet(), maxBet);
     thing.receiveBet(*playerItr);
 
 //if player has folded, remove them from the vectors
@@ -52,7 +52,7 @@ void dealerLib::Betting()
     }
 
 //set the bet placed
-    playerBets.at(*otherPlayersBet) = (*playerItr).m_bet;
+    playerBets.at(*otherPlayersBet) = (*playerItr).getBet();
 //if bet matches previous persons bet increment count
     if(*firstPlayersBet == *otherPlayersBet)
     {
@@ -170,8 +170,6 @@ void dealerLib::initialisePlayers()
 
 void dealerLib::clearTable()
 {
-  std::vector<player>::iterator playerIt;
-
   for(int i = 0; i < m_numPlayers; i++)
   {
     m_table.pop_back();
@@ -183,7 +181,20 @@ void dealerLib::removePlayer(std::vector<player>::iterator it)
   m_table.erase(it);
 }
 
+bool dealerLib::checkIfLost(player _player)
+{
+  if(_player.getMoney() <= 0){return true;}
+  else {return false;}
+}
 
+void dealerLib::removeTheNoobs()
+{
+  std::vector<player>::iterator playerIt;
 
+  for(playerIt = m_table.begin();playerIt != m_table.end(); playerIt++)
+  {
+    if(checkIfLost(*playerIt)) {removePlayer(playerIt);}
+  }
+}
 
 

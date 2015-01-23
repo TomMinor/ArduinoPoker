@@ -121,7 +121,11 @@ public:
   /// players name (m_name), score (m_score), kicker (m_kicker) and poker hand (m_hand)
   void printInfo()const;
 
-  int m_bet;
+  ///@brief method to access the players bet amount (m_bet)
+  /// @return int
+  int getBet()const;
+
+
   cardStack m_hand;
 
 
@@ -131,7 +135,7 @@ private:
   int m_score;
   int m_kicker;
   int m_money;
-
+  int m_bet;
 protected:
 
 
