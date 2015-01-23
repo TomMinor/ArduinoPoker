@@ -159,7 +159,7 @@ void GUI::Hand::addCard(GUI::Card* _inputCard)
     moveTo(m_origin);
 }
 
-void GUI::Hand::align(const orientation &_orient, const bool &_instantly)
+void GUI::Hand::align(const Orientation &_orient, const bool &_instantly)
 {
     if (_instantly)
     {

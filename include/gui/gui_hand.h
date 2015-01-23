@@ -25,7 +25,7 @@ public:
     void setFlipped(const bool &_isFlipped);
     int getHeight();
     int getWidth();
-    void align(const orientation &_orient, const bool &_instantly = false);
+    void align(const Orientation &_orient, const bool &_instantly = false);
     SDL_Point aligned(const Orientation &_orient);
 
 private:

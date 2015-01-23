@@ -24,7 +24,7 @@ int main()
 
     std::cout<<"Initialised all players\n";
 
-    PlayingCard aceOfSpades = PlayingCard(Rank::ACE,Suit::SPADE);
+    PlayingCard aceOfSpades = PlayingCard(Rank::KING,Suit::HEART);
 //    GUI_Label* testLabel = gui.uniqueLabel(std::string("test"),LEFT);
 //    GUI_Card* testCard = gui.uniqueCard(aceOfSpades,LEFT);
     std::vector<PlayingCard> cardList;
@@ -92,8 +92,8 @@ int main()
 //                        break;
 
                         //case SDLK_c : testHand->moveTo(gui.getCentre()); /*testCard->moveTo(gui.getCentre());*/ break;
-                        case SDLK_PAGEDOWN : gui.m_publicCards->setFlipped(true); break;
-                        case SDLK_PAGEUP : gui.m_publicCards->setFlipped(false); break;
+                        case SDLK_PAGEDOWN : gui.kickPlayer(0,amount); break;
+                        case SDLK_PAGEUP : gui.addPlayerBack(0); break;
                         case SDLK_b : gui.m_publicCards->burn(); break;
                         case SDLK_n : gui.receiveBetFrom(rand()%4,amount); break;
                         case SDLK_v : gui.dealCardTo(rand()%4,aceOfSpades); break;
