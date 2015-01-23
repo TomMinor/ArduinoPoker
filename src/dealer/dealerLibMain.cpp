@@ -26,16 +26,18 @@ int main()
   dealerLib table;
 
   /*
-   * table.dealHands();
-     table.Betting();
-    table.dealFlop();
-    table.Betting();
-    table.dealRiverTurn();
-    table.Betting();
-    table.dealRiverTurn();
-    table.betting();
+  table.initialiseDeck();
+  table.dealHands();
+  table.Betting();
+  table.dealFlop();
+  table.Betting();
+  table.dealRiverTurn();
+  table.Betting();
+  table.dealRiverTurn();
+  table.betting();
   check whose won and stuff
-  table.checkLosersandkick();
+  table.removeTheNoobs();
+  table.burndeck();
 
   */
 

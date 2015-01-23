@@ -11,7 +11,7 @@
 namespace GUI
 {
 
-//stuff that should be the same for most labels
+/// \brief This struct contains variables for SDL that will be the same for all labels, which we therefore won't want to send to the constructor individually every time.
 typedef struct
 {
     SDL_Renderer *ren;
@@ -19,6 +19,7 @@ typedef struct
     SDL_Color colour;
 } LabelFormat;
 
+/// \brief A simple line of text constructed using SDL's TTF library that can be moved around as with other visual elements.
 class Label : public Element
 {
 public:

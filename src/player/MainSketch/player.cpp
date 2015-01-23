@@ -70,7 +70,7 @@ uint16_t player::placeBet(uint16_t _max, uint16_t _min)
      if(confirm == true)
      {
        quit=true;
-       if(fold == true)  { sendData(fold,1,"bool"); return 0; }
+       if(fold == true)  { return BET::FOLD; }
        else              { m_money = m_money - bet; return bet; }
     }
   }
@@ -212,6 +212,99 @@ void player::showPlayerData()
   lcd.print("Money: "+String(m_money)); 
 }
 
+///@brief Comms sendData implementations
 
+bool player::sendBet  (uint16_t  _data,uint8_t _datatype)
+{
+   uint8_t bytes[2];
+   sendHeader(_datatype);
+   
+   while(!RecieveConfirmation())
+   {
+    sendHeader(_datatype);
+   }
+   
+   
+   bytes[0]=U16_TO_BYTE_H(_data);
+   bytes[1]=U16_TO_BYTE_L(_data);
+   
+   for (int i=0;i<DATA::BET;i++)
+   {
+     Serial.write(bytes[i]);
+   }
+     
+   return true;      
+   
+}
+bool player::sendName (char _data[15],uint8_t _datatype)
+{
+  
+  while(!RecieveConfirmation())
+  {
+    sendHeader(_datatype);
+  }
+  
+  for (int i=0;i<DATA::NAME;i++)
+  {
+    Serial.print(_data[i]); 
+  }
+    
+  return true;    
+
+  
+}
+
+bool player::sendFold (bool  _data,uint8_t _datatype)
+{
+  sendHeader(_datatype);
+  while(!RecieveConfirmation())
+  {
+   sendHeader(_datatype);
+  }
+   Serial.write(_data);
+    
+   return true; 
+  
+}
+
+
+
+//Coms header packer and sender
+void player::sendHeader(uint8_t _datatype)
+{
+  uint8_t header=0;
+  switch(_datatype)
+     {
+      case PLAYER_SENDS::NAME:     //HEADER FOR SENDING BET_AMT 
+           header=NAME<<4|DATA::NAME;
+           Serial.write(header);
+           break;
+      
+      case PLAYER_SENDS::BET:    //HEADER FOR SENDING BET_AMT 
+           header=BET_AMT<<4|DATA::BET;
+           Serial.write(header);
+           break;
+      
+      case PLAYER_SENDS::FOLD:      //HEADER FOR SENDING NAME
+           header=BET_AMT<<4|DATA::BOOL;
+           Serial.write(header);
+           break;    
+      
+           default:
+           break;
+     }
+  
+}
+
+bool player::RecieveConfirmation()
+{ 
+  bool success=0;
+  while(Serial.available()>0)
+  {
+     success=Serial.read();   
+  }
+  return success;
+}  
+    
 
     

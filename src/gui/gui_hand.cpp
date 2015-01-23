@@ -158,3 +158,15 @@ void GUI::Hand::addCard(GUI::Card* _inputCard)
     m_cards.push_back(_inputCard);
     moveTo(m_origin);
 }
+
+void GUI::Hand::align(const Orientation &_orient, const bool &_instantly)
+{
+    if (_instantly)
+    {
+        setPos(aligned(_orient));
+    }
+    else
+    {
+        moveTo(aligned(_orient));
+    }
+}

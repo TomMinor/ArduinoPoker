@@ -5,6 +5,7 @@ player::player()
 {
     m_score = 0;
     m_kicker = 0;
+    m_money = 1000;
 
 }
 
@@ -143,6 +144,11 @@ int player::getKicker()const
 int player::getMoney()const
 {
     return m_money;
+}
+
+int player::getBet()const
+{
+  return m_bet;
 }
 
 //--------------------------------------------------------------------

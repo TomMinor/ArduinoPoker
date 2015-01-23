@@ -2,7 +2,7 @@
 
 display::display()
 {
-  
+  this->createCustomChar();
 }
 
 display::~display()

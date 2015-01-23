@@ -11,7 +11,7 @@
 namespace GUI
 {
 
-//vars SDL deals with that will be the same for most cards
+/// \brief This struct contains variables for SDL that will be the same for all cards, which we therefore won't want to send to the constructor individually every time.
 typedef struct
 {
     SDL_Renderer *ren;
@@ -20,6 +20,7 @@ typedef struct
     unsigned int cardHeight;
 } CardInfo;
 
+//obselete
 typedef enum
 {
     ACE,
@@ -37,6 +38,7 @@ typedef enum
     KING
 } Rank;
 
+//also obselete!
 typedef enum
 {
     CLUBS,
@@ -46,12 +48,15 @@ typedef enum
 } Suit;
 
 //stuff we need to know to create a particular card
+//GUESS WHAT
+//OBSELETE
 typedef struct
 {
     Rank rank;
     Suit suit;
 } CardType;
 
+/// \brief A visual representation of a playing card that can be flipped, burned and moved around.
 class Card : public Element
 {
 public:
