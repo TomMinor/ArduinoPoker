@@ -132,15 +132,39 @@ SDL_Point GUI::Element::aligned(const GUI::Orientation &_orient)
     return temp;
 }
 
-SDL_Point GUI::Element::aligned()
+SDL_Point GUI::Element::getCentre()
 {
     int width, height;
     SDL_RenderGetLogicalSize(m_ren,&width,&height);
-    SDL_Point temp = {width, height};
+    SDL_Point temp = {width/2, height/2};
     return temp;
 }
 
 void GUI::Element::printRect()
 {
     std::cout<<"Width: "<<m_destRect.w<<" Height: "<<m_destRect.h<<" X: "<<m_destRect.x<<" Y: "<<m_destRect.y<<"\n";
+}
+
+void GUI::Element::align(const Orientation &_orient, const bool &_instantly)
+{
+    if (_instantly)
+    {
+        setPos(aligned(_orient));
+    }
+    else
+    {
+        moveTo(aligned(_orient));
+    }
+}
+
+void GUI::Element::centre(const bool &_instantly)
+{
+    if (_instantly)
+    {
+        setPos(getCentre());
+    }
+    else
+    {
+        moveTo(getCentre());
+    }
 }
