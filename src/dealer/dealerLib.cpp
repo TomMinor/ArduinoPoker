@@ -1,5 +1,6 @@
 #include "dealer/dealerLib.h"
 
+
 dealerLib::dealerLib()
 {
 
@@ -12,35 +13,68 @@ dealerLib::~dealerLib()
 
 void dealerLib::Betting()
 {
-//  std::vector<int> playerBets;
-//  std::vector<int>::iterator firstPlayersBet;
-//  std::vector<int>::iterator otherPlayersBet;
+//make a cooms object
+  comms thing;
+
+  std::vector<int> playerBets;
+  std::vector<int>::iterator firstPlayersBet;
+  std::vector<int>::iterator otherPlayersBet;
 //  std::vector<int>::iterator betItr;
-//  int count = 0;
+  int count = 0;
 
-//  firstPlayersBet = playerBets.begin();
-//  otherPlayersBet = playerBets.begin();
+// initialise betting iterators
+  firstPlayersBet = playerBets.begin();
+  otherPlayersBet = playerBets.begin();
 
-//  std::vector<player>::iterator playerItr;
+//initialise vector of bets
+  for(int i=0;i<m_numPlayers;i++)
+  {
+    playerBets.push_back(0);
+  }
 
-//  while(std::distance(playerBets.begin(), playerBets.end()) != count)
-//  {
+//make iterator for m_table
+  std::vector<player>::iterator playerItr;
 
-//    playerBets.push_back(m_bet); //playerItr->m_table.getBet() need to implement a getBet function
-//    if(*firstPlayersBet == *otherPlayersBet)
-//    {
-//      count++;
-//    }
-//    else
-//    {count = 0;
-//     firstPlayersBet = otherPlayersBet;
-//    }
-//    if(otherPlayersBet == playerBets.end()) {otherPlayersBet = playerBets.begin();}
+//while size of vector doesn't equal count, get bet info from comms...
+  while(std::distance(playerBets.begin(), playerBets.end()) != count)
+  {
+    thing.sendBetLimits(*playerItr, (*playerItr).m_bet, (*playerItr).getMoney());
+    thing.receiveBet(*playerItr);
 
-//    else {otherPlayersBet++;}
+//if player has folded, remove them from the vectors
+    if(fold)
+    {
+      playerBets.erase(otherPlayersBet);
+      m_table.erase(playerItr);
+      m_numPlayers = m_numPlayers - 1;
+
+    }
+
+//set the bet placed
+    playerBets.at(*otherPlayersBet) = (*playerItr).m_bet;
+//if bet matches previous persons bet increment count
+    if(*firstPlayersBet == *otherPlayersBet)
+    {
+      count++;
+    }
+
+//otherwise reset count to 0 and firstplayersbet points to current position
+    else
+    {
+     count = 0;
+     firstPlayersBet = otherPlayersBet;
+    }
+
+//if current position is end of vector set it to beginning of vector
+    if(otherPlayersBet == playerBets.end() - 1) {otherPlayersBet = playerBets.begin();}
+//otherwise move to next players bet
+    else {otherPlayersBet++;}
+
+//move to next player in m_table
+    playerItr++;
 
 
-//  }
+  }
 
 
 }
@@ -63,14 +97,16 @@ void dealerLib::dealRiverTurn(deck _pack)
 //deals 2 cards to the players
 void dealerLib::dealHands(deck _pack)
 {
+  comms thing;
+
   std::vector<player>::iterator playerIt;
   for(int i=0; i<2; i++)
   {
     for(playerIt = m_table.begin(); playerIt != m_table.end(); playerIt++)
     {
-
-      playerIt->setHoleCard(_pack.deal());
-      //sendHand(playerIt, m_hand);
+      PlayingCard tmpCard = _pack.deal();
+      playerIt->setHoleCard(tmpCard);
+      thing.sendCard(*playerIt, tmpCard);
     }
   }
 
@@ -81,27 +117,4 @@ void dealerLib::update()
 //do some gui shiz
 }
 
-bool dealerLib::sendBetLimits(player _player, unsigned int _min, unsigned int _max)
-{
 
-}
-
-bool dealerLib::sendCard(player _player, PlayingCard _card)
-{
-
-}
-
-bool dealerLib::sendHand(player _player, cardStack _cards)
-{
-
-}
-
-bool dealerLib::recieveBet(player _player, unsigned int &_bet, unsigned int _timeout)
-{
-
-}
-
-bool dealerLib::recieveName(player _player, std::string &_name, unsigned int _timeout)
-{
-
-}

@@ -41,6 +41,7 @@ public:
 
   void printInfo()const;
 
+  int m_bet;
 
 
 private:
