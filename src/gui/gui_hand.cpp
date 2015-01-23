@@ -1,6 +1,6 @@
 #include "include/gui/gui_hand.h"
 
-GUI_Hand::GUI_Hand(const std::vector<GUI_Card*> &_cards, const GUI_Orientation &_orient) :
+GUI::Hand::Hand(const std::vector<GUI::Card*> &_cards, const GUI::Orientation &_orient) :
     m_cards(_cards),
     m_orient(_orient)
 {
@@ -13,23 +13,23 @@ GUI_Hand::GUI_Hand(const std::vector<GUI_Card*> &_cards, const GUI_Orientation &
     setPos(origin);
 }
 
-void GUI_Hand::setFlipped(const bool &_isFlipped)
+void GUI::Hand::setFlipped(const bool &_isFlipped)
 {
-    for (std::vector<GUI_Card*>::iterator it = m_cards.begin(); it!=m_cards.end(); ++it)
+    for (std::vector<GUI::Card*>::iterator it = m_cards.begin(); it!=m_cards.end(); ++it)
     {
         (*it)->setFlipped(_isFlipped);
     }
 }
 
-void GUI_Hand::kill()
+void GUI::Hand::kill()
 {
-    for (std::vector<GUI_Card*>::iterator it = m_cards.begin(); it!=m_cards.end(); ++it)
+    for (std::vector<GUI::Card*>::iterator it = m_cards.begin(); it!=m_cards.end(); ++it)
     {
         (*it)->kill();
     }
 }
 
-void GUI_Hand::setPos(const SDL_Point &_p)
+void GUI::Hand::setPos(const SDL_Point &_p)
 {
     m_origin = _p;
     SDL_Point current = _p;
@@ -44,7 +44,7 @@ void GUI_Hand::setPos(const SDL_Point &_p)
         current.y -= gap * m_cards.size() / 2;
     }
 
-    for (std::vector<GUI_Card*>::iterator it = m_cards.begin(); it!=m_cards.end(); ++it)
+    for (std::vector<GUI::Card*>::iterator it = m_cards.begin(); it!=m_cards.end(); ++it)
     {
         (*it)->setPos(current);
         if (m_orient == BOTTOM || m_orient == TOP)
@@ -58,7 +58,7 @@ void GUI_Hand::setPos(const SDL_Point &_p)
     }
 }
 
-void GUI_Hand::moveTo(const SDL_Point &_p)
+void GUI::Hand::moveTo(const SDL_Point &_p)
 {
     //std::cout<<"moving hand to: ("<<_p.x<<", "<<_p.y<<")\n";
     m_origin = _p;
@@ -75,7 +75,7 @@ void GUI_Hand::moveTo(const SDL_Point &_p)
         current.x -= m_cards[0]->getHeight();
     }
 
-    for (std::vector<GUI_Card*>::iterator it = m_cards.begin(); it!=m_cards.end(); ++it)
+    for (std::vector<GUI::Card*>::iterator it = m_cards.begin(); it!=m_cards.end(); ++it)
     {
         (*it)->moveTo(current);
         //std::cout<<"moving a card to: ("<<current.x<<", "<<current.y<<")\n";
@@ -90,16 +90,16 @@ void GUI_Hand::moveTo(const SDL_Point &_p)
     }
 }
 
-void GUI_Hand::burn()
+void GUI::Hand::burn()
 {
-    for (std::vector<GUI_Card*>::iterator it = m_cards.begin(); it!=m_cards.end(); ++it)
+    for (std::vector<GUI::Card*>::iterator it = m_cards.begin(); it!=m_cards.end(); ++it)
     {
         (*it)->burn();
     }
     m_cards.clear();
 }
 
-int GUI_Hand::getHeight()
+int GUI::Hand::getHeight()
 {
     if (m_orient == BOTTOM || m_orient == TOP)
     {
@@ -118,7 +118,7 @@ int GUI_Hand::getHeight()
     }
 }
 
-int GUI_Hand::getWidth()
+int GUI::Hand::getWidth()
 {
     if (m_orient == LEFT || m_orient == RIGHT)
     {
@@ -137,7 +137,7 @@ int GUI_Hand::getWidth()
     }
 }
 
-SDL_Point GUI_Hand::aligned(const GUI_Orientation &_orient)
+SDL_Point GUI::Hand::aligned(const GUI::Orientation &_orient)
 {
     SDL_Point temp = m_origin;
     int width, height;
@@ -153,7 +153,7 @@ SDL_Point GUI_Hand::aligned(const GUI_Orientation &_orient)
     return temp;
 }
 
-void GUI_Hand::addCard(GUI_Card* _inputCard)
+void GUI::Hand::addCard(GUI::Card* _inputCard)
 {
     m_cards.push_back(_inputCard);
     moveTo(m_origin);

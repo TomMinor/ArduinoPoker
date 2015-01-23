@@ -1,6 +1,7 @@
 #include <SDL.h>
 #include <SDL2/SDL_image.h>
 #include <sstream>
+#include <cstdlib>
 
 #include "include/gui/gui_dealergui.h"
 
@@ -8,17 +9,17 @@
 #define OFFSCREENOFFSET 38
 #define COOLDOWNTIME 32
 #define PIXEL_SCALE 3
-#define WINDOW_WIDTH 400
-#define WINDOW_HEIGHT 300
+#define WINDOW_WIDTH 480
+#define WINDOW_HEIGHT 360
 
-GUI_DealerGUI::GUI_DealerGUI() :
+GUI::DealerGUI::DealerGUI() :
     //m_publicCards(Hand(SDL_Point(),std::vector<Card>(),BOTTOM)),
     m_renderer(NULL),
-    m_maker(GUI_ElementMaker(NULL, NULL)),
-    m_elements(std::vector< boost::shared_ptr<GUI_Element> >())
+    m_maker(GUI::ElementMaker(NULL, NULL)),
+    m_elements(std::vector< boost::shared_ptr<GUI::Element> >())
 {
 //    SDL_Point origin = {0,0};
-//    GUI_Player temp;
+//    GUI::Player temp;
 //    temp.nameLabel = NULL;
 //    temp.orient = BOTTOM;
 //    temp.playerClass = _players[0];
@@ -42,7 +43,7 @@ GUI_DealerGUI::GUI_DealerGUI() :
 //    std::cout<<"Player 2 orient: "<<static_cast<int>(m_players[1].orient)<<"\n";
 }
 
-GUI_DealerGUI::~GUI_DealerGUI()
+GUI::DealerGUI::~DealerGUI()
 {
     //deallocate memory
     //m_elements.clear(); //wait why do we even need this
@@ -51,7 +52,7 @@ GUI_DealerGUI::~GUI_DealerGUI()
     SDL_Quit();
 }
 
-void GUI_DealerGUI::initialise(std::vector<player *> _players, std::vector<PlayingCard> _publicCards)
+void GUI::DealerGUI::initialise(std::vector<player *> _players, std::vector<PlayingCard> _publicCards)
 {
     //-----------------------------------------------------------------------------
     // First thing we need to do is initialise SDL in this case we are
@@ -93,10 +94,18 @@ void GUI_DealerGUI::initialise(std::vector<player *> _players, std::vector<Playi
         exit(1);
     }
 
+    //get our directory
+    const size_t bufsize = 128;
+    char buf[bufsize] = "";
+    readlink("/proc/self/exe",buf,bufsize);
+    std::string ourDir = std::string(buf);
+    ourDir = ourDir.substr(0, ourDir.size()-8);
+
     // Load a font
     TTF_Font *font;
 //    font = TTF_OpenFont("/home/i7245660/OOPG/IanPoker/fonts/ATARI400800_original.TTF", 8);
-    font = TTF_OpenFont("/home/i7245143/OS/Software_Engineering/IanPoker/fonts/ATARI400800_original.TTF", 8);
+//    font = TTF_OpenFont("/home/i7245143/OS/Software_Engineering/IanPoker/fonts/ATARI400800_original.TTF", 8);
+    font = TTF_OpenFont((ourDir + std::string("fonts/ATARI400800_original.TTF")).c_str(), 8);
     if (!font)
     {
       std::cerr << "TTF_OpenFont() Failed: " << TTF_GetError() << "\n";
@@ -118,7 +127,7 @@ void GUI_DealerGUI::initialise(std::vector<player *> _players, std::vector<Playi
     // Load the playing card sheet
     SDL_Surface *temp;
 //    temp = IMG_Load("/home/i7245660/OOPG/IanPoker/images/sheet_v3.png");
-    temp = IMG_Load("/home/i7245143/OS/Software_Engineering/IanPoker/images/sheet_v3.png");
+    temp = IMG_Load((ourDir + std::string("images/sheet_v3.png")).c_str());
     if (!temp)
     {
         std::cerr << "IMG_Load() Failed: " << IMG_GetError() << "\n";
@@ -141,10 +150,10 @@ void GUI_DealerGUI::initialise(std::vector<player *> _players, std::vector<Playi
 
     //set the standard formatting for most of our labels
     const SDL_Color text_color = {255,255,255,255};
-    static const GUI_LabelFormat standardFormat = {m_renderer, font, text_color};
-    static const GUI_CardInfo cardstyle = {m_renderer, cardTexture, 56, 76};
+    static const GUI::LabelFormat standardFormat = {m_renderer, font, text_color};
+    static const GUI::CardInfo cardstyle = {m_renderer, cardTexture, 56, 76};
 
-    m_maker = GUI_ElementMaker(&cardstyle,&standardFormat);
+    m_maker = GUI::ElementMaker(&cardstyle,&standardFormat);
 
     Uint32 pixelFormat;
     SDL_QueryTexture(cardTexture,&pixelFormat,NULL,NULL,NULL);
@@ -156,18 +165,25 @@ void GUI_DealerGUI::initialise(std::vector<player *> _players, std::vector<Playi
 
 }
 
-void GUI_DealerGUI::broadcastMessage(const std::string &_message, const unsigned int &_duration)
+void GUI::DealerGUI::broadcastMessage(const std::string &_message, const unsigned int &_duration)
 {
+    for (std::vector<Label*>::iterator it = m_activeMessages.begin(); it != m_activeMessages.end(); ++it)
+    {
+        (*it)->killNow();
+    }
+    m_activeMessages.clear();
+
     for (unsigned int i = 0; i < m_players.size(); ++i)
     {
-        GUI_Label* messageLabel = uniqueLabel(_message,m_players[i].orient,_duration);
+        GUI::Label* messageLabel = uniqueLabel(_message,m_players[i].orient,_duration);
+        m_activeMessages.push_back(messageLabel);
         messageLabel->setPos(m_players[i].pos_offScreen);
         messageLabel->moveTo(m_players[i].pos_onScreen);
     }
     std::cout<<"Broadcasting message: \""<<_message<<"\"\n";
 }
 
-void GUI_DealerGUI::dealCardTo(const unsigned int &_playerID, const PlayingCard &_type)
+void GUI::DealerGUI::dealCardTo(const unsigned int &_playerID, const PlayingCard &_type)
 {
     if (_playerID > m_players.size())
     {
@@ -177,8 +193,8 @@ void GUI_DealerGUI::dealCardTo(const unsigned int &_playerID, const PlayingCard 
 
     std::cout<<"Dealing card "<<_type.getRank()<<" of "<<_type.getSuit()<<" to player "<<_playerID<<"\n";
 
-    GUI_Player thatPlayer = m_players[_playerID];
-    boost::shared_ptr<GUI_Card> newCard(m_maker.makeCard(_type, thatPlayer.orient));
+    GUI::Player thatPlayer = m_players[_playerID];
+    boost::shared_ptr<GUI::Card> newCard(m_maker.makeCard(_type, thatPlayer.orient));
     //std::cout<<"new card created at "<<&newCard<<"\n";
     m_elements.push_back(newCard);
 
@@ -200,14 +216,14 @@ void GUI_DealerGUI::dealCardTo(const unsigned int &_playerID, const PlayingCard 
     newCard->kill();
 }
 
-void GUI_DealerGUI::receiveBetFrom(const unsigned int &_playerID, Uint16 &_amount, bool _isFirstBet)
+void GUI::DealerGUI::receiveBetFrom(const unsigned int &_playerID, Uint16 &_amount, bool _isFirstBet)
 {
     if (_playerID > m_players.size())
     {
         std::cerr<<"ID of non-existent player passed!\n";
         return;
     }
-    GUI_Player thatPlayer = m_players[_playerID];
+    GUI::Player thatPlayer = m_players[_playerID];
 
     std::cout<<"Receiving bet of $"<<_amount<<" from "<<thatPlayer.playerClass->getName()<<"\n";
 
@@ -224,7 +240,7 @@ void GUI_DealerGUI::receiveBetFrom(const unsigned int &_playerID, Uint16 &_amoun
         broadcastMessage(thatPlayer.playerClass->getName() + std::string(" raises the bet to ") + betString,64);
     }
 
-    boost::shared_ptr<GUI_Element> betLabel(m_maker.makeLabel(betString,thatPlayer.orient,32));
+    boost::shared_ptr<GUI::Element> betLabel(m_maker.makeLabel(betString,thatPlayer.orient,32));
     m_elements.push_back(betLabel);
 
     SDL_Point thatPoint = m_potPos;
@@ -241,7 +257,7 @@ void GUI_DealerGUI::receiveBetFrom(const unsigned int &_playerID, Uint16 &_amoun
     betLabel->kill();
 }
 
-void GUI_DealerGUI::update()
+void GUI::DealerGUI::update()
 {
 //    for (std::vector< boost::shared_ptr<Element> >::iterator it; it!=m_elements.end(); ++it)
 //    {
@@ -261,7 +277,7 @@ void GUI_DealerGUI::update()
     {
         if(m_elements[i]->shouldKillNow())
         {
-            std::vector< boost::shared_ptr<GUI_Element> >::iterator it = m_elements.begin() + i;
+            std::vector< boost::shared_ptr<GUI::Element> >::iterator it = m_elements.begin() + i;
             m_elements.erase(it);//delete the element; the use of shared_ptr should ensure the memory is cleared up
         }
         else
@@ -286,7 +302,7 @@ void GUI_DealerGUI::update()
 //    }
 }
 
-void GUI_DealerGUI::draw()
+void GUI::DealerGUI::draw()
 {
     SDL_SetRenderTarget(m_renderer, m_renderTarget);
     clearScreen(m_renderer,2,180,2);
@@ -308,7 +324,7 @@ void GUI_DealerGUI::draw()
     SDL_RenderPresent(m_renderer);
 }
 
-GUI_Player GUI_DealerGUI::createPlayer(player *_playerRef, const GUI_Orientation &_orient, const int _offset)
+GUI::Player GUI::DealerGUI::createPlayer(player *_playerRef, const GUI::Orientation &_orient, const int _offset)
 {
     //onScreen is the position where this player's public items will be drawn
     //offScreen is where items will be moved to make it look like they are being given to this player
@@ -355,8 +371,8 @@ GUI_Player GUI_DealerGUI::createPlayer(player *_playerRef, const GUI_Orientation
 
 //    std::cout<<_name<<"'s off-screen position at ("<<offScreen.x<<", "<<offScreen.y<<")\n";
 
-    boost::shared_ptr<GUI_Label> playerLabel(m_maker.makeLabel(_playerRef->getName(),_orient,0));
-    GUI_Label* labelPtr = playerLabel.get();
+    boost::shared_ptr<GUI::Label> playerLabel(m_maker.makeLabel(_playerRef->getName(),_orient,0));
+    GUI::Label* labelPtr = playerLabel.get();
     m_elements.push_back(playerLabel);
 
     //move it into a corner
@@ -364,23 +380,23 @@ GUI_Player GUI_DealerGUI::createPlayer(player *_playerRef, const GUI_Orientation
     labelPtr->setPos(labelPtr->aligned(_orient));
     labelPtr->updateRect();
 
-    GUI_Player temp = {_playerRef, onScreen, offScreen, _orient, labelPtr};
+    GUI::Player temp = {_playerRef, onScreen, offScreen, _orient, labelPtr};
 //    std::cout<<"label position: ";
 //    labelPtr->printRect();
     return temp;
 }
 
-void GUI_DealerGUI::setPlayerName(const unsigned int &_playerID, std::string _name)
+void GUI::DealerGUI::setPlayerName(const unsigned int &_playerID, std::string _name)
 {
-    GUI_Player thatPlayer = m_players[_playerID];
+    GUI::Player thatPlayer = m_players[_playerID];
     thatPlayer.nameLabel->killNow();
-    GUI_Label* newLabel = uniqueLabel(_name,thatPlayer.orient);
+    GUI::Label* newLabel = uniqueLabel(_name,thatPlayer.orient);
     newLabel->setPos(getCentre());
     newLabel->setPos(newLabel->aligned(thatPlayer.orient));
     newLabel->updateRect();
 }
 
-SDL_Point GUI_DealerGUI::getScreenDimensions()
+SDL_Point GUI::DealerGUI::getScreenDimensions()
 {
     SDL_Point temp;
     SDL_RenderGetLogicalSize(m_renderer,&temp.x,&temp.y);
@@ -388,7 +404,7 @@ SDL_Point GUI_DealerGUI::getScreenDimensions()
     return temp;
 }
 
-SDL_Point GUI_DealerGUI::getCentre()
+SDL_Point GUI::DealerGUI::getCentre()
 {
     SDL_Point temp = getScreenDimensions();
     temp.x /= 2;
@@ -396,70 +412,70 @@ SDL_Point GUI_DealerGUI::getCentre()
     return temp;
 }
 
-GUI_Card* GUI_DealerGUI::uniqueCard(const PlayingCard &_type, const unsigned int &_playerID)
+GUI::Card* GUI::DealerGUI::uniqueCard(const PlayingCard &_type, const unsigned int &_playerID)
 {
-    boost::shared_ptr<GUI_Card> temp(m_maker.makeCard(_type,m_players[_playerID].orient));
+    boost::shared_ptr<GUI::Card> temp(m_maker.makeCard(_type,m_players[_playerID].orient));
     m_elements.push_back(temp);
     return temp.get();
 }
 
-GUI_Card* GUI_DealerGUI::uniqueCard(const PlayingCard &_type, const GUI_Orientation &_orient)
+GUI::Card* GUI::DealerGUI::uniqueCard(const PlayingCard &_type, const GUI::Orientation &_orient)
 {
-    boost::shared_ptr<GUI_Card> temp(m_maker.makeCard(_type,_orient));
+    boost::shared_ptr<GUI::Card> temp(m_maker.makeCard(_type,_orient));
     m_elements.push_back(temp);
     return temp.get();
 }
 
-GUI_Label* GUI_DealerGUI::uniqueLabel(const std::string &_inputString, const unsigned int &_playerID, const int &_lifetime)
+GUI::Label* GUI::DealerGUI::uniqueLabel(const std::string &_inputString, const unsigned int &_playerID, const int &_lifetime)
 {
-    boost::shared_ptr<GUI_Label> temp(m_maker.makeLabel(_inputString,m_players[_playerID].orient,_lifetime));
+    boost::shared_ptr<GUI::Label> temp(m_maker.makeLabel(_inputString,m_players[_playerID].orient,_lifetime));
     m_elements.push_back(temp);
     return temp.get();
 }
 
-GUI_Label* GUI_DealerGUI::uniqueLabel(const std::string &_inputString, const GUI_Orientation &_orient, const int &_lifetime)
+GUI::Label* GUI::DealerGUI::uniqueLabel(const std::string &_inputString, const GUI::Orientation &_orient, const int &_lifetime)
 {
-    boost::shared_ptr<GUI_Label> temp(m_maker.makeLabel(_inputString,_orient,_lifetime));
+    boost::shared_ptr<GUI::Label> temp(m_maker.makeLabel(_inputString,_orient,_lifetime));
     m_elements.push_back(temp);
     return temp.get();
 }
 
-GUI_Hand* GUI_DealerGUI::uniqueHand(const std::vector<PlayingCard> &_cards, const unsigned int &_playerID)
+GUI::Hand* GUI::DealerGUI::uniqueHand(const std::vector<PlayingCard> &_cards, const unsigned int &_playerID)
 {
-    std::vector<GUI_Card*> handCards;
+    std::vector<GUI::Card*> handCards;
     for (std::vector<PlayingCard>::const_iterator it = _cards.begin(); it != _cards.end(); ++it)
     {
-        boost::shared_ptr<GUI_Card> temp(m_maker.makeCard((*it),m_players[_playerID].orient));
+        boost::shared_ptr<GUI::Card> temp(m_maker.makeCard((*it),m_players[_playerID].orient));
         m_elements.push_back(temp);
         handCards.push_back(temp.get());
     }
-    boost::shared_ptr<GUI_Hand> temp(new GUI_Hand(handCards,m_players[_playerID].orient));
+    boost::shared_ptr<GUI::Hand> temp(new GUI::Hand(handCards,m_players[_playerID].orient));
     m_hands.push_back(temp);
     return temp.get();
 }
 
-GUI_Hand* GUI_DealerGUI::uniqueHand(const std::vector<PlayingCard> &_cards, const GUI_Orientation &_orient)
+GUI::Hand* GUI::DealerGUI::uniqueHand(const std::vector<PlayingCard> &_cards, const GUI::Orientation &_orient)
 {
-    std::vector<GUI_Card*> handCards;
+    std::vector<GUI::Card*> handCards;
     for (std::vector<PlayingCard>::const_iterator it = _cards.begin(); it != _cards.end(); ++it)
     {
-        boost::shared_ptr<GUI_Card> temp(m_maker.makeCard((*it),_orient));
+        boost::shared_ptr<GUI::Card> temp(m_maker.makeCard((*it),_orient));
         m_elements.push_back(temp);
         handCards.push_back(temp.get());
     }
-    boost::shared_ptr<GUI_Hand> temp(new GUI_Hand(handCards,_orient));
+    boost::shared_ptr<GUI::Hand> temp(new GUI::Hand(handCards,_orient));
     m_hands.push_back(temp);
     return temp.get();
 }
 
-GUI_Element* GUI_DealerGUI::uniqueElement(SDL_Texture *_tex, const GUI_Orientation &_orient)
+GUI::Element* GUI::DealerGUI::uniqueElement(SDL_Texture *_tex, const GUI::Orientation &_orient)
 {
-    boost::shared_ptr<GUI_Element> temp(m_maker.makeElement(_tex,_orient));
+    boost::shared_ptr<GUI::Element> temp(m_maker.makeElement(_tex,_orient));
     m_elements.push_back(temp);
     return temp.get();
 }
 
-void GUI_DealerGUI::SDLErrorExit(const std::string &_msg)
+void GUI::DealerGUI::SDLErrorExit(const std::string &_msg)
 {
   std::cerr<<_msg<<"\n";
   std::cerr<<SDL_GetError()<<"\n";
@@ -467,19 +483,19 @@ void GUI_DealerGUI::SDLErrorExit(const std::string &_msg)
   exit(EXIT_FAILURE);
 }
 
-void GUI_DealerGUI::clearScreen(SDL_Renderer *_ren,char _r,char _g,char _b	)
+void GUI::DealerGUI::clearScreen(SDL_Renderer *_ren,char _r,char _g,char _b	)
 {
     SDL_SetRenderDrawColor(_ren, _r,_g,_b,255);
     SDL_RenderClear(_ren);
 }
 
-//void GUI_DealerGUI::setPlayerName(const unsigned int &_playerID, std::string _name)
+//void GUI::DealerGUI::setPlayerName(const unsigned int &_playerID, std::string _name)
 //{
 //    m_players[_playerID].name = _name;
 //    m_players[_playerID].nameLabel->killNow();
 
-//    boost::shared_ptr<GUI_Label> playerLabel(m_maker.makeLabel(_name,m_players[_playerID].orient,0));
-//    GUI_Label* labelPtr = playerLabel.get();
+//    boost::shared_ptr<GUI::Label> playerLabel(m_maker.makeLabel(_name,m_players[_playerID].orient,0));
+//    GUI::Label* labelPtr = playerLabel.get();
 //    m_elements.push_back(playerLabel);
 
 //    //move it into a corner
@@ -490,9 +506,9 @@ void GUI_DealerGUI::clearScreen(SDL_Renderer *_ren,char _r,char _g,char _b	)
 //    m_players[_playerID].nameLabel = labelPtr;
 //}
 
-//GUI_CardType GUI_DealerGUI::convert(const PlayingCard &_card)
+//GUI::CardType GUI::DealerGUI::convert(const PlayingCard &_card)
 //{
-//    GUI_CardType temp;
+//    GUI::CardType temp;
 
 //    switch (_card.getRank())
 //    {
@@ -524,7 +540,7 @@ void GUI_DealerGUI::clearScreen(SDL_Renderer *_ren,char _r,char _g,char _b	)
 //    return temp;
 //}
 
-//GUI_Hand GUI_DealerGUI::convert(const std::vector<PlayingCard> &_cards)
+//GUI::Hand GUI::DealerGUI::convert(const std::vector<PlayingCard> &_cards)
 //{
 //    std::vector<PlayingCard> handCards;
 //    for (std::vector<PlayingCard>::iterator it; it !=_cards.end(); ++it)
@@ -534,9 +550,9 @@ void GUI_DealerGUI::clearScreen(SDL_Renderer *_ren,char _r,char _g,char _b	)
 //    return uniqueHand(handCards,BOTTOM);
 //}
 
-std::vector<GUI_Hand*> GUI_DealerGUI::showWinner(std::vector<player*> _winners)
+std::vector<GUI::Hand*> GUI::DealerGUI::showWinner(std::vector<player*> _winners)
 {
-    std::vector<GUI_Hand*> winningHands;
+    std::vector<GUI::Hand*> winningHands;
     SDL_Point current = getCentre();
     current.y -= _winners.size() * 38;
     current.y += 38;
@@ -567,12 +583,12 @@ std::vector<GUI_Hand*> GUI_DealerGUI::showWinner(std::vector<player*> _winners)
     else
     {
         std::cerr<<"No players passed to GUI showWinners function!\n";
-        return std::vector<GUI_Hand*>();
+        return std::vector<GUI::Hand*>();
     }
 
     for (std::vector<player*>::iterator it = _winners.begin(); it != _winners.end(); ++it)
     {
-        GUI_Hand* thisHand = uniqueHand((*it)->getHand());
+        GUI::Hand* thisHand = uniqueHand((*it)->getHand());
         thisHand->moveTo(current);
         current.y += thisHand->getHeight();
         winningHands.push_back(thisHand);
@@ -581,7 +597,7 @@ std::vector<GUI_Hand*> GUI_DealerGUI::showWinner(std::vector<player*> _winners)
     return winningHands;
 }
 
-void GUI_DealerGUI::reset(std::vector<player*> _players, std::vector<PlayingCard> _publicCards)
+void GUI::DealerGUI::reset(std::vector<player*> _players, std::vector<PlayingCard> _publicCards)
 {
     m_hands.clear();
     m_elements.clear();
@@ -589,7 +605,7 @@ void GUI_DealerGUI::reset(std::vector<player*> _players, std::vector<PlayingCard
     setUpPlayers(_players);
 }
 
-void GUI_DealerGUI::setUpPlayers(std::vector<player *> _players)
+void GUI::DealerGUI::setUpPlayers(std::vector<player *> _players)
 {
     switch (_players.size())
     {
@@ -614,12 +630,19 @@ void GUI_DealerGUI::setUpPlayers(std::vector<player *> _players)
     }
 }
 
-void GUI_DealerGUI::setUpUniqueElements(std::vector<PlayingCard> _publicCards)
+void GUI::DealerGUI::setUpUniqueElements(std::vector<PlayingCard> _publicCards)
 {
+    //get our directory
+    const size_t bufsize = 128;
+    char buf[bufsize] = "";
+    readlink("/proc/self/exe",buf,bufsize);
+    std::string ourDir = std::string(buf);
+    ourDir = ourDir.substr(0, ourDir.size()-8);
+
     // Load the pot texture
     SDL_Surface *temp;
     //temp = IMG_Load("/home/i7245660/OOPG/IanPoker/images/pot.png");
-    temp = IMG_Load("/home/i7245143/OS/Software_Engineering/IanPoker/images/pot.png");
+    temp = IMG_Load((ourDir + std::string("images/pot.png")).c_str());
     if (!temp)
     {
         std::cerr << "IMG_Load() Failed: " << IMG_GetError() << "\n";
@@ -657,8 +680,17 @@ void GUI_DealerGUI::setUpUniqueElements(std::vector<PlayingCard> _publicCards)
     m_pot->setPos(m_potPos);
     m_pot->updateRect();
 
-    GUI_Card* deckCard = uniqueCard(PlayingCard(Rank::ACE,Suit::SPADE),LEFT);
+    GUI::Card* deckCard = uniqueCard(PlayingCard((card_t)1),LEFT);
     deckCard->setFlipped(true,true);
     deckCard->setPos(m_deckPos);
     deckCard->updateRect();
+}
+
+void GUI::DealerGUI::addPublicCard(const PlayingCard &_type)
+{
+    GUI::Card* newCard = uniqueCard(_type);
+    newCard->setPos(m_deckPos);
+    newCard->setFlipped(true,true);
+    newCard->setFlipped(false);
+    m_publicCards->addCard(newCard);
 }

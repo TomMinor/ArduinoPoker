@@ -4,11 +4,11 @@
 
 #define SPEED 0.1f
 
-GUI_Element::GUI_Element(SDL_Renderer *_ren,
+GUI::Element::Element(SDL_Renderer *_ren,
                  SDL_Texture *_tex,
                  const SDL_Rect &_srcRect,
                  const SDL_Rect &_destRect,
-                 const GUI_Orientation &_orient,
+                 const GUI::Orientation &_orient,
                  const SDL_Point &_origin,
                  const int &_lifetime) :
                 m_ren(_ren),
@@ -28,11 +28,11 @@ GUI_Element::GUI_Element(SDL_Renderer *_ren,
 {
 }
 
-GUI_Element::~GUI_Element()
+GUI::Element::~Element()
 {
 }
 
-void GUI_Element::setPos(const SDL_Point &_p)
+void GUI::Element::setPos(const SDL_Point &_p)
 {
     m_pointDest=_p;
     m_progressAmount=1.0;
@@ -41,7 +41,7 @@ void GUI_Element::setPos(const SDL_Point &_p)
     m_origin = _p;
 }
 
-void GUI_Element::moveTo(const SDL_Point &_p)
+void GUI::Element::moveTo(const SDL_Point &_p)
 {
     //SDL_Point current = m_origin;
     m_pointPrev = m_origin;
@@ -49,7 +49,7 @@ void GUI_Element::moveTo(const SDL_Point &_p)
     m_progressAmount = 0.0f;
 }
 
-void GUI_Element::update()
+void GUI::Element::update()
 {
     if(m_progressAmount>=1.0f)//we have reached the destination
     {
@@ -80,7 +80,7 @@ void GUI_Element::update()
     updateRect();
 }
 
-void GUI_Element::draw() const
+void GUI::Element::draw() const
 {
     //wow this bit is bloody useless huh
     //m_destRect.x += static_cast<int>(m_destination.x-m_destRect.x*0.1f);
@@ -98,7 +98,7 @@ void GUI_Element::draw() const
     SDL_RenderCopyEx(m_ren,m_texture,&m_srcRect,&m_destRect,-angle,&centre,SDL_FLIP_NONE);
 }
 
-unsigned int GUI_Element::getHeight() const
+unsigned int GUI::Element::getHeight() const
 {
     if (m_orientation == BOTTOM || m_orientation == TOP)
     {
@@ -107,7 +107,7 @@ unsigned int GUI_Element::getHeight() const
     return m_destRect.w;
 }
 
-unsigned int GUI_Element::getWidth() const
+unsigned int GUI::Element::getWidth() const
 {
     if (m_orientation == BOTTOM || m_orientation == TOP)
     {
@@ -116,7 +116,7 @@ unsigned int GUI_Element::getWidth() const
     return m_destRect.h;
 }
 
-SDL_Point GUI_Element::aligned(const GUI_Orientation &_orient)
+SDL_Point GUI::Element::aligned(const GUI::Orientation &_orient)
 {
     SDL_Point temp = m_origin;
     int width, height;
@@ -132,7 +132,7 @@ SDL_Point GUI_Element::aligned(const GUI_Orientation &_orient)
     return temp;
 }
 
-SDL_Point GUI_Element::aligned()
+SDL_Point GUI::Element::aligned()
 {
     int width, height;
     SDL_RenderGetLogicalSize(m_ren,&width,&height);
@@ -140,7 +140,7 @@ SDL_Point GUI_Element::aligned()
     return temp;
 }
 
-void GUI_Element::printRect()
+void GUI::Element::printRect()
 {
     std::cout<<"Width: "<<m_destRect.w<<" Height: "<<m_destRect.h<<" X: "<<m_destRect.x<<" Y: "<<m_destRect.y<<"\n";
 }

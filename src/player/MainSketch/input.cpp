@@ -5,6 +5,10 @@ input::input(int _pin)
     m_pin = _pin;
 }
 
+input::~input()
+{
+  
+}
 
 bool input::right()
 {
@@ -83,4 +87,6 @@ bool input::menuYesNo(int _line)
     }
 
 }
+
+
 

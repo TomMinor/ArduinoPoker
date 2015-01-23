@@ -4,6 +4,7 @@
 #include <algorithm>
 
 //--------------------------------------------------------------------------------------
+//--------------------------------------------------------------------------------------
 cardStack hands::findSpareCards( const player &_player, const cardStack &_river)
 {
     cardStack spareCards;
@@ -103,7 +104,7 @@ void hands::fillHand(player &_player, const cardStack &_river)
 
 
 //--------------------------------------------------------------------------------------
-  //========== Hands ===========
+  //========== Decide hands methods ===========
 //--------------------------------------------------------------------------------------
 void hands::highestCard(player &_player, const cardStack &_river)
 {
@@ -388,7 +389,6 @@ bool hands::checkStraightHasFlush(player &_player,          const cardStack &_ri
   if(_numSuit ==5){return true;}
   else if(_numSuit < 3){return false;}
 
-  std::cout<<"Checking if the straight is also a flush!!\n\n";
   bool _flushFound = false;
   cardStack spareCards;
   spareCards = findSpareCards(_player,_river);
@@ -406,7 +406,6 @@ bool hands::checkStraightHasFlush(player &_player,          const cardStack &_ri
           {
               // Replacement card of correct suit found.
               _numSuit++;
-              std::cout<<"need to swap cards!!\n";
               _player.getHand().replaceCard(rankID,spareCards[i]);
               if(_numSuit == _player.getHand().size())
               {
@@ -445,7 +444,6 @@ bool hands::checkStraightHasFlush(player &_player,          const cardStack &_ri
 //--------------------------------------------------------------------------------------
 void hands::straightFlush(player &_player, const cardStack &_river)
 {
-  std::cout<<"checking straight flush!!\n";
     bool flushFound = false;
     unsigned int numHearts = 0;
     unsigned int numDiamonds = 0;
@@ -463,11 +461,6 @@ void hands::straightFlush(player &_player, const cardStack &_river)
             else if(_player.getHandCard(i).getSuitValue() == Suit::HEART)  {numHearts++;}
             else if(_player.getHandCard(i).getSuitValue() == Suit::DIAMOND){numDiamonds++;}
         }
-
-        std::cout<<numSpades<<" spades in straight\n";
-        std::cout<<numClubs<<" clubs in straight\n";
-        std::cout<<numHearts<<" hearts in straight\n";
-        std::cout<<numDiamonds<<" diamonds in straight\n";
 
         flushFound = checkStraightHasFlush(_player,_river,Suit::SPADE,numSpades);
         if(flushFound)
@@ -513,6 +506,8 @@ void hands::straightFlush(player &_player, const cardStack &_river)
     }
 }
 
+//-----------------------------------------------------------------------------
+  //=========decide winner methods=========
 //-----------------------------------------------------------------------------
 void hands::bestHand(player &_player, const cardStack &_river)
 {
@@ -605,6 +600,10 @@ std::vector<player> hands::winner(std::vector<player> &_livePlayers, const cardS
         {   winnerID.push_back(i);    }
     }
 
+    std::cout<<"\n========================================================\n";
+    std::cout<<"\tWinner Winner, Chicken Dinner!!!";
+    std::cout<<"\n========================================================\n";
+
     //check if there are multiple players with top score
     if (winnerID.size()>1)
     {
@@ -618,10 +617,6 @@ std::vector<player> hands::winner(std::vector<player> &_livePlayers, const cardS
         _livePlayers[winnerID[0]].printInfo();
         WINNERS.push_back(_livePlayers[winnerID[0]]);
     }
-
-    std::cout<<"\n========================================================\n";
-    std::cout<<"\tWinner Winner, Chicken Dinner!!!";
-    std::cout<<"\n========================================================\n";
 
     return WINNERS;
 }

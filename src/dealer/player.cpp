@@ -73,6 +73,11 @@ void player::removeHandCard(const PlayingCard &_card)
   m_hand.removeCard(_card);
 }
 
+void player::emptyHand()
+{
+  m_hand.emptyStack();
+}
+
 void player::removeLastHoleCard()
 {
     m_cards.pop_back();
@@ -87,9 +92,9 @@ void player::removeHoleCard(const PlayingCard &_card)
   m_cards.removeCard(_card);
 }
 
-void player::emptyHand()
+void player::emptyHole()
 {
-  m_hand.emptyStack();
+  m_cards.emptyStack();
 }
 
 //------------------------------------------------------

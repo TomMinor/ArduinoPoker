@@ -6,14 +6,14 @@
 #define FullyFlipped    ( m_isFlipped && m_flippedAmount >= 1.0f )
 #define FullyUnflipped  (!m_isFlipped && m_flippedAmount <= -1.0f)
 
-GUI_Card::GUI_Card(SDL_Renderer *_ren,
+GUI::Card::Card(SDL_Renderer *_ren,
            SDL_Texture *_tex,
            const SDL_Rect &_srcRect,
            const SDL_Rect &_destRect,
-           const GUI_Orientation &_orient,
+           const Orientation &_orient,
            const SDL_Point &_origin,
            const PlayingCard &_card) :
-            GUI_Element(_ren,_tex,_srcRect,_destRect,_orient,_origin),
+            Element(_ren,_tex,_srcRect,_destRect,_orient,_origin),
             m_isFlipped(false),
             m_flippedAmount(-1.0f),
             m_cardType(_card),
@@ -22,7 +22,7 @@ GUI_Card::GUI_Card(SDL_Renderer *_ren,
 {
 }
 
-void GUI_Card::update()
+void GUI::Card::update()
 {
     //Check 1: should the card burn?
     if(m_shouldBurn)
@@ -53,12 +53,12 @@ void GUI_Card::update()
         m_xOffset = continueFlip();
     }
 
-    GUI_Element::update();
+    Element::update();
 
     m_destRect.x = m_origin.x + m_xOffset;
 }
 
-int GUI_Card::continueFlip()
+int GUI::Card::continueFlip()
 {
     float amount = m_flippedAmount + (m_isFlipped ? FLIPSPEED : -FLIPSPEED);
     m_flippedAmount = std::max(-1.0f, std::min(amount, 1.0f));//clamp
@@ -82,7 +82,7 @@ int GUI_Card::continueFlip()
     return -m_destRect.w / 2;
 }
 
-void GUI_Card::setFlipped(const bool &_isFlipped, const bool &_instantly)
+void GUI::Card::setFlipped(const bool &_isFlipped, const bool &_instantly)
 {
     m_isFlipped = _isFlipped;
     if (!_instantly)

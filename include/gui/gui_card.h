@@ -8,6 +8,9 @@
 #include "gui_element.h"
 #include "dealer/playingcard.h"
 
+namespace GUI
+{
+
 //vars SDL deals with that will be the same for most cards
 typedef struct
 {
@@ -15,7 +18,7 @@ typedef struct
     SDL_Texture *texture;
     unsigned int cardWidth;
     unsigned int cardHeight;
-} GUI_CardInfo;
+} CardInfo;
 
 typedef enum
 {
@@ -32,7 +35,7 @@ typedef enum
     JACK,
     QUEEN,
     KING
-} GUI_Rank;
+} Rank;
 
 typedef enum
 {
@@ -40,23 +43,23 @@ typedef enum
     SPADES,
     HEARTS,
     DIAMONDS
-} GUI_Suit;
+} Suit;
 
 //stuff we need to know to create a particular card
 typedef struct
 {
-    GUI_Rank rank;
-    GUI_Suit suit;
-} GUI_CardType;
+    Rank rank;
+    Suit suit;
+} CardType;
 
-class GUI_Card : public GUI_Element
+class Card : public Element
 {
 public:
-    GUI_Card(SDL_Renderer *_ren,
+    Card(SDL_Renderer *_ren,
          SDL_Texture *_tex,
          const SDL_Rect &_srcRect,
          const SDL_Rect &_destRect,
-         const GUI_Orientation &_orient,
+         const Orientation &_orient,
          const SDL_Point &_origin,
          const PlayingCard &_card);
     void setFlipped(const bool &_isFlipped, const bool &_instantly = false);
@@ -72,5 +75,7 @@ private:
     int continueFlip();
     int m_xOffset;
 };
+
+}
 
 #endif // CARD_H
