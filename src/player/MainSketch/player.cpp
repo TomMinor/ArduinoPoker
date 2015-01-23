@@ -63,13 +63,13 @@ uint16_t player::placeBet(uint16_t _max, uint16_t _min)
      lcd.clear();
      
      if(fold == true)      { lcd.print("FOLD?:");                         }  
-     else if(fold == false){ lcd.print("Place bet of "+String(bet))+"?";  }
+     else if(fold == false){ lcd.print("Confirm: "+String(bet))+"?";  }
       
      bool confirm = button.menuYesNo(1);
 
      if(confirm == true)
      {
-        quit=true;
+       quit=true;
        if(fold == true)  { sendData(fold,1,"bool"); return 0; }
        else              { m_money = m_money - bet; return bet; }
     }
@@ -199,6 +199,8 @@ void player::resetCards()
 void player::showPlayerData()
 {    
   lcd.clear();
+  
+  m_display.createCustomChar();
   
   lcd.print("Cards: ");
   for(int i = 0; i < m_numCards; ++i)

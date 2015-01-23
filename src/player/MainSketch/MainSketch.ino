@@ -29,17 +29,27 @@ player test;
 
 void setup() 
 {
-  // set up the LCD's number of columns and rows:
   lcd.begin(16,2);
+}
+
   /*
   Serial.begin(9600);
   d.createCustomChar();
   */
-}
-
 
 void loop() 
 {
+       test.resetPlayer(200, 3); 
+     
+     test.receiveCard(0, cards);
+     test.receiveCard(1, cards);
+     test.receiveCard(2, cards);
+     
+     test.placeBet(200, 100);
+     
+     delay(3000);
+}
+
   /*
   while(recieved!=true)
   {
@@ -79,7 +89,7 @@ void loop()
         exit(0); 
      }
      */
-     
+     /*
      test.resetPlayer(200, 3); 
      
      test.receiveCard(0, cards);
@@ -89,7 +99,6 @@ void loop()
      test.placeBet(200, 100);
      
      delay(3000);
-     
-}
+     */
 
 
