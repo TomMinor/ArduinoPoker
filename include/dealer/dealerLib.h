@@ -21,6 +21,8 @@ public:
   void initialisePlayers();
   void clearTable();
   void removePlayer(std::vector<player>::iterator it);
+  bool checkIfLost(player _player);
+  void removeTheNoobs();
 
 
 private:
