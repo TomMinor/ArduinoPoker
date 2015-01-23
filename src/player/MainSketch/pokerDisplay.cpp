@@ -101,7 +101,6 @@ void display::displayCard( uint8_t _rank, uint8_t _suit, int _x, int _y, int _nC
      default:
      {
        lcd.clear();
-       lcd.setCursor( 0, 1 );
        lcd.print( "No valid suit." );
        delay( 1000 );
      }
@@ -189,7 +188,6 @@ void display::displayCard( uint8_t _rank, uint8_t _suit, int _x, int _y, int _nC
      default:
      {
        lcd.clear();
-       lcd.setCursor( 0, 1 );
        lcd.print( "No valid rank." );
        delay( 1000 );
      }

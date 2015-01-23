@@ -15,7 +15,7 @@ When you fold you will be disconnected
 
 */
 //card array that stores 2 bytes {card1,card2}
-uint8_t cards[4]={0,0,0,0};
+uint8_t cards[6]={byte(Rank::SIX), Suit::SPADE, byte(Rank::KING), Suit::DIAMOND, byte(Rank::ACE), Suit::CLUB};
 unsigned int bet=0;
 bool betState=true;
 bool recieved=false;
@@ -23,8 +23,7 @@ bool recieved=false;
 
 LiquidCrystal lcd(8, 9, 4, 5, 6, 7);
 
-display d(2);
-player test(80, 2);
+player test;
 
 
 
@@ -32,15 +31,16 @@ void setup()
 {
   // set up the LCD's number of columns and rows:
   lcd.begin(16,2);
+  /*
   Serial.begin(9600);
   d.createCustomChar();
-  
+  */
 }
 
 
 void loop() 
 {
-  
+  /*
   while(recieved!=true)
   {
     //code to test input
@@ -78,6 +78,18 @@ void loop()
         delay(1000);
         exit(0); 
      }
+     */
+     
+     test.resetPlayer(200, 3); 
+     
+     test.receiveCard(0, cards);
+     test.receiveCard(1, cards);
+     test.receiveCard(2, cards);
+     
+     test.placeBet(200, 100);
+     
+     delay(3000);
+     
 }
 
 

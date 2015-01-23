@@ -30,6 +30,7 @@ uint16_t player::placeBet(uint16_t _max, uint16_t _min)
    {
      bool exit = false;
      fold = false;
+     bool showData = false;
      
      uint16_t bet = _min;
 
@@ -42,23 +43,21 @@ uint16_t player::placeBet(uint16_t _max, uint16_t _min)
      while(!exit)
      {
       button.updateValue();
-
-      lcd.setCursor(0,1);
-   
-      if      (button.right()&& bet <= (_max-10) && bet <= (m_money-10))  { bet+=10; fold = false;    }
-      else if (button.up()   && bet < _max && bet < m_money)              { bet++; fold = false;      }
-      else if (button.down() && bet > _min && bet <= m_money)             { bet--; fold = false;      }
-      else if (button.left() && bet >= (_min+10) && bet < (m_money+10))   { bet-=10; fold = false;    }
-      else if (button.left() && bet == _min)                              { fold = true;              }
-      else if (button.down() && bet == _min)                              { fold = true;              }
-      else if (button.select())                                           { exit = true;              }
+  
+      if      (button.right())                                                  { lcd.clear();lcd.print("Place bet:");showData = false;    }
+      else if (button.left())                                                   { this->showPlayerData(); showData = true;                 }
+      else if (button.up()   && bet < _max && bet < m_money && showData==false) { bet++; fold = false;                                     }
+      else if (button.down() && bet > _min && bet <= m_money && showData==false){ bet--; fold = false;                                     }
+      else if (button.down() && bet == _min && showData==false)                 { fold = true;                                             }
+      else if (button.select() && showData == false)                            { exit = true;                                             }
 
       // have to use delay, not ideal
       delay(125);
 
       // print the bet or fold
-      if(fold == true)       { lcd.print("FOLD");      }
-      else if(fold == false) { lcd.print(String(bet)+"       "); } 
+      lcd.setCursor(0,1);
+      if(fold == true && showData == false)       { lcd.print("FOLD");      }
+      else if(fold == false && showData == false) { lcd.print(String(bet)+"       "); } 
      }
 
      lcd.clear();
@@ -86,28 +85,14 @@ void player::receiveMoney(uint16_t _money)
 
 void player::receiveCard( uint8_t _block, uint8_t _cards[] )
 {
-  bool received = false;
-  m_display.createCustomChar();
-  
-  while(!received)
-  {
-    m_display.waitCards(); 
 
-    m_cards[_block].suit = _cards[_block];
-    m_cards[_block].rank = _cards[_block+1];
+   
+  uint8_t tmp = _block*2; 
+
+  m_cards[_block].rank = _cards[tmp];
+  m_cards[_block].suit = _cards[tmp+1];
         
-    if( m_cards[_block].suit == 0 || m_cards[_block].rank ) 
-    { 
-       lcd.clear();
-       lcd.print( "No card received" ); 
-       delay(1000);
-    }
-    else 
-    {
-       received = true;       
-    }
-      
-  }
+   
     
 }
 
@@ -215,9 +200,14 @@ void player::showPlayerData()
 {    
   lcd.clear();
   
-  //m_display.displayCard( uint8_t _rank, uint8_t _suit, int _x, int _y, int _nCard, int _totCards );
+  lcd.print("Cards: ");
+  for(int i = 0; i < m_numCards; ++i)
+  {
+    m_display.displayCard( m_cards[i].rank, m_cards[i].suit, 7+(3*i), 0, i+1, m_numCards );
+  }
   
-  
+  lcd.setCursor(0,1);
+  lcd.print("Money: "+String(m_money)); 
 }
 
 
