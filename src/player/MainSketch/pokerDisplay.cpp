@@ -2,6 +2,7 @@
 
 display::display()
 {
+  
 }
 
 display::~display()
@@ -58,130 +59,146 @@ void display::createCustomChar()
         0b00000
     };
     
-    lcd.createChar(0, diamond);
-    lcd.createChar(1, heart);
-    lcd.createChar(2, club);
-    lcd.createChar(3, spade);
+    lcd.createChar( 0, diamond );
+    lcd.createChar( 1, heart   );
+    lcd.createChar( 2, club    );
+    lcd.createChar( 3, spade   );
     
 }
 
-/** Tom's idea
-enum Types { CARD, BET, BETLIMITS, NAME };
 
-sendData(CARD, MyCard);
-sendData(BETLIMITS, Min, Max);
-
-sendData(MyCard, ..)
-{
-   switch(MyCard)
-   {
-     case CARD:
-     {
-       //read in next argument
-     }
-     
-     case BETLIMITS:
-     {
-       //read in next 2 arguments
-     }
-   }
-}
-**/
-
-void display::displayCard(uint8_t _rank, uint8_t _suit, int _x, int _y, int _nCard, int _totCards)
+void display::displayCard( uint8_t _rank, uint8_t _suit, int _x, int _y, int _nCard, int _totCards )
 {
     
     m_x = _x;
     m_y = _y;
    
-   switch(_suit) {
+   switch( _suit ) {
      case Suit::DIAMOND:
+     {
        lcd.setCursor( m_x, m_y );
        lcd.write( byte( 0 ) );
        break;
+     }
      case Suit::HEART:
+     {
        lcd.setCursor( m_x, m_y );
        lcd.write( 1 );
        break;
+     }
      case Suit::CLUB:
-       lcd.setCursor(m_x,m_y);
-       lcd.write(2);
+     {
+       lcd.setCursor( m_x, m_y );
+       lcd.write( 2 );
        break;
+     }
      case Suit::SPADE:
-       lcd.setCursor(m_x,m_y);
-       lcd.write(3);
+     {
+       lcd.setCursor( m_x, m_y );
+       lcd.write( 3 );
        break;
+     }
      default:
+     {
        lcd.clear();
-       lcd.setCursor(0,1);
-       lcd.print("No valid suit.");
-       delay(1000);
+       lcd.setCursor( 0, 1 );
+       lcd.print( "No valid suit." );
+       delay( 1000 );
+     }
    }
      
-    switch(_rank) {
-     case byte(Rank::TWO):
-       lcd.setCursor(m_x+1,m_y);
-       lcd.print("2");
+    switch( _rank ) {
+     case byte( Rank::TWO ):
+     {
+       lcd.setCursor( m_x+1, m_y );
+       lcd.print( "2" );
        break;
-     case byte(Rank::THREE):
-       lcd.setCursor(m_x+1,m_y);
-       lcd.print("3");
+     }
+     case byte( Rank::THREE ):
+     {
+       lcd.setCursor( m_x+1, m_y );
+       lcd.print( "3" );
        break;
-     case byte(Rank::FOUR):
-       lcd.setCursor(m_x+1,m_y);
-       lcd.print("4");
+     }
+     case byte( Rank::FOUR ):
+     {
+       lcd.setCursor( m_x+1, m_y );
+       lcd.print( "4" );
        break;
-     case byte(Rank::FIVE):
-       lcd.setCursor(m_x+1,m_y);
-       lcd.print("5");
+     }
+     case byte( Rank::FIVE ):
+     {
+       lcd.setCursor( m_x+1, m_y );
+       lcd.print( "5" );
        break;
-     case byte(Rank::SIX):
-       lcd.setCursor(m_x+1,m_y);
-       lcd.print("6");
+     }
+     case byte( Rank::SIX ):
+     {
+       lcd.setCursor( m_x+1, m_y );
+       lcd.print( "6" );
        break;
-     case byte(Rank::SEVEN):
-       lcd.setCursor(m_x+1,m_y);
-       lcd.print("7");
+     }
+     case byte( Rank::SEVEN ):
+     {
+       lcd.setCursor( m_x+1, m_y );
+       lcd.print( "7" );
        break;
-     case byte(Rank::EIGHT):
-       lcd.setCursor(m_x+1,m_y);
-       lcd.print("8");
+     }
+     case byte( Rank::EIGHT ):
+     {
+       lcd.setCursor( m_x+1, m_y );
+       lcd.print( "8" );
        break;
-      case byte(Rank::NINE):
-       lcd.setCursor(m_x+1,m_y);
-       lcd.print("9");
+     }
+     case byte( Rank::NINE ):
+     {
+       lcd.setCursor( m_x+1, m_y );
+       lcd.print( "9" );
        break;
-     case byte(Rank::TEN):
-       lcd.setCursor(m_x+1,m_y);
-       lcd.print("T");
+     }
+     case byte( Rank::TEN ):
+     {
+       lcd.setCursor( m_x+1, m_y );
+       lcd.print( "T" );
        break;
-     case byte(Rank::JACK):
-       lcd.setCursor(m_x+1,m_y);
-       lcd.print("J");
+     }
+     case byte( Rank::JACK ):
+     {
+       lcd.setCursor( m_x+1, m_y );
+       lcd.print( "J" );
        break;
-     case byte(Rank::QUEEN):
-       lcd.setCursor(m_x+1,m_y);
-       lcd.print("Q");
+     }
+     case byte( Rank::QUEEN ):
+     {
+       lcd.setCursor( m_x+1, m_y );
+       lcd.print( "Q" );
        break;
-     case byte(Rank::KING):
-       lcd.setCursor(m_x+1,m_y);
-       lcd.print("K");
+     }
+     case byte( Rank::KING ):
+     {
+       lcd.setCursor( m_x+1, m_y );
+       lcd.print( "K" );
        break;
-     case byte(Rank::ACE):
-       lcd.setCursor(m_x+1,m_y);
-       lcd.print("A");
+     }
+     case byte( Rank::ACE ):
+     {
+       lcd.setCursor( m_x+1, m_y );
+       lcd.print( "A" );
        break;
+     }
      default:
+     {
        lcd.clear();
-       lcd.setCursor(0,1);
-       lcd.print("No valid rank.");
-       delay(1000);
+       lcd.setCursor( 0, 1 );
+       lcd.print( "No valid rank." );
+       delay( 1000 );
+     }
    }
    
     if(_nCard != _totCards)
     {
-        lcd.setCursor(_x+2,0);
-        lcd.print("|");
+        lcd.setCursor( _x+2, 0 );
+        lcd.print( "|" );
     }
    
 }
@@ -205,7 +222,7 @@ void display::waitCards()
     pos = 6;
     lcd.setCursor( pos, 1);
     lcd.print("   ");
-    delay(200);
+    delay( 200 );
     
   }
 }
