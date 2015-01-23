@@ -34,6 +34,7 @@ void dealerLib::Betting()
 
 //make iterator for m_table
   std::vector<player>::iterator playerItr;
+  playerItr = m_table.begin();
 
 //while size of vector doesn't equal count, get bet info from comms...
   while(std::distance(playerBets.begin(), playerBets.end()) != count)
@@ -43,11 +44,13 @@ void dealerLib::Betting()
     thing.receiveBet(*playerItr);
 
 //if player has folded, remove them from the vectors
-    if(thing.fold)
+    if((*playerItr).fold)
     {
+      m_pot += playerBets.at(*otherPlayersBet);
       playerBets.erase(otherPlayersBet);
       m_table.erase(playerItr);
       m_numPlayers = m_numPlayers - 1;
+      maxBet = checkMaxBet();
 
     }
 
@@ -195,6 +198,11 @@ void dealerLib::removeTheNoobs()
   {
     if(checkIfLost(*playerIt)) {removePlayer(playerIt);}
   }
+}
+
+void dealerLib::addBetsToPot()
+{
+
 }
 
 

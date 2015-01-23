@@ -127,6 +127,7 @@ public:
 
 
   cardStack m_hand;
+  bool fold;
 
 
 private:

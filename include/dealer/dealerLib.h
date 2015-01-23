@@ -23,14 +23,17 @@ public:
   void removePlayer(std::vector<player>::iterator it);
   bool checkIfLost(player _player);
   void removeTheNoobs();
+  void addBetsToPot();
 
 
 private:
   cardStack m_communityCards;
   cardStack::iterator cardItr;
   int m_numPlayers;
+  int m_pot;
 
   std::vector<player> m_table;
+  std::vector<player> m_livePlayers;
 };
 
 #endif
