@@ -47,6 +47,8 @@ public:
     void setPlayerName(const unsigned int &_playerID, std::string _name);
     void dealCardTo(const unsigned int &_playerID, const PlayingCard &_type);
     void receiveBetFrom(const unsigned int &_playerID, Uint16 &_amount, bool _isFirstBet = false);
+    void kickPlayer(const unsigned int &_playerID, const unsigned int &_money);
+    void addPlayerBack(const unsigned int &_playerID);
     void addPublicCard(const PlayingCard &_type);
     //this returns a vector of hands; make sure to store it and burn each one before starting a new round
     std::vector<Hand*> showWinner(std::vector<player*> _winners);
