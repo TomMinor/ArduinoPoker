@@ -12,6 +12,7 @@ namespace GUI
 {
 
 //vars SDL deals with that will be the same for most cards
+//obselete
 typedef struct
 {
     SDL_Renderer *ren;
@@ -20,6 +21,7 @@ typedef struct
     unsigned int cardHeight;
 } CardInfo;
 
+//also obselete
 typedef enum
 {
     ACE,
@@ -37,6 +39,7 @@ typedef enum
     KING
 } Rank;
 
+//yay obselete!
 typedef enum
 {
     CLUBS,
@@ -46,12 +49,15 @@ typedef enum
 } Suit;
 
 //stuff we need to know to create a particular card
+//GUESS WHAT
+//OBSELETE
 typedef struct
 {
     Rank rank;
     Suit suit;
 } CardType;
 
+/// \brief A visual representation of a playing card that can be flipped, burned and moved around.
 class Card : public Element
 {
 public:
