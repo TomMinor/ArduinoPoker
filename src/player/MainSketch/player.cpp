@@ -1,11 +1,9 @@
 #include "player.h"
 
 
-player::player(uint16_t _money, uint8_t _cardNum)
+player::player()
 {
-    m_money = _money;
-    m_numCards = _cardNum;
-  
+ 
 }
 
 player::~player()
@@ -16,13 +14,22 @@ player::~player()
 uint16_t player::placeBet(uint16_t _max, uint16_t _min)
 {
    bool quit = false;
+   bool fold = false;
+   
+   //check if they have enough money, shouldnt happen.
+   if(m_money < _min)
+   {
+     //return fold;
+   }
+   
+   
    input button(0);
 
 
    while(!quit)
    {
      bool exit = false;
-     bool fold = false;
+     fold = false;
      
      uint16_t bet = _min;
 
@@ -77,7 +84,7 @@ void player::receiveMoney(uint16_t _money)
 }
 
 
-void player::receiveCard( uint8_t _cards[] )
+void player::receiveCard( uint8_t _block, uint8_t _cards[] )
 {
   bool received = false;
   m_display.createCustomChar();
@@ -86,24 +93,21 @@ void player::receiveCard( uint8_t _cards[] )
   {
     m_display.waitCards(); 
 
-    for( int i = 0; i < ( m_numCards * 2 ); ++i)
-      {
-        m_cards[i] = _cards[i];
+    m_cards[_block].suit = _cards[_block];
+    m_cards[_block].rank = _cards[_block+1];
         
-        if( m_cards[i] == 0 ) { 
-          lcd.clear();
-          lcd.print( "No card received" ); 
-          delay(1000);
-         }
-        else {
-          received = true;       
-        }
-      }
+    if( m_cards[_block].suit == 0 || m_cards[_block].rank ) 
+    { 
+       lcd.clear();
+       lcd.print( "No card received" ); 
+       delay(1000);
+    }
+    else 
+    {
+       received = true;       
+    }
+      
   }
-    lcd.clear();
-    m_display.displayCard( m_cards[0], m_cards[1], 1, 0, 1, m_numCards );
-    m_display.displayCard( m_cards[2], m_cards[3], 4, 0, 2, m_numCards );
-    delay(2000);
     
 }
 
@@ -200,11 +204,22 @@ void player::resetPlayer(uint16_t _money, uint16_t _cardNum)
 
 void player::resetCards()
 {
-    for ( int i = 0; i < ( m_numCards * 2 ); ++i )
+    for ( int i = 0; i < m_numCards; ++i )
     {
-      m_cards[ i ] = 0;
+      m_cards[ i ].suit = 0;
+      m_cards[ i ].rank = 0;
     }
 }
+
+void player::showPlayerData()
+{    
+  lcd.clear();
+  
+  //m_display.displayCard( uint8_t _rank, uint8_t _suit, int _x, int _y, int _nCard, int _totCards );
+  
+  
+}
+
 
 
     

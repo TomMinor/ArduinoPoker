@@ -12,7 +12,11 @@
 #include <LiquidCrystal.h>
 #include <Arduino.h>
 
-
+struct card
+{
+  uint8_t suit;
+  uint8_t rank; 
+};
 
 class player
 {
@@ -28,7 +32,7 @@ class player
     char m_playerName[15];
 
     /// @brief Array of cards.
-    uint8_t m_cards[10];
+    card m_cards[5];
     
     /// @brief Display
     display m_display;
@@ -43,10 +47,8 @@ class player
 
   public:
 
-    /// @brief ctor
-    /// @param _money, amount of money the player starts with.
-    /// @param _cardNum, amount of cards the player will be given.
-    player(uint16_t _money, uint8_t _cardNum);
+    /// @brief ctor.
+    player();
 
     /// @brief dtor
     ~player();
@@ -64,7 +66,7 @@ class player
     /// @brief recieveCard
     /// @brief Recieve card from dealer and add to the players own card array.
     /// @param [in] _cards[], array of cards sent by comms.
-    void receiveCard(uint8_t _cards[]);
+    void receiveCard(uint8_t _block, uint8_t _cards[]);
 
     /// @brief setName
     /// @brief asks the player to set their name.
@@ -88,6 +90,11 @@ class player
     char* getName() { return m_playerName; }
     
     
+    /// @brief showPlayerData().
+    /// @brief Method prints the players data on the screen.
+    void showPlayerData();
+    
+       
     //Eddy's stuff
     
     template< typename _A ,typename _B > String CompareType( _A a, _B b,char dataType[] )
