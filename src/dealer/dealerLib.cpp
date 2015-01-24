@@ -36,8 +36,10 @@ void dealerLib::Betting()
   playerItr = m_livePlayers.begin();
 
 //while size of vector doesn't equal count, get bet info from comms...
-  while(std::distance(playerBets.begin(), playerBets.end()) != count)
-  {
+  while(std::distance(playerBets.begin(), playerBets.end()) != count && m_numPlayers > 1)
+  {  
+
+
     int maxBet = checkMaxBet();
     thing.sendBetLimits(*playerItr, (*playerItr).getBet(), maxBet);
     thing.receiveBet(*playerItr);
