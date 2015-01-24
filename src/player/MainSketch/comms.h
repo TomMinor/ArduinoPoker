@@ -24,6 +24,14 @@ typedef struct data
 
 }data;
 
+typedef struct playerData
+{
+  char     Name[15];
+  uint16_t Fold;
+  uint16_t Bet;
+};
+
+
 namespace DEALER_CALLS
 {
   enum CALLS
@@ -42,7 +50,9 @@ namespace BET
 {
   enum TYPE
   {
-    FOLD = 65534
+    NAME = 1,
+    BET  = 2,
+    FOLD = 65534 
   };
 }
 
@@ -64,9 +74,10 @@ namespace DATA
     RECIEVED=1,// 0b00000001
     NONE=0,
     
+    BOOL=1,//MAYBE REMOVED
     NAME=15,
     BET=2,
-    BOOL=1
+    FOLD=2
   };  
 }
 

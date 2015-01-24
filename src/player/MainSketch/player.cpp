@@ -215,10 +215,8 @@ void player::showPlayerData()
 ///@brief Comms sendData implementations
 
 bool player::sendBet  (uint16_t  _data,uint8_t _datatype)
-{
+{   
    uint8_t bytes[2];
-   sendHeader(_datatype);
-   
    while(!RecieveConfirmation())
    {
     sendHeader(_datatype);
