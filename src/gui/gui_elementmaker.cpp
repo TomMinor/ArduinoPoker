@@ -16,6 +16,13 @@ GUI::Element* GUI::ElementMaker::makeElement(SDL_Texture *_tex, const GUI::Orien
     return new GUI::Element(m_cardInfo->ren,_tex,rect,rect,_orient,origin);
 }
 
+GUI::Element* GUI::ElementMaker::makeElement(SDL_Texture *_tex, const SDL_Rect &_srcRect, const SDL_Rect &_destRect, const GUI::Orientation &_orient)
+{
+    SDL_Point origin = {0,0};
+
+    return new GUI::Element(m_cardInfo->ren,_tex,_srcRect,_destRect,_orient,origin);
+}
+
 GUI::Card* GUI::ElementMaker::makeCard(const PlayingCard &_type, const GUI::Orientation &_orient)
 {
     //std::cout<<"Returned rank: "<<_type.getRank()<<" suit: "<<_type.getSuit()<<"\n";
