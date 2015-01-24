@@ -16,8 +16,8 @@
 
 struct card
 {
-  uint8_t suit;
-  uint8_t rank; 
+  uint8_t suit = 0;
+  uint8_t rank = 0; 
 };
 
 class player
@@ -39,17 +39,8 @@ class player
     /// @brief Display
     display m_display;
     
-    /// @brief Eddy's variables
-    //eddy variables
-    char character;
-    uint16_t uInteger;
-    
-    
-        ///@brief checkHeader, a function send header info of an outgoing packet.
-    ///@brief The serial, header contains :[dataType][total bytes]
-    ///@param [in] _data type  : defined by the header enum, the type of data, eg card,betstate,.... 
-    void sendHeader(uint8_t _datatype) ;
-    bool RecieveConfirmation();
+    /// @brief input class variable.
+    input m_button;   
 
   public:
 
@@ -58,6 +49,10 @@ class player
 
     /// @brief dtor
     ~player();
+    
+    /// @brief setMoney
+    /// @param [in] _money, set the money.
+    void setMoney(uint16_t _money);
 
     /// @brief placeBet
     /// @param [in] _max, maximum bet limit.
@@ -81,7 +76,7 @@ class player
     /// @brief resetPlayer
     /// @param _money, amount of money the player starts with.
     /// @param _cardNum, amount of cards the player will be given.
-    void resetPlayer(uint16_t _money, uint16_t _cardNum);
+    void resetPlayer(uint16_t _money);
 
     /// @brief resetCards
     /// @brief reset only the cards. leave everything else.
@@ -95,21 +90,21 @@ class player
     /// @param [out] returns name of player.
     char* getName() { return m_playerName; }
     
+    bool checkFirstCard();
+    
     
     /// @brief showPlayerData().
     /// @brief Method prints the players data on the screen.
     void showPlayerData();
     
-       
-    //Eddy's stuff
-  ///@Comms funtion declerations
-    ///@brief sendData , A set of overloaded functions to handle different data types , bool, uint8_t, uin16_t and char arrays
-    ///@param [in] _data       : The data to send
-    ///@param [in] _data type  : defined by the header enum, the type of data, eg card,betstate,.... 
-    bool sendBet (uint16_t _data,     uint8_t _datatype);
-    bool sendName(char     _data[15], uint8_t _datatype);
-    bool sendFold(bool     _data,     uint8_t _datatype);
-
+    /// @brief joinGame
+    /// @brief Method task the player to join, stops them from carrying on unless they do.
+    /// @brief infinite loop if they so no.
+    void joinGame();
+    
+    
+    void winner();
+    
 
 };
 

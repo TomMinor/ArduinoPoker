@@ -6,6 +6,7 @@ player::player()
     m_score = 0;
     m_kicker = 0;
     m_money = 1000;
+    fold = false;
 
 }
 

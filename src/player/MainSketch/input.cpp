@@ -1,13 +1,17 @@
 #include "input.h"
 
-input::input(int _pin)
+input::input()
 {
-    m_pin = _pin;
 }
 
 input::~input()
 {
   
+}
+
+void input::setPin(int _pin)
+{
+  m_pin = _pin;
 }
 
 bool input::right()
