@@ -60,6 +60,17 @@ typedef struct
 class Card : public Element
 {
 public:
+
+    /// \brief The card constructor. This probably won't need to be changed much since it is only called automatically by the ElementMaker class.
+    /// \param _ren A pointer to the SDL rendering context.
+    /// \param _tex A pointer to the SDL texture to use.
+    /// \param _srcRect An SDL rectangle that covers the part of the texture the card uses.
+    /// \param _destRect An SDL rectangle that specifies the part of the screen to draw the previous rectangle to.
+    /// \param _orientation An enum specifying which edge of the screen this card should face.
+    /// \param _origin An SDL point specifying the exact location this card should be created. Making sure this is in the centre of _destRect is handled by the ElementMaker
+    /// class.
+    /// \param _card A "pure data" PlayingCard object from which we can tell the rank and the suit to use.
+    /// \return A drawable Card object.
     Card(SDL_Renderer *_ren,
          SDL_Texture *_tex,
          const SDL_Rect &_srcRect,
@@ -67,8 +78,16 @@ public:
          const Orientation &_orient,
          const SDL_Point &_origin,
          const PlayingCard &_card);
+
+    /// \brief Animates the card turning the specified way up.
+    /// \param _isFlipped True to turn the card face-down, false for face-up.
+    /// \param _instantly True to skip the flipping animation. Useful for setting a card's initial flip state.
     void setFlipped(const bool &_isFlipped, const bool &_instantly = false);
+
+    /// \brief Turns the card face-down, plays a burning animation and marks the card for removal from the game.
     inline void burn() {m_shouldBurn = true;}
+
+    /// \brief A card-specific update function that is needed to implement flipping and burning.
     virtual void update(); //implement flipping
 
 private:

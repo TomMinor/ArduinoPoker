@@ -82,8 +82,8 @@ uint8_t getData(data &_coms)
             }
             else
             {
-              coms.cards[2]   = RANKOF(coms.card_buff[1]);
-              coms.cards[3]   = SUITOF(coms.card_buff[1]);
+              coms.cards[2]   = RANKOF(coms.card_buff[0]);
+              coms.cards[3]   = SUITOF(coms.card_buff[0]);
             }
             
             //if the second card has been filled, it will replace the first card when it recieves a new card 
@@ -186,20 +186,27 @@ uint8_t getData(data &_coms)
 ///@brief sendName() a function to send player name to the dealer
 ///@param[_in] char array[15] takes in a name 15 bytes long
 ///@param returns bool to say send success
-bool sendName(char _name[15])
-{
-            //when no confirmation for valid header it will keep sending the header
+void sendName(char _name[15])
+{   
+            
+           //when no confirmation for valid header it will keep sending the header
+            
             while(!RecieveConfirmation())
             {
-              sendHeader(PLAYER_SENDS::NAME);
+                //send data over the size of the packets defined in the DATA enum
+               sendHeader(PLAYER_SENDS::NAME);
             }
-            //send data over the size of the packets defined in the DATA enum
+            
             for (int i=0;i<DATA::NAME;i++)
             {
-              Serial.write(_name[i]); 
+                Serial.write(_name[i]); 
             }
+                
+            
+            
+          
+            
               
-            return true;    
             
 }
 
@@ -215,24 +222,26 @@ bool sendBet(uint16_t _bet)
             bool sent = sendFold();
             return sent;
           }
-          
-          //initialize the a local buffer to store a uint16 which will be broken into a byte and sent over the serial
-          uint8_t bytes[2];
-          //when no confirmation for valid header it will keep sending the header
-          while(!RecieveConfirmation())
+          else
           {
-           sendHeader(PLAYER_SENDS::BET);
+            //initialize the a local buffer to store a uint16 which will be broken into a byte and sent over the serial
+            uint8_t bytes[2];
+            //when no confirmation for valid header it will keep sending the header
+            do
+            {
+             sendHeader(PLAYER_SENDS::BET);
+            }while (!RecieveConfirmation());
+            //breaks up to bytes
+            bytes[0]=U16_TO_BYTE_H(_bet);
+            bytes[1]=U16_TO_BYTE_L(_bet);
+            
+            //sends data
+            for (int i=0;i<DATA::BET;i++)
+            {
+             Serial.write(bytes[i]);
+            }
+            return true;   
           }
-          //breaks up to bytes
-          bytes[0]=U16_TO_BYTE_H(_bet);
-          bytes[1]=U16_TO_BYTE_L(_bet);
-          
-          //sends data
-          for (int i=0;i<DATA::BET;i++)
-          {
-           Serial.write(bytes[i]);
-          }
-          return true;   
             
 }
 
@@ -242,15 +251,15 @@ bool sendBet(uint16_t _bet)
 bool sendFold()
 {         
 
-          // EDDY!, remove the parameter and replaced witht he fold enum.
+      
        
           //initialize the a local buffer to store a uint16 which will be broken into a byte and sent over the serial
           uint8_t bytes[2];
           //when no confirmation is recieved from the dealer it will keep sending the header
-          while(!RecieveConfirmation())
+          do
           {
            sendHeader(PLAYER_SENDS::FOLD);
-          }
+          }while(!RecieveConfirmation());
           
           //breaks up to bytes
           bytes[0]=U16_TO_BYTE_H(BET::FOLD);
@@ -302,10 +311,10 @@ void sendHeader(uint8_t _datatype)
 bool RecieveConfirmation()
 { 
   //success is set to false unless serial reads a confirmation
-  bool success=0;
-  if(Serial.available()>0)
+  bool success=false;
+  if (Serial.available()>0)
   {
-     success=Serial.read()-48;   
+    success=Serial.read()-48;   
   }
   return success;
 }  
