@@ -27,25 +27,24 @@ player player;
 data coms;
 
 
-
 void setup() 
 {
 
   lcd.begin(16,2);
   Serial.begin(9600);
-  player.joinGame();
+  //player.joinGame();
   
   //player.setMoney(100);
   //coms.limit_L = 50;
   //coms.limit_H = 80;
-   
+  
 }
 
 
   
 void loop() 
 {
-
+   
   lcd.clear();
   
   if(player.getMoney() == 0)
@@ -82,7 +81,8 @@ void loop()
     case DEALER_CALLS::SET_NAME:
     {
       player.setName();
-      //char playerName[15] = player.getName();
+      char* playerName = player.getName();
+      sendName(playerName);
       break;
     }
     case DEALER_CALLS::SET_MONEY:
