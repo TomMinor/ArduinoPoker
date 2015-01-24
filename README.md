@@ -2,21 +2,21 @@ IanPoker
 ========
 
 # Arduino Project
-# A poker game in development
+A poker game in development
 
 #comms
-#     Tom minor
-#     Eddy
+     Tom minor
+     Eddy
 
 #player ui
-#     George 
-#     Michelle
+     George 
+     Michelle
 
 #dealer class
-#     Tom beque
-#     Idris
+    Tom beque
+    Idris
 
 #interface
-#     Robert
+    Robert
 
 
