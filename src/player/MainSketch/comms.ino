@@ -114,7 +114,8 @@ uint8_t getData(data &_coms)
           
           //puts the arduino into a state to listen for data
           while(Serial.available()<=0);
-          
+          Serial.print(packets,DEC);
+          Serial.print("\N");
           //read the number of packets and store it in coms money_buffer
           Serial.readBytes(coms.money_buff,packets);  
           
