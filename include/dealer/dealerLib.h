@@ -6,12 +6,24 @@
 #include "cardStack.h"
 #include "comms.h"
 
+enum commsRequest
+{
+  sendBetLimits,
+  sendMoney,
+  sendCard,
+  getName,
+  getBet,
+  wait
+};
+
 class dealerLib
 {
 public:
   dealerLib();
   ~dealerLib();
   void Betting();
+  void bet();
+  void addBetToPot(const int &_bet);
   void dealHands(deck _pack);
   void dealFlop(deck _pack);
   void dealRiverTurn(deck _pack);
@@ -24,6 +36,11 @@ public:
   bool checkIfLost(player _player);
   void removeTheNoobs();
 //  void addBetsToPot(); probs dont need this anymore, just hardcoded it into Betting()
+
+
+  bool callComms(commsRequest request);
+  int getNumPlayers()const;
+  std::vector<player> getLivePlayers()const;
 
 
 private:

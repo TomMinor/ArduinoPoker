@@ -53,6 +53,17 @@ void player::takeBet(const int &_bet)
     m_money -= _bet;
 }
 
+void player::setBet(const int &_bet)
+{
+  m_bet = _bet;
+}
+
+void player::removeBet()
+{
+  m_money - m_bet;
+  m_bet = 0;
+}
+
 void player::receivePot(const int &_pot)
 {
     m_money += _pot;
@@ -152,6 +163,10 @@ int player::getBet()const
   return m_bet;
 }
 
+int player::getID()const
+{
+  return m_id;
+}
 //--------------------------------------------------------------------
 void player::printInfo()const
 {
