@@ -73,7 +73,7 @@ SerialConnection::SerialConnection(const std::string &_path)
     tcsetattr(fd, TCSANOW, &toptions);
 
     /* Wait for the Arduino to reset */
-    //    usleep(1000*1000);
+    // usleep(1000 * 1000);
 
     /* Flush anything already in the serial buffer */
     tcflush(fd, TCIFLUSH);
@@ -133,7 +133,9 @@ PacketError SerialPort::SendData(const std::vector<uint8_t> _payload)
     }
 
     /* Send payload */
-    size_t numOfBytes = write(device.getFileDescriptor(), _payload.data(), _payload.size());
+    size_t numOfBytes;
+    numOfBytes = write(device.getFileDescriptor(), _payload.data(), _payload.size());
+
     if(numOfBytes < _payload.size())
     {
         return E_CORRUPT;

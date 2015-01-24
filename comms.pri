@@ -22,4 +22,6 @@ HEADERS += include/card.h \
 INCLUDEPATH += include/
 OBJECTS_DIR = obj
 
+LIBS += -lboost_system
+
 QMAKE_CFLAGS = -std=c99
