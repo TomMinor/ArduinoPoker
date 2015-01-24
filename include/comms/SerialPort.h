@@ -1,37 +1,23 @@
-#ifndef SERIALPORT_H
+    #ifndef SERIALPORT_H
 #define SERIALPORT_H
 
 #include <map>
 #include <string>
 #include <stdint.h>
 #include <vector>
+#include <iostream>
+
+// Introduces a dependency but makes the serial connections cross platform and the code easier.
+#include <boost/asio.hpp>
 
 #include "PacketErrors.h"
+
 
 namespace Comms
 {
 
 typedef std::map<unsigned int, std::string> PlayerDevices;
 typedef std::vector<uint8_t> BytePayload;
-
-///
-/// \brief The SerialConnection class encapsulates opening, reading/writing and closing a serial connection automatically when destroyed.
-///
-class SerialConnection
-{
-public:
-    SerialConnection(const std::string& _path);
-    ~SerialConnection();
-
-    inline int getFileDescriptor() const { return m_fd; }
-    inline bool isOpen() const { return m_fd != -1; }
-private:
-    ///
-    /// \brief m_fd The file descriptor
-    ///
-    int m_fd;
-};
-
 
 ///
 /// \brief The SerialPort class
@@ -69,6 +55,9 @@ private:
     /// \brief m_dataBuffer
     ///
     char m_dataBuffer[256];
+
+    boost::asio::io_service io;
+    boost::asio::serial_port m_serial;
 };
 
 }
