@@ -48,6 +48,7 @@ private:
   cardStack::iterator cardItr;
   int m_numPlayers;
   int m_pot;
+  deck m_deck;
 
   std::vector<player> m_table;
   std::vector<player> m_livePlayers;

@@ -3,7 +3,7 @@
 
 dealerLib::dealerLib()
 {
-  deck pack;
+  m_deck.shuffle();
 }
 
 dealerLib::~dealerLib()
@@ -38,8 +38,11 @@ void dealerLib::Betting()
 
 //while size of vector doesn't equal count, get bet info from comms...
 
-  while(std::distance(playerBets.begin(), playerBets.end()) != count && m_livePlayers > 1)
-  {  
+  while(std::distance(playerBets.begin(), playerBets.end()) != count && m_numPlayers > 1)
+  {
+
+  //if current position is end of vector set it to beginning of vector
+    if(otherPlayersBet == playerBets.end()) {otherPlayersBet = playerBets.begin();}
 
     int maxBet = checkMaxBet();
 
@@ -59,32 +62,39 @@ void dealerLib::Betting()
 
     }
     else
-
-//set the bet placed
-    playerBets.at(*otherPlayersBet) = (*playerItr).getBet();
-
-//if bet matches previous persons bet increment count
-    if(*firstPlayersBet == *otherPlayersBet)
     {
-      count++;
+
+  //set the bet placed
+      playerBets.at(*otherPlayersBet) = (*playerItr).getBet();
+
+  //if bet matches previous persons bet increment count
+      if(*firstPlayersBet == *otherPlayersBet)
+      {
+        count++;
+      }
+
+  //otherwise reset count to 0 and firstplayersbet points to current position
+      else
+      {
+       count = 0;
+       firstPlayersBet = otherPlayersBet;
+      }
+
+
+  //otherwise move to next players bet
+
+
+  //move to next player in m_table
+      if(playerItr == m_livePlayers.end() -1) {playerItr = m_livePlayers.begin();}
+
+      else{playerItr++;}
+
+
+      {otherPlayersBet++;}
+
+
     }
 
-//otherwise reset count to 0 and firstplayersbet points to current position
-    else
-    {
-     count = 0;
-     firstPlayersBet = otherPlayersBet;
-    }
-
-//if current position is end of vector set it to beginning of vector
-    if(otherPlayersBet == playerBets.end() - 1) {otherPlayersBet = playerBets.begin();}
-//otherwise move to next players bet
-    else {otherPlayersBet++;}
-
-//move to next player in m_table
-    if(playerItr == m_livePlayers.end() -1) {playerItr = m_livePlayers.begin();}
-
-    else{playerItr++;}
 
 
   }
@@ -206,23 +216,21 @@ void dealerLib::update()
 void dealerLib::resetCards()
 {
   std::vector<player>::iterator playerIt;
-  cardStack::iterator cardIt;
-
-
 
   for(playerIt=m_table.begin(); playerIt!=m_table.end(); playerIt++)
   {
     playerIt->emptyHole();
   }
-  // reset Deck too
-  // call comms to remove cards from player
+
+  m_communityCards.erase(m_communityCards.begin(), m_communityCards.end());
+
+  m_deck.reset();
 
 
-  for(int i=0; i<5; i++)
-  {
-    m_communityCards.pop_back();
-  }
+
 }
+
+
 
 //-----------------------------------------------------------------------------------------
 
@@ -234,7 +242,7 @@ int dealerLib::checkMaxBet()
   for(playerIt = m_livePlayers.begin(); playerIt != m_livePlayers.end(); playerIt++)
 
   {
-    int playerMoney = (*playerIt).getMoney();
+    int playerMoney = playerIt->getMoney();
     if(playerMoney < maxBet) {maxBet = playerMoney;}
   }
   return maxBet;

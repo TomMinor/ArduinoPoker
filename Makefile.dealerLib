@@ -393,7 +393,8 @@ dealerLibMain.o: src/dealer/dealerLibMain.cpp include/dealer/dealerLib.h \
 		include/shared/card.h \
 		include/dealer/cardStack.h \
 		include/dealer/deck.h \
-		include/dealer/comms.h
+		include/dealer/comms.h \
+		include/dealer/pokerHands.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o dealerLibMain.o src/dealer/dealerLibMain.cpp
 
 cardStack.o: src/dealer/cardStack.cpp include/dealer/cardStack.h \
