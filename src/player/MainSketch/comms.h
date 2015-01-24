@@ -34,7 +34,9 @@ namespace DEALER_CALLS
     SET_LIMIT    =4,
     ROUND_STATE  =5,    
     INITIATE_BET =6,
-    WIN_MONEY    =7
+    WIN_MONEY    =7,
+    RESET_CARDS  =8,
+    RESET_PLAYER =9
   };
     
 }

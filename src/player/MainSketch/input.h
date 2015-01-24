@@ -26,11 +26,14 @@ class input
   public:
 
   /// @brief ctor
-  /// @param [in] pin to analogRead from.
-  input(int _pin);
+  input();
 
   /// @brief dtor.
   ~input();
+  
+  /// @brief setPin
+  /// @param [in] pin to analogRead from.
+  void setPin(int _pin);
 
   /// @brief right input
   /// @param [out] returns bool of true if right button is pressed.

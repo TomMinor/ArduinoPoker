@@ -48,7 +48,8 @@ uint8_t getData(data &_coms)
 
   //used for detecting card data
    
-  
+   uint8_t money_buff[2];
+   uint8_t packets2=4;
 
   switch(content)
   {
@@ -90,11 +91,11 @@ uint8_t getData(data &_coms)
           Serial.write(DATA::RECIEVED);
           
           Serial.print("MONEY");
-          
-          while(Serial.available()<=0);
-          Serial.readBytes(coms.card_buff,packets);  //CHANGE THE TO READBYTES(PACKET)
          
-          coms.money  = BYTE_TO_U16(coms.money_buff[0],coms.money_buff[1]);
+          while(Serial.available()<=0);
+          Serial.readBytes(money_buff,packets);  //CHANGE THE TO READBYTES(PACKET)
+       
+          coms.money  = BYTE_TO_U16(money_buff[0],money_buff[1]);
           
           return DEALER_CALLS::SET_MONEY; 
           break;
