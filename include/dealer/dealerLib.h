@@ -22,10 +22,12 @@ public:
   dealerLib();
   ~dealerLib();
   void Betting();
+  void bet();
+  void addBetToPot(const int &_bet);
   void dealHands(deck _pack);
   void dealFlop(deck _pack);
   void dealRiverTurn(deck _pack);
-  void resetCards();//player.popHole card x2 and thn set cards
+  void resetCards();
   void update();
   int checkMaxBet();
   void initialisePlayers();
@@ -34,6 +36,7 @@ public:
   bool checkIfLost(player _player);
   void removeTheNoobs();
 //  void addBetsToPot(); probs dont need this anymore, just hardcoded it into Betting()
+
 
   bool callComms(commsRequest request);
   int getNumPlayers()const;

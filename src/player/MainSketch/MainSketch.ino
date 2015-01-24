@@ -24,8 +24,9 @@ LiquidCrystal lcd(8, 9, 4, 5, 6, 7);
 
 player player;
 
-data        coms;
-playerData  player_coms;
+data coms;
+
+
 
 void setup() 
 {
@@ -33,6 +34,10 @@ void setup()
   lcd.begin(16,2);
   Serial.begin(9600);
   player.joinGame();
+  
+  //player.setMoney(100);
+  //coms.limit_L = 50;
+  //coms.limit_H = 80;
    
 }
 
@@ -90,7 +95,7 @@ void loop()
     {
       uint16_t bet = 0;
       bet = player.placeBet(coms.limit_H, coms.limit_L);
-      //sendData(bet)
+      sendBet(bet);
       break;
     }
     case DEALER_CALLS::WIN_MONEY:

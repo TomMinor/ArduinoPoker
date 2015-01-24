@@ -56,22 +56,22 @@ int main()
 {
     //GUI::DealerGUI gui;
 
-    std::vector<player*> players;
+    std::vector<player> players;
 
     std::cout<<"Initialising players\n";
 
     player p1;
     p1.setName(std::string("dick"));
-    players.push_back(&p1);
+    players.push_back(p1);
     player p2;
     p2.setName(std::string("butt"));
-    players.push_back(&p2);
+    players.push_back(p2);
     player p3;
     p3.setName(std::string("buck"));
-    players.push_back(&p3);
+    players.push_back(p3);
     player p4;
     p4.setName(std::string("ditt"));
-    players.push_back(&p4);
+    players.push_back(p4);
 
     std::cout<<"Initialised all players\n";
 
@@ -97,8 +97,8 @@ int main()
     Deck.shuffle();
 
 
-    while (!quit)
-    {
+//    while (!quit)
+//    {
         if(table.getNumPlayers() == 1)
           {
             quit =true;
@@ -130,10 +130,11 @@ int main()
         table.Betting();//internally call gui.receiveBetFrom(playerID,amount)
         //call gui.receiveBetFrom(playerID,Unit16 amount,bool isFirstBet)
 
-        std::vector<player> winners;
-        //winners = hands::winner(table.m_livePlayers,table.m_communityCards);
+        //std::vector<player> winners;
+        //winners = hands::winner(table.getLivePlayers(),table.m_communityCards);
         //gui.showWinner(&winners);
         //unsigned int winnings = table.getPot() / winners.size();
+
 //        for(unsigned int i=0; i<winners.size();i++)
 //        {
 //            winners[i].receivePot(winnings);
@@ -162,7 +163,7 @@ int main()
 //        }// end of event while loop
 
         //SDL_Delay(32);
-    }
+    //}
     return EXIT_SUCCESS;
 }
 

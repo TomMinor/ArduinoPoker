@@ -10,16 +10,16 @@ int main()
     std::cout<<"Initialising players\n";
 
     player p1;
-    p1.setName(std::string("dick"));
+    p1.setName(std::string("LONGNAMETEST"));
     players.push_back(&p1);
     player p2;
-    p2.setName(std::string("butt"));
+    p2.setName(std::string("dickbutt"));
     players.push_back(&p2);
     player p3;
-    p3.setName(std::string("buck"));
+    p3.setName(std::string("@Horse_ebooks"));
     players.push_back(&p3);
     player p4;
-    p4.setName(std::string("ditt"));
+    p4.setName(std::string("Michael Rosen"));
     players.push_back(&p4);
 
     std::cout<<"Initialised all players\n";

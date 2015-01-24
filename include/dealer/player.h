@@ -46,6 +46,14 @@ public:
   /// @param [in] const int
   void takeBet(const int &_bet);
 
+  /// @brief method to set players bet (m_bet)
+  /// @param [in] const int
+  void setBet(const int &_bet);
+
+  /// @brief method to set players bet (m_bet)
+  /// @param [in] const int
+  void removeBet();
+
   /// @brief method to add betting money to players money.
   /// @param [in] const PlayingCard
   void receivePot(const int &_pot);
