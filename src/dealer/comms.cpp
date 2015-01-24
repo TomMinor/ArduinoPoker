@@ -33,18 +33,19 @@ bool comms::receiveName(player _player, unsigned int _timeout)
 
 void comms::waitForResponse()
 {
-  bool wait = true;
-  int count = 0;
+//  bool wait = true;
+//  int count = 0;
 
-  while(wait)
-  {
+//  while(wait)
+//  {
 //      Sleep(10);
-      count++;
-      if(count > 3)
-      {
-        wait = false;
-        fold = true;
-      }
-  }
+//      count++;
+//      if(count > 3)
+//      {
+//        wait = false;
+//        fold = true;
+//      }
+//  }
+//this is all bullshit
 }
 

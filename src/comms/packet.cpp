@@ -1,27 +1,23 @@
 #include "../../include/comms/packet.h"
 
 #include <assert.h>
+#include <string>
 
-bool sendPacket(uint8_t _flag, uint8_t _size)
+namespace Comms
 {
-   uint8_t packet = 0;
 
-   // Exit if we have overflowed the max size (15) of _size and will corrupt left hand bits during the OR operation later
-   assert(_size <= 0x0F);
+PacketError sendPacket(const std::string& _port, const Packet& _packet)
+{
+   uint8_t header = _packet.header;
+   uint8_t payload[_packet.payloadSize];
 
-   // Combine packet
-   packet |= (FLAGMASK & (_flag << 4));
-   packet |= (SIZEMASK & _size);
+
 
    // Send over serial
    //serial.write(packet);
 
    //return serial.sent();
-   return true;
+   return E_SUCCESS;
 }
 
-//switch(packetType)
-//{
-//   case CARD:   { sendPacket(CARD, 1);  break; }
-//   case MONEY:  { sendPacket(MONEY, 2); break; }
-//}
+}

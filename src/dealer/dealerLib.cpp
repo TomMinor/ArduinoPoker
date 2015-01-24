@@ -3,14 +3,14 @@
 
 dealerLib::dealerLib()
 {
-
+  deck pack;
 }
 
 dealerLib::~dealerLib()
 {
 
 }
-
+//--------------------------------------------------------------------------------------------------
 void dealerLib::Betting()
 {
 //make a cooms object
@@ -19,7 +19,6 @@ void dealerLib::Betting()
   std::vector<int> playerBets;
   std::vector<int>::iterator firstPlayersBet;
   std::vector<int>::iterator otherPlayersBet;
-//  std::vector<int>::iterator betItr;
   int count = 0;
 
 // initialise betting iterators
@@ -56,6 +55,7 @@ void dealerLib::Betting()
 
 //set the bet placed
     playerBets.at(*otherPlayersBet) = (*playerItr).getBet();
+
 //if bet matches previous persons bet increment count
     if(*firstPlayersBet == *otherPlayersBet)
     {
@@ -123,33 +123,39 @@ void dealerLib::dealHands(deck _pack)
   }
 
 }
-
+//-----------------------------------------------------------------------------------------
 void dealerLib::update()
 {
 //do some gui shiz
 }
-
+//-----------------------------------------------------------------------------------------
 void dealerLib::resetCards()
 {
   std::vector<player>::iterator playerIt;
+  cardStack::iterator cardIt;
+
+
+
   for(playerIt=m_table.begin(); playerIt!=m_table.end(); playerIt++)
   {
     (*playerIt).emptyHole();
   }
 
 
-  for(int i = 0; i < 2;i ++)
+  for(int i=0; i<5; i++)
   {
-
+    m_communityCards.pop_back();
   }
 }
+
+//-----------------------------------------------------------------------------------------
 
 int dealerLib::checkMaxBet()
 {
   std::vector<player>::iterator playerIt;
   int maxBet = 8000;
 
-  for(playerIt = m_table.begin(); playerIt != m_table.end(); playerIt++)
+  for(playerIt = m_livePlayers.begin(); playerIt != m_livePlayers.end(); playerIt++)
   {
     int playerMoney = (*playerIt).getMoney();
     if(playerMoney < maxBet) {maxBet = playerMoney;}
@@ -157,14 +163,18 @@ int dealerLib::checkMaxBet()
   return maxBet;
 }
 
+//-----------------------------------------------------------------------------------------
+
 void dealerLib::initialisePlayers()
 {
-  comms com;
-  player tmpPlayer;
+  comms com; 
 
   for(int i = 0; i < m_numPlayers; i++)
   {
-    m_table.push_back(tmpPlayer);
+    m_table.push_back(player());
+    m_table[i].setName(std::string("blah"));
+
+
 
   }
 
@@ -174,10 +184,11 @@ void dealerLib::initialisePlayers()
   {
     //requestNameInput();
     com.receiveName(*playerIt);
-    (*playerIt).setName((*playerIt).getName());
   }
 
 }
+
+//-----------------------------------------------------------------------------------------
 
 void dealerLib::clearTable()
 {
@@ -187,16 +198,22 @@ void dealerLib::clearTable()
   }
 }
 
+//-----------------------------------------------------------------------------------------
+
 void dealerLib::removePlayer(std::vector<player>::iterator it)
 {
   m_table.erase(it);
 }
+
+//-----------------------------------------------------------------------------------------
 
 bool dealerLib::checkIfLost(player _player)
 {
   if(_player.getMoney() <= 0){return true;}
   else {return false;}
 }
+
+//-----------------------------------------------------------------------------------------
 
 void dealerLib::removeTheNoobs()
 {
@@ -207,10 +224,7 @@ void dealerLib::removeTheNoobs()
     if(checkIfLost(*playerIt)) {removePlayer(playerIt);}
   }
 }
+//-----------------------------------------------------------------------------------------
 
-void dealerLib::addBetsToPot()
-{
-
-}
 
 

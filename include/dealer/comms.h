@@ -17,7 +17,7 @@ class comms
     bool receiveBet(player _player, unsigned int _timeout = 4);
     bool receiveName(player _player, unsigned int _timeout = 4);
 
-    bool fold;
+
     void waitForResponse();
 
 };
