@@ -74,6 +74,7 @@ public:
     Hand* uniqueHand(const std::vector<PlayingCard> &_cards, const unsigned int &_playerID);
     Hand* uniqueHand(const std::vector<PlayingCard> &_cards, const Orientation &_orient = BOTTOM);
     Element* uniqueElement(SDL_Texture* _tex, const Orientation &_orient = BOTTOM);
+    Element* uniqueElement(SDL_Texture* _tex, const SDL_Rect &_srcRect, const SDL_Rect &_destRect, const Orientation &_orient = BOTTOM);
 
     void update();
     void draw();
@@ -94,6 +95,7 @@ private:
 
     Player createPlayer(player* _playerRef, const Orientation &_orient, const int _offset);
     void setUpUniqueElements(std::vector<PlayingCard> _publicCards);
+    void setUpBorder(SDL_Texture* _tex);
     void setUpPlayers(std::vector<player*> _players);
 
     void SDLErrorExit(const std::string &_msg);
