@@ -61,6 +61,8 @@ public:
 
     SDL_Point getCentre();
     SDL_Point getScreenDimensions();
+    inline SDL_Point getDeckPos() {return m_deckPos;}
+    inline SDL_Point getPotPos() {return m_potPos;}
 
     //use these functions to store references to elements that you
     //want to control manually but draw/update/destroy automatically
