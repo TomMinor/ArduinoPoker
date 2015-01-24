@@ -24,8 +24,7 @@ LiquidCrystal lcd(8, 9, 4, 5, 6, 7);
 
 player player;
 
-data        coms;
-playerData  player_coms;
+data coms;
 
 void setup() 
 {
