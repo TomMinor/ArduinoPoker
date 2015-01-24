@@ -61,6 +61,8 @@ public:
 
     SDL_Point getCentre();
     SDL_Point getScreenDimensions();
+    inline SDL_Point getDeckPos() {return m_deckPos;}
+    inline SDL_Point getPotPos() {return m_potPos;}
 
     //use these functions to store references to elements that you
     //want to control manually but draw/update/destroy automatically
@@ -72,6 +74,7 @@ public:
     Hand* uniqueHand(const std::vector<PlayingCard> &_cards, const unsigned int &_playerID);
     Hand* uniqueHand(const std::vector<PlayingCard> &_cards, const Orientation &_orient = BOTTOM);
     Element* uniqueElement(SDL_Texture* _tex, const Orientation &_orient = BOTTOM);
+    Element* uniqueElement(SDL_Texture* _tex, const SDL_Rect &_srcRect, const SDL_Rect &_destRect, const Orientation &_orient = BOTTOM);
 
     void update();
     void draw();
@@ -92,6 +95,7 @@ private:
 
     Player createPlayer(player* _playerRef, const Orientation &_orient, const int _offset);
     void setUpUniqueElements(std::vector<PlayingCard> _publicCards);
+    void setUpBorder(SDL_Texture* _tex);
     void setUpPlayers(std::vector<player*> _players);
 
     void SDLErrorExit(const std::string &_msg);

@@ -18,6 +18,7 @@ class ElementMaker
 public:
     ElementMaker(const CardInfo* _cardInfo, const LabelFormat* _labelFormat);
     Element *makeElement(SDL_Texture *_tex, const Orientation &_orient = BOTTOM);
+    Element *makeElement(SDL_Texture *_tex, const SDL_Rect &_srcRect, const SDL_Rect &_destRect, const Orientation &_orient = BOTTOM);
     Card *makeCard(const PlayingCard &_type, const Orientation &_orient = BOTTOM);
     Label *makeLabel(const std::string &_inputString, const Orientation &_orient = BOTTOM, const int &_lifetime = 0);
 

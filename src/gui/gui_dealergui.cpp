@@ -5,12 +5,17 @@
 
 #include "include/gui/gui_dealergui.h"
 
-#define ONSCREENOFFSET 16
+#define ONSCREENOFFSET 48
 #define OFFSCREENOFFSET 38
 #define COOLDOWNTIME 32
 #define PIXEL_SCALE 3
 #define WINDOW_WIDTH 480
 #define WINDOW_HEIGHT 360
+
+#define BORDER_CORNERWIDTH 120
+#define BORDER_IMGWIDTH 470
+#define BORDER_FILLERWIDTH 8
+#define BORDER_LINEWIDTH 15
 
 GUI::DealerGUI::DealerGUI() :
     //m_publicCards(Hand(SDL_Point(),std::vector<Card>(),BOTTOM)),
@@ -160,8 +165,8 @@ void GUI::DealerGUI::initialise(std::vector<player *> _players, std::vector<Play
 
     m_renderTarget = SDL_CreateTexture(m_renderer,pixelFormat,SDL_TEXTUREACCESS_TARGET,WINDOW_WIDTH,WINDOW_HEIGHT);
 
-    setUpPlayers(_players);
     setUpUniqueElements(_publicCards);
+    setUpPlayers(_players);
 
 }
 
@@ -372,8 +377,19 @@ GUI::Player GUI::DealerGUI::createPlayer(player *_playerRef, const GUI::Orientat
     GUI::Label* labelPtr = uniqueLabel(_playerRef->getName(),_orient);
 
     //move it into a corner
-    labelPtr->setPos(getCentre());
-    labelPtr->setPos(labelPtr->aligned(_orient));
+    labelPtr->centre(true);
+    labelPtr->align(_orient,true);
+    SDL_Point newPos = labelPtr->getPos();
+    switch (_orient)
+    {
+        case BOTTOM : newPos.y -= 10; break;
+        case TOP    : newPos.y += 10; break;
+        case LEFT   : newPos.x += 10; break;
+        case RIGHT  : newPos.x -= 10; break;
+    }
+
+    labelPtr->setPos(newPos);
+    //labelPtr->setPos(labelPtr->aligned(_orient));
     labelPtr->updateRect();
 
     GUI::Player temp = {_playerRef, onScreen, offScreen, _orient, labelPtr};
@@ -467,6 +483,13 @@ GUI::Hand* GUI::DealerGUI::uniqueHand(const std::vector<PlayingCard> &_cards, co
 GUI::Element* GUI::DealerGUI::uniqueElement(SDL_Texture *_tex, const GUI::Orientation &_orient)
 {
     boost::shared_ptr<GUI::Element> temp(m_maker.makeElement(_tex,_orient));
+    m_elements.push_back(temp);
+    return temp.get();
+}
+
+GUI::Element* GUI::DealerGUI::uniqueElement(SDL_Texture* _tex, const SDL_Rect &_srcRect, const SDL_Rect &_destRect, const Orientation &_orient)
+{
+    boost::shared_ptr<GUI::Element> temp(m_maker.makeElement(_tex,_srcRect,_destRect,_orient));
     m_elements.push_back(temp);
     return temp.get();
 }
@@ -635,7 +658,7 @@ void GUI::DealerGUI::setUpUniqueElements(std::vector<PlayingCard> _publicCards)
     std::string ourDir = std::string(buf);
     ourDir = ourDir.substr(0, ourDir.size()-8);
 
-    // Load the pot texture
+    // Load the pot image
     SDL_Surface *temp;
     //temp = IMG_Load("/home/i7245660/OOPG/IanPoker/images/pot.png");
     temp = IMG_Load((ourDir + std::string("images/pot.png")).c_str());
@@ -657,7 +680,32 @@ void GUI::DealerGUI::setUpUniqueElements(std::vector<PlayingCard> _publicCards)
         SDL_Quit();
         exit(1);
     }
+
+    // Load the border image
+    //temp = IMG_Load("/home/i7245660/OOPG/IanPoker/images/pot.png");
+    temp = IMG_Load((ourDir + std::string("images/AWTborder.png")).c_str());
+    if (!temp)
+    {
+        std::cerr << "IMG_Load() Failed: " << IMG_GetError() << "\n";
+        TTF_Quit();
+        IMG_Quit();
+        SDL_Quit();
+        exit(1);
+    }
+
+    //convert it to a texture
+    SDL_Texture *borderTexture=SDL_CreateTextureFromSurface(m_renderer,temp);
+    if (!borderTexture)
+    {
+        std::cerr << "SDL_CreateTextureFromSurface() Failed: " << SDL_GetError() << "\n";
+        TTF_Quit();
+        SDL_Quit();
+        exit(1);
+    }
+
     SDL_FreeSurface(temp);
+
+    setUpBorder(borderTexture);
 
     SDL_Point position = getCentre();
     position.y -= 48;
@@ -730,4 +778,123 @@ void GUI::DealerGUI::addPlayerBack(const unsigned int &_playerID)
     GUI::Player* thatPlayer = &m_players[_playerID];
     thatPlayer->nameLabel->align(thatPlayer->orient);
     broadcastMessage(thatPlayer->playerClass->getName() + std::string(" is back in play"));
+}
+
+void GUI::DealerGUI::setUpBorder(SDL_Texture *_tex)
+{
+    //FYI, all this complex code is necessary to make the borders resolution-independent
+    SDL_Point bounds = getScreenDimensions();
+    SDL_Rect src, dest;
+
+    //==================== Fillers ====================
+
+    if (WINDOW_WIDTH > BORDER_IMGWIDTH)
+    {
+        src.h = BORDER_LINEWIDTH;
+        src.w = BORDER_FILLERWIDTH;
+        src.x = BORDER_CORNERWIDTH - BORDER_FILLERWIDTH;
+        src.y = 0;
+
+        dest.h = BORDER_LINEWIDTH;
+        dest.w = bounds.x;
+        dest.x = 0;
+        dest.y = 0;
+
+        GUI::Element* topFiller = uniqueElement(_tex,src,dest);
+        topFiller->centre();
+        topFiller->align(TOP,true);
+
+        src.y = BORDER_IMGWIDTH - BORDER_LINEWIDTH;
+        dest.y = bounds.y - src.h;
+        GUI::Element* bottomFiller = uniqueElement(_tex,src,dest);
+        bottomFiller->centre();
+        bottomFiller->align(TOP,true);
+    }
+
+    if (WINDOW_HEIGHT > BORDER_IMGWIDTH)
+    {
+        src.h = BORDER_FILLERWIDTH;
+        src.w = BORDER_LINEWIDTH;
+        src.x = 0;
+        src.y = BORDER_CORNERWIDTH - BORDER_FILLERWIDTH;
+
+        dest.h = bounds.y;
+        dest.w = BORDER_LINEWIDTH;
+        dest.x = 0;
+        dest.y = 0;
+
+        GUI::Element* leftFiller = uniqueElement(_tex,src,dest);
+        leftFiller->centre();
+        leftFiller->align(LEFT,true);
+
+        src.x = BORDER_IMGWIDTH - BORDER_LINEWIDTH;
+        dest.x = bounds.x - src.w;
+        GUI::Element* rightFiller = uniqueElement(_tex,src,dest);
+        rightFiller->centre();
+        rightFiller->align(RIGHT,true);
+    }
+
+    //==================== Corners ====================
+
+    src.h = BORDER_CORNERWIDTH;
+    src.w = BORDER_CORNERWIDTH;
+    src.x = 0;
+    src.y = 0;
+
+    dest = src;
+
+    GUI::Element* topLeft = uniqueElement(_tex,src,dest);
+    topLeft->align(TOP,true);
+    topLeft->align(LEFT,true);
+
+    src.x = BORDER_IMGWIDTH - BORDER_CORNERWIDTH;
+    dest.x = bounds.x - BORDER_CORNERWIDTH;
+    GUI::Element* topRight = uniqueElement(_tex,src,dest);
+    topRight->align(TOP,true);
+    topRight->align(RIGHT,true);
+
+    src.y = BORDER_IMGWIDTH - BORDER_CORNERWIDTH;
+    dest.y = bounds.y - BORDER_CORNERWIDTH;
+    GUI::Element* bottomRight = uniqueElement(_tex,src,dest);
+    bottomRight->align(BOTTOM,true);
+    bottomRight->align(RIGHT,true);
+
+    src.x = 0;
+    dest.x = 0;
+    GUI::Element* bottomLeft = uniqueElement(_tex,src,dest);
+    bottomLeft->align(BOTTOM,true);
+
+    //==================== Tags ====================
+
+    src.h = BORDER_IMGWIDTH - BORDER_CORNERWIDTH - BORDER_CORNERWIDTH;
+    src.w = src.h;
+    src.x = BORDER_CORNERWIDTH;
+    src.y = 0;
+
+    dest = src;
+
+    dest.x = (bounds.x / 2) - (src.w / 2);
+    GUI::Element* top = uniqueElement(_tex,src,dest);
+    top->centre(true);
+    top->align(TOP,true);
+
+    src.y = BORDER_IMGWIDTH - src.h;
+    dest.y = bounds.y - src.h;
+    GUI::Element* bottom = uniqueElement(_tex,src,dest);
+    bottom->centre(true);
+    bottom->align(BOTTOM,true);
+
+    src.y = BORDER_CORNERWIDTH;
+    dest.y = (bounds.y / 2) - (src.h / 2);
+    src.x = 0;
+    dest.x = 0;
+    GUI::Element* left = uniqueElement(_tex,src,dest);
+    left->centre(true);
+    left->align(LEFT,true);
+
+    src.x = BORDER_IMGWIDTH - src.w;
+    dest.x = bounds.x - src.w;
+    GUI::Element* right = uniqueElement(_tex,src,dest);
+    right->centre(true);
+    right->align(RIGHT,true);
 }

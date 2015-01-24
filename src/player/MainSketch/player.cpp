@@ -3,7 +3,13 @@
 
 player::player()
 {
- 
+  //hardcoded woop
+  m_button.setPin(0);
+  
+  m_money = 0;
+  
+  m_numCards = 0;
+  
 }
 
 player::~player()
@@ -19,13 +25,9 @@ uint16_t player::placeBet(uint16_t _max, uint16_t _min)
    //check if they have enough money, shouldnt happen.
    if(m_money < _min)
    {
-     //return fold;
+     return BET::FOLD;  
    }
    
-   
-   input button(0);
-
-
    while(!quit)
    {
      bool exit = false;
@@ -42,14 +44,14 @@ uint16_t player::placeBet(uint16_t _max, uint16_t _min)
 
      while(!exit)
      {
-      button.updateValue();
+      m_button.updateValue();
   
-      if      (button.right())                                                  { lcd.clear();lcd.print("Place bet:");showData = false;    }
-      else if (button.left())                                                   { this->showPlayerData(); showData = true;                 }
-      else if (button.up()   && bet < _max && bet < m_money && showData==false) { bet++; fold = false;                                     }
-      else if (button.down() && bet > _min && bet <= m_money && showData==false){ bet--; fold = false;                                     }
-      else if (button.down() && bet == _min && showData==false)                 { fold = true;                                             }
-      else if (button.select() && showData == false)                            { exit = true;                                             }
+      if      (m_button.right())                                                  { lcd.clear();lcd.print("Place bet:");showData = false;    }
+      else if (m_button.left())                                                   { this->showPlayerData(); showData = true;                 }
+      else if (m_button.up()   && bet < _max && bet < m_money && showData==false) { bet++; fold = false;                                     }
+      else if (m_button.down() && bet > _min && bet <= m_money && showData==false){ bet--; fold = false;                                     }
+      else if (m_button.down() && bet == _min && showData==false)                 { fold = true;                                             }
+      else if (m_button.select() && showData == false)                            { exit = true;                                             }
 
       // have to use delay, not ideal
       delay(125);
@@ -65,7 +67,7 @@ uint16_t player::placeBet(uint16_t _max, uint16_t _min)
      if(fold == true)      { lcd.print("FOLD?:");                         }  
      else if(fold == false){ lcd.print("Confirm: "+String(bet))+"?";  }
       
-     bool confirm = button.menuYesNo(1);
+     bool confirm = m_button.menuYesNo(1);
 
      if(confirm == true)
      {
@@ -80,26 +82,29 @@ uint16_t player::placeBet(uint16_t _max, uint16_t _min)
 void player::receiveMoney(uint16_t _money)
 {
     m_money = m_money + _money;
+    this->winner();
 }
 
+void player::setMoney(uint16_t _money)
+{
+  m_money = _money;
+}
 
 void player::receiveCard( uint8_t _block, uint8_t _cards[] )
 {
-
-   
+  m_numCards++;
+  //m_display.waitCards();
+  
   uint8_t tmp = _block*2; 
 
   m_cards[_block].rank = _cards[tmp];
   m_cards[_block].suit = _cards[tmp+1];
-        
-   
-    
 }
 
 
 void player::setName()
 {
-    input button (0);
+    
     bool exit = false;
     
     while( !exit )
@@ -118,17 +123,17 @@ void player::setName()
         {
             lcd.setCursor( 0, 0 );
             lcd.print( "Enter Name:" );
-            button.updateValue();
+            m_button.updateValue();
             lcd.setCursor( currentPosX, currentPosY );
             
-            if ( button.right() ) {
+            if ( m_button.right() ) {
                 currentPosX += 1;
                 lcd.setCursor( currentPosX, currentPosY );
                 index = 26;
                 delay( 400 );
                 ++nLetters;
             }
-            else if ( button.up() ) {
+            else if ( m_button.up() ) {
                 
                 if ( alphabet[ index ] == 'Z'|| alphabet[ index ] == '\0' ) { index = 0; }
                 else { index+=1; }
@@ -137,7 +142,7 @@ void player::setName()
                 delay( 400 );
                 
             }
-            else if ( button.down() ) {
+            else if ( m_button.down() ) {
                 
                 if ( alphabet[ index ] == 'A'|| alphabet[ index ] == '\0' ) { index = 25; }
                 else { index-=1; }
@@ -146,14 +151,14 @@ void player::setName()
                 delay( 400 );
                 
             }
-            else if ( button.left() ) {
+            else if ( m_button.left() ) {
                 
                 currentPosX -= 1;
                 lcd.setCursor(currentPosX,currentPosY);
                 delay( 400 );
                 
             }
-            else if ( button.select() ) { select = true; }
+            else if ( m_button.select() ) { select = true; }
             
         }
         
@@ -165,7 +170,7 @@ void player::setName()
         lcd.clear();
         lcd.print( "Confirm: "+ String( m_playerName ) );
         
-        bool confirm = button.menuYesNo(1);
+        bool confirm = m_button.menuYesNo(1);
         
         if( confirm )
         {
@@ -180,10 +185,10 @@ void player::setName()
 }
 
 
-void player::resetPlayer(uint16_t _money, uint16_t _cardNum)
+void player::resetPlayer(uint16_t _money)
 {
     m_money = _money;
-    m_numCards = _cardNum;
+    this->resetCards();
 }
 
 
@@ -194,14 +199,13 @@ void player::resetCards()
       m_cards[ i ].suit = 0;
       m_cards[ i ].rank = 0;
     }
+    
+    m_numCards = 0;
 }
 
 void player::showPlayerData()
 {    
-  lcd.clear();
-  
-  m_display.createCustomChar();
-  
+  lcd.clear(); 
   lcd.print("Cards: ");
   for(int i = 0; i < m_numCards; ++i)
   {
@@ -212,99 +216,56 @@ void player::showPlayerData()
   lcd.print("Money: "+String(m_money)); 
 }
 
-///@brief Comms sendData implementations
-
-bool player::sendBet  (uint16_t  _data,uint8_t _datatype)
+void player::joinGame()
 {
-   uint8_t bytes[2];
-   sendHeader(_datatype);
+  bool play = false;
+  
+  lcd.clear();
+  
+  lcd.print("Join game?:");
    
-   while(!RecieveConfirmation())
-   {
-    sendHeader(_datatype);
-   }
-   
-   
-   bytes[0]=U16_TO_BYTE_H(_data);
-   bytes[1]=U16_TO_BYTE_L(_data);
-   
-   for (int i=0;i<DATA::BET;i++)
-   {
-     Serial.write(bytes[i]);
-   }
-     
-   return true;      
-   
+  play = m_button.menuYesNo(1);
+  
+  if(play == true)
+  {
+    return;
+  }
+  else if(play == false)
+  {
+    while(true)
+    {
+      lcd.setCursor(0,0);
+      lcd.print("Hit reset    ");
+      lcd.setCursor(0,1);
+      lcd.print("to try again.   ");
+    }
+  }
 }
-bool player::sendName (char _data[15],uint8_t _datatype)
+
+void player::winner()
 {
+ 
+  lcd.clear();
   
-  while(!RecieveConfirmation())
-  {
-    sendHeader(_datatype);
-  }
+  lcd.print("Winner Winner!");
   
-  for (int i=0;i<DATA::NAME;i++)
-  {
-    Serial.print(_data[i]); 
-  }
+  lcd.setCursor(0,1);
+  
+  lcd.print("Chicken Dinner!");
+  
+  delay(3000);
+}
     
-  return true;    
-
-  
-}
-
-bool player::sendFold (bool  _data,uint8_t _datatype)
+bool player::checkFirstCard()
 {
-  sendHeader(_datatype);
-  while(!RecieveConfirmation())
+  if(m_cards[0].suit == 0 || m_cards[0].rank == 0)
   {
-   sendHeader(_datatype);
+    return false;
   }
-   Serial.write(_data);
-    
-   return true; 
-  
-}
-
-
-
-//Coms header packer and sender
-void player::sendHeader(uint8_t _datatype)
-{
-  uint8_t header=0;
-  switch(_datatype)
-     {
-      case PLAYER_SENDS::NAME:     //HEADER FOR SENDING BET_AMT 
-           header=NAME<<4|DATA::NAME;
-           Serial.write(header);
-           break;
-      
-      case PLAYER_SENDS::BET:    //HEADER FOR SENDING BET_AMT 
-           header=BET_AMT<<4|DATA::BET;
-           Serial.write(header);
-           break;
-      
-      case PLAYER_SENDS::FOLD:      //HEADER FOR SENDING NAME
-           header=BET_AMT<<4|DATA::BOOL;
-           Serial.write(header);
-           break;    
-      
-           default:
-           break;
-     }
-  
-}
-
-bool player::RecieveConfirmation()
-{ 
-  bool success=0;
-  while(Serial.available()>0)
+  else 
   {
-     success=Serial.read();   
+    return true;
   }
-  return success;
-}  
-    
+}
 
     

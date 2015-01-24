@@ -12,7 +12,6 @@ then input the same again
 You should see your cards for abit the go into a betting state
 When you set a bet, it will be reflected on the Serial manager
 When you fold you will be disconnected
-
 */
 //card array that stores 2 bytes {card1,card2}
 uint8_t cards[6]={byte(Rank::SIX), Suit::SPADE, byte(Rank::KING), Suit::DIAMOND, byte(Rank::ACE), Suit::CLUB};
@@ -23,82 +22,107 @@ bool recieved=false;
 
 LiquidCrystal lcd(8, 9, 4, 5, 6, 7);
 
-player test;
+player player;
 
 data coms;
 
+
+
 void setup() 
 {
+
   lcd.begin(16,2);
+  Serial.begin(9600);
+  player.joinGame();
+  
+  //player.setMoney(100);
+  //coms.limit_L = 50;
+  //coms.limit_H = 80;
+   
 }
 
-  /*
-  Serial.begin(9600);
-  d.createCustomChar();
-  */
 
+  
 void loop() 
 {
-       test.resetPlayer(200, 3); 
-     
-     test.receiveCard(0, cards);
-     test.receiveCard(1, cards);
-     test.receiveCard(2, cards);
-     
-     test.placeBet(200, 100);
-     
-     delay(3000);
+
+  lcd.clear();
+  
+  if(player.getMoney() == 0)
+  {
+    lcd.setCursor(0,0);
+    lcd.print("Waiting for ");
+    lcd.setCursor(0,1);
+    lcd.print("money.");
+  }
+  else if(player.checkFirstCard() == false)
+  {
+    lcd.setCursor(0,0);
+    lcd.print("Waiting for ");
+    lcd.setCursor(0,1);
+    lcd.print("cards.");
+  }
+  else
+  {
+    player.showPlayerData();
+  }
+  
+  uint8_t state;
+  
+  state = getData(coms);
+  
+  switch(state)
+  {
+    case DEALER_CALLS::SET_CARDS:
+    {
+      player.receiveCard(0, coms.cards);
+      player.receiveCard(1, coms.cards);
+      break;
+    }
+    case DEALER_CALLS::SET_NAME:
+    {
+      player.setName();
+      //char playerName[15] = player.getName();
+      break;
+    }
+    case DEALER_CALLS::SET_MONEY:
+    {
+      player.setMoney(coms.money);
+      Serial.print(coms.money);
+      break;
+    }
+    case DEALER_CALLS::INITIATE_BET:
+    {
+      uint16_t bet = 0;
+      bet = player.placeBet(coms.limit_H, coms.limit_L);
+      sendBet(bet);
+      break;
+    }
+    case DEALER_CALLS::WIN_MONEY:
+    {
+      player.receiveMoney(coms.wMoney);
+      player.winner();
+      break;
+    }
+    case DEALER_CALLS::RESET_CARDS:
+    {
+      player.resetCards();
+      break;
+    }
+    case DEALER_CALLS::RESET_PLAYER:
+    {
+      player.resetPlayer(coms.money);
+      break;
+    }
+    default:
+    {
+      break;
+    }
+  }
+  
+  
+  
 }
 
-  /*
-  while(recieved!=true)
-  {
-    //code to test input
-    //test.setName();
-    //Serial.print(test.getName());
-    if (getHeader(cards))
-      {  
-        Serial.write("Data Sent \n");
-        lcd.clear();
-        lcd.print("Data Processed");
-        recieved=true;
-        
-                
-      }
-           
-    Serial.write("listening \n");
-    
-    lcd.clear();
-    d.displayCard(cards[0], cards[1], 1, 0, 1);
-    d.displayCard(cards[2], cards[3], 4, 0, 2);
-    delay(2000);
-     
-  }
-  if(betState!=false)
-    {     
-        
-        do
-        {
-          bet=test.placeBet(100, 50);            
-        }while(bet!=0); 
-        
-        lcd.clear();
-        Serial.print("Disconnected");
-        lcd.print("You Folded");
-        delay(1000);
-        exit(0); 
-     }
-     */
-     /*
-     test.resetPlayer(200, 3); 
-     
-     test.receiveCard(0, cards);
-     test.receiveCard(1, cards);
-     test.receiveCard(2, cards);
-     
-     test.placeBet(200, 100);
-     
-     delay(3000);
-     */
 
 
