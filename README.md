@@ -2,6 +2,21 @@ IanPoker
 ========
 
 # Arduino Project
+# A poker game in development
 
-## Branched from player branch to work on the comms for the arduino side
+#comms
+#     Tom minor
+#     Eddy
+
+#player ui
+#     George 
+#     Michelle
+
+#dealer class
+#     Tom beque
+#     Idris
+
+#interface
+#     Robert
+
 
