@@ -34,7 +34,7 @@ void dealerLib::Betting()
 
 //make iterator for m_table
   std::vector<player>::iterator playerItr;
-  playerItr = m_table.begin();
+  playerItr = m_livePlayers.begin();
 
 //while size of vector doesn't equal count, get bet info from comms...
   while(std::distance(playerBets.begin(), playerBets.end()) != count)
@@ -48,7 +48,7 @@ void dealerLib::Betting()
     {
       m_pot += playerBets.at(*otherPlayersBet);
       playerBets.erase(otherPlayersBet);
-      m_table.erase(playerItr);
+      m_livePlayers.erase(playerItr);
       m_numPlayers = m_numPlayers - 1;
       maxBet = checkMaxBet();
 
@@ -75,9 +75,17 @@ void dealerLib::Betting()
     else {otherPlayersBet++;}
 
 //move to next player in m_table
-    playerItr++;
+    if(playerItr == m_livePlayers.end() -1) {playerItr = m_livePlayers.begin();}
+
+    else{playerItr++;}
 
 
+  }
+//add all bets to the pot
+  std::vector<int>::iterator betIt;
+  for(betIt = playerBets.begin(); betIt != playerBets.end(); betIt++ )
+  {
+    m_pot += (*betIt);
   }
 
 

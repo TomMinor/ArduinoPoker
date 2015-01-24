@@ -23,7 +23,7 @@ public:
   void removePlayer(std::vector<player>::iterator it);
   bool checkIfLost(player _player);
   void removeTheNoobs();
-  void addBetsToPot();
+//  void addBetsToPot(); probs dont need this anymore, just hardcoded it into Betting()
 
 
 private:
