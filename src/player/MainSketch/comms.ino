@@ -207,10 +207,19 @@ bool sendName(char _name[15])
 ///@param[_in] uint16_t takes in a 2byte number
 ///@param returns bool to say send success
 bool sendBet(uint16_t _bet)
-{         //initialize the a local buffer to store a uint16 which will be broken into a byte and sent over the serial
+{         
+          // check to see if bet is fold. if so call fold function.
+          // so we only use the send bet function.
+          if( _bet == BET::FOLD )
+          {
+            bool sent = sendFold();
+            return sent;
+          }
+          
+          //initialize the a local buffer to store a uint16 which will be broken into a byte and sent over the serial
           uint8_t bytes[2];
           //when no confirmation for valid header it will keep sending the header
-           while(!RecieveConfirmation())
+          while(!RecieveConfirmation())
           {
            sendHeader(PLAYER_SENDS::BET);
           }
@@ -230,8 +239,11 @@ bool sendBet(uint16_t _bet)
 ///@brief sendFold() a function to send player fold state
 ///@param[_in] uint16_t takes in a 2byte number
 ///@param returns bool to say send success
-bool sendFold(uint16_t _fold)
+bool sendFold()
 {         
+
+          // EDDY!, remove the parameter and replaced witht he fold enum.
+       
           //initialize the a local buffer to store a uint16 which will be broken into a byte and sent over the serial
           uint8_t bytes[2];
           //when no confirmation is recieved from the dealer it will keep sending the header
@@ -241,15 +253,16 @@ bool sendFold(uint16_t _fold)
           }
           
           //breaks up to bytes
-          bytes[0]=U16_TO_BYTE_H(_fold);
-          bytes[1]=U16_TO_BYTE_L(_fold);
+          bytes[0]=U16_TO_BYTE_H(BET::FOLD);
+          bytes[1]=U16_TO_BYTE_L(BET::FOLD);
           
           //sends data
           for (int i=0;i<DATA::BET;i++)
           {
            Serial.write(bytes[i]);
           }
-          return true;   
+          return true;
+          
             
 }
 
@@ -292,7 +305,7 @@ bool RecieveConfirmation()
   bool success=0;
   if(Serial.available()>0)
   {
-     success=Serial.read();   
+     success=Serial.read()-48;   
   }
   return success;
 }  
