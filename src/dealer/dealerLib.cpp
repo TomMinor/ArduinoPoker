@@ -20,6 +20,7 @@ void dealerLib::Betting()
   std::vector<int>::iterator firstPlayersBet;
   std::vector<int>::iterator otherPlayersBet;
   int count = 0;
+  unsigned int currentBet = 0;
 
 // initialise betting iterators
   firstPlayersBet = playerBets.begin();
@@ -36,13 +37,16 @@ void dealerLib::Betting()
   playerItr = m_livePlayers.begin();
 
 //while size of vector doesn't equal count, get bet info from comms...
-  while(std::distance(playerBets.begin(), playerBets.end()) != count && m_numPlayers > 1)
+
+  while(std::distance(playerBets.begin(), playerBets.end()) != count && m_livePlayers > 1)
   {  
 
-
     int maxBet = checkMaxBet();
+
     thing.sendBetLimits(*playerItr, (*playerItr).getBet(), maxBet);
+    // sendBetLimits should send player and min and max bet limits
     thing.receiveBet(*playerItr);
+    currentBet = playerItr->getBet();
 
 //if player has folded, remove them from the vectors
     if((*playerItr).fold)
@@ -54,6 +58,7 @@ void dealerLib::Betting()
       maxBet = checkMaxBet();
 
     }
+    else
 
 //set the bet placed
     playerBets.at(*otherPlayersBet) = (*playerItr).getBet();
@@ -92,6 +97,72 @@ void dealerLib::Betting()
 
 
 }
+
+
+
+void dealerLib::bet()
+{
+  comms tom;
+  int currentBet = 0;
+  int oldBet = 0;
+  int playerBet = 0;
+  bool p[4];
+  p[0] = p[1] = p[2] = p[3] = false;
+
+  while(!(p[0] && p[1] && p[2] && p[3]))
+  {
+      for(unsigned int i=0;i<m_livePlayers.size();i++)
+      {
+          // find max bet
+         int maxBet = checkMaxBet() - m_livePlayers[i].getBet();
+         tom.sendBetLimits(m_livePlayers[i],currentBet,maxBet);
+         tom.receiveBet(m_livePlayers[i]);
+
+         // check if player has fold
+         if(m_livePlayers[i].fold)
+         {
+             // remove player from live players
+             playerBet = m_livePlayers[i].getBet();
+             addBetToPot(playerBet);
+             m_livePlayers.erase(m_livePlayers.begin()+i);
+             p[i] = true;
+         }
+         else
+         {
+             currentBet = m_livePlayers[i].getBet();
+             if(currentBet == oldBet)
+             {
+                 p[i] = true;
+             }
+             else
+             {
+                 for(unsigned int j=0;j<m_livePlayers.size();j++)
+                 {
+                     if(j==i){p[j]=true;}
+                     else if(m_livePlayers[j].fold)
+                     {
+                         p[j] = true;
+                     }
+                     else{p[j] = false;}
+                 }
+             }
+         }
+         oldBet = currentBet;
+      }
+  }
+  for(unsigned int i=0;i<m_livePlayers.size();i++)
+  {
+      playerBet = m_livePlayers[i].getBet();
+      addBetToPot(playerBet);
+      m_livePlayers[i].removeBet();
+  }
+}
+
+void dealerLib::addBetToPot(const int &_bet)
+{
+  m_pot += _bet;
+}
+
 //--------------------------------------------------------------
 //deals out the first three community cards
 void dealerLib::dealFlop(deck _pack)
@@ -120,6 +191,7 @@ void dealerLib::dealHands(deck _pack)
     {
       PlayingCard tmpCard = _pack.deal();
       playerIt->setHoleCard(tmpCard);
+      //Could do it like this? playerIt->setHoleCard(_pack.deal());
       thing.sendCard(*playerIt, tmpCard);
     }
   }
@@ -140,8 +212,10 @@ void dealerLib::resetCards()
 
   for(playerIt=m_table.begin(); playerIt!=m_table.end(); playerIt++)
   {
-    (*playerIt).emptyHole();
+    playerIt->emptyHole();
   }
+  // reset Deck too
+  // call comms to remove cards from player
 
 
   for(int i=0; i<5; i++)
@@ -158,6 +232,7 @@ int dealerLib::checkMaxBet()
   int maxBet = 8000;
 
   for(playerIt = m_livePlayers.begin(); playerIt != m_livePlayers.end(); playerIt++)
+
   {
     int playerMoney = (*playerIt).getMoney();
     if(playerMoney < maxBet) {maxBet = playerMoney;}
@@ -229,4 +304,46 @@ void dealerLib::removeTheNoobs()
 //-----------------------------------------------------------------------------------------
 
 
+//void dealerLib::addBetsToPot()
+//{
 
+//}
+
+
+bool dealerLib::callComms(commsRequest request)
+{
+  switch (request){
+    case sendBetLimits:
+
+      break;
+
+    case sendMoney:
+      break;
+
+    case sendCard:
+      break;
+
+    case getName:
+      break;
+
+    case getBet:
+      break;
+
+    case wait:
+      break;
+
+    default:
+      break;
+    }
+}
+
+
+int dealerLib::getNumPlayers()const
+{
+  return m_numPlayers;
+}
+
+std::vector<player> dealerLib::getLivePlayers()const
+{
+  return m_livePlayers;
+}

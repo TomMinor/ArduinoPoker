@@ -10,22 +10,21 @@
 ///@brief a structure that stores data that will be drawn by the player class 
 typedef struct data
 {
-  int      cardRecieved=0;
-  uint8_t  card_buff[2];
-  uint8_t  cards[4];
+  int   cardRecieved=0;
+  byte  card_buff[2];
+  byte  cards[4];
   
-  uint8_t  money_buff[2];
+  byte  money_buff[2];
   uint16_t money;
   
-  uint8_t  limit_buff[4];
+  byte  limit_buff[4];
   uint16_t limit_L;
   uint16_t limit_H;
   
-  uint8_t  wMoney_buff[2];
+  byte  wMoney_buff[2];
   uint16_t wMoney;
  
-  bool roundState=false;
-  bool gameStart=false;
+
 
 }data;
 
