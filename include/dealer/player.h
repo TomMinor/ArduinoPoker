@@ -125,6 +125,11 @@ public:
   /// @return int
   int getBet()const;
 
+  ///@brief method to access the players id (m_id)
+  /// @return int
+  int getID()const;
+
+
 
   cardStack m_hand;
   bool fold;
@@ -132,6 +137,7 @@ public:
 
 private:
   std::string m_name;
+  int m_id;
   cardStack m_cards;
   int m_score;
   int m_kicker;

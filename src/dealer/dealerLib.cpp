@@ -39,8 +39,10 @@ void dealerLib::Betting()
 //while size of vector doesn't equal count, get bet info from comms...
   while(std::distance(playerBets.begin(), playerBets.end()) != count)
   {
-    int maxBet = checkMaxBet();
+    int maxBet = checkMaxBet();//param m_liveplayers
+    int minBet;
     thing.sendBetLimits(*playerItr, (*playerItr).getBet(), maxBet);
+    // sendBetLimits should send player and min and max bet limits
     thing.receiveBet(*playerItr);
 
 //if player has folded, remove them from the vectors
@@ -118,6 +120,7 @@ void dealerLib::dealHands(deck _pack)
     {
       PlayingCard tmpCard = _pack.deal();
       playerIt->setHoleCard(tmpCard);
+      //Could do it like this? playerIt->setHoleCard(_pack.deal());
       thing.sendCard(*playerIt, tmpCard);
     }
   }
@@ -136,6 +139,8 @@ void dealerLib::resetCards()
   {
     (*playerIt).emptyHole();
   }
+  // reset Deck too
+  // call comms to remove cards from player
 
 
   for(int i = 0; i < 2;i ++)
@@ -149,6 +154,7 @@ int dealerLib::checkMaxBet()
   std::vector<player>::iterator playerIt;
   int maxBet = 8000;
 
+  // change m_table to m_livePlayers because we only need ot check players still in the game
   for(playerIt = m_table.begin(); playerIt != m_table.end(); playerIt++)
   {
     int playerMoney = (*playerIt).getMoney();
@@ -208,9 +214,45 @@ void dealerLib::removeTheNoobs()
   }
 }
 
-void dealerLib::addBetsToPot()
-{
+//void dealerLib::addBetsToPot()
+//{
 
+//}
+
+
+bool dealerLib::callComms(commsRequest request)
+{
+  switch (request){
+    case sendBetLimits:
+
+      break;
+
+    case sendMoney:
+      break;
+
+    case sendCard:
+      break;
+
+    case getName:
+      break;
+
+    case getBet:
+      break;
+
+    case wait:
+      break;
+
+    default:
+      break;
+    }
 }
 
+int dealerLib::getNumPlayers()const
+{
+  return m_numPlayers;
+}
 
+std::vector<player> dealerLib::getLivePlayers()const
+{
+  return m_livePlayers;
+}

@@ -152,6 +152,10 @@ int player::getBet()const
   return m_bet;
 }
 
+int player::getID()const
+{
+  return m_id;
+}
 //--------------------------------------------------------------------
 void player::printInfo()const
 {
