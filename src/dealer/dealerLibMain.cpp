@@ -103,7 +103,7 @@ int main()
           {
             quit =true;
           }
-        table.dealHands(Deck);//call gui.dealCardTo(playerID,PlayingCard)
+        table.dealHands();//call gui.dealCardTo(playerID,PlayingCard)
 
 
         table.Betting();//internally call gui.receiveBetFrom(playerID,amount)
@@ -115,17 +115,17 @@ int main()
 //        burned->setPos(gui.getDeckPos());
 //        burned->updateRect();
 //        burned->burn();
-        table.dealFlop(Deck);//internally call addPublicCard(PlayingCard) x3
+        table.dealFlop();//internally call addPublicCard(PlayingCard) x3
 
         table.Betting();//internally call gui.receiveBetFrom(playerID,amount)
                         //call gui.receiveBetFrom(playerID,Unit16 amount,bool isFirstBet)
 
-        table.dealRiverTurn(Deck);//internally calladdPublicCard(PlayingCard)
+        table.dealRiverTurn();//internally calladdPublicCard(PlayingCard)
 
         table.Betting();//internally call gui.receiveBetFrom(playerID,amount)
                         //call gui.receiveBetFrom(playerID,Unit16 amount,bool isFirstBet)
 
-        table.dealRiverTurn(Deck);//internally calladdPublicCard(PlayingCard)
+        table.dealRiverTurn();//internally calladdPublicCard(PlayingCard)
 
         table.Betting();//internally call gui.receiveBetFrom(playerID,amount)
         //call gui.receiveBetFrom(playerID,Unit16 amount,bool isFirstBet)

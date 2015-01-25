@@ -5,6 +5,7 @@
 #include "deck.h"
 #include "cardStack.h"
 #include "comms.h"
+#include "pokerHands.h"
 
 enum commsRequest
 {
@@ -24,9 +25,9 @@ public:
   void Betting();
   void bet();
   void addBetToPot(const int &_bet);
-  void dealHands(deck _pack);
-  void dealFlop(deck _pack);
-  void dealRiverTurn(deck _pack);
+  void dealHands();
+  void dealFlop();
+  void dealRiverTurn();
   void resetCards();
   void update();
   int checkMaxBet();
@@ -36,6 +37,8 @@ public:
   bool checkIfLost(player _player);
   void removeTheNoobs();
 //  void addBetsToPot(); probs dont need this anymore, just hardcoded it into Betting()
+  void splitPot();
+
 
 
   bool callComms(commsRequest request);

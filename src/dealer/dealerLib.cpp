@@ -1,6 +1,7 @@
 #include "dealer/dealerLib.h"
 
 
+
 dealerLib::dealerLib()
 {
   m_deck.shuffle();
@@ -175,22 +176,22 @@ void dealerLib::addBetToPot(const int &_bet)
 
 //--------------------------------------------------------------
 //deals out the first three community cards
-void dealerLib::dealFlop(deck _pack)
+void dealerLib::dealFlop()
 {
   for(int i=0; i<3; i++)
-    m_communityCards.push_back(_pack.deal());
+    m_communityCards.push_back(m_deck.deal());
 }
 //--------------------------------------------------------------
 
 //deals adds an extra card to the community cards. Used for the river and the turn
-void dealerLib::dealRiverTurn(deck _pack)
+void dealerLib::dealRiverTurn()
 {
-  m_communityCards.push_back(_pack.deal());
+  m_communityCards.push_back(m_deck.deal());
 }
 //--------------------------------------------------------------
 
 //deals 2 cards to the players
-void dealerLib::dealHands(deck _pack)
+void dealerLib::dealHands()
 {
   comms thing;
 
@@ -199,9 +200,9 @@ void dealerLib::dealHands(deck _pack)
   {
     for(playerIt = m_table.begin(); playerIt != m_table.end(); playerIt++)
     {
-      PlayingCard tmpCard = _pack.deal();
+      PlayingCard tmpCard = m_deck.deal();
       playerIt->setHoleCard(tmpCard);
-      //Could do it like this? playerIt->setHoleCard(_pack.deal());
+      //Could do it like this? playerIt->setHoleCard(m_deck.deal());
       thing.sendCard(*playerIt, tmpCard);
     }
   }
@@ -354,4 +355,24 @@ int dealerLib::getNumPlayers()const
 std::vector<player> dealerLib::getLivePlayers()const
 {
   return m_livePlayers;
+}
+
+void dealerLib::splitPot()
+{
+  std::vector<player> winners;
+  std::vector<player>::iterator playerIt;
+  winners = hands::winner(m_livePlayers, m_communityCards);
+  int remainder = m_pot % winners.size();
+  int winnings = (m_pot - remainder) / winners.size();
+
+  for(playerIt = winners.begin(); playerIt != winners.end(); playerIt++)
+  {
+    playerIt->receivePot(winnings);
+  }
+
+  m_pot = remainder;
+
+
+
+
 }

@@ -6,14 +6,17 @@ SOURCES+=$$PWD/src/dealer/deck.cpp \
          $$PWD/src/dealer/dealerLib.cpp \
          $$PWD/src/dealer/dealerLibMain.cpp \
          $$PWD/src/dealer/cardStack.cpp \
-    $$PWD/src/dealer/comms.cpp
-
+         $$PWD/src/dealer/comms.cpp \
+         $$PWD/src/dealer/pokerHands.cpp
 
 HEADERS+=$$PWD/include/dealer/deck.h \
          $$PWD/include/dealer/playingcard.h \
          $$PWD/include/dealer/player.h \
          $$PWD/include/dealer/dealerLib.h \
          $$PWD/include/dealer/cardStack.h \
-    $$PWD/include/dealer/comms.h
+         $$PWD/include/dealer/comms.h \
+         $$PWD/include/dealer/pokerHands.h
+
+
 
 INCLUDEPATH +=./include

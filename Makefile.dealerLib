@@ -51,14 +51,16 @@ SOURCES       = src/dealer/deck.cpp \
 		src/dealer/dealerLib.cpp \
 		src/dealer/dealerLibMain.cpp \
 		src/dealer/cardStack.cpp \
-		src/dealer/comms.cpp 
+		src/dealer/comms.cpp \
+		src/dealer/pokerHands.cpp 
 OBJECTS       = deck.o \
 		playingcard.o \
 		player.o \
 		dealerLib.o \
 		dealerLibMain.o \
 		cardStack.o \
-		comms.o
+		comms.o \
+		pokerHands.o
 DIST          = .qmake.cache \
 		dealerLib.pri src/dealer/deck.cpp \
 		src/dealer/playingcard.cpp \
@@ -66,7 +68,8 @@ DIST          = .qmake.cache \
 		src/dealer/dealerLib.cpp \
 		src/dealer/dealerLibMain.cpp \
 		src/dealer/cardStack.cpp \
-		src/dealer/comms.cpp
+		src/dealer/comms.cpp \
+		src/dealer/pokerHands.cpp
 QMAKE_TARGET  = dealerLib
 DESTDIR       = #avoid trailing-slash linebreak
 TARGET        = dealerLib
@@ -325,7 +328,7 @@ qmake_all: FORCE
 
 dist: 
 	@test -d .tmp/dealerLib1.0.0 || mkdir -p .tmp/dealerLib1.0.0
-	$(COPY_FILE) --parents $(DIST) .tmp/dealerLib1.0.0/ && $(COPY_FILE) --parents include/dealer/deck.h include/dealer/playingcard.h include/dealer/player.h include/dealer/dealerLib.h include/dealer/cardStack.h include/dealer/comms.h .tmp/dealerLib1.0.0/ && $(COPY_FILE) --parents src/dealer/deck.cpp src/dealer/playingcard.cpp src/dealer/player.cpp src/dealer/dealerLib.cpp src/dealer/dealerLibMain.cpp src/dealer/cardStack.cpp src/dealer/comms.cpp .tmp/dealerLib1.0.0/ && (cd `dirname .tmp/dealerLib1.0.0` && $(TAR) dealerLib1.0.0.tar dealerLib1.0.0 && $(COMPRESS) dealerLib1.0.0.tar) && $(MOVE) `dirname .tmp/dealerLib1.0.0`/dealerLib1.0.0.tar.gz . && $(DEL_FILE) -r .tmp/dealerLib1.0.0
+	$(COPY_FILE) --parents $(DIST) .tmp/dealerLib1.0.0/ && $(COPY_FILE) --parents include/dealer/deck.h include/dealer/playingcard.h include/dealer/player.h include/dealer/dealerLib.h include/dealer/cardStack.h include/dealer/comms.h include/dealer/pokerHands.h .tmp/dealerLib1.0.0/ && $(COPY_FILE) --parents src/dealer/deck.cpp src/dealer/playingcard.cpp src/dealer/player.cpp src/dealer/dealerLib.cpp src/dealer/dealerLibMain.cpp src/dealer/cardStack.cpp src/dealer/comms.cpp src/dealer/pokerHands.cpp .tmp/dealerLib1.0.0/ && (cd `dirname .tmp/dealerLib1.0.0` && $(TAR) dealerLib1.0.0.tar dealerLib1.0.0 && $(COMPRESS) dealerLib1.0.0.tar) && $(MOVE) `dirname .tmp/dealerLib1.0.0`/dealerLib1.0.0.tar.gz . && $(DEL_FILE) -r .tmp/dealerLib1.0.0
 
 
 clean:compiler_clean 
@@ -384,7 +387,8 @@ dealerLib.o: src/dealer/dealerLib.cpp include/dealer/dealerLib.h \
 		include/shared/card.h \
 		include/dealer/cardStack.h \
 		include/dealer/deck.h \
-		include/dealer/comms.h
+		include/dealer/comms.h \
+		include/dealer/pokerHands.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o dealerLib.o src/dealer/dealerLib.cpp
 
 dealerLibMain.o: src/dealer/dealerLibMain.cpp include/dealer/dealerLib.h \
@@ -408,6 +412,13 @@ comms.o: src/dealer/comms.cpp include/dealer/comms.h \
 		include/shared/card.h \
 		include/dealer/cardStack.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o comms.o src/dealer/comms.cpp
+
+pokerHands.o: src/dealer/pokerHands.cpp include/dealer/pokerHands.h \
+		include/dealer/playingcard.h \
+		include/shared/card.h \
+		include/dealer/player.h \
+		include/dealer/cardStack.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o pokerHands.o src/dealer/pokerHands.cpp
 
 ####### Install
 
