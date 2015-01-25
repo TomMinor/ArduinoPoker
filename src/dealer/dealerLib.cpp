@@ -201,14 +201,19 @@ void dealerLib::addBetToPot(const int &_bet)
 void dealerLib::dealFlop()
 {
   for(int i=0; i<3; i++)
-    m_communityCards.push_back(m_deck.deal());
+  {
+    PlayingCard card = m_deck.deal();
+    m_communityCards.push_back(card);
+    dealerGui.addPublicCard(card);
+  }
 }
 //--------------------------------------------------------------
 
 //deals adds an extra card to the community cards. Used for the river and the turn
 void dealerLib::dealRiverTurn()
 {
-  m_communityCards.push_back(m_deck.deal());
+  PlayingCard card = m_deck.deal();
+  m_communityCards.push_back(card);
 }
 //--------------------------------------------------------------
 
@@ -221,9 +226,14 @@ void dealerLib::dealHands()
   for(int i=0; i<2; i++)
   {
     for(playerIt = m_table.begin(); playerIt != m_table.end(); playerIt++)
+
+    for(unsigned int j =0; j < m_table.size(); j++)
     {
       PlayingCard tmpCard = m_deck.deal();
-      playerIt->setHoleCard(tmpCard);
+      m_table[j].setHoleCard(tmpCard);
+
+      dealerGui.dealCardTo(j, tmpCard);
+
       thing.sendCard(*playerIt, tmpCard);
     }
   }
@@ -239,9 +249,13 @@ void dealerLib::resetCards()
 {
   std::vector<player>::iterator playerIt;
 
-  for(playerIt=m_table.begin(); playerIt!=m_table.end(); playerIt++)
+  for(int i = 0; i < m_table.size(); i++)
   {
-    playerIt->emptyHole();
+    GUI::Hand* burned = dealerGui.uniqueHand(m_table[i].getHole(), i);
+    burned->setFlipped(true, true);
+//    burned->setPos(dealerGui.)
+    m_table[i].emptyHole();
+
   }
 
   m_communityCards.erase(m_communityCards.begin(), m_communityCards.end());
