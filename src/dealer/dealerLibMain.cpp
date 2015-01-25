@@ -101,12 +101,13 @@ int main()
 
 //    while (!quit)
 //    {
-        if(table.getNumPlayers() == 1)
+        if(table.getNumPlayers() !=0)
           {
             quit =true;
-            std::cout<<"only one player at the moment \n";
+            std::cout<<"num players: "<<table.getNumPlayers()<<"\n";
+            std::cout<<"num liveplayers: "<<table.getNumPlayers()<<"\n";
           }
-        table.dealHands(pack);//call gui.dealCardTo(playerID,PlayingCard)
+        //table.dealHands(pack);//call gui.dealCardTo(playerID,PlayingCard)
 
 
         table.bet();//internally call gui.receiveBetFrom(playerID,amount)

@@ -111,6 +111,7 @@ void dealerLib::Betting()
 
 bool dealerLib::checkBoolArray(bool _array[])const
 {
+  if(m_numPlayers == 0){return true;}
   bool flag = true;
   for(int i=0;flag && i<m_numPlayers;i++)
   {
@@ -119,17 +120,19 @@ bool dealerLib::checkBoolArray(bool _array[])const
           flag = false;
       }
   }
-  return flag;
+  return !flag;
 }
 
 void dealerLib::bet()
 {
   comms tom;
-  int currentBet = 0;
+  Uint16 currentBet = 0;
   int oldBet = 0;
   int playerBet = 0;
   bool p[m_livePlayers.size()];
 
+  //When all bets are matched the array will all be true
+  //Thus breaking out of the while loop
   while(!(checkBoolArray(p)))
   {
       for(unsigned int i=0;i<m_livePlayers.size();i++)
@@ -146,6 +149,10 @@ void dealerLib::bet()
          {
              // remove player from live players
              //playerBet = m_livePlayers[i].getBet();
+             GUI::Hand* burned = dealerGui.uniqueHand(m_livePlayers[i].getHole(),m_livePlayers[i].getID());
+             burned->setFlipped(true);
+             burned->moveTo(dealerGui.getCentre());
+             burned->burn();
              addBetToPot(playerBet);
              m_livePlayers.erase(m_livePlayers.begin()+i);
              p[i] = true;
@@ -153,6 +160,7 @@ void dealerLib::bet()
          else
          {
              currentBet = m_livePlayers[i].getBet();
+             dealerGui.receiveBetFrom(m_livePlayers[i].getID(),currentBet);
              //currentBet = playerBet;
              if(currentBet == oldBet)
              {

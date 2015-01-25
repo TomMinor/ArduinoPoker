@@ -5,6 +5,7 @@
 #include "deck.h"
 #include "cardStack.h"
 #include "comms.h"
+#include "gui/gui_dealergui.h"
 
 enum commsRequest
 {
@@ -51,6 +52,7 @@ private:
 
   unsigned int m_pot;
   deck m_deck;
+  GUI::DealerGUI dealerGui;
 
 
   std::vector<player> m_table;

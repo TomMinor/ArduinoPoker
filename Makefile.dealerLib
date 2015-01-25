@@ -12,13 +12,13 @@ MAKEFILE      = Makefile.dealerLib
 
 CC            = clang
 CXX           = clang++
-DEFINES       = -DQT_GUI_LIB -DQT_CORE_LIB
+DEFINES       = -DQT5BUILD -DQT_GUI_LIB -DQT_CORE_LIB
 CFLAGS        = -pipe -g -Wall -W -D_REENTRANT -fPIE $(DEFINES)
-CXXFLAGS      = -pipe -g -Wall -W -D_REENTRANT -fPIE $(DEFINES)
+CXXFLAGS      = -pipe -I/usr/local/include/SDL2 -D_REENTRANT -g -Wall -W -D_REENTRANT -fPIE $(DEFINES)
 INCPATH       = -I/opt/Qt/5.3/gcc_64/mkspecs/linux-clang -I. -Iinclude -I/opt/Qt/5.3/gcc_64/include -I/opt/Qt/5.3/gcc_64/include/QtGui -I/opt/Qt/5.3/gcc_64/include/QtCore -I.
 LINK          = clang++
 LFLAGS        = -ccc-gcc-name g++ -Wl,-rpath,/opt/Qt/5.3/gcc_64 -Wl,-rpath,/opt/Qt/5.3/gcc_64/lib
-LIBS          = $(SUBLIBS) -lboost_system -L/opt/Qt/5.3/gcc_64/lib -lQt5Gui -lQt5Core -lGL -lpthread 
+LIBS          = $(SUBLIBS) -lboost_system -L$(HOME)/NGL/lib -lSDL2_ttf -lSDL2_image -L/usr/local/lib -Wl,-rpath,/usr/local/lib -lSDL2 -L/opt/Qt/5.3/gcc_64/lib -lQt5Gui -lQt5Core -lGL -lpthread 
 AR            = ar cqs
 RANLIB        = 
 QMAKE         = /opt/Qt/5.3/gcc_64/bin/qmake
@@ -51,16 +51,28 @@ SOURCES       = src/dealer/deck.cpp \
 		src/dealer/dealerLib.cpp \
 		src/dealer/dealerLibMain.cpp \
 		src/dealer/cardStack.cpp \
+		src/dealer/comms.cpp \
 		src/comms/SerialPort.cpp \
-		src/dealer/comms.cpp 
+		src/gui/gui_card.cpp \
+		src/gui/gui_dealergui.cpp \
+		src/gui/gui_element.cpp \
+		src/gui/gui_elementmaker.cpp \
+		src/gui/gui_hand.cpp \
+		src/gui/gui_label.cpp 
 OBJECTS       = deck.o \
 		playingcard.o \
 		player.o \
 		dealerLib.o \
 		dealerLibMain.o \
 		cardStack.o \
+		comms.o \
 		SerialPort.o \
-		comms.o
+		gui_card.o \
+		gui_dealergui.o \
+		gui_element.o \
+		gui_elementmaker.o \
+		gui_hand.o \
+		gui_label.o
 DIST          = .qmake.cache \
 		dealerLib.pri src/dealer/deck.cpp \
 		src/dealer/playingcard.cpp \
@@ -68,8 +80,14 @@ DIST          = .qmake.cache \
 		src/dealer/dealerLib.cpp \
 		src/dealer/dealerLibMain.cpp \
 		src/dealer/cardStack.cpp \
+		src/dealer/comms.cpp \
 		src/comms/SerialPort.cpp \
-		src/dealer/comms.cpp
+		src/gui/gui_card.cpp \
+		src/gui/gui_dealergui.cpp \
+		src/gui/gui_element.cpp \
+		src/gui/gui_elementmaker.cpp \
+		src/gui/gui_hand.cpp \
+		src/gui/gui_label.cpp
 QMAKE_TARGET  = dealerLib
 DESTDIR       = #avoid trailing-slash linebreak
 TARGET        = dealerLib
@@ -328,7 +346,7 @@ qmake_all: FORCE
 
 dist: 
 	@test -d .tmp/dealerLib1.0.0 || mkdir -p .tmp/dealerLib1.0.0
-	$(COPY_FILE) --parents $(DIST) .tmp/dealerLib1.0.0/ && $(COPY_FILE) --parents include/dealer/deck.h include/dealer/playingcard.h include/dealer/player.h include/dealer/dealerLib.h include/dealer/cardStack.h include/dealer/comms.h .tmp/dealerLib1.0.0/ && $(COPY_FILE) --parents src/dealer/deck.cpp src/dealer/playingcard.cpp src/dealer/player.cpp src/dealer/dealerLib.cpp src/dealer/dealerLibMain.cpp src/dealer/cardStack.cpp src/comms/SerialPort.cpp src/dealer/comms.cpp .tmp/dealerLib1.0.0/ && (cd `dirname .tmp/dealerLib1.0.0` && $(TAR) dealerLib1.0.0.tar dealerLib1.0.0 && $(COMPRESS) dealerLib1.0.0.tar) && $(MOVE) `dirname .tmp/dealerLib1.0.0`/dealerLib1.0.0.tar.gz . && $(DEL_FILE) -r .tmp/dealerLib1.0.0
+	$(COPY_FILE) --parents $(DIST) .tmp/dealerLib1.0.0/ && $(COPY_FILE) --parents include/dealer/deck.h include/dealer/playingcard.h include/dealer/player.h include/dealer/dealerLib.h include/dealer/cardStack.h include/dealer/comms.h include/gui/gui_card.h include/gui/gui_dealergui.h include/gui/gui_element.h include/gui/gui_elementmaker.h include/gui/gui_hand.h include/gui/gui_label.h .tmp/dealerLib1.0.0/ && $(COPY_FILE) --parents src/dealer/deck.cpp src/dealer/playingcard.cpp src/dealer/player.cpp src/dealer/dealerLib.cpp src/dealer/dealerLibMain.cpp src/dealer/cardStack.cpp src/dealer/comms.cpp src/comms/SerialPort.cpp src/gui/gui_card.cpp src/gui/gui_dealergui.cpp src/gui/gui_element.cpp src/gui/gui_elementmaker.cpp src/gui/gui_hand.cpp src/gui/gui_label.cpp .tmp/dealerLib1.0.0/ && (cd `dirname .tmp/dealerLib1.0.0` && $(TAR) dealerLib1.0.0.tar dealerLib1.0.0 && $(COMPRESS) dealerLib1.0.0.tar) && $(MOVE) `dirname .tmp/dealerLib1.0.0`/dealerLib1.0.0.tar.gz . && $(DEL_FILE) -r .tmp/dealerLib1.0.0
 
 
 clean:compiler_clean 
@@ -388,6 +406,13 @@ dealerLib.o: src/dealer/dealerLib.cpp include/dealer/dealerLib.h \
 		include/dealer/cardStack.h \
 		include/dealer/deck.h \
 		include/dealer/comms.h \
+		include/gui/gui_dealergui.h \
+		include/gui/gui_elementmaker.h \
+		include/gui/gui_element.h \
+		include/gui/gui_card.h \
+		include/gui/gui_label.h \
+		include/gui/gui_hand.h \
+		include/dealer/pokerHands.h \
 		include/comms/SerialPort.h \
 		include/comms/PacketErrors.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o dealerLib.o src/dealer/dealerLib.cpp
@@ -399,6 +424,12 @@ dealerLibMain.o: src/dealer/dealerLibMain.cpp include/dealer/dealerLib.h \
 		include/dealer/cardStack.h \
 		include/dealer/deck.h \
 		include/dealer/comms.h \
+		include/gui/gui_dealergui.h \
+		include/gui/gui_elementmaker.h \
+		include/gui/gui_element.h \
+		include/gui/gui_card.h \
+		include/gui/gui_label.h \
+		include/gui/gui_hand.h \
 		include/dealer/pokerHands.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o dealerLibMain.o src/dealer/dealerLibMain.cpp
 
@@ -407,16 +438,60 @@ cardStack.o: src/dealer/cardStack.cpp include/dealer/cardStack.h \
 		include/shared/card.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o cardStack.o src/dealer/cardStack.cpp
 
-SerialPort.o: src/comms/SerialPort.cpp include/comms/SerialPort.h \
-		include/comms/PacketErrors.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o SerialPort.o src/comms/SerialPort.cpp
-
 comms.o: src/dealer/comms.cpp include/dealer/comms.h \
 		include/dealer/player.h \
 		include/dealer/playingcard.h \
 		include/shared/card.h \
 		include/dealer/cardStack.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o comms.o src/dealer/comms.cpp
+
+SerialPort.o: src/comms/SerialPort.cpp include/comms/SerialPort.h \
+		include/comms/PacketErrors.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o SerialPort.o src/comms/SerialPort.cpp
+
+gui_card.o: src/gui/gui_card.cpp include/gui/gui_card.h \
+		include/gui/gui_element.h \
+		include/dealer/playingcard.h \
+		include/shared/card.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o gui_card.o src/gui/gui_card.cpp
+
+gui_dealergui.o: src/gui/gui_dealergui.cpp include/gui/gui_dealergui.h \
+		include/gui/gui_elementmaker.h \
+		include/gui/gui_element.h \
+		include/gui/gui_card.h \
+		include/dealer/playingcard.h \
+		include/shared/card.h \
+		include/gui/gui_label.h \
+		include/gui/gui_hand.h \
+		include/dealer/deck.h \
+		include/dealer/cardStack.h \
+		include/dealer/player.h \
+		include/dealer/pokerHands.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o gui_dealergui.o src/gui/gui_dealergui.cpp
+
+gui_element.o: src/gui/gui_element.cpp include/gui/gui_element.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o gui_element.o src/gui/gui_element.cpp
+
+gui_elementmaker.o: src/gui/gui_elementmaker.cpp include/gui/gui_elementmaker.h \
+		include/gui/gui_element.h \
+		include/gui/gui_card.h \
+		include/dealer/playingcard.h \
+		include/shared/card.h \
+		include/gui/gui_label.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o gui_elementmaker.o src/gui/gui_elementmaker.cpp
+
+gui_hand.o: src/gui/gui_hand.cpp include/gui/gui_hand.h \
+		include/gui/gui_elementmaker.h \
+		include/gui/gui_element.h \
+		include/gui/gui_card.h \
+		include/dealer/playingcard.h \
+		include/shared/card.h \
+		include/gui/gui_label.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o gui_hand.o src/gui/gui_hand.cpp
+
+gui_label.o: src/gui/gui_label.cpp include/gui/gui_label.h \
+		include/gui/gui_element.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o gui_label.o src/gui/gui_label.cpp
 
 ####### Install
 
