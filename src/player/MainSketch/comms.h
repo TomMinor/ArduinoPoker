@@ -11,8 +11,8 @@
 typedef struct data
 {
   int   cardRecieved=0;
-  byte  card_buff[2];
-  byte  cards[4];
+  byte  card;
+  byte  cards[2];
   
   byte  money_buff[2];
   uint16_t money;
@@ -21,11 +21,8 @@ typedef struct data
   uint16_t limit_L;
   uint16_t limit_H;
   
-  byte  wMoney_buff[2];
+  uint8_t  wMoney_buff[2];
   uint16_t wMoney;
- 
-
-
 }data;
 
 
@@ -91,6 +88,7 @@ enum MASK
   LOW_NIBBLE    = 0x0F,
   
   BYTE_MASK  =0xFF
+  
 };
 
 ///@brief a header  enum to define the different header different content that is sent in the header
@@ -107,7 +105,8 @@ enum HEADER
 
   
   //USE TO PACK PLAYER DATA
-  BET_AMT     =0x80 
+  BET_AMT     =0x80,
+  RESET_CARDS =0x90
   
 };
 

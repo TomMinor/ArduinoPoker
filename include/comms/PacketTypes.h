@@ -12,23 +12,11 @@ namespace Comms
         P_NAME            = 0x20,
         P_MONEY           = 0x30,
         P_LIMITS          = 0x40,
-        P_ROUNDSTATE      = 0x50,
+        P_RESETPLAYER     = 0x50,
         P_REQUESTBET      = 0x60,
         P_RECIEVEWINNINGS = 0x70,
-        P_BETAMOUNT       = 0x80
-    };
-
-    enum PlayerState
-    {
-        P_SET_CARDS,
-        P_SET_NAME,
-        P_SET_MONEY,
-        P_SET_LIMIT,
-        P_ROUND_STATE,
-        P_INITIATE_BET,
-        P_WIN_MONEY,
-        P_RESET_CARDS,
-        P_RESET_PLAYER
+        P_BETAMOUNT       = 0x80,
+        P_RESETCARD       = 0x90,
     };
 
     inline uint8_t LookupPacketTypeSize(PacketType _type)

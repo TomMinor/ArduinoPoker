@@ -56,82 +56,97 @@ PlayerDevices SerialPort::DetectSerialDevices()
     return SerialDevices;
 }
 
-
-/*
- * - Send header
- * - Wait for response
- *   + If failed, E_TIMEOUT
- * - Send payload
- * - Wait for checksum
- *   + If failed, E_TIMEOUT
- * - Compare checksum
- *   + If failed, E_CORRUPT
- */
-
-PacketError SerialPort::SendData(const std::vector<uint8_t> _payload)
+void SerialPort::SendData(const std::vector<uint8_t> _payload)
 {
-    /* Send payload */
-    size_t numOfBytes;
-    // Send header
-    numOfBytes = boost::asio::write( m_serial, boost::asio::buffer( _payload.data(), 1) );
+    const uint8_t payloadSize = _payload.size() - 1;
 
-//    if(numOfBytes == 1)
-//    {
-//        return E_CORRUPT;
-//    }
-
-    //@todo Timeout
-    static char serialBuffer[15] = {0};
-    numOfBytes = boost::asio::read( m_serial, boost::asio::buffer( &serialBuffer, 1) );
-
-    numOfBytes = boost::asio::write( m_serial, boost::asio::buffer( _payload.data() + 1, _payload.size() - 1  ) );
-//    if(numOfBytes < _payload.size())
-//    {
-//        return E_CORRUPT;
-//    }
-
-//    std::cout << "Sent : " << numOfBytes << '\n';
-
-//     numOfBytes = boost::asio::read( m_serial, boost::asio::buffer( &serialBuffer, 2) );
-//     printf("Count : %d\nData 0x%X,0x%X\n", numOfBytes, (int)serialBuffer[0], (int)serialBuffer[1]);
-
-//    numOfBytes = boost::asio::read( m_serial, boost::asio::buffer( &buffer, _payload.size() ) );
-
-//    std::cout << "Recieved : " ;
-//    for(int i=0; i < _payload.size(); i++)
-//    {
-//        std::cout << (int)buffer[i] << " ";
-//    }
-//    std::cout << ", " << numOfBytes << '\n';
-
-    /* @todo Add checksum */
-
-    return E_SUCCESS;
-}
-
-PacketError SerialPort::RecieveData(std::vector<uint8_t> _payload)
-{
-    /* Send payload */
-    size_t numOfBytes;
-
-    if(numOfBytes < _payload.size())
+    /* If we recieve no data then treat it as a successful send */
+    if(payloadSize < 0)
     {
-        return E_CORRUPT;
+        return;
     }
 
-    std::cout << numOfBytes << '\n';
+    size_t sentBytes = 0;
+
+    /* Send header (assume the first byte in the payload is the header)
+     * The header contains the type of data and the amount of bytes being sent as the payload
+     */
+    sentBytes = boost::asio::write( m_serial, boost::asio::buffer( _payload.data(), 1) );
+
+    // Assume we couldn't connect if we can't send any bytes
+    if(sentBytes < 1)
+    {
+      throw boost::system::system_error(boost::asio::error::timed_out, "Packet timeout");
+    }
+
+    //@todo Timeout
+
+    static char serialBuffer[15] = {0};
+//    sentBytes = boost::asio::read( m_serial, boost::asio::buffer( &serialBuffer, 1) );
+
+//    if(serialBuffer[0] == 0)
+//    {
+//      throw boost::system::system_error(boost::asio::error::fault, "Device was not ready");
+//    }
+
+    /* Send payload bytes */
+    sentBytes = boost::asio::write( m_serial, boost::asio::buffer( _payload.data() + 1, payloadSize  ) );
+
+    /* If we didn't send enough bytes then the data is corrupt  */
+    if(sentBytes < payloadSize)
+    {
+      throw boost::system::system_error(boost::asio::error::fault, "Corrupt packet");
+    }
 
     /* @todo Add checksum */
-    /* Read up to 128 bytes */
-//    int numOfBytes = read(fd, m_dataBuffer, 128);
+}
 
-//    /* print how many bytes read */
-//    printf("%i bytes got read...\n", numOfBytes);
+void SerialPort::RecieveData(std::vector<uint8_t> &_payload)
+{
+  size_t recievedBytes = 0;
 
-//    /* print what's in the buffer */
-//    printf("Buffer contains...\n%s\n", m_dataBuffer)  ;
+  //@todo Timeout
+  //std::cout << "Trying to get header" << std::endl;
 
-    return E_SUCCESS;
+  // Read header
+  char serialBuffer[15] = {0};
+  recievedBytes = boost::asio::read( m_serial, boost::asio::buffer( &serialBuffer, 1) );
+
+  //std::cout << "Recieved : " << std::dec << recievedBytes << ", " << std::hex << std::uppercase << (int)serialBuffer[0] << std::endl;
+  //printf("First Recieved : %d -> %X\n", recievedBytes, 0x000000FF & serialBuffer[0]);
+
+  // Assume we couldn't connect if we can't send any bytes
+  if(recievedBytes  < 1)
+  {
+    throw boost::system::system_error(boost::asio::error::timed_out, "Packet timeout");
+  }
+//  else
+//  {
+//    uint8_t confirmation = 1;
+//    /* Send confirmation */
+//    recievedBytes  = boost::asio::write( m_serial, boost::asio::buffer(&confirmation, 1) );
+//  }
+
+  uint8_t header = serialBuffer[0];
+  uint8_t payloadSize = header & 0x0F;
+
+  //printf("Payload Size: %d\n", (int)payloadSize);
+
+  //std::cout << "Payload" << std::endl;
+
+  recievedBytes  = boost::asio::read( m_serial, boost::asio::buffer( &serialBuffer, payloadSize));
+  std::cout << "Recieved Bytes : " << recievedBytes << std::endl;
+
+  for(unsigned int i=0; i < recievedBytes; i++)
+  {
+    _payload.push_back(serialBuffer[i]);
+  }
+
+//  if(recievedBytes  < payloadSize)
+//  {
+//    throw boost::system::system_error(boost::asio::error::fault, "Corrupt packet");
+//  }
 }
 
 }
+
