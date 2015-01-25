@@ -45,10 +45,11 @@ uint8_t getData(data &_coms)
   //EG: 0001 0010  [contents][packets] = [HEADER::CARDS][2]
   uint8_t header,packets,content=0;
   uint8_t header_size=2; 
-  
+  if(Serial.available()>0)
+  {
   //read a byte from serial
-  header=convertAscii_to_byte(header_size);//CHANGE THE TO READBYTES(PACKET)
- 
+  //header=convertAscii_to_byte(header_size);//CHANGE THE TO READBYTES(PACKET)
+  header=Serial.read();
    
   //breaking up the header 
   content=(header & HIGH_NIBBLE);
@@ -66,13 +67,52 @@ uint8_t getData(data &_coms)
             Serial.write(DATA::RECIEVED);
             
             //for testing purposes
-            Serial.print("Cards");
+            //Serial.print("Cards");
             
+             if(Serial.available()<0);
+         
+            //read the number of packets and store it in coms card_buffer
+            coms.card=Serial.read();
+             
+            //coms.card_buff[0]=Suit::SPADE|Rank::ACE;
+             if(coms.cardRecieved==0)
+            {
+            //checks if the recived card is the first card or second card
+          
+               coms.cards[0]   = RANKOF(coms.card);
+               //debugging purposes
+               
+  
+               coms.cards[1]   = SUITOF(coms.card);
+               //debugging purposes
+               coms.cardRecieved+=1;      
+      
+            }
+            if(coms.cardRecieved>0)
+            {
+              
+               coms.cards[2]   = RANKOF(coms.card);
+               //debugging purposes
+               
+  
+               coms.cards[3]   = SUITOF(coms.card);
+               //debugging purposes
+              
+            }
+            if (coms.cardRecieved==1)
+            {
+              coms.cardRecieved=0;
+            }
+            
+            
+            
+            
+            /*
             //puts the arduino into a state to listen for data
             while(Serial.available()<=0);
             //read the number of packets and store it in coms card_buffer
             Serial.readBytes(coms.card_buff,packets); 
-            
+            //coms.card_buff[0]=Suit::SPADE|Rank::SIX;
             //checks if the recived card is the first card or second card
             if (coms.cardRecieved==0)
             {
@@ -91,7 +131,7 @@ uint8_t getData(data &_coms)
             {
               coms.cardRecieved=0;
             }
-            
+            */
             //Notify the player class that cards have been recieved
             return DEALER_CALLS::SET_CARDS;         
             break;
@@ -99,18 +139,43 @@ uint8_t getData(data &_coms)
      
      case NAME:
           {
+            Serial.write(DATA::RECIEVED);
             //for testing purposes
-            Serial.print("INPUT NAME");
+            
             //notify player that dealer want to set name
             return DEALER_CALLS::SET_NAME; 
             break;
+          }
+     case RESET_CARDS:
+         {
+           Serial.write(DATA::RECIEVED);
+          //for testing purposes
+          
+          //notify player that dealer want to set name
+          return DEALER_CALLS::RESET_CARDS; 
+          break;
+          }
+    case ROUND_STATE:
+         {
+           Serial.write(DATA::RECIEVED);
+          while(Serial.available()<=0);
+          //Serial.print(packets,DEC);
+          //Serial.print("\N");
+          //read the number of packets and store it in coms money_buffer
+          Serial.readBytes(coms.money_buff,packets);  
+          
+          //store money to coms structure by converting a byte to uint16
+          coms.money  = BYTE_TO_U16(coms.money_buff[0],coms.money_buff[1]);
+          
+          return DEALER_CALLS::RESET_PLAYER; 
+          break;
           }
      case MONEY:
           {
           //writes confirmation when releavant header is detected
           Serial.write(DATA::RECIEVED);
           //for testing purposes
-          Serial.print("MONEY");
+          
           
           //puts the arduino into a state to listen for data
           while(Serial.available()<=0);
@@ -129,13 +194,13 @@ uint8_t getData(data &_coms)
      case LIMITS:
           {
           //for testing purposes
-          Serial.print("LIMITS");
+          //Serial.print("LIMITS");
           
           //writes confirmation when releavant header is detected
           Serial.write(DATA::RECIEVED);
           
           //puts the arduino into a state to listen for data
-          while(Serial.available()<=0);
+          if(Serial.available()<=0);
           
           //read the number according to the packets indicated in the header
           Serial.readBytes(coms.limit_buff,packets);  
@@ -143,12 +208,14 @@ uint8_t getData(data &_coms)
           //store limit data to local coms struct 
           coms.limit_H  = BYTE_TO_U16(coms.limit_buff[0],coms.limit_buff[1]);
           coms.limit_L  = BYTE_TO_U16(coms.limit_buff[2],coms.limit_buff[3]);
+          
+          return 0;
           break;
           }
      case REQUEST_BET:
           
           //for testing purposes
-          Serial.print("REQUEST_BET");
+          //Serial.print("REQUEST_BET");
           
           Serial.write(DATA::RECIEVED);
           //notify dealer to set bet
@@ -157,8 +224,8 @@ uint8_t getData(data &_coms)
      
      case RECIV_WINNINGS:
           //for testing purposes
-          Serial.print("RECIEVE_BET");
-          
+          //Serial.print("RECIEVE_BET");
+          Serial.write(DATA::RECIEVED);
           //puts the arduino into a state to listen for data
           while(Serial.available()<=0);
           
@@ -174,14 +241,14 @@ uint8_t getData(data &_coms)
      
      default:
      
-     Serial.print("NOT_VALID");
+     //Serial.print("NOT_VALID");
      //write to serial data is not valid
-     Serial.write(DATA::NONE); 
+     //Serial.write(DATA::NONE); 
      return DATA::NONE;
          
      break; 
   }
-  
+ }
 }
 
 ///@brief sendName() a function to send player name to the dealer
@@ -315,7 +382,7 @@ bool RecieveConfirmation()
   bool success=false;
   if (Serial.available()>0)
   {
-    success=Serial.read()-48;   
+    success=Serial.read();   
   }
   return success;
 }  

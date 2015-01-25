@@ -42,15 +42,12 @@ public:
     /// @param [in] _money, money to be displayed.
     void displayMoney(uint8_t _line, uint16_t _money);
     
-<<<<<<< HEAD
-    void displayCards(uint8_t _line, uint8_t _numCards,card _cards[]);
-=======
     ///@brief displayCards
     ///@param [in] _line, what line you want it printed on. 
     ///@param [in] _numCards, number of cards.
     ///@param [in] _cards{}, array of cards being passed to display.
     void displayCards(uint8_t _line, uint8_t _numCards, card _cards[]);
->>>>>>> origin/master
+
        
     /// @brief createCustomChar
     void createCustomChar();
@@ -58,14 +55,10 @@ public:
     /// @brief displays "Waiting cards" on lcd
     void waitCards();
     
-<<<<<<< HEAD
-    /// @brief winner, prints a winning message.
-    void winner();
-=======
     ///@brief winner, prints a winning message.
     ///@param [in] money that the player has one.
     void winner(uint8_t _money);
->>>>>>> origin/master
+
     
     /// @brief resetScreen, prints the reset screen text.
     void screenReset();

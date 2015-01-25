@@ -61,7 +61,7 @@ class player
     /// @brief recieveCard
     /// @brief Recieve card from dealer and add to the players own card array.
     /// @param [in] _cards[], array of cards sent by comms.
-    void receiveCard(uint8_t _block, uint8_t _cards[] );
+    void receiveCard(uint8_t _cards[]);
 
     /// @brief setName
     /// @brief asks the player to set their name.
@@ -93,15 +93,11 @@ class player
     /// @brief infinite loop if they so no.
     void joinGame();
        
-    void playerDataScreen();
-    
-<<<<<<< HEAD
-=======
     /// @brief PlayerDataScreen().
     /// @brief Method prints the players data on the screen.
     void playerDataScreen();
     
->>>>>>> origin/master
+
 };
 
 #endif

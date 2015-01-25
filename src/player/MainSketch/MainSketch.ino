@@ -6,7 +6,7 @@
 
 
 //card array that stores 2 bytes {card1,card2}
-//uint8_t cards[6]={byte(Rank::SIX), Suit::SPADE, byte(Rank::KING), Suit::DIAMOND, byte(Rank::ACE), Suit::CLUB};
+uint8_t cards[6]={Rank::SIX, Suit::SPADE, byte(Rank::ACE), Suit::CLUB, };
 //unsigned int bet=0;
 //bool betState=true;
 //bool recieved=false;
@@ -27,11 +27,11 @@ void setup()
   player.joinGame();
   
   //player.setMoney(100);
-  //coms.limit_L = 50;
-  //coms.limit_H = 80;
-  //player.receiveCard(0, cards);
-  //player.receiveCard(1, cards);
-  
+  coms.limit_L = 50;
+  coms.limit_H = 80;
+  //player.receiveCard(cards);
+  //player.receiveCard(cards);
+  lcd.clear();
 }
 
 
@@ -39,7 +39,7 @@ void setup()
 void loop() 
 {
    
-  lcd.clear();
+  //lcd.clear();
   uint8_t state;
   
   if(player.getMoney() == 0)
@@ -47,17 +47,18 @@ void loop()
     lcd.setCursor(0,0);
     lcd.print("Waiting for ");
     lcd.setCursor(0,1);
-    lcd.print("money.");
+    lcd.print("money. ");
   }
   else if(player.checkFirstCard() == false)
   {
     lcd.setCursor(0,0);
     lcd.print("Waiting for ");
     lcd.setCursor(0,1);
-    lcd.print("cards.");
+    lcd.print("cards. ");
   }
   else
   {
+    
     player.playerDataScreen();
   }
   
@@ -69,8 +70,7 @@ void loop()
   {
     case DEALER_CALLS::SET_CARDS:
     {
-      player.receiveCard(0, coms.cards);
-      player.receiveCard(1, coms.cards);
+      player.receiveCard(coms.cards);
       break;
     }
     case DEALER_CALLS::SET_NAME:
@@ -100,12 +100,15 @@ void loop()
     }
     case DEALER_CALLS::RESET_CARDS:
     {
+      
       player.resetCards();
+      lcd.clear();
       break;
     }
     case DEALER_CALLS::RESET_PLAYER:
     {
       player.resetPlayer(coms.money);
+      lcd.clear();
       break;
     }
     default:
