@@ -143,7 +143,7 @@ void dealerLib::bet()
          int maxBet = checkMaxBet() - m_livePlayers[i].getBet();
          if(maxBet==0){p[i]=true;}
          else
-           {
+         {
              Comms::sendBetLimits(m_livePlayers[i],currentBet,maxBet);
              //Comms::sendBetLimits(m_deviceMap.at(m_livePlayers[i].getID()),currentBet,maxBet);
              Comms::receiveBet(m_livePlayers[i],playerBet);
@@ -179,17 +179,14 @@ void dealerLib::bet()
                  {
                      for(unsigned int j=0;j<m_livePlayers.size();j++)
                      {
-                         if(j==i){p[j]=true;}
-                         else if(m_livePlayers[j].fold)
-                         {
-                             p[j] = true;
-                         }
-                         else{p[j] = false;}
+                         if(j==i)                       {p[j]=true;}
+                         else if(m_livePlayers[j].fold) {p[j] = true;}
+                         else                           {p[j] = false;}
                      }
                  }
              }
              oldBet = currentBet;
-           }
+         }
       }
   }
   for(unsigned int i=0;i<m_livePlayers.size();i++)
