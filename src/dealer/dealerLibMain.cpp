@@ -59,8 +59,8 @@ Uint32 updateComms(Uint32 interval, void *parm)
       lock = true;
 
       dealerLib* myTable = reinterpret_cast<dealerLib*>(parm);
-      myTable->dealHands();
-//      myTable->bet();
+      //myTable->dealHands();
+      myTable->bet();
 //      myTable->dealFlop();
 //      myTable->bet();
 //      myTable->dealRiverTurn();

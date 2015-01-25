@@ -45,10 +45,11 @@ uint8_t getData(data &_coms)
   //EG: 0001 0010  [contents][packets] = [HEADER::CARDS][2]
   uint8_t header,packets,content=0;
   uint8_t header_size=2; 
-  
+  if(Serial.available()>0)
+  {
   //read a byte from serial
-  header=convertAscii_to_byte(header_size);//CHANGE THE TO READBYTES(PACKET)
- 
+  //header=convertAscii_to_byte(header_size);//CHANGE THE TO READBYTES(PACKET)
+  header=Serial.read();
    
   //breaking up the header 
   content=(header & HIGH_NIBBLE);
@@ -63,16 +64,55 @@ uint8_t getData(data &_coms)
      case CARDS:
           {
             //writes confirmation when releavant header is detected
-            Serial.write(DATA::RECIEVED);
+            //Serial.write(DATA::RECIEVED);
             
             //for testing purposes
-            Serial.print("Cards");
+            //Serial.print("Cards");
             
+             if(Serial.available()<0);
+         
+            //read the number of packets and store it in coms card_buffer
+            coms.card=Serial.read();
+             
+            //coms.card_buff[0]=Suit::SPADE|Rank::ACE;
+             if(coms.cardRecieved==0)
+            {
+            //checks if the recived card is the first card or second card
+          
+               coms.cards[0]   = RANKOF(coms.card);
+               //debugging purposes
+               
+  
+               coms.cards[1]   = SUITOF(coms.card);
+               //debugging purposes
+               coms.cardRecieved+=1;      
+      
+            }
+            if(coms.cardRecieved>0)
+            {
+              
+               coms.cards[2]   = RANKOF(coms.card);
+               //debugging purposes
+               
+  
+               coms.cards[3]   = SUITOF(coms.card);
+               //debugging purposes
+              
+            }
+            if (coms.cardRecieved==1)
+            {
+              coms.cardRecieved=0;
+            }
+            
+            
+            
+            
+            /*
             //puts the arduino into a state to listen for data
             while(Serial.available()<=0);
             //read the number of packets and store it in coms card_buffer
             Serial.readBytes(coms.card_buff,packets); 
-            
+            //coms.card_buff[0]=Suit::SPADE|Rank::SIX;
             //checks if the recived card is the first card or second card
             if (coms.cardRecieved==0)
             {
@@ -91,7 +131,7 @@ uint8_t getData(data &_coms)
             {
               coms.cardRecieved=0;
             }
-            
+            */
             //Notify the player class that cards have been recieved
             return DEALER_CALLS::SET_CARDS;         
             break;
@@ -99,23 +139,48 @@ uint8_t getData(data &_coms)
      
      case NAME:
           {
+            //Serial.write(DATA::RECIEVED);
             //for testing purposes
-            Serial.print("INPUT NAME");
+            
             //notify player that dealer want to set name
             return DEALER_CALLS::SET_NAME; 
             break;
           }
+     case RESET_CARDS:
+         {
+           //Serial.write(DATA::RECIEVED);
+          //for testing purposes
+          
+          //notify player that dealer want to set name
+          return DEALER_CALLS::RESET_CARDS; 
+          break;
+          }
+    case ROUND_STATE:
+         {
+           //Serial.write(DATA::RECIEVED);
+          while(Serial.available()<=0);
+          //Serial.print(packets,DEC);
+          //Serial.print("\N");
+          //read the number of packets and store it in coms money_buffer
+          Serial.readBytes(coms.money_buff,packets);  
+          
+          //store money to coms structure by converting a byte to uint16
+          coms.money  = BYTE_TO_U16(coms.money_buff[0],coms.money_buff[1]);
+          
+          return DEALER_CALLS::RESET_PLAYER; 
+          break;
+          }
      case MONEY:
           {
           //writes confirmation when releavant header is detected
-          Serial.write(DATA::RECIEVED);
+          //Serial.write(DATA::RECIEVED);
           //for testing purposes
-          Serial.print("MONEY");
+          
           
           //puts the arduino into a state to listen for data
           while(Serial.available()<=0);
-          Serial.print(packets,DEC);
-          Serial.print("\N");
+          //Serial.print(packets,DEC);
+          //Serial.print("\N");
           //read the number of packets and store it in coms money_buffer
           Serial.readBytes(coms.money_buff,packets);  
           
@@ -129,36 +194,38 @@ uint8_t getData(data &_coms)
      case LIMITS:
           {
           //for testing purposes
-          Serial.print("LIMITS");
+          //Serial.print("LIMITS");
           
           //writes confirmation when releavant header is detected
-          Serial.write(DATA::RECIEVED);
+          //Serial.write(DATA::RECIEVED);
           
           //puts the arduino into a state to listen for data
           while(Serial.available()<=0);
           
           //read the number according to the packets indicated in the header
-          Serial.readBytes(coms.limit_buff,packets);  
+          Serial.readBytes(coms.limit_buff,4);  
           
           //store limit data to local coms struct 
-          coms.limit_H  = BYTE_TO_U16(coms.limit_buff[0],coms.limit_buff[1]);
-          coms.limit_L  = BYTE_TO_U16(coms.limit_buff[2],coms.limit_buff[3]);
+          //coms.limit_H  = BYTE_TO_U16(coms.limit_buff[0],coms.limit_buff[1]);
+          //coms.limit_L  = BYTE_TO_U16(coms.limit_buff[2],coms.limit_buff[3]);
+          
+          return DEALER_CALLS::INITIATE_BET;
           break;
           }
-     case REQUEST_BET:
-          
-          //for testing purposes
-          Serial.print("REQUEST_BET");
-          
-          Serial.write(DATA::RECIEVED);
-          //notify dealer to set bet
-          return DEALER_CALLS::INITIATE_BET;          
-          break;
-     
+//     case REQUEST_BET:
+//          
+//          //for testing purposes
+//          //Serial.print("REQUEST_BET");
+//          
+//          //Serial.write(DATA::RECIEVED);
+//          //notify dealer to set bet
+//          return DEALER_CALLS::INITIATE_BET;          
+//          break;
+//     
      case RECIV_WINNINGS:
           //for testing purposes
-          Serial.print("RECIEVE_BET");
-          
+          //Serial.print("RECIEVE_BET");
+          //Serial.write(DATA::RECIEVED);
           //puts the arduino into a state to listen for data
           while(Serial.available()<=0);
           
@@ -174,14 +241,14 @@ uint8_t getData(data &_coms)
      
      default:
      
-     Serial.print("NOT_VALID");
+     //Serial.print("NOT_VALID");
      //write to serial data is not valid
-     Serial.write(DATA::NONE); 
-     return DATA::NONE;
+     //Serial.write(DATA::NONE); 
+     //return DATA::NONE;
          
      break; 
   }
-  
+ }
 }
 
 ///@brief sendName() a function to send player name to the dealer
@@ -192,11 +259,11 @@ void sendName(char _name[15])
             
            //when no confirmation for valid header it will keep sending the header
             
-            while(!RecieveConfirmation())
-            {
+         
                 //send data over the size of the packets defined in the DATA enum
-               sendHeader(PLAYER_SENDS::NAME);
-            }
+           
+           sendHeader(PLAYER_SENDS::NAME);
+         
             
             for (int i=0;i<DATA::NAME;i++)
             {
@@ -214,35 +281,36 @@ void sendName(char _name[15])
 ///@brief sendBet() a function to send player bet value
 ///@param[_in] uint16_t takes in a 2byte number
 ///@param returns bool to say send success
-bool sendBet(uint16_t _bet)
+void sendBet(uint16_t _bet)
 {         
           // check to see if bet is fold. if so call fold function.
           // so we only use the send bet function.
-          if( _bet == BET::FOLD )
-          {
-            bool sent = sendFold();
-            return sent;
-          }
-          else
-          {
-            //initialize the a local buffer to store a uint16 which will be broken into a byte and sent over the serial
+//          if( _bet == BET::FOLD )
+//          {
+//            bool sent = sendFold();
+//            return sent;
+//          }
+//          else
+//          {
+//            //initialize the a local buffer to store a uint16 which will be broken into a byte and sent over the serial
             uint8_t bytes[2];
             //when no confirmation for valid header it will keep sending the header
-            do
-            {
-             sendHeader(PLAYER_SENDS::BET);
-            }while (!RecieveConfirmation());
+            //do
+            //{
+            sendHeader(PLAYER_SENDS::BET);
+
+          
+            //}while (!RecieveConfirmation());
             //breaks up to bytes
             bytes[0]=U16_TO_BYTE_H(_bet);
             bytes[1]=U16_TO_BYTE_L(_bet);
-            
+            Serial.write(bytes[0]);
+            Serial.write(bytes[1]);
+            //Serial.flush();
             //sends data
-            for (int i=0;i<DATA::BET;i++)
-            {
-             Serial.write(bytes[i]);
-            }
-            return true;   
-          }
+         
+            //return true;   
+          //}
             
 }
 
@@ -288,12 +356,15 @@ void sendHeader(uint8_t _datatype)
            {
              header=NAME|DATA::NAME;
              Serial.write(header);
+             Serial.flush();
              break;
            }
       case PLAYER_SENDS::BET:    //HEADER FOR SENDING BET_AMT 
            {
-             header=BET_AMT|DATA::BET;
+             //header=BET_AMT|DATA::BET;
+             header=0x82;
              Serial.write(header);
+             Serial.flush();
              break;
            }
       case PLAYER_SENDS::FOLD:      //HEADER FOR SENDING NAME
@@ -315,7 +386,7 @@ bool RecieveConfirmation()
   bool success=false;
   if (Serial.available()>0)
   {
-    success=Serial.read()-48;   
+    success=Serial.read();   
   }
   return success;
 }  

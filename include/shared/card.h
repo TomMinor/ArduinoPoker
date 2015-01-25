@@ -49,4 +49,13 @@ namespace Rank
 #define RANKMASK        (0x0F)
 #define RANKOF(card)    (card & RANKMASK)
 
+
+
+///@brief macros to convert U16 to bytes
+#define U16_TO_BYTE_L(U16) ( U16     & BYTE_MASK)
+#define U16_TO_BYTE_H(U16) ((U16>>8) & BYTE_MASK)
+
+///@brief A macro to convert bytes U16
+#define BYTE_TO_U16(byte1,byte2)((((uint16_t)byte1)<<8)|byte2)
+
 #endif

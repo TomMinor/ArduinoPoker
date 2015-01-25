@@ -38,10 +38,10 @@ void deck::shuffle()
 
 PlayingCard deck::deal()
 {
-  PlayingCard a = m_pack[m_pack.size()-1];
+  PlayingCard topCard = m_pack[m_pack.size()-1];
   m_pack.pop_back();
 
-  return a;
+  return topCard;
 }
 
 void deck::printDeck()
