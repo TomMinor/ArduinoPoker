@@ -59,8 +59,6 @@ struct Packet
   }
 };
 
-PacketError sendPacket(const Packet& _packet);
-
 }
 
 #endif

@@ -38,7 +38,7 @@ public:
   void clearTable();
   void removePlayer(std::vector<player>::iterator it);
   bool checkIfLost(player _player);
-  void removeTheNoobs();
+  void kickBrokePlayer();
   void splitPot();
 
 
@@ -54,7 +54,7 @@ private:
 
   unsigned int m_pot;
   deck m_deck;
-  GUI::DealerGUI dealerGui;
+  GUI::DealerGUI m_dealerGui;
 
 
   std::vector<player> m_table;

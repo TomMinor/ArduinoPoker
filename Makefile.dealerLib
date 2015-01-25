@@ -417,7 +417,8 @@ dealerLib.o: src/dealer/dealerLib.cpp include/dealer/dealerLib.h \
 		include/gui/gui_hand.h \
 		include/dealer/pokerHands.h \
 		include/comms/SerialPort.h \
-		include/comms/PacketErrors.h
+		include/comms/PacketErrors.h \
+		include/comms/dealerIO.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o dealerLib.o src/dealer/dealerLib.cpp
 
 dealerLibMain.o: src/dealer/dealerLibMain.cpp include/dealer/dealerLib.h \
@@ -456,7 +457,12 @@ pokerHands.o: src/dealer/pokerHands.cpp include/dealer/pokerHands.h \
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o pokerHands.o src/dealer/pokerHands.cpp
 
 SerialPort.o: src/comms/SerialPort.cpp include/comms/SerialPort.h \
-		include/comms/PacketErrors.h
+		include/comms/PacketErrors.h \
+		include/comms/dealerIO.h \
+		include/dealer/player.h \
+		include/dealer/playingcard.h \
+		include/shared/card.h \
+		include/dealer/cardStack.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o SerialPort.o src/comms/SerialPort.cpp
 
 gui_card.o: src/gui/gui_card.cpp include/gui/gui_card.h \

@@ -57,34 +57,54 @@ PlayerDevices SerialPort::DetectSerialDevices()
 }
 
 
+/*
+ * - Send header
+ * - Wait for response
+ *   + If failed, E_TIMEOUT
+ * - Send payload
+ * - Wait for checksum
+ *   + If failed, E_TIMEOUT
+ * - Compare checksum
+ *   + If failed, E_CORRUPT
+ */
+
 PacketError SerialPort::SendData(const std::vector<uint8_t> _payload)
 {
     /* Send payload */
     size_t numOfBytes;
-    numOfBytes = boost::asio::write( m_serial, boost::asio::buffer( _payload.data(), _payload.size()  ) );
+    // Send header
+    numOfBytes = boost::asio::write( m_serial, boost::asio::buffer( _payload.data(), 1) );
 
-    if(numOfBytes < _payload.size())
-    {
-        return E_CORRUPT;
-    }
+//    if(numOfBytes == 1)
+//    {
+//        return E_CORRUPT;
+//    }
 
-    std::cout << numOfBytes << '\n';
+    //@todo Timeout
+    static char serialBuffer[15] = {0};
+    numOfBytes = boost::asio::read( m_serial, boost::asio::buffer( &serialBuffer, 1) );
 
-//    static char buffer[64];
+    numOfBytes = boost::asio::write( m_serial, boost::asio::buffer( _payload.data() + 1, _payload.size() - 1  ) );
+//    if(numOfBytes < _payload.size())
+//    {
+//        return E_CORRUPT;
+//    }
 
-//    numOfBytes = boost::asio::read( m_serial, boost::asio::buffer( buffer, 1 ) );
+//    std::cout << "Sent : " << numOfBytes << '\n';
 
-//    std::cout << buffer << "\n";
+//     numOfBytes = boost::asio::read( m_serial, boost::asio::buffer( &serialBuffer, 2) );
+//     printf("Count : %d\nData 0x%X,0x%X\n", numOfBytes, (int)serialBuffer[0], (int)serialBuffer[1]);
+
+//    numOfBytes = boost::asio::read( m_serial, boost::asio::buffer( &buffer, _payload.size() ) );
+
+//    std::cout << "Recieved : " ;
+//    for(int i=0; i < _payload.size(); i++)
+//    {
+//        std::cout << (int)buffer[i] << " ";
+//    }
+//    std::cout << ", " << numOfBytes << '\n';
 
     /* @todo Add checksum */
-    /* Read up to 128 bytes */
-//    int numOfBytes = read(fd, m_dataBuffer, 128);
-
-//    /* print how many bytes read */
-//    printf("%i bytes got read...\n", numOfBytes);
-
-//    /* print what's in the buffer */
-//    printf("Buffer contains...\n%s\n", m_dataBuffer)  ;
 
     return E_SUCCESS;
 }

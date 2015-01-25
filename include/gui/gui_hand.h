@@ -24,6 +24,7 @@ public:
     void moveTo(const SDL_Point &_p);
     void burn();
     void kill();
+    void killNow();
     void setFlipped(const bool &_isFlipped, const bool &_instantly = false);
     int getHeight();
     int getWidth();
