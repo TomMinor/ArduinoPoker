@@ -39,7 +39,7 @@ public:
   void clearTable();
   void removePlayer(std::vector<player>::iterator it);
   bool checkIfLost(player _player);
-  void removeTheNoobs();
+  void kickBrokePlayer();
   void splitPot();
 
 
