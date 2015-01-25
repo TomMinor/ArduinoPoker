@@ -47,9 +47,9 @@ typedef enum
     DIAMONDS
 } Suit;
 
-//stuff we need to know to create a particular card
-//GUESS WHAT
-//OBSELETE
+////stuff we need to know to create a particular card
+////GUESS WHAT
+////OBSELETE
 typedef struct
 {
     Rank rank;

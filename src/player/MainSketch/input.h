@@ -7,7 +7,7 @@
 #ifndef INPUT_H
 #define INPUT_H
 
-#include <Arduino.h>
+#include "Arduino.h"
 #include <LiquidCrystal.h>
 #include "pokerDisplay.h"
 

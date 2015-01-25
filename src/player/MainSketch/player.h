@@ -7,18 +7,12 @@
 #define PLAYER_H__
 
 #include "input.h"
+#include "card.h"
 #include "comms.h"
 #include "pokerDisplay.h"
+#include "Arduino.h"
 #include <LiquidCrystal.h>
-#include <Arduino.h>
 
-
-
-struct card
-{
-  uint8_t suit = 0;
-  uint8_t rank = 0; 
-};
 
 class player
 {
@@ -101,11 +95,9 @@ class player
     /// @brief Method task the player to join, stops them from carrying on unless they do.
     /// @brief infinite loop if they so no.
     void joinGame();
+       
+    void playerDataScreen();
     
-    
-    void winner();
-    
-
 };
 
 #endif
