@@ -27,9 +27,9 @@ public:
   bool checkBoolArray(bool _array[])const;
   void addBetToPot(const int &_bet);
   int checkMaxBet();
-  void dealHands(deck _pack);
-  void dealFlop(deck _pack);
-  void dealRiverTurn(deck _pack);
+  void dealHands();
+  void dealFlop();
+  void dealRiverTurn();
   void resetCards();
   void update();
   void init();
@@ -53,6 +53,8 @@ private:
   unsigned int m_pot;
   deck m_deck;
   GUI::DealerGUI dealerGui;
+  //comms dealerComm;
+
 
 
   std::vector<player> m_table;

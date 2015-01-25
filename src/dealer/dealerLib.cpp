@@ -5,6 +5,7 @@
 dealerLib::dealerLib()
 {
   m_deck.shuffle();
+
 }
 
 dealerLib::~dealerLib()
@@ -150,7 +151,8 @@ void dealerLib::bet()
              // remove player from live players
              //playerBet = m_livePlayers[i].getBet();
              GUI::Hand* burned = dealerGui.uniqueHand(m_livePlayers[i].getHole(),m_livePlayers[i].getID());
-             burned->setFlipped(true);
+             burned->setPos(dealerGui.getOffScreenPos(m_livePlayers[i].getID()));
+             burned->setFlipped(true,true);
              burned->moveTo(dealerGui.getCentre());
              burned->burn();
              addBetToPot(playerBet);
@@ -188,6 +190,7 @@ void dealerLib::bet()
       addBetToPot(playerBet);
       m_livePlayers[i].removeBet();
   }
+
 }
 
 void dealerLib::addBetToPot(const int &_bet)
@@ -197,22 +200,22 @@ void dealerLib::addBetToPot(const int &_bet)
 
 //--------------------------------------------------------------
 //deals out the first three community cards
-void dealerLib::dealFlop(deck _pack)
+void dealerLib::dealFlop()
 {
   for(int i=0; i<3; i++)
-    m_communityCards.push_back(_pack.deal());
+    m_communityCards.push_back(m_deck.deal());
 }
 //--------------------------------------------------------------
 
 //deals adds an extra card to the community cards. Used for the river and the turn
-void dealerLib::dealRiverTurn(deck _pack)
+void dealerLib::dealRiverTurn()
 {
-  m_communityCards.push_back(_pack.deal());
+  m_communityCards.push_back(m_deck.deal());
 }
 //--------------------------------------------------------------
 
 //deals 2 cards to the players
-void dealerLib::dealHands(deck _pack)
+void dealerLib::dealHands()
 {
   comms thing;
 
@@ -221,7 +224,7 @@ void dealerLib::dealHands(deck _pack)
   {
     for(playerIt = m_table.begin(); playerIt != m_table.end(); playerIt++)
     {
-      PlayingCard tmpCard = _pack.deal();
+      PlayingCard tmpCard = m_deck.deal();
       playerIt->setHoleCard(tmpCard);
       thing.sendCard(*playerIt, tmpCard);
     }
@@ -231,7 +234,8 @@ void dealerLib::dealHands(deck _pack)
 //-----------------------------------------------------------------------------------------
 void dealerLib::update()
 {
-//do some gui shiz
+  dealerGui.update();
+  dealerGui.draw();
 }
 //-----------------------------------------------------------------------------------------
 void dealerLib::resetCards()
@@ -281,6 +285,16 @@ void dealerLib::init()
   {
       initPlayer(i);
   }
+  std::vector<player*> guiPlayers;
+  for(unsigned int i=0;i<m_numPlayers;i++)
+  {
+      guiPlayers.push_back(&m_table[i]);
+  }
+  cardStack flop;
+  flop.push_back(PlayingCard(Rank::NINE,Suit::HEART));
+  std::cout<<"size of guiPlayer: "<<guiPlayers.size()<<"\n";
+
+  dealerGui.initialise(guiPlayers,flop);
 
   m_livePlayers = m_table;
 }
@@ -293,16 +307,16 @@ void dealerLib::initPlayer(const int &_id)
 
   m_table.push_back(player());
   m_table[_id].setID(_id);
-  std::string playerName;
+  std::string playerName = "default";
   if(!(tmp.receiveName(m_table[_id],playerName)))
   {
       //error request name again
   }
-  else
-  {
-      std::cout<<"we have a name: "<<playerName<<"\n";
-      m_table[_id].setName(playerName);
-  }
+
+  std::cout<<"we have a name: "<<playerName<<"\n";
+  m_table[_id].setName(playerName);
+
+  m_table[_id].setName(playerName);
 }
 
 //-----------------------------------------------------------------------------------------
