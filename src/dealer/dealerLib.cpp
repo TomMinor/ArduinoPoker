@@ -1,4 +1,5 @@
 #include "dealer/dealerLib.h"
+#include "comms/SerialPort.h"
 
 
 dealerLib::dealerLib()
@@ -42,7 +43,7 @@ void dealerLib::Betting()
     int maxBet = checkMaxBet();//param m_liveplayers
     thing.sendBetLimits(*playerItr, (*playerItr).getBet(), maxBet);
     // sendBetLimits should send player and min and max bet limits
-    thing.receiveBet(*playerItr);
+    //thing.receiveBet(*playerItr);
     currentBet = playerItr->getBet();
 
 //if player has folded, remove them from the vectors
@@ -91,10 +92,21 @@ void dealerLib::Betting()
     m_pot += (*betIt);
   }
 
-
 }
 
 
+bool dealerLib::checkBoolArray(bool _array[])const
+{
+  bool flag = true;
+  for(int i=0;flag && i<m_numPlayers;i++)
+  {
+      if(!_array[i])
+      {
+          flag = false;
+      }
+  }
+  return flag;
+}
 
 void dealerLib::bet()
 {
@@ -102,23 +114,24 @@ void dealerLib::bet()
   int currentBet = 0;
   int oldBet = 0;
   int playerBet = 0;
-  bool p[4];
-  p[0] = p[1] = p[2] = p[3] = false;
+  bool p[m_livePlayers.size()];
 
-  while(!(p[0] && p[1] && p[2] && p[3]))
+  while(!(checkBoolArray(p)))
   {
       for(unsigned int i=0;i<m_livePlayers.size();i++)
       {
           // find max bet
          int maxBet = checkMaxBet() - m_livePlayers[i].getBet();
          tom.sendBetLimits(m_livePlayers[i],currentBet,maxBet);
-         tom.receiveBet(m_livePlayers[i]);
+         //tom.receiveBet(m_livePlayers[i],playerBet);
+         playerBet += m_livePlayers[i].getBet();
+         m_livePlayers[i].setBet(playerBet);
 
          // check if player has fold
          if(m_livePlayers[i].fold)
          {
              // remove player from live players
-             playerBet = m_livePlayers[i].getBet();
+             //playerBet = m_livePlayers[i].getBet();
              addBetToPot(playerBet);
              m_livePlayers.erase(m_livePlayers.begin()+i);
              p[i] = true;
@@ -126,6 +139,7 @@ void dealerLib::bet()
          else
          {
              currentBet = m_livePlayers[i].getBet();
+             //currentBet = playerBet;
              if(currentBet == oldBet)
              {
                  p[i] = true;
@@ -187,7 +201,6 @@ void dealerLib::dealHands(deck _pack)
     {
       PlayingCard tmpCard = _pack.deal();
       playerIt->setHoleCard(tmpCard);
-      //Could do it like this? playerIt->setHoleCard(_pack.deal());
       thing.sendCard(*playerIt, tmpCard);
     }
   }
@@ -238,27 +251,38 @@ int dealerLib::checkMaxBet()
 
 //-----------------------------------------------------------------------------------------
 
-void dealerLib::initialisePlayers()
+void dealerLib::init()
 {
-  comms com; 
 
-  for(int i = 0; i < m_numPlayers; i++)
+  Comms::PlayerDevices devices = Comms::SerialPort::DetectSerialDevices();
+
+  m_numPlayers = devices.size();
+  for (unsigned int i=0;i<devices.size();i++)
   {
-    m_table.push_back(player());
-    m_table[i].setName(std::string("blah"));
-
-
-
+      initPlayer(i);
   }
 
-  std::vector<player>::iterator playerIt;
+  m_livePlayers = m_table;
+}
 
-  for(playerIt = m_table.begin();playerIt != m_table.end(); playerIt++)
+//-----------------------------------------------------------------------------------------
+
+void dealerLib::initPlayer(const int &_id)
+{
+  comms tmp;
+
+  m_table.push_back(player());
+  m_table[_id].setID(_id);
+  std::string playerName;
+  if(!(tmp.receiveName(m_table[_id],playerName)))
   {
-    //requestNameInput();
-    com.receiveName(*playerIt);
+      //error request name again
   }
-
+  else
+  {
+      std::cout<<"we have a name: "<<playerName<<"\n";
+      m_table[_id].setName(playerName);
+  }
 }
 
 //-----------------------------------------------------------------------------------------

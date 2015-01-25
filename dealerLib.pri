@@ -6,6 +6,7 @@ SOURCES+=$$PWD/src/dealer/deck.cpp \
          $$PWD/src/dealer/dealerLib.cpp \
          $$PWD/src/dealer/dealerLibMain.cpp \
          $$PWD/src/dealer/cardStack.cpp \
+    $$PWD/src/comms/SerialPort.cpp \
     $$PWD/src/dealer/comms.cpp
 
 
@@ -17,3 +18,5 @@ HEADERS+=$$PWD/include/dealer/deck.h \
     $$PWD/include/dealer/comms.h
 
 INCLUDEPATH +=./include
+
+LIBS += -lboost_system

@@ -20,6 +20,10 @@ public:
   /// @param [in] const std::string
   void setName(const std::string &_name);
 
+  /// @brief method to set players name (m_name).
+  /// @param [in] const std::string
+  void setID(const int &_id);
+
   /// @brief method to set players Hole card (m_cards),
   /// adds card to back of stack.
   /// @param [in] const PlayingCard

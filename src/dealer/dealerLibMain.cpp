@@ -93,8 +93,10 @@ int main()
     bool quit=false;
 
     dealerLib table;
-    deck Deck;
-    Deck.shuffle();
+    table.init();
+
+    deck pack;
+    pack.init();
 
 
 //    while (!quit)
@@ -102,11 +104,12 @@ int main()
         if(table.getNumPlayers() == 1)
           {
             quit =true;
+            std::cout<<"only one player at the moment \n";
           }
-        table.dealHands(Deck);//call gui.dealCardTo(playerID,PlayingCard)
+        table.dealHands(pack);//call gui.dealCardTo(playerID,PlayingCard)
 
 
-        table.Betting();//internally call gui.receiveBetFrom(playerID,amount)
+        table.bet();//internally call gui.receiveBetFrom(playerID,amount)
 
 
         //Burning deck card method:
@@ -115,19 +118,19 @@ int main()
 //        burned->setPos(gui.getDeckPos());
 //        burned->updateRect();
 //        burned->burn();
-        table.dealFlop(Deck);//internally call addPublicCard(PlayingCard) x3
+        //table.dealFlop();//internally call addPublicCard(PlayingCard) x3
 
-        table.Betting();//internally call gui.receiveBetFrom(playerID,amount)
+        //table.bet();//internally call gui.receiveBetFrom(playerID,amount)
                         //call gui.receiveBetFrom(playerID,Unit16 amount,bool isFirstBet)
 
-        table.dealRiverTurn(Deck);//internally calladdPublicCard(PlayingCard)
+        //table.dealRiverTurn();//internally calladdPublicCard(PlayingCard)
 
-        table.Betting();//internally call gui.receiveBetFrom(playerID,amount)
+        //table.bet();//internally call gui.receiveBetFrom(playerID,amount)
                         //call gui.receiveBetFrom(playerID,Unit16 amount,bool isFirstBet)
 
-        table.dealRiverTurn(Deck);//internally calladdPublicCard(PlayingCard)
+        //table.dealRiverTurn();//internally calladdPublicCard(PlayingCard)
 
-        table.Betting();//internally call gui.receiveBetFrom(playerID,amount)
+        //table.bet();//internally call gui.receiveBetFrom(playerID,amount)
         //call gui.receiveBetFrom(playerID,Unit16 amount,bool isFirstBet)
 
         //std::vector<player> winners;
