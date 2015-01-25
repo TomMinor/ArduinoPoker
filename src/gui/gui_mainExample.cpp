@@ -28,7 +28,7 @@ int main()
 //    GUI_Label* testLabel = gui.uniqueLabel(std::string("test"),LEFT);
 //    GUI_Card* testCard = gui.uniqueCard(aceOfSpades,LEFT);
     std::vector<PlayingCard> cardList;
-    cardList.push_back(aceOfSpades);
+    //cardList.push_back(aceOfSpades);
     p1.setHandCard(aceOfSpades);
     p2.setHandCard(aceOfSpades);
     p3.setHandCard(aceOfSpades);
@@ -46,7 +46,7 @@ int main()
     Uint16 amount = 100;
 //    SDL_Point centre = {160, 128};
 
-    gui.initialise(players, cardList);
+    gui.initialise(players, cardList, 512, 400, 2);
 
     SDL_Event event;
     bool quit=false;
@@ -99,7 +99,7 @@ int main()
                         case SDLK_v : gui.dealCardTo(rand()%4,aceOfSpades); break;
                         case SDLK_m : gui.broadcastMessage(std::string("Oh hey look a message")); break;
                         case SDLK_t : gui.setPlayerName(0,std::string("dickfuck")); break;
-                        case SDLK_z : gui.addPublicCard(PlayingCard(Rank::ACE,Suit::SPADE)); break;
+                        case SDLK_z : gui.addPublicCard(PlayingCard(Rank::ACE,Suit::SPADE));  break;
                         case SDLK_x : gui.showWinner(winningPlayers); break;
                         case SDLK_r : gui.reset(players,cardList); break;
                         //case SDLK_UP : gui.m_deckCard->setFlipped(true); break;

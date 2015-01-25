@@ -5,11 +5,9 @@
 #ifndef POKERDISPLAY_H__
 #define POKERDISPLAY_H__
 
-
 #include "card.h"
 #include "Arduino.h"
 #include <LiquidCrystal.h>
-
 
 extern LiquidCrystal lcd;
 
@@ -35,44 +33,46 @@ public:
     /// @brief displayName
     /// @param [in] _line, line to be displayed..
     /// @param [in] _name name to be displayed
-    void displayName(char* _name);
+    void displayName( char* _name );
     
     /// @brief displayMoney
     /// @param [in] _line, line to be displayed.
     /// @param [in] _money, money to be displayed.
-    void displayMoney(uint8_t _line, uint16_t _money);
+    void displayMoney( uint8_t _line, uint16_t _money );
     
     ///@brief displayCards
     ///@param [in] _line, what line you want it printed on. 
     ///@param [in] _numCards, number of cards.
     ///@param [in] _cards{}, array of cards being passed to display.
+<<<<<<< HEAD
     void displayCards(uint8_t _line, uint8_t _numCards, card _cards[]);
 
+=======
+    void displayCards( uint8_t _line, uint8_t _numCards, card _cards[] );
+>>>>>>> 2c5b0b22d81dcdbb3dddb1dbe33891096dc8e441
        
     /// @brief createCustomChar
     void createCustomChar();
     
     /// @brief displays "Waiting cards" on lcd
     void waitCards();
+<<<<<<< HEAD
     
     ///@brief winner, prints a winning message.
     ///@param [in] money that the player has one.
     void winner(uint8_t _money);
 
     
+=======
+
+    ///@brief winner, prints a winning message.
+    ///@param [in] money that the player has won.
+    void winner( uint8_t _money );
+
+>>>>>>> 2c5b0b22d81dcdbb3dddb1dbe33891096dc8e441
     /// @brief resetScreen, prints the reset screen text.
     void screenReset();
-        
-    
-    
-private:
-    
-    /// @brief x position on the lcd screen
-    int m_x;
-    
-    /// @brief y position on the lcd screen
-    int m_y;
-    
+
 };
 
 #endif

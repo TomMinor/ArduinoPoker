@@ -69,32 +69,29 @@ void display::createCustomChar()
 
 void display::displayCard( uint8_t _rank, uint8_t _suit, int _x, int _y, int _nCard, int _totCards )
 {
-    
-    m_x = _x;
-    m_y = _y;
-   
+
    switch( _suit ) {
      case Suit::DIAMOND:
      {
-       lcd.setCursor( m_x, m_y );
+       lcd.setCursor( _x, _y );
        lcd.write( byte( 0 ) );
        break;
      }
      case Suit::HEART:
      {
-       lcd.setCursor( m_x, m_y );
+       lcd.setCursor( _x, _y );
        lcd.write( 1 );
        break;
      }
      case Suit::CLUB:
      {
-       lcd.setCursor( m_x, m_y );
+       lcd.setCursor( _x, _y );
        lcd.write( 2 );
        break;
      }
      case Suit::SPADE:
      {
-       lcd.setCursor( m_x, m_y );
+       lcd.setCursor( _x, _y );
        lcd.write( 3 );
        break;
      }
@@ -109,79 +106,79 @@ void display::displayCard( uint8_t _rank, uint8_t _suit, int _x, int _y, int _nC
     switch( _rank ) {
      case byte( Rank::TWO ):
      {
-       lcd.setCursor( m_x+1, m_y );
+       lcd.setCursor( _x + 1, _y );
        lcd.print( "2" );
        break;
      }
      case byte( Rank::THREE ):
      {
-       lcd.setCursor( m_x+1, m_y );
+       lcd.setCursor( _x + 1, _y );
        lcd.print( "3" );
        break;
      }
      case byte( Rank::FOUR ):
      {
-       lcd.setCursor( m_x+1, m_y );
+       lcd.setCursor( _x + 1, _y );
        lcd.print( "4" );
        break;
      }
      case byte( Rank::FIVE ):
      {
-       lcd.setCursor( m_x+1, m_y );
+       lcd.setCursor( _x + 1, _y );
        lcd.print( "5" );
        break;
      }
      case byte( Rank::SIX ):
      {
-       lcd.setCursor( m_x+1, m_y );
+       lcd.setCursor( _x + 1, _y );
        lcd.print( "6" );
        break;
      }
      case byte( Rank::SEVEN ):
      {
-       lcd.setCursor( m_x+1, m_y );
+       lcd.setCursor( _x + 1, _y );
        lcd.print( "7" );
        break;
      }
      case byte( Rank::EIGHT ):
      {
-       lcd.setCursor( m_x+1, m_y );
+       lcd.setCursor( _x + 1, _y );
        lcd.print( "8" );
        break;
      }
      case byte( Rank::NINE ):
      {
-       lcd.setCursor( m_x+1, m_y );
+       lcd.setCursor( _x + 1, _y );
        lcd.print( "9" );
        break;
      }
      case byte( Rank::TEN ):
      {
-       lcd.setCursor( m_x+1, m_y );
+       lcd.setCursor( _x + 1, _y );
        lcd.print( "T" );
        break;
      }
      case byte( Rank::JACK ):
      {
-       lcd.setCursor( m_x+1, m_y );
+       lcd.setCursor( _x + 1, _y );
        lcd.print( "J" );
        break;
      }
      case byte( Rank::QUEEN ):
      {
-       lcd.setCursor( m_x+1, m_y );
+       lcd.setCursor( _x + 1, _y );
        lcd.print( "Q" );
        break;
      }
      case byte( Rank::KING ):
      {
-       lcd.setCursor( m_x+1, m_y );
+       lcd.setCursor( _x + 1, _y );
        lcd.print( "K" );
        break;
      }
      case byte( Rank::ACE ):
      {
-       lcd.setCursor( m_x+1, m_y );
+       lcd.setCursor( _x + 1, _y );
        lcd.print( "A" );
        break;
      }
@@ -195,7 +192,7 @@ void display::displayCard( uint8_t _rank, uint8_t _suit, int _x, int _y, int _nC
    
     if(_nCard != _totCards)
     {
-        lcd.setCursor( _x+2, 0 );
+        lcd.setCursor( _x + 2, 0 );
         lcd.print( "|" );
     }
    
@@ -225,6 +222,10 @@ void display::waitCards()
   }
 }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 2c5b0b22d81dcdbb3dddb1dbe33891096dc8e441
 void display::winner(uint8_t _money)
 {
   lcd.clear();
@@ -239,6 +240,10 @@ void display::winner(uint8_t _money)
   lcd.print("Chicken Dinner!");
   
   delay(1500);
+<<<<<<< HEAD
+=======
+
+>>>>>>> 2c5b0b22d81dcdbb3dddb1dbe33891096dc8e441
 }
 
 void display::screenReset()
@@ -252,9 +257,13 @@ void display::screenReset()
 void display::displayMoney(uint8_t _line, uint16_t _money)
 {
   lcd.setCursor(0, _line);
+<<<<<<< HEAD
 
   lcd.print("Money: $"+String(_money));
 
+=======
+  lcd.print("Money: $"+String(_money));
+>>>>>>> 2c5b0b22d81dcdbb3dddb1dbe33891096dc8e441
 }
 
 void display::displayName(char* _name)

@@ -1,10 +1,11 @@
 #include "dealer/dealerLib.h"
-#include "comms/SerialPort.h"
+
 
 
 dealerLib::dealerLib()
 {
   m_deck.shuffle();
+
 }
 
 dealerLib::~dealerLib()
@@ -15,8 +16,6 @@ dealerLib::~dealerLib()
 void dealerLib::Betting()
 {
 //make a cooms object
-  comms thing;
-
   std::vector<int> playerBets;
   std::vector<int>::iterator firstPlayersBet;
   std::vector<int>::iterator otherPlayersBet;
@@ -47,7 +46,8 @@ void dealerLib::Betting()
 
     int maxBet = checkMaxBet();
 
-    thing.sendBetLimits(*playerItr, (*playerItr).getBet(), maxBet);
+
+    Comms::sendBetLimits(*playerItr, (*playerItr).getBet(), maxBet);
     // sendBetLimits should send player and min and max bet limits
     //thing.receiveBet(*playerItr);
     currentBet = playerItr->getBet();
@@ -123,12 +123,14 @@ bool dealerLib::checkBoolArray(bool _array[])const
   return !flag;
 }
 
+//---------------------------------------------------------
+
 void dealerLib::bet()
 {
-  comms tom;
   Uint16 currentBet = 0;
-  int oldBet = 0;
-  int playerBet = 0;
+  Uint16 oldBet = 0;
+  Uint16 playerBet = 0;
+  Uint16 playerRaise = 0;
   bool p[m_livePlayers.size()];
 
   //When all bets are matched the array will all be true
@@ -139,47 +141,52 @@ void dealerLib::bet()
       {
           // find max bet
          int maxBet = checkMaxBet() - m_livePlayers[i].getBet();
-         tom.sendBetLimits(m_livePlayers[i],currentBet,maxBet);
-         //tom.receiveBet(m_livePlayers[i],playerBet);
-         playerBet += m_livePlayers[i].getBet();
-         m_livePlayers[i].setBet(playerBet);
-
-         // check if player has fold
-         if(m_livePlayers[i].fold)
-         {
-             // remove player from live players
-             //playerBet = m_livePlayers[i].getBet();
-             GUI::Hand* burned = dealerGui.uniqueHand(m_livePlayers[i].getHole(),m_livePlayers[i].getID());
-             burned->setFlipped(true);
-             burned->moveTo(dealerGui.getCentre());
-             burned->burn();
-             addBetToPot(playerBet);
-             m_livePlayers.erase(m_livePlayers.begin()+i);
-             p[i] = true;
-         }
+         if(maxBet==0){p[i]=true;}
          else
          {
-             currentBet = m_livePlayers[i].getBet();
-             dealerGui.receiveBetFrom(m_livePlayers[i].getID(),currentBet);
-             //currentBet = playerBet;
-             if(currentBet == oldBet)
+             Comms::sendBetLimits(m_livePlayers[i],currentBet,maxBet);
+             //Comms::sendBetLimits(m_deviceMap.at(m_livePlayers[i].getID()),currentBet,maxBet);
+             Comms::receiveBet(m_livePlayers[i],playerBet);
+             //Comms::receiveBet(m_deviceMap.at(m_livePlayers[i].getID()),playerBet);
+             playerRaise = playerBet;
+             playerBet += m_livePlayers[i].getBet();
+             m_livePlayers[i].setBet(playerBet);
+
+             // check if player has fold
+             if(m_livePlayers[i].fold)
+
              {
+                 // remove player from live players
+                 //playerBet = m_livePlayers[i].getBet();
+                 GUI::Hand* burned = m_dealerGui.uniqueHand(m_livePlayers[i].getHole(),m_livePlayers[i].getID());
+                 burned->setPos(m_dealerGui.getOffScreenPos(m_livePlayers[i].getID()));
+                 burned->setFlipped(true,true);
+                 burned->moveTo(m_dealerGui.getCentre());
+                 burned->burn();
+                 addBetToPot(playerBet);
+                 m_livePlayers.erase(m_livePlayers.begin()+i);
                  p[i] = true;
              }
              else
              {
-                 for(unsigned int j=0;j<m_livePlayers.size();j++)
+                 currentBet = m_livePlayers[i].getBet();
+                 m_dealerGui.receiveBetFrom(m_livePlayers[i].getID(),playerRaise);
+                 if(currentBet == oldBet)
                  {
-                     if(j==i){p[j]=true;}
-                     else if(m_livePlayers[j].fold)
+                     p[i] = true;
+                 }
+                 else
+                 {
+                     for(unsigned int j=0;j<m_livePlayers.size();j++)
                      {
-                         p[j] = true;
+                         if(j==i)                       {p[j]=true;}
+                         else if(m_livePlayers[j].fold) {p[j] = true;}
+                         else                           {p[j] = false;}
                      }
-                     else{p[j] = false;}
                  }
              }
+             oldBet = currentBet;
          }
-         oldBet = currentBet;
       }
   }
   for(unsigned int i=0;i<m_livePlayers.size();i++)
@@ -188,6 +195,7 @@ void dealerLib::bet()
       addBetToPot(playerBet);
       m_livePlayers[i].removeBet();
   }
+
 }
 
 void dealerLib::addBetToPot(const int &_bet)
@@ -200,10 +208,11 @@ void dealerLib::addBetToPot(const int &_bet)
 void dealerLib::dealFlop()
 {
   for(int i=0; i<3; i++)
+
   {
     PlayingCard card = m_deck.deal();
     m_communityCards.push_back(card);
-    dealerGui.addPublicCard(card);
+    m_dealerGui.addPublicCard(card);
   }
 }
 //--------------------------------------------------------------
@@ -213,25 +222,27 @@ void dealerLib::dealRiverTurn()
 {
   PlayingCard card = m_deck.deal();
   m_communityCards.push_back(card);
+  m_dealerGui.addPublicCard(card);
 }
 //--------------------------------------------------------------
 
 //deals 2 cards to the players
 void dealerLib::dealHands()
 {
-  comms thing;
-
   std::vector<player>::iterator playerIt;
   for(int i=0; i<2; i++)
   {
     for(playerIt = m_table.begin(); playerIt != m_table.end(); playerIt++)
-
-    for(unsigned int j =0; j < m_table.size(); j++)
     {
       PlayingCard tmpCard = m_deck.deal();
-      m_table[j].setHoleCard(tmpCard);
-      dealerGui.dealCardTo(j, tmpCard);
-      thing.sendCard(*playerIt, tmpCard);
+      if(!(Comms::sendCard(*playerIt, tmpCard)))
+      {
+          //error re-send card
+      }
+
+      playerIt->setHoleCard(tmpCard);
+      m_dealerGui.dealCardTo(playerIt->getID(), tmpCard);
+
     }
   }
 
@@ -239,22 +250,26 @@ void dealerLib::dealHands()
 //-----------------------------------------------------------------------------------------
 void dealerLib::update()
 {
-//do some gui shiz
+  m_dealerGui.update();
+  m_dealerGui.draw();
 }
 //-----------------------------------------------------------------------------------------
 void dealerLib::resetCards()
 {
-  std::vector<player>::iterator playerIt;
 
   for(unsigned int i = 0; i < m_table.size(); i++)
   {
-    GUI::Hand* burned = dealerGui.uniqueHand(m_table[i].getHole(), i);
-    burned->setFlipped(true, true);
-//    burned->setPos(dealerGui.)
+
+    GUI::Hand* burned = m_dealerGui.uniqueHand(m_table[i].getHole(), m_table[i].getID());
+//    burned->setFlipped(true, true);
+    burned->setPos(m_dealerGui.getOffScreenPos(i));
+    burned->setPos(m_dealerGui.getOnScreenPos(i));
+    burned->burn();
+
     m_table[i].emptyHole();
 
   }
-
+  m_dealerGui.m_publicCards->burn();
   m_communityCards.erase(m_communityCards.begin(), m_communityCards.end());
 
   m_deck.reset();
@@ -286,13 +301,21 @@ int dealerLib::checkMaxBet()
 void dealerLib::init()
 {
 
-  Comms::PlayerDevices devices = Comms::SerialPort::DetectSerialDevices();
+  m_deviceMap = Comms::SerialPort::DetectSerialDevices();
 
-  m_numPlayers = devices.size();
-  for (unsigned int i=0;i<devices.size();i++)
+  m_numPlayers = m_deviceMap.size();
+  for (unsigned int i=0;i<m_deviceMap.size();i++)
   {
       initPlayer(i);
   }
+  std::vector<const player*> guiPlayers;
+  for(unsigned int i=0;i<m_numPlayers;i++)
+  {
+      guiPlayers.push_back(&m_table[i]);
+  }
+  cardStack flop;
+  m_dealerGui.initialise(guiPlayers,flop);
+  //m_dealerGui.m_publicCards->killNow();
 
   m_livePlayers = m_table;
 }
@@ -301,36 +324,32 @@ void dealerLib::init()
 
 void dealerLib::initPlayer(const int &_id)
 {
-  comms tmp;
-
   m_table.push_back(player());
   m_table[_id].setID(_id);
-  std::string playerName;
-  if(!(tmp.receiveName(m_table[_id],playerName)))
+  std::string playerName = "default";
+  if(!(Comms::receiveName(m_table[_id],playerName)))
   {
       //error request name again
   }
-  else
-  {
-      std::cout<<"we have a name: "<<playerName<<"\n";
-      m_table[_id].setName(playerName);
-  }
+
+  std::cout<<"we have a name: "<<playerName<<"\n";
+  m_table[_id].setName(playerName);
+
+  m_table[_id].setName(playerName);
 }
 
 //-----------------------------------------------------------------------------------------
 
 void dealerLib::clearTable()
 {
-  for(int i = 0; i < m_numPlayers; i++)
-  {
-    m_table.pop_back();
-  }
+  m_table.erase(m_table.begin(), m_table.end());
 }
 
 //-----------------------------------------------------------------------------------------
 
 void dealerLib::removePlayer(std::vector<player>::iterator it)
 {
+//  m_dealerGui.kickPlayer(it->getID());
   m_table.erase(it);
 }
 
@@ -344,7 +363,7 @@ bool dealerLib::checkIfLost(player _player)
 
 //-----------------------------------------------------------------------------------------
 
-void dealerLib::removeTheNoobs()
+void dealerLib::kickBrokePlayer()
 {
   std::vector<player>::iterator playerIt;
 
@@ -365,23 +384,23 @@ void dealerLib::removeTheNoobs()
 bool dealerLib::callComms(commsRequest request)
 {
   switch (request){
-    case sendBetLimits:
+    case SENDBETLIMIT:
 
       break;
 
-    case sendMoney:
+    case SENDMONEY:
       break;
 
-    case sendCard:
+    case SENDCARD:
       break;
 
-    case getName:
+    case GETNAME:
       break;
 
-    case getBet:
+    case GETBET:
       break;
 
-    case wait:
+    case WAIT:
       break;
 
     default:
