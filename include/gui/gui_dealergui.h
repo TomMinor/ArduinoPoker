@@ -8,7 +8,6 @@
 #include "include/dealer/deck.h"
 #include "include/dealer/player.h"
 #include "include/dealer/pokerHands.h"
-
 #include <vector>
 #include <boost/shared_ptr.hpp>
 

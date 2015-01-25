@@ -48,7 +48,10 @@ private:
   cardStack m_communityCards;
   cardStack::iterator cardItr;
   int m_numPlayers;
+
   unsigned int m_pot;
+  deck m_deck;
+
 
   std::vector<player> m_table;
   std::vector<player> m_livePlayers;

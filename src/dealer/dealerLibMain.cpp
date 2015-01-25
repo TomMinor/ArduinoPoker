@@ -96,7 +96,7 @@ int main()
     table.init();
 
     deck pack;
-    pack.init();
+    pack.initDeck();
 
 
 //    while (!quit)
