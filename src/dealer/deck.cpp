@@ -33,6 +33,8 @@ void deck::reset()
 
 void deck::shuffle()
 {
+  std::srand( unsigned ( std::time(0) ) );
+
   std::random_shuffle(m_pack.begin(), m_pack.end());
 }
 

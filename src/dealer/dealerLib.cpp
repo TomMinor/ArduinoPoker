@@ -349,12 +349,7 @@ void dealerLib::initPlayer(const int &_id)
 
 //-----------------------------------------------------------------------------------------
 
-void dealerLib::clearTable()
-{
-  m_table.erase(m_table.begin(), m_table.end());
-}
 
-//-----------------------------------------------------------------------------------------
 
 void dealerLib::removePlayer(std::vector<player>::iterator it)
 {
@@ -411,6 +406,7 @@ void dealerLib::decideWinners()
   int winnings = (m_pot - remainder) / winners.size();
 
   getWinnerIds(winners);
+
 
   for(playerIt = winners.begin(); playerIt != winners.end(); playerIt++)
   {

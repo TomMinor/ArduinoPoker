@@ -9,6 +9,8 @@
 uint8_t card1[2]={Rank::SIX, Suit::SPADE};
 uint8_t card2[2]={Rank::ACE, Suit::CLUB};
 uint8_t card3[2]={Rank::EIGHT, Suit::HEART};
+
+
 //unsigned int bet=0;
 //bool betState=true;
 //bool recieved=false;
@@ -37,7 +39,7 @@ void setup()
 //  //player.receiveCard(cards);
 //  //player.receiveCard(cards);
 //  lcd.clear();
-
+  //player.receiveCard(card1);
   //player.receiveCard(card3);
   //player.receiveCard(card2);
   lcd.clear();
@@ -47,8 +49,7 @@ void setup()
 
   
 void loop() 
-{
-   
+{  
 //   Serial.print("\n");
 //   Serial.print(0xff0f,HEX);
 //   Serial.print("\n");
@@ -64,7 +65,6 @@ void loop()
  
     
   player.playerDataScreen();
-  
   
  
   
@@ -123,9 +123,6 @@ void loop()
       break;
     }
   }
-  
-  
-  
 }
 
 
