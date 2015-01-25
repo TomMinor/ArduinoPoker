@@ -22,7 +22,6 @@ HEADERS += include/card.h \
     $$PWD/include/comms/SerialPort.h \
     $$PWD/include/shared/card.h \
     $$PWD/include/comms/dealerIO.h
-    src/player/MainSketch/comms.h\
 
 INCLUDEPATH += include/
 OBJECTS_DIR = obj

@@ -1,6 +1,7 @@
 #ifndef _PLAYER__H_
 #define _PLAYER__H_
 
+#include <iostream>
 #include <string>
 #include <vector>
 #include "playingcard.h"
@@ -41,6 +42,10 @@ public:
   /// @brief method to set playesr kicker (m_kicker)
   /// @param [in] const int
   void setKicker(const int &_kicker);
+
+  /// @brief method to set players fold member, set true if they have fold
+  /// @param [in] const bool
+  void setFold(const bool &_fold);
 
   /// @brief method to set players money (m_money)
   /// @param [in] const int
@@ -142,20 +147,21 @@ public:
   int getID()const;
 
 
-
-  cardStack m_hand;
-  bool fold;
+  /// @brief method to check if player has fold
+  ///  @return bool
+  bool isFold()const;
 
 
 private:
   std::string m_name;
   int m_id;
   cardStack m_cards;
+  cardStack m_hand;
   int m_score;
   int m_kicker;
   int m_money;
   int m_bet;
-protected:
+  bool m_fold;
 
 
 };
