@@ -44,32 +44,26 @@ public:
     ///@param [in] _line, what line you want it printed on. 
     ///@param [in] _numCards, number of cards.
     ///@param [in] _cards{}, array of cards being passed to display.
-<<<<<<< HEAD
     void displayCards(uint8_t _line, uint8_t _numCards, card _cards[]);
 
-=======
-    void displayCards( uint8_t _line, uint8_t _numCards, card _cards[] );
->>>>>>> 2c5b0b22d81dcdbb3dddb1dbe33891096dc8e441
-       
+    /// @brief checkFirstcard
+    /// @brief [in] _card, card in the array you want to check.
+    /// @param [out] returns bool if first card is empty.
+    bool checkForCard(card _card);   
+    
     /// @brief createCustomChar
     void createCustomChar();
     
     /// @brief displays "Waiting cards" on lcd
     void waitCards();
-<<<<<<< HEAD
+
     
     ///@brief winner, prints a winning message.
     ///@param [in] money that the player has one.
     void winner(uint8_t _money);
 
     
-=======
 
-    ///@brief winner, prints a winning message.
-    ///@param [in] money that the player has won.
-    void winner( uint8_t _money );
-
->>>>>>> 2c5b0b22d81dcdbb3dddb1dbe33891096dc8e441
     /// @brief resetScreen, prints the reset screen text.
     void screenReset();
 
