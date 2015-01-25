@@ -12,7 +12,6 @@ namespace GUI
 /// It should be obtained using DealerGUI::UniqueHand() to ensure all the cards are updated and destroyed properly.
 /// NOTE: Although this class contains many functions with the same names as the Card and Element classes, this is simply for consistency and convenience; it is not
 /// derived from either of them.
-/// NOTE: Currently, only the BOTTOM orientation works properly.
 class Hand
 {
 public:
@@ -25,6 +24,7 @@ public:
     void moveTo(const SDL_Point &_p);
     void burn();
     void kill();
+    void killNow();
     void setFlipped(const bool &_isFlipped, const bool &_instantly = false);
     int getHeight();
     int getWidth();

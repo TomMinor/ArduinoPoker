@@ -8,7 +8,6 @@
 #include "gui/gui_dealergui.h"
 #include "pokerHands.h"
 
-
 enum commsRequest
 {
   sendBetLimits,
@@ -43,7 +42,6 @@ public:
   void splitPot();
 
 
-
   bool callComms(commsRequest request);
   int getNumPlayers()const;
   std::vector<player> getLivePlayers()const;
@@ -56,7 +54,7 @@ private:
 
   unsigned int m_pot;
   deck m_deck;
-  GUI::DealerGUI dealerGui;
+  GUI::DealerGUI m_dealerGui;
 
 
   std::vector<player> m_table;

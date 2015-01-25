@@ -151,9 +151,9 @@ void dealerLib::bet()
          {
              // remove player from live players
              //playerBet = m_livePlayers[i].getBet();
-             GUI::Hand* burned = dealerGui.uniqueHand(m_livePlayers[i].getHole(),m_livePlayers[i].getID());
+             GUI::Hand* burned = m_dealerGui.uniqueHand(m_livePlayers[i].getHole(),m_livePlayers[i].getID());
              burned->setFlipped(true);
-             burned->moveTo(dealerGui.getCentre());
+             burned->moveTo(m_dealerGui.getCentre());
              burned->burn();
              addBetToPot(playerBet);
              m_livePlayers.erase(m_livePlayers.begin()+i);
@@ -162,7 +162,7 @@ void dealerLib::bet()
          else
          {
              currentBet = m_livePlayers[i].getBet();
-             dealerGui.receiveBetFrom(m_livePlayers[i].getID(),currentBet);
+             m_dealerGui.receiveBetFrom(m_livePlayers[i].getID(),currentBet);
              //currentBet = playerBet;
              if(currentBet == oldBet)
              {
@@ -205,7 +205,7 @@ void dealerLib::dealFlop()
   {
     PlayingCard card = m_deck.deal();
     m_communityCards.push_back(card);
-    dealerGui.addPublicCard(card);
+    m_dealerGui.addPublicCard(card);
   }
 }
 //--------------------------------------------------------------
@@ -215,7 +215,7 @@ void dealerLib::dealRiverTurn()
 {
   PlayingCard card = m_deck.deal();
   m_communityCards.push_back(card);
-  dealerGui.addPublicCard(card);
+  m_dealerGui.addPublicCard(card);
 }
 //--------------------------------------------------------------
 
@@ -227,11 +227,11 @@ void dealerLib::dealHands()
   {
     for(playerIt = m_table.begin(); playerIt != m_table.end(); playerIt++)
     {
-
       PlayingCard tmpCard = m_deck.deal();
+
       playerIt->setHoleCard(tmpCard);
 
-      dealerGui.dealCardTo(playerIt->getID(), tmpCard);
+      m_dealerGui.dealCardTo(playerIt->getID(), tmpCard);
     }
   }
 
@@ -247,16 +247,16 @@ void dealerLib::resetCards()
 
   for(unsigned int i = 0; i < m_table.size(); i++)
   {
-    GUI::Hand* burned = dealerGui.uniqueHand(m_table[i].getHole(), m_table[i].getID());
+    GUI::Hand* burned = m_dealerGui.uniqueHand(m_table[i].getHole(), m_table[i].getID());
 //    burned->setFlipped(true, true);
-    burned->setPos(dealerGui.getOffScreenPos(i));
-    burned->setPos(dealerGui.getOnScreenPos(i));
+    burned->setPos(m_dealerGui.getOffScreenPos(i));
+    burned->setPos(m_dealerGui.getOnScreenPos(i));
     burned->burn();
 
     m_table[i].emptyHole();
 
   }
-  dealerGui.m_publicCards->burn();
+  m_dealerGui.m_publicCards->burn();
   m_communityCards.erase(m_communityCards.begin(), m_communityCards.end());
 
   m_deck.reset();
@@ -330,7 +330,7 @@ void dealerLib::clearTable()
 
 void dealerLib::removePlayer(std::vector<player>::iterator it)
 {
-//  dealerGui.kickPlayer(it->getID());
+//  m_dealerGui.kickPlayer(it->getID());
   m_table.erase(it);
 }
 
