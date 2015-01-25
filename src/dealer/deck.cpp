@@ -4,25 +4,7 @@
 
 deck::deck()
 {
-  for(int i = Rank::TWO; i<=Rank::ACE; i++)
-  {
-      m_pack.push_back(PlayingCard((Rank::Value) i, Suit::DIAMOND));
-  }
-
-  for(int i = Rank::TWO; i<=Rank::ACE; i++)
-  {
-      m_pack.push_back(PlayingCard((Rank::Value)i, Suit::HEART));
-  }
-
-  for(int i = Rank::TWO; i<=Rank::ACE; i++)
-  {
-      m_pack.push_back(PlayingCard((Rank::Value)i, Suit::CLUB));
-  }
-
-  for(int i = Rank::TWO; i<=Rank::ACE; i++)
-  {
-      m_pack.push_back(PlayingCard((Rank::Value)i, Suit::SPADE));
-  }
+  initDeck();
 }
 
 
@@ -31,10 +13,21 @@ deck ::~deck()
 
 }
 
+void deck::initDeck()
+{
+  for(int i = Rank::TWO; i<=Rank::ACE; i++)
+  {
+      m_pack.push_back(PlayingCard((Rank::Value)i, Suit::DIAMOND));
+      m_pack.push_back(PlayingCard((Rank::Value)i, Suit::HEART));
+      m_pack.push_back(PlayingCard((Rank::Value)i, Suit::CLUB));
+      m_pack.push_back(PlayingCard((Rank::Value)i, Suit::SPADE));
+  }
+}
 
 void deck::reset()
 {
-
+  m_pack.erase(m_pack.begin(),m_pack.end());
+  initDeck();
 }
 
 void deck::shuffle()

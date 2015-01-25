@@ -23,6 +23,11 @@ void player::setName(const std::string &_name)
     m_name = _name;
 }
 
+void player::setID(const int &_id)
+{
+  m_id = _id;
+}
+
 void player::setHoleCard(const PlayingCard &_card)
 {
     m_cards.addCard(_card);

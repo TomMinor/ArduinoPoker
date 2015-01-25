@@ -5,6 +5,7 @@
 #include "deck.h"
 #include "cardStack.h"
 #include "comms.h"
+#include "gui/gui_dealergui.h"
 
 enum commsRequest
 {
@@ -23,19 +24,20 @@ public:
   ~dealerLib();
   void Betting();
   void bet();
+  bool checkBoolArray(bool _array[])const;
   void addBetToPot(const int &_bet);
+  int checkMaxBet();
   void dealHands(deck _pack);
   void dealFlop(deck _pack);
   void dealRiverTurn(deck _pack);
   void resetCards();
   void update();
-  int checkMaxBet();
-  void initialisePlayers();
+  void init();
+  void initPlayer(const int &_id);
   void clearTable();
   void removePlayer(std::vector<player>::iterator it);
   bool checkIfLost(player _player);
   void removeTheNoobs();
-//  void addBetsToPot(); probs dont need this anymore, just hardcoded it into Betting()
 
 
   bool callComms(commsRequest request);
@@ -47,7 +49,11 @@ private:
   cardStack m_communityCards;
   cardStack::iterator cardItr;
   int m_numPlayers;
-  int m_pot;
+
+  unsigned int m_pot;
+  deck m_deck;
+  GUI::DealerGUI dealerGui;
+
 
   std::vector<player> m_table;
   std::vector<player> m_livePlayers;

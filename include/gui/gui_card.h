@@ -20,6 +20,7 @@ typedef struct
     unsigned int cardHeight;
 } CardInfo;
 
+
 /// \brief A visual representation of a playing card that can be flipped, burned and moved around.
 class Card : public Element
 {

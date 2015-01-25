@@ -21,12 +21,12 @@ bool comms::sendCard(player _player, PlayingCard _card)
 
 }
 
-bool comms::receiveBet(player _player, unsigned int _timeout)
+bool comms::receiveBet(player _player, uint16_t& _betvalue, unsigned int _timeout)
 {
 
 }
 
-bool comms::receiveName(player _player, unsigned int _timeout)
+bool comms::receiveName(player _player, std::string& _name, unsigned int _timeout)
 {
 
 }

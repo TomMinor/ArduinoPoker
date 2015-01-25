@@ -8,7 +8,6 @@
 #include "include/dealer/deck.h"
 #include "include/dealer/player.h"
 #include "include/dealer/pokerHands.h"
-
 #include <vector>
 #include <boost/shared_ptr.hpp>
 
@@ -62,7 +61,9 @@ public:
     /// \brief Creates a card at the deck position and sends it off screen in the specified player's direction.
     /// \param _playerID The index into the m_players vector to find the player to send the card to.
     /// \param _type The type (rank and suit) of the card to send - usually irrelevant since the card will be face-down anyway.
+
     void dealCardTo(const unsigned int &_playerID, const PlayingCard &_type);
+
 
     /// \brief Sends a label denoting the amount the player is betting from their off-screen position to the pot, as well as printing a message saying how much this player
     /// is betting.
