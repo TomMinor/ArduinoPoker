@@ -30,7 +30,7 @@
 *.qmake.cache
 *.pro.user*
 
-Makefile
+*Makefile*
 # qt project file
 # because i'm only using QT for IDE purposes
 
