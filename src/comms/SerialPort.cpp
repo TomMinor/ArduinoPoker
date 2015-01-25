@@ -56,27 +56,15 @@ PlayerDevices SerialPort::DetectSerialDevices()
     return SerialDevices;
 }
 
-
-/*
- * - Send header
- * - Wait for response
- *   + If failed, E_TIMEOUT
- * - Send payload
- * - Wait for checksum
- *   + If failed, E_TIMEOUT
- * - Compare checksum
- *   + If failed, E_CORRUPT
- */
-
-PacketError SerialPort::SendData(const std::vector<uint8_t> _payload)
+void SerialPort::SendData(const std::vector<uint8_t> _payload)
 {
     const uint8_t payloadSize = _payload.size() - 1;
 
     /* If we recieve no data then treat it as a successful send */
-//    if(payloadSize < 0)
-//    {
-//        return E_SUCCESS;
-//    }
+    if(payloadSize < 0)
+    {
+        return;
+    }
 
     size_t sentBytes = 0;
 
@@ -86,45 +74,93 @@ PacketError SerialPort::SendData(const std::vector<uint8_t> _payload)
     sentBytes = boost::asio::write( m_serial, boost::asio::buffer( _payload.data(), 1) );
 
     // Assume we couldn't connect if we can't send any bytes
-//    if(sentBytes < 1)
-//    {
-//        return E_TIMEOUT;
-//    }
+    if(sentBytes < 1)
+    {
+      throw boost::system::system_error(boost::asio::error::timed_out, "Packet timeout");
+    }
 
     //@todo Timeout
 
     static char serialBuffer[15] = {0};
-    sentBytes = boost::asio::read( m_serial, boost::asio::buffer( &serialBuffer, 1) );
+//    sentBytes = boost::asio::read( m_serial, boost::asio::buffer( &serialBuffer, 1) );
+
+//    if(serialBuffer[0] == 0)
+//    {
+//      throw boost::system::system_error(boost::asio::error::fault, "Device was not ready");
+//    }
 
     /* Send payload bytes */
     sentBytes = boost::asio::write( m_serial, boost::asio::buffer( _payload.data() + 1, payloadSize  ) );
 
     /* If we didn't send enough bytes then the data is corrupt  */
-//    if(sentBytes < _payload.size()  )
-//    {
-//        return E_CORRUPT;
-//    }
-
-    /* @todo Add checksum */
-
-    return E_SUCCESS;
-}
-
-PacketError SerialPort::RecieveData(std::vector<uint8_t> _payload)
-{
-    /* Send payload */
-    size_t numOfBytes;
-
-    if(numOfBytes < _payload.size())
+    if(sentBytes < payloadSize)
     {
-        return E_CORRUPT;
+      throw boost::system::system_error(boost::asio::error::fault, "Corrupt packet");
     }
 
-    std::cout << numOfBytes << '\n';
-
     /* @todo Add checksum */
+}
 
-    return E_SUCCESS;
+void SerialPort::RecieveData(std::vector<uint8_t> &_payload)
+{
+  size_t recievedBytes = 0;
+
+  //@todo Timeout
+  std::cout << "Trying to get header" << std::endl;
+
+  // Read header
+  char serialBuffer[15] = {0};
+  recievedBytes = boost::asio::read( m_serial, boost::asio::buffer( &serialBuffer, 1) );
+
+  std::cout << "Reached" << std::endl;
+
+  //std::cout << "Recieved : " << std::dec << recievedBytes << ", " << std::hex << std::uppercase << (int)serialBuffer[0] << std::endl;
+  printf("First Recieved : %d -> %X\n", recievedBytes, 0x000000FF & serialBuffer[0]);
+
+  // Assume we couldn't connect if we can't send any bytes
+  if(recievedBytes  < 1)
+  {
+    throw boost::system::system_error(boost::asio::error::timed_out, "Packet timeout");
+  }
+//  else
+//  {
+//    uint8_t confirmation = 1;
+//    /* Send confirmation */
+//    recievedBytes  = boost::asio::write( m_serial, boost::asio::buffer(&confirmation, 1) );
+//  }
+
+  uint8_t header = serialBuffer[0];
+  uint8_t payloadSize = header & 0x0F;
+
+  printf("Payload Size: %d\n", (int)payloadSize);
+
+  std::cout << "Payload" << std::endl;
+
+  int i = 0;
+  while(true)
+  {
+    char tmpbuffer = 0;
+    recievedBytes  = boost::asio::read( m_serial, boost::asio::buffer( &tmpbuffer, 1));
+
+    std::cout << "Test" << std::endl;
+
+
+    std::cout << "Recieved : " << std::dec << recievedBytes << ", " << std::hex << std::uppercase << (int)(0x000000FF & tmpbuffer) << std::endl;
+    //usleep(1000 * 1000);
+  }
+
+
+  std::cout << "Read bytes : " << recievedBytes  << "\n";
+
+//  for(int i=0; i < 15; i++)
+//  {
+//    _payload.push_back(serialBuffer[i]);
+//  }
+
+//  if(recievedBytes  < payloadSize)
+//  {
+//    throw boost::system::system_error(boost::asio::error::fault, "Corrupt packet");
+//  }
 }
 
 }

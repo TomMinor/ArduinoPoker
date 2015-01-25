@@ -12,22 +12,38 @@
 #include "dealer/player.h"
 #include "comms/dealerIO.h"
 
+
+
 int main()
 {
-    const char* port = "/dev/ttyACM1";
+    const char* port = "/dev/ttyACM0";
 
-    //sendMoney(p0, 5395);
-    if(!Comms::sendCard(port, PlayingCard(Rank::NINE, Suit::CLUB)))
+//    Comms::test(port);
+
+    Comms::sendMoney(port, 2000);
+
+    if(!Comms::sendCard(port, PlayingCard(Rank::KING, Suit::HEART)))
     {
         std::cout << "1st error\n";
     }
 
-    if(!Comms::sendCard(port, PlayingCard(Rank::ACE, Suit::SPADE)))
+    if(!Comms::sendCard(port, PlayingCard(Rank::JACK, Suit::SPADE)))
     {
         std::cout << "2nd error\n";
     }
 
-    //sendBetLimits(p0, 1000, 5000);
+//    //Comms::sendResetCards(port);
+
+//    //Comms::sendResetPlayer(port);
+
+    uint16_t bet;
+//    std::cout << "Waiting for bet" << std::endl;
+    //while(true)
+    //{
+      Comms::receiveBet(port, bet, 1000, 1600);
+    //}
+
+    //std::cout << bet << "\n";
 
     return 0;
 }
