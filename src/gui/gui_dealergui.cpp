@@ -106,9 +106,10 @@ void GUI::DealerGUI::initialise(std::vector<const player *> _players,
     //get our directory
     const size_t bufsize = 128;
     char buf[bufsize] = "";
-    readlink("/proc/self/exe",buf,bufsize);
+    readlink("/proc/self/",buf,bufsize);
     std::string ourDir = std::string(buf);
-    ourDir = ourDir.substr(0, ourDir.size()-9);
+//    std::cout<<"ourDir: "<<ourDir<<"\n";
+    //ourDir = ourDir.substr(0, ourDir.size()-9);
 
     // Load a font
     TTF_Font *font;
@@ -171,7 +172,6 @@ void GUI::DealerGUI::initialise(std::vector<const player *> _players,
 
     setUpUniqueElements(_publicCards,_players.size());
     setUpPlayers(_players);
-    std::cout<<"are we here?\n\n";
 
 }
 
@@ -191,7 +191,7 @@ void GUI::DealerGUI::broadcastMessage(const std::string &_message, const unsigne
         messageLabel->setPos(m_players[i].pos_offScreen);
         messageLabel->moveTo(m_players[i].pos_onScreen);
     }
-    std::cout<<"Broadcasting message: \""<<_message<<"\"\n";
+    //std::cout<<"Broadcasting message: \""<<_message<<"\"\n";
 }
 
 void GUI::DealerGUI::dealCardTo(const unsigned int &_playerID, const PlayingCard &_type)
@@ -204,7 +204,7 @@ void GUI::DealerGUI::dealCardTo(const unsigned int &_playerID, const PlayingCard
 
     GUI::Player* thatPlayer = &m_players[_playerID];
 
-    std::cout<<"Dealing card "<<_type.getRank()<<" of "<<_type.getSuit()<<" to player "<<_playerID<<"\n";
+    //std::cout<<"Dealing card "<<_type.getRank()<<" of "<<_type.getSuit()<<" to player "<<_playerID<<"\n";
 
     Card* newCard = uniqueCard(_type,thatPlayer->orient);
 
@@ -709,8 +709,9 @@ void GUI::DealerGUI::setUpUniqueElements(std::vector<PlayingCard> _publicCards, 
     //get our directory
     const size_t bufsize = 128;
     char buf[bufsize] = "";
-    readlink("/proc/self/exe",buf,bufsize);
+    readlink("/proc/self/",buf,bufsize);
     std::string ourDir = std::string(buf);
+//    std::cout<<"ourDir: "<<ourDir<<"\n";
     ourDir = ourDir.substr(0, ourDir.size()-9);
 
     // Load the pot image
@@ -912,8 +913,6 @@ void GUI::DealerGUI::setUpBorder(SDL_Texture *_tex, const unsigned int &_numPlay
     bottomLeft->align(BOTTOM,true,false);
 
     //==================== Tags ====================
-
-    std::cout<<"number of players: "<<_numPlayers<<"\n";
 
     src.h = BORDER_IMGWIDTH - BORDER_CORNERWIDTH - BORDER_CORNERWIDTH;
     src.w = src.h;
