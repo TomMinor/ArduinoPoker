@@ -46,7 +46,7 @@ int main()
     Uint16 amount = 100;
 //    SDL_Point centre = {160, 128};
 
-    gui.initialise(players, cardList);
+    gui.initialise(players, cardList, 512, 400, 2);
 
     SDL_Event event;
     bool quit=false;

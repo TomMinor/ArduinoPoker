@@ -57,7 +57,11 @@ GUI::DealerGUI::~DealerGUI()
     SDL_Quit();
 }
 
-void GUI::DealerGUI::initialise(std::vector<const player *> _players, const std::vector<PlayingCard> &_publicCards)
+void GUI::DealerGUI::initialise(std::vector<const player *> _players,
+                                const std::vector<PlayingCard> &_publicCards,
+                                const unsigned int &_windowWidth,
+                                const unsigned int &_windowHeight,
+                                const unsigned int &_pixelScale)
 {
     //-----------------------------------------------------------------------------
     // First thing we need to do is initialise SDL in this case we are
@@ -73,7 +77,7 @@ void GUI::DealerGUI::initialise(std::vector<const player *> _players, const std:
     // next we create a window and make sure it works
     //-----------------------------------------------------------------------------
     SDL_Window *win = 0;
-    win = SDL_CreateWindow("Arduino™ Poker Simulator 1992", 100, 100, WINDOW_WIDTH*PIXEL_SCALE, WINDOW_HEIGHT*PIXEL_SCALE, SDL_WINDOW_SHOWN);
+    win = SDL_CreateWindow("Arduino™ Poker Simulator 1992", 100, 100, _windowWidth*_pixelScale, _windowHeight*_pixelScale, SDL_WINDOW_SHOWN);
     if (win == 0)
     {
             SDLErrorExit("Error creating Window");
@@ -87,8 +91,8 @@ void GUI::DealerGUI::initialise(std::vector<const player *> _players, const std:
     {
         SDLErrorExit("error creating renderer");
     }
-    SDL_RenderSetLogicalSize(m_renderer,WINDOW_WIDTH,WINDOW_HEIGHT);
-    SDL_RenderSetScale(m_renderer,PIXEL_SCALE,PIXEL_SCALE);
+    SDL_RenderSetLogicalSize(m_renderer,_windowWidth,_windowHeight);
+    SDL_RenderSetScale(m_renderer,_pixelScale,_pixelScale);
     SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "0");
 
     // Initialize SDL_ttf library
@@ -163,7 +167,7 @@ void GUI::DealerGUI::initialise(std::vector<const player *> _players, const std:
     Uint32 pixelFormat;
     SDL_QueryTexture(cardTexture,&pixelFormat,NULL,NULL,NULL);
 
-    m_renderTarget = SDL_CreateTexture(m_renderer,pixelFormat,SDL_TEXTUREACCESS_TARGET,WINDOW_WIDTH,WINDOW_HEIGHT);
+    m_renderTarget = SDL_CreateTexture(m_renderer,pixelFormat,SDL_TEXTUREACCESS_TARGET,_windowWidth,_windowHeight);
 
     setUpUniqueElements(_publicCards);
     setUpPlayers(_players);
@@ -405,7 +409,20 @@ void GUI::DealerGUI::setPlayerName(const unsigned int &_playerID, std::string _n
     GUI::Label* newLabel = uniqueLabel(_name,thatPlayer->orient);
     newLabel->setPos(getCentre());
     newLabel->setPos(newLabel->aligned(thatPlayer->orient));
+
+    SDL_Point newPos = newLabel->getPos();
+    switch (thatPlayer->orient)
+    {
+        case BOTTOM : newPos.y -= 10; break;
+        case TOP    : newPos.y += 10; break;
+        case LEFT   : newPos.x += 10; break;
+        case RIGHT  : newPos.x -= 10; break;
+    }
+
+    newLabel->setPos(newPos);
     newLabel->updateRect();
+
+    thatPlayer->nameLabel = newLabel;
 }
 
 SDL_Point GUI::DealerGUI::getScreenDimensions()
@@ -742,7 +759,7 @@ void GUI::DealerGUI::addPublicCard(const PlayingCard &_type)
 void GUI::DealerGUI::kickPlayer(const unsigned int &_playerID, const unsigned int &_money)
 {
     GUI::Player* thatPlayer = &m_players[_playerID];
-    thatPlayer->nameLabel->moveTo(thatPlayer->pos_offScreen);
+    sendNameAway(_playerID);
     broadcastMessage(thatPlayer->playerClass->getName() + std::string(" has been kicked for this round"));
 
     std::stringstream amountStream;
@@ -767,19 +784,8 @@ void GUI::DealerGUI::kickPlayer(const unsigned int &_playerID, const unsigned in
 
 void GUI::DealerGUI::addPlayerBack(const unsigned int &_playerID)
 {
-    GUI::Player* thatPlayer = &m_players[_playerID];
-    thatPlayer->nameLabel->align(thatPlayer->orient,true);
-    SDL_Point newPos = thatPlayer->nameLabel->getPos();
-    switch (thatPlayer->orient)
-    {
-        case BOTTOM : newPos.y -= 10; break;
-        case TOP    : newPos.y += 10; break;
-        case LEFT   : newPos.x += 10; break;
-        case RIGHT  : newPos.x -= 10; break;
-    }
-
-    thatPlayer->nameLabel->moveTo(newPos);
-    broadcastMessage(thatPlayer->playerClass->getName() + std::string(" is back in play"));
+    bringNameBack(_playerID);
+    broadcastMessage(m_players[_playerID].playerClass->getName() + std::string(" is back in play"));
 }
 
 void GUI::DealerGUI::setUpBorder(SDL_Texture *_tex)
@@ -790,7 +796,7 @@ void GUI::DealerGUI::setUpBorder(SDL_Texture *_tex)
 
     //==================== Fillers ====================
 
-    if (WINDOW_WIDTH > BORDER_IMGWIDTH)
+    if (getScreenDimensions().x > BORDER_IMGWIDTH)
     {
         src.h = BORDER_LINEWIDTH;
         src.w = BORDER_FILLERWIDTH;
@@ -813,7 +819,7 @@ void GUI::DealerGUI::setUpBorder(SDL_Texture *_tex)
         bottomFiller->align(TOP,true);
     }
 
-    if (WINDOW_HEIGHT > BORDER_IMGWIDTH)
+    if (getScreenDimensions().y > BORDER_IMGWIDTH)
     {
         src.h = BORDER_FILLERWIDTH;
         src.w = BORDER_LINEWIDTH;
@@ -899,4 +905,26 @@ void GUI::DealerGUI::setUpBorder(SDL_Texture *_tex)
     GUI::Element* right = uniqueElement(_tex,src,dest);
     right->centre(true);
     right->align(RIGHT,true);
+}
+
+void GUI::DealerGUI::sendNameAway(const unsigned int &_playerID)
+{
+    GUI::Player* thatPlayer = &m_players[_playerID];
+    thatPlayer->nameLabel->moveTo(thatPlayer->pos_offScreen);
+}
+
+void GUI::DealerGUI::bringNameBack(const unsigned int &_playerID)
+{
+    GUI::Player* thatPlayer = &m_players[_playerID];
+    thatPlayer->nameLabel->align(thatPlayer->orient,true);
+    SDL_Point newPos = thatPlayer->nameLabel->getPos();
+    switch (thatPlayer->orient)
+    {
+        case BOTTOM : newPos.y -= 10; break;
+        case TOP    : newPos.y += 10; break;
+        case LEFT   : newPos.x += 10; break;
+        case RIGHT  : newPos.x -= 10; break;
+    }
+
+    thatPlayer->nameLabel->moveTo(newPos);
 }
