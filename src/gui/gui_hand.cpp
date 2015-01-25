@@ -13,11 +13,11 @@ GUI::Hand::Hand(const std::vector<GUI::Card*> &_cards, const GUI::Orientation &_
     setPos(origin);
 }
 
-void GUI::Hand::setFlipped(const bool &_isFlipped)
+void GUI::Hand::setFlipped(const bool &_isFlipped, const bool &_instantly)
 {
     for (std::vector<GUI::Card*>::iterator it = m_cards.begin(); it!=m_cards.end(); ++it)
     {
-        (*it)->setFlipped(_isFlipped);
+        (*it)->setFlipped(_isFlipped, _instantly);
     }
 }
 
