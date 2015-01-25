@@ -11,12 +11,11 @@
 #include <boost/asio.hpp>
 
 #include "PacketErrors.h"
-
+#include "dealerIO.h"
 
 namespace Comms
 {
 
-typedef std::map<unsigned int, std::string> PlayerDevices;
 typedef std::vector<uint8_t> BytePayload;
 
 ///

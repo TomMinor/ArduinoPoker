@@ -4,9 +4,13 @@
 #include "dealer/player.h"
 #include <stdlib.h>
 #include <stdint.h>
+#include <map>
+#include <string>
 
 namespace Comms
 {
+
+typedef std::map<unsigned int, std::string> PlayerDevices;
 
 bool setPlayer(player _player, const std::vector<PlayingCard>& _cards, uint16_t _money);
 

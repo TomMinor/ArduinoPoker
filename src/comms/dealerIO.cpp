@@ -118,6 +118,15 @@ bool receiveBet(player _player, uint16_t& _data, unsigned int _timeout)
             //@todo Make this an exception
             return false;
         }
+
+        //@todo Check the header is correct
+
+        //@todo Make this a macro
+        /* Split into 2 bytes for transfer (player will reconstruct the int from these 2 bytes) */
+        uint8_t right = (uint8_t)payload[0];
+        uint8_t left = (uint8_t)(payload[1] << 8);
+
+        _data = right | left;
     }
     catch(boost::system::system_error& e)
     {
@@ -126,12 +135,39 @@ bool receiveBet(player _player, uint16_t& _data, unsigned int _timeout)
     }
 
     return true;
-
 }
 
 bool receiveName(player _player, std::string &_data, unsigned int _timeout)
 {
+    try
+    {
+        Comms::SerialPort packet("/dev/ttyACM1");
+        Comms::BytePayload payload;
 
+        packet.RecieveData(payload);
+
+        if(payload.size() != 2)
+        {
+            //@todo Make this an exception
+            return false;
+        }
+
+        //@todo Check the header is correct
+
+        //@todo Make this a macro
+        /* Split into 2 bytes for transfer (player will reconstruct the int from these 2 bytes) */
+        uint8_t right = (uint8_t)payload[0];
+        uint8_t left = (uint8_t)(payload[1] << 8);
+
+        _data = right | left;
+    }
+    catch(boost::system::system_error& e)
+    {
+        std::cout << "Error " << e.what() << std::endl;
+        return false;
+    }
+
+    return true;
 }
 
 bool waitForResponse()
