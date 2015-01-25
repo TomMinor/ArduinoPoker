@@ -9,10 +9,10 @@ int main()
 
     player p1;
     p1.setName(std::string("LONGNAMETEST"));
-//    players.push_back(&p1);
+    players.push_back(&p1);
     player p2;
     p2.setName(std::string("dickbutt"));
-//    players.push_back(&p2);
+    players.push_back(&p2);
     player p3;
     p3.setName(std::string("@Horse_ebooks"));
     players.push_back(&p3);
@@ -55,8 +55,7 @@ int main()
 
     while (!quit)
     {
-        gui.update();
-        gui.draw();
+        //gui.runUntilStationary();
 
         while ( SDL_PollEvent(&event) )
         {
@@ -98,7 +97,7 @@ int main()
                         case SDLK_PAGEUP : gui.addPlayerBack(0); break;
                         case SDLK_b : gui.m_publicCards->burn(); break;
                         case SDLK_n : gui.receiveBetFrom(rand()%4,amount); break;
-                        case SDLK_v : gui.dealCardTo(rand()%4,aceOfSpades); break;
+                        case SDLK_v : gui.dealCardTo(rand()%4,aceOfSpades); gui.dealCardTo(rand()%4,aceOfSpades); break;
                         case SDLK_m : gui.broadcastMessage(std::string("Oh hey look a message")); break;
                         case SDLK_t : gui.setPlayerName(0,std::string("dickfuck")); break;
                         case SDLK_z : gui.addPublicCard(PlayingCard(Rank::ACE,Suit::SPADE));  break;
@@ -114,7 +113,11 @@ int main()
             }
         }
 
-        SDL_Delay(32);
+        gui.runUntilStationary();
+
+        SDL_RenderClear(gui.m_renderer);
+        SDL_RenderPresent(gui.m_renderer);
+        SDL_Delay(1000);
     }
     return EXIT_SUCCESS;
 }

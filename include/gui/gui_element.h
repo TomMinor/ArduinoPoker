@@ -96,7 +96,8 @@ public:
     void printRect();
 
     /// \brief Moves the element closer to its target point, and if that's done decreases the element's lifetime or marks it for removal.
-    virtual void update();
+    /// \return True if the element needs an update before it completes its current activity, false otherwise.
+    virtual bool update();
 
     /// \brief Updates the elephant's SDL rectangle to move with its origin.
     inline void updateRect() {m_destRect.x = m_origin.x - m_destRect.w/2; m_destRect.y = m_origin.y - m_destRect.h/2;}

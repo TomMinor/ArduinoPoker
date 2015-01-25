@@ -54,21 +54,21 @@ void GUI::Element::moveTo(const SDL_Point &_p)
     m_progressAmount = 0.0f;
 }
 
-void GUI::Element::update()
+bool GUI::Element::update()
 {
     if(m_progressAmount>=1.0f)//we have reached the destination
     {
         if(m_isImmortal)
         {
-            return;
+            return false;
         }
         if(m_life <= 0)
         {
             m_shouldKillNow = true;
-            return;
+            return true;
         }
         --m_life;
-        return;
+        return true;
     }
 
     m_progressAmount += SPEED;
@@ -83,6 +83,7 @@ void GUI::Element::update()
     //std::cout<<"origin - x: "<<m_origin.x<<" y: "<<m_origin.y<<"\n";
 
     updateRect();
+    return true;
 }
 
 void GUI::Element::draw() const

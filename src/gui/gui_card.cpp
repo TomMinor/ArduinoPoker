@@ -22,8 +22,10 @@ GUI::Card::Card(SDL_Renderer *_ren,
 {
 }
 
-void GUI::Card::update()
+bool GUI::Card::update()
 {
+    bool returnThis = false;
+
     //Check 1: should the card burn?
     if(m_shouldBurn && m_progressAmount >= 1.0f)
     {
@@ -31,7 +33,9 @@ void GUI::Card::update()
         {
             setFlipped(true);
             continueFlip();
-            //return;
+            Element::update();
+            m_destRect.x = m_origin.x + m_xOffset;
+            return true;
         }
         else
         {
@@ -44,7 +48,7 @@ void GUI::Card::update()
             {
                 m_shouldKillNow=true;
             }
-            return;
+            return true;
         }
     }
     //Check 2: is the card midway between flips?
@@ -53,9 +57,11 @@ void GUI::Card::update()
         continueFlip();
     }
 
-    Element::update();
+    returnThis = returnThis || Element::update();
 
     m_destRect.x = m_origin.x + m_xOffset;
+
+    return returnThis;
 }
 
 void GUI::Card::continueFlip()
