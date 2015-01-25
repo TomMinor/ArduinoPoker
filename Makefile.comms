@@ -286,16 +286,21 @@ obj/cardStack.o: src/dealer/cardStack.cpp include/dealer/cardStack.h \
 
 obj/comms_main.o: src/comms/comms_main.cpp include/comms/SerialPort.h \
 		include/comms/PacketErrors.h \
-		include/comms/PacketTypes.h \
+		include/comms/dealerIO.h \
+		include/dealer/player.h \
 		include/dealer/playingcard.h \
 		include/shared/card.h \
-		include/dealer/player.h \
 		include/dealer/cardStack.h \
-		include/comms/dealerIO.h
+		include/comms/PacketTypes.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o obj/comms_main.o src/comms/comms_main.cpp
 
 obj/SerialPort.o: src/comms/SerialPort.cpp include/comms/SerialPort.h \
-		include/comms/PacketErrors.h
+		include/comms/PacketErrors.h \
+		include/comms/dealerIO.h \
+		include/dealer/player.h \
+		include/dealer/playingcard.h \
+		include/shared/card.h \
+		include/dealer/cardStack.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o obj/SerialPort.o src/comms/SerialPort.cpp
 
 obj/dealerIO.o: src/comms/dealerIO.cpp include/comms/dealerIO.h \

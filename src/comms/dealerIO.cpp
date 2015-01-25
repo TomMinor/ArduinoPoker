@@ -7,21 +7,29 @@
 namespace Comms
 {
 
-bool setPlayer(player _player, const std::vector<PlayingCard>& _cards, uint16_t _money)
+bool setPlayer(const std::string& _port, const std::vector<PlayingCard>& _cards, uint16_t _money)
 {
     for( auto card : _cards )
     {
-        sendCard(_player, card);
+        if(!sendCard(_port, card))
+        {
+            return false;
+        }
     }
 
-    sendMoney(_player, _money);
+    if(!sendMoney(_port, _money))
+    {
+        return false;
+    }
+
+    return true;
 }
 
-bool sendBetLimits(player _player, uint16_t _min, uint16_t _max)
+bool sendBetLimits(const std::string& _port, uint16_t _min, uint16_t _max)
 {
     try
     {
-        Comms::SerialPort packet("/dev/ttyACM0");
+        Comms::SerialPort packet(_port);
         Comms::BytePayload data;
 
         //@todo Make this a macro
@@ -50,20 +58,19 @@ bool sendBetLimits(player _player, uint16_t _min, uint16_t _max)
     return true;
 }
 
-bool sendMoney(player _player, uint16_t _amount)
+bool sendMoney(const std::string& _port, uint16_t _amount)
 {
     try
     {
-
-        Comms::SerialPort packet("/dev/ttyACM1");
-        Comms::BytePayload data;
+        SerialPort packet(_port);
+        BytePayload data;
 
         //@todo Make this a macro
         /* Split into 2 bytes for transfer (player will reconstruct the int from these 2 bytes) */
         uint8_t right = (uint8_t)_amount;
         uint8_t left = (uint8_t)(_amount >> 8);
 
-        data.push_back( Comms::P_MONEY | 0x02 );
+        data.push_back( P_MONEY | 0x02 );
         data.push_back( left );
         data.push_back( right );
 
@@ -71,27 +78,26 @@ bool sendMoney(player _player, uint16_t _amount)
     }
     catch(boost::system::system_error& e)
     {
-        std::cout <<
-                     "Error " << e.what() << std::endl;
+        std::cout << "Error " << e.what() << std::endl;
         return false;
     }
 
     return true;
 }
 
-bool sendCard(player _player, PlayingCard _card)
+bool sendCard(const std::string& _port, PlayingCard _card)
 {
     try
     {
-        Comms::SerialPort packet("/dev/ttyACM1");
-        Comms::BytePayload data;
+        SerialPort packet(_port);
+        BytePayload data;
 
         /* Header Byte ( Type ) */
-        data.push_back( Comms::P_CARDS | 1 );
+        data.push_back( P_CARDS | 1 );
 
         data.push_back( _card.getValue() );
 
-        printf("Card value : %X\n", _card.getValue());
+//        printf("Card value : %X\n", _card.getValue());
 
         packet.SendData(data);
     }
@@ -104,19 +110,18 @@ bool sendCard(player _player, PlayingCard _card)
     return true;
 }
 
-bool receiveBet(player _player, uint16_t& _data, unsigned int _timeout)
+bool receiveBet(const std::string& _port, uint16_t& _data, unsigned int _timeout)
 {
     try
     {
-        Comms::SerialPort packet("/dev/ttyACM1");
-        Comms::BytePayload payload;
+        SerialPort packet(_port);
+        BytePayload payload;
 
         packet.RecieveData(payload);
 
         if(payload.size() != 2)
         {
-            //@todo Make this an exception
-            return false;
+            throw boost::system::system_error(boost::asio::error::fault, "Expected 2 bytes");
         }
 
         //@todo Check the header is correct
@@ -137,29 +142,28 @@ bool receiveBet(player _player, uint16_t& _data, unsigned int _timeout)
     return true;
 }
 
-bool receiveName(player _player, std::string &_data, unsigned int _timeout)
+bool receiveName(const std::string& _port, std::string &_data, unsigned int _timeout)
 {
     try
     {
-        Comms::SerialPort packet("/dev/ttyACM1");
-        Comms::BytePayload payload;
+        SerialPort packet(_port);
+        BytePayload payload;
 
         packet.RecieveData(payload);
 
-        if(payload.size() != 2)
+        if(payload.size() > 15)
         {
-            //@todo Make this an exception
-            return false;
+            throw boost::system::system_error(boost::asio::error::fault, "Expected less than 15 bytes");
         }
 
         //@todo Check the header is correct
 
-        //@todo Make this a macro
-        /* Split into 2 bytes for transfer (player will reconstruct the int from these 2 bytes) */
-        uint8_t right = (uint8_t)payload[0];
-        uint8_t left = (uint8_t)(payload[1] << 8);
-
-        _data = right | left;
+        for(BytePayload::iterator it = payload.begin();
+            it != payload.end();
+            ++it)
+        {
+            _data += (char)*it;
+        }
     }
     catch(boost::system::system_error& e)
     {
@@ -170,7 +174,7 @@ bool receiveName(player _player, std::string &_data, unsigned int _timeout)
     return true;
 }
 
-bool waitForResponse()
+bool waitForResponse(const std::string& _port)
 {
 
 }

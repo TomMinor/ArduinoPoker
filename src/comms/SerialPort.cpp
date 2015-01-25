@@ -70,39 +70,40 @@ PlayerDevices SerialPort::DetectSerialDevices()
 
 PacketError SerialPort::SendData(const std::vector<uint8_t> _payload)
 {
-    /* Send payload */
-    size_t numOfBytes;
-    // Send header
-    numOfBytes = boost::asio::write( m_serial, boost::asio::buffer( _payload.data(), 1) );
+    const uint8_t payloadSize = _payload.size() - 1;
 
-//    if(numOfBytes == 1)
+    /* If we recieve no data then treat it as a successful send */
+//    if(payloadSize < 0)
 //    {
-//        return E_CORRUPT;
+//        return E_SUCCESS;
+//    }
+
+    size_t sentBytes = 0;
+
+    /* Send header (assume the first byte in the payload is the header)
+     * The header contains the type of data and the amount of bytes being sent as the payload
+     */
+    sentBytes = boost::asio::write( m_serial, boost::asio::buffer( _payload.data(), 1) );
+
+    // Assume we couldn't connect if we can't send any bytes
+//    if(sentBytes < 1)
+//    {
+//        return E_TIMEOUT;
 //    }
 
     //@todo Timeout
-    static char serialBuffer[15] = {0};
-    numOfBytes = boost::asio::read( m_serial, boost::asio::buffer( &serialBuffer, 1) );
 
-    numOfBytes = boost::asio::write( m_serial, boost::asio::buffer( _payload.data() + 1, _payload.size() - 1  ) );
-//    if(numOfBytes < _payload.size())
+    static char serialBuffer[15] = {0};
+    sentBytes = boost::asio::read( m_serial, boost::asio::buffer( &serialBuffer, 1) );
+
+    /* Send payload bytes */
+    sentBytes = boost::asio::write( m_serial, boost::asio::buffer( _payload.data() + 1, payloadSize  ) );
+
+    /* If we didn't send enough bytes then the data is corrupt  */
+//    if(sentBytes < _payload.size()  )
 //    {
 //        return E_CORRUPT;
 //    }
-
-//    std::cout << "Sent : " << numOfBytes << '\n';
-
-//     numOfBytes = boost::asio::read( m_serial, boost::asio::buffer( &serialBuffer, 2) );
-//     printf("Count : %d\nData 0x%X,0x%X\n", numOfBytes, (int)serialBuffer[0], (int)serialBuffer[1]);
-
-//    numOfBytes = boost::asio::read( m_serial, boost::asio::buffer( &buffer, _payload.size() ) );
-
-//    std::cout << "Recieved : " ;
-//    for(int i=0; i < _payload.size(); i++)
-//    {
-//        std::cout << (int)buffer[i] << " ";
-//    }
-//    std::cout << ", " << numOfBytes << '\n';
 
     /* @todo Add checksum */
 
@@ -122,14 +123,6 @@ PacketError SerialPort::RecieveData(std::vector<uint8_t> _payload)
     std::cout << numOfBytes << '\n';
 
     /* @todo Add checksum */
-    /* Read up to 128 bytes */
-//    int numOfBytes = read(fd, m_dataBuffer, 128);
-
-//    /* print how many bytes read */
-//    printf("%i bytes got read...\n", numOfBytes);
-
-//    /* print what's in the buffer */
-//    printf("Buffer contains...\n%s\n", m_dataBuffer)  ;
 
     return E_SUCCESS;
 }

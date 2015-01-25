@@ -14,11 +14,18 @@
 
 int main()
 {
-    player p0;
+    const char* port = "/dev/ttyACM1";
 
     //sendMoney(p0, 5395);
-    Comms::sendCard(p0, PlayingCard(Rank::NINE, Suit::CLUB));
-    Comms::sendCard(p0, PlayingCard(Rank::ACE, Suit::SPADE));
+    if(!Comms::sendCard(port, PlayingCard(Rank::NINE, Suit::CLUB)))
+    {
+        std::cout << "1st error\n";
+    }
+
+    if(!Comms::sendCard(port, PlayingCard(Rank::ACE, Suit::SPADE)))
+    {
+        std::cout << "2nd error\n";
+    }
 
     //sendBetLimits(p0, 1000, 5000);
 
