@@ -71,8 +71,8 @@ void GUI::Hand::moveTo(const SDL_Point &_p)
     }
     else
     {
-        current.y += getHeight() / 2;
-        current.x -= m_cards[0]->getHeight();
+        current.y -= getHeight() / 2;
+        current.y += m_cards[0]->getHeight();
     }
 
     for (std::vector<GUI::Card*>::iterator it = m_cards.begin(); it!=m_cards.end(); ++it)
@@ -81,11 +81,11 @@ void GUI::Hand::moveTo(const SDL_Point &_p)
         //std::cout<<"moving a card to: ("<<current.x<<", "<<current.y<<")\n";
         if (m_orient == BOTTOM || m_orient == TOP)
         {
-            current.x += (m_orient == BOTTOM) ? (*it)->getWidth() : -(*it)->getWidth();
+            current.x += (*it)->getWidth();
         }
         else
         {
-            current.y += (m_orient == RIGHT) ? (*it)->getHeight() : -(*it)->getHeight();
+            current.y += (*it)->getHeight();
         }
     }
 }
@@ -103,8 +103,8 @@ int GUI::Hand::getHeight()
 {
     if (m_orient == BOTTOM || m_orient == TOP)
     {
-//        return m_cards[0]->getHeight();
-        return 76;
+        return m_cards[0]->getHeight();
+//        return 76;
     }
     else
     {
@@ -114,7 +114,8 @@ int GUI::Hand::getHeight()
 //            total += (*it)->getHeight();
 //        }
 //        return total;
-        return m_cards.size() * 56;
+//        return m_cards.size() * 56;
+        return m_cards.size() * m_cards[0]->getHeight();
     }
 }
 
@@ -122,8 +123,8 @@ int GUI::Hand::getWidth()
 {
     if (m_orient == LEFT || m_orient == RIGHT)
     {
-//        return m_cards[0]->getWidth();
-        return 76;
+        return m_cards[0]->getWidth();
+//        return 76;
     }
     else
     {
@@ -133,7 +134,8 @@ int GUI::Hand::getWidth()
 //            total += (*it)->getWidth();
 //        }
 //        return total;
-        return m_cards.size() * 56;
+//        return m_cards.size() * 56;
+        return m_cards.size() * m_cards[0]->getWidth();
     }
 }
 

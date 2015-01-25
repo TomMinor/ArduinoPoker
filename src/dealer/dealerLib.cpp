@@ -228,10 +228,8 @@ void dealerLib::dealHands()
 
     for(unsigned int j =0; j < m_table.size(); j++)
     {
-
       PlayingCard tmpCard = m_deck.deal();
       m_table[j].setHoleCard(tmpCard);
-
       dealerGui.dealCardTo(j, tmpCard);
       thing.sendCard(*playerIt, tmpCard);
     }
@@ -248,7 +246,7 @@ void dealerLib::resetCards()
 {
   std::vector<player>::iterator playerIt;
 
-  for(int i = 0; i < m_table.size(); i++)
+  for(unsigned int i = 0; i < m_table.size(); i++)
   {
     GUI::Hand* burned = dealerGui.uniqueHand(m_table[i].getHole(), i);
     burned->setFlipped(true, true);

@@ -8,7 +8,6 @@
 #include "gui/gui_dealergui.h"
 #include "pokerHands.h"
 
-
 enum commsRequest
 {
   sendBetLimits,
@@ -41,7 +40,6 @@ public:
   bool checkIfLost(player _player);
   void removeTheNoobs();
   void splitPot();
-
 
 
   bool callComms(commsRequest request);

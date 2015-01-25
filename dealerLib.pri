@@ -17,7 +17,6 @@ SOURCES+= $$PWD/src/dealer/deck.cpp \
           $$PWD/src/gui/gui_hand.cpp \
           $$PWD/src/gui/gui_label.cpp
 
-
 HEADERS+= $$PWD/include/dealer/deck.h \
           $$PWD/include/dealer/playingcard.h \
           $$PWD/include/dealer/player.h \
