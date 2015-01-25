@@ -6,10 +6,8 @@
 #include "cardStack.h"
 #include "comms.h"
 #include "gui/gui_dealergui.h"
-
 #include "pokerHands.h"
 
-#include "gui/gui_dealergui.h"
 
 enum commsRequest
 {
@@ -43,6 +41,7 @@ public:
   bool checkIfLost(player _player);
   void removeTheNoobs();
   void splitPot();
+
 
 
   bool callComms(commsRequest request);

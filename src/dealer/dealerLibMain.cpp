@@ -109,7 +109,6 @@ int main()
           }
 
         table.dealHands();//call gui.dealCardTo(playerID,PlayingCard)
-
         //table.dealHands(pack);//call gui.dealCardTo(playerID,PlayingCard)
 
 
@@ -123,6 +122,7 @@ int main()
 //        burned->updateRect();
 //        burned->burn();
 
+
         table.dealFlop();//internally call addPublicCard(PlayingCard) x3
         //table.dealFlop();//internally call addPublicCard(PlayingCard) x3
 
@@ -131,9 +131,9 @@ int main()
         table.dealRiverTurn();//internally calladdPublicCard(PlayingCard)
         //table.dealRiverTurn();//internally calladdPublicCard(PlayingCard)
 
-
         //table.bet();//internally call gui.receiveBetFrom(playerID,amount)
                         //call gui.receiveBetFrom(playerID,Unit16 amount,bool isFirstBet)
+
 
         table.dealRiverTurn();//internally calladdPublicCard(PlayingCard)
         //table.dealRiverTurn();//internally calladdPublicCard(PlayingCard)
@@ -144,7 +144,6 @@ int main()
                         //call gui.receiveBetFrom(playerID,Unit16 amount,bool isFirstBet)
 
         //table.dealRiverTurn();//internally calladdPublicCard(PlayingCard)
-
 
         //table.bet();//internally call gui.receiveBetFrom(playerID,amount)
         //call gui.receiveBetFrom(playerID,Unit16 amount,bool isFirstBet)
