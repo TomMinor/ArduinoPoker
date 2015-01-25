@@ -15,45 +15,65 @@ GUI::Hand::Hand(const std::vector<GUI::Card*> &_cards, const GUI::Orientation &_
 
 void GUI::Hand::setFlipped(const bool &_isFlipped, const bool &_instantly)
 {
-    for (std::vector<GUI::Card*>::iterator it = m_cards.begin(); it!=m_cards.end(); ++it)
+    if (!m_cards.empty())
     {
-        (*it)->setFlipped(_isFlipped, _instantly);
+        for (std::vector<GUI::Card*>::iterator it = m_cards.begin(); it!=m_cards.end(); ++it)
+        {
+            (*it)->setFlipped(_isFlipped, _instantly);
+        }
     }
 }
 
 void GUI::Hand::kill()
 {
-    for (std::vector<GUI::Card*>::iterator it = m_cards.begin(); it!=m_cards.end(); ++it)
+    if (!m_cards.empty())
     {
-        (*it)->kill();
+        for (std::vector<GUI::Card*>::iterator it = m_cards.begin(); it!=m_cards.end(); ++it)
+        {
+            (*it)->kill();
+        }
+    }
+}
+
+void GUI::Hand::killNow()
+{
+    if (!m_cards.empty())
+    {
+        for (std::vector<GUI::Card*>::iterator it = m_cards.begin(); it!=m_cards.end(); ++it)
+        {
+            (*it)->killNow();
+        }
     }
 }
 
 void GUI::Hand::setPos(const SDL_Point &_p)
 {
     m_origin = _p;
-    SDL_Point current = _p;
-    unsigned int gap = (m_orient == BOTTOM || m_orient == TOP) ? m_cards[0]->getWidth() : m_cards[0]->getHeight();
+    if (!m_cards.empty())
+    {
+        SDL_Point current = _p;
+        unsigned int gap = (m_orient == BOTTOM || m_orient == TOP) ? m_cards[0]->getWidth() : m_cards[0]->getHeight();
 
-    if (m_orient == BOTTOM || m_orient == TOP)
-    {
-        current.x -= gap * m_cards.size() / 2;
-    }
-    else
-    {
-        current.y -= gap * m_cards.size() / 2;
-    }
-
-    for (std::vector<GUI::Card*>::iterator it = m_cards.begin(); it!=m_cards.end(); ++it)
-    {
-        (*it)->setPos(current);
         if (m_orient == BOTTOM || m_orient == TOP)
         {
-            current.x += gap;
+            current.x -= gap * m_cards.size() / 2;
         }
         else
         {
-            current.y += gap;
+            current.y -= gap * m_cards.size() / 2;
+        }
+
+        for (std::vector<GUI::Card*>::iterator it = m_cards.begin(); it!=m_cards.end(); ++it)
+        {
+            (*it)->setPos(current);
+            if (m_orient == BOTTOM || m_orient == TOP)
+            {
+                current.x += gap;
+            }
+            else
+            {
+                current.y += gap;
+            }
         }
     }
 }
@@ -62,81 +82,98 @@ void GUI::Hand::moveTo(const SDL_Point &_p)
 {
     //std::cout<<"moving hand to: ("<<_p.x<<", "<<_p.y<<")\n";
     m_origin = _p;
-    SDL_Point current = _p;
 
-    if (m_orient == BOTTOM || m_orient == TOP)
+    if (!m_cards.empty())
     {
-        current.x -= getWidth() / 2;
-        current.x += m_cards[0]->getWidth()/2;
-    }
-    else
-    {
-        current.y -= getHeight() / 2;
-        current.y += m_cards[0]->getHeight();
-    }
+        SDL_Point current = _p;
 
-    for (std::vector<GUI::Card*>::iterator it = m_cards.begin(); it!=m_cards.end(); ++it)
-    {
-        (*it)->moveTo(current);
-        //std::cout<<"moving a card to: ("<<current.x<<", "<<current.y<<")\n";
         if (m_orient == BOTTOM || m_orient == TOP)
         {
-            current.x += (*it)->getWidth();
+            current.x -= getWidth() / 2;
+            current.x += m_cards[0]->getWidth()/2;
         }
         else
         {
-            current.y += (*it)->getHeight();
+            current.y -= getHeight() / 2;
+            current.y += m_cards[0]->getHeight();
+        }
+
+        for (std::vector<GUI::Card*>::iterator it = m_cards.begin(); it!=m_cards.end(); ++it)
+        {
+            (*it)->moveTo(current);
+            //std::cout<<"moving a card to: ("<<current.x<<", "<<current.y<<")\n";
+            if (m_orient == BOTTOM || m_orient == TOP)
+            {
+                current.x += (*it)->getWidth();
+            }
+            else
+            {
+                current.y += (*it)->getHeight();
+            }
         }
     }
 }
 
 void GUI::Hand::burn()
 {
-    for (std::vector<GUI::Card*>::iterator it = m_cards.begin(); it!=m_cards.end(); ++it)
+    if (!m_cards.empty())
     {
-        (*it)->burn();
+        for (std::vector<GUI::Card*>::iterator it = m_cards.begin(); it!=m_cards.end(); ++it)
+        {
+            (*it)->burn();
+        }
+        m_cards.clear();
     }
-    m_cards.clear();
 }
 
 int GUI::Hand::getHeight()
 {
-    if (m_orient == BOTTOM || m_orient == TOP)
+    if (!m_cards.empty())
     {
-        return m_cards[0]->getHeight();
-//        return 76;
+        if (m_orient == BOTTOM || m_orient == TOP)
+        {
+            return m_cards[0]->getHeight();
+    //        return 76;
+        }
+        else
+        {
+    //        unsigned int total = 0;
+    //        for (std::vector<Card*>::iterator it = m_cards.begin(); it!=m_cards.end(); ++it)
+    //        {
+    //            total += (*it)->getHeight();
+    //        }
+    //        return total;
+    //        return m_cards.size() * 56;
+            return m_cards.size() * m_cards[0]->getHeight();
+        }
     }
-    else
-    {
-//        unsigned int total = 0;
-//        for (std::vector<Card*>::iterator it = m_cards.begin(); it!=m_cards.end(); ++it)
-//        {
-//            total += (*it)->getHeight();
-//        }
-//        return total;
-//        return m_cards.size() * 56;
-        return m_cards.size() * m_cards[0]->getHeight();
-    }
+
+    return 0;
 }
 
 int GUI::Hand::getWidth()
 {
-    if (m_orient == LEFT || m_orient == RIGHT)
+    if (!m_cards.empty())
     {
-        return m_cards[0]->getWidth();
-//        return 76;
+        if (m_orient == LEFT || m_orient == RIGHT)
+        {
+            return m_cards[0]->getWidth();
+    //        return 76;
+        }
+        else
+        {
+    //        unsigned int total = 0;
+    //        for (std::vector<Card*>::iterator it = m_cards.begin(); it!=m_cards.end(); ++it)
+    //        {
+    //            total += (*it)->getWidth();
+    //        }
+    //        return total;
+    //        return m_cards.size() * 56;
+            return m_cards.size() * m_cards[0]->getWidth();
+        }
     }
-    else
-    {
-//        unsigned int total = 0;
-//        for (std::vector<Card*>::iterator it = m_cards.begin(); it!=m_cards.end(); ++it)
-//        {
-//            total += (*it)->getWidth();
-//        }
-//        return total;
-//        return m_cards.size() * 56;
-        return m_cards.size() * m_cards[0]->getWidth();
-    }
+
+    return 0;
 }
 
 SDL_Point GUI::Hand::aligned(const GUI::Orientation &_orient)
