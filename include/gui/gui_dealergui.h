@@ -46,7 +46,11 @@ public:
     /// \brief Sets up SDL and all the initial elements and variables.
     /// \param _players A vector of all the players that will be taking part in the game.
     /// \param _publicCards A vector of the initial cards in the river. Can be empty and the cards added later with addPublicCard().
-    void initialise(std::vector<const player*> _players, const std::vector<PlayingCard>& _publicCards);//init SDL and bring up the window etc.
+    void initialise(std::vector<const player*> _players,
+                    const std::vector<PlayingCard>& _publicCards,
+                    const unsigned int &_windowWidth = 480,
+                    const unsigned int &_windowHeight = 360,
+                    const unsigned int &_pixelScale = 3);//init SDL and bring up the window etc.
 
     /// \brief Prints a message that players on all sides of the table can read.
     /// \param _message The message to print.
@@ -61,9 +65,7 @@ public:
     /// \brief Creates a card at the deck position and sends it off screen in the specified player's direction.
     /// \param _playerID The index into the m_players vector to find the player to send the card to.
     /// \param _type The type (rank and suit) of the card to send - usually irrelevant since the card will be face-down anyway.
-
     void dealCardTo(const unsigned int &_playerID, const PlayingCard &_type);
-
 
     /// \brief Sends a label denoting the amount the player is betting from their off-screen position to the pot, as well as printing a message saying how much this player
     /// is betting.
@@ -85,6 +87,14 @@ public:
     /// \brief Creates a new card at the deck position and adds it to the river, face-up.
     /// \param _type The type of card (rank and suit) to add.
     void addPublicCard(const PlayingCard &_type);
+
+    /// \brief Pushes the specified player's name off-screen to signify that they are not currently in play.
+    /// \param _playerID The index into the m_players vector to find the player whose name to send away.
+    void sendNameAway(const unsigned int &_playerID);
+
+    /// \brief Puts the specified player's name back on-screen.
+    /// \param _playerID The index into the m_players vector to find the player whose name to bring back.
+    void bringNameBack(const unsigned int &_playerID);
 
     /// \brief Broadcasts a message saying who has won this round and shows the cards they had in the middle of the screen. Can handle multiple winning players.
     /// \param _winners A vector of pointers to the winning players.
@@ -147,7 +157,7 @@ public:
     /// frequencies.
     void draw();
 
-    /// \brief Resets the visual game state.
+    /// \brief Resets the visual game state. DON'T USE THIS, IT'S BUGGY RIGHT NOW
     /// \param _players A vector of players to start the new game with. Pass no parameter to use the same players as the last game.
     /// \param _publicCards A vector of cards to start the river with in the new game.
     void reset(std::vector<const player *> _players = std::vector<const player*>(), std::vector<PlayingCard> _publicCards = std::vector<PlayingCard>());

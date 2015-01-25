@@ -1,12 +1,12 @@
 #include "dealer/player.h"
-#include <iostream>
+
 
 player::player()
 {
     m_score = 0;
     m_kicker = 0;
     m_money = 1000;
-    fold = false;
+    m_fold = false;
 
 }
 
@@ -46,6 +46,11 @@ void player::setScore(const int &_score)
 void player::setKicker(const int &_kicker)
 {
     m_kicker = _kicker;
+}
+
+void player::setFold(const bool &_fold)
+{
+  m_fold = _fold;
 }
 
 void player::setMoney(const int &_money)
@@ -171,6 +176,11 @@ int player::getBet()const
 int player::getID()const
 {
   return m_id;
+}
+
+bool player::isFold()const
+{
+  return m_fold;
 }
 //--------------------------------------------------------------------
 void player::printInfo()const

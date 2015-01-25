@@ -6,7 +6,7 @@ GUI::Hand::Hand(const std::vector<GUI::Card*> &_cards, const GUI::Orientation &_
 {
     if (_cards.empty())
     {
-        std::cerr<<"Attempting to create empty hand!\n";
+        std::cerr<<"Attempting to create empty hand!\n(actually no-one cares)\n";
     }
     SDL_Point origin = {0,0};
     m_origin = origin;

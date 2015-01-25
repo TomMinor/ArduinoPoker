@@ -59,7 +59,7 @@ Uint32 updateComms(Uint32 interval, void *parm)
       lock = true;
 
       dealerLib* myTable = reinterpret_cast<dealerLib*>(parm);
-//      myTable->dealHands();
+      myTable->dealHands();
 //      myTable->bet();
 //      myTable->dealFlop();
 //      myTable->bet();
@@ -164,12 +164,12 @@ int main()
             std::cout<<"num liveplayers: "<<table.getNumPlayers()<<"\n";
           }
 
-        table.dealHands();//call gui.dealCardTo(playerID,PlayingCard)
+        //table.dealHands();//call gui.dealCardTo(playerID,PlayingCard)
 
         //table.dealHands(pack);//call gui.dealCardTo(playerID,PlayingCard)
 
 
-        table.bet();//internally call gui.receiveBetFrom(playerID,amount)
+        //table.bet();//internally call gui.receiveBetFrom(playerID,amount)
 
 
         //Burning deck card method:

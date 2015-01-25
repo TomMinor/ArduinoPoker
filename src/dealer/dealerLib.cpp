@@ -53,7 +53,7 @@ void dealerLib::Betting()
     currentBet = playerItr->getBet();
 
 //if player has folded, remove them from the vectors
-    if((*playerItr).fold)
+    if((*playerItr).isFold())
     {
       m_pot += playerBets.at(*otherPlayersBet);
       playerBets.erase(otherPlayersBet);
@@ -143,7 +143,7 @@ void dealerLib::bet()
          int maxBet = checkMaxBet() - m_livePlayers[i].getBet();
          if(maxBet==0){p[i]=true;}
          else
-           {
+         {
              Comms::sendBetLimits(m_livePlayers[i],currentBet,maxBet);
              //Comms::sendBetLimits(m_deviceMap.at(m_livePlayers[i].getID()),currentBet,maxBet);
              Comms::receiveBet(m_livePlayers[i],playerBet);
@@ -153,7 +153,7 @@ void dealerLib::bet()
              m_livePlayers[i].setBet(playerBet);
 
              // check if player has fold
-             if(m_livePlayers[i].fold)
+             if(m_livePlayers[i].isFold())
 
              {
                  // remove player from live players
@@ -180,17 +180,14 @@ void dealerLib::bet()
                  {
                      for(unsigned int j=0;j<m_livePlayers.size();j++)
                      {
-                         if(j==i){p[j]=true;}
-                         else if(m_livePlayers[j].fold)
-                         {
-                             p[j] = true;
-                         }
-                         else{p[j] = false;}
+                         if(j==i)                       {p[j]=true;}
+                         else if(m_livePlayers[j].isFold()) {p[j] = true;}
+                         else                           {p[j] = false;}
                      }
                  }
              }
              oldBet = currentBet;
-           }
+         }
       }
   }
   for(unsigned int i=0;i<m_livePlayers.size();i++)
@@ -273,7 +270,7 @@ void dealerLib::reset()
     burned->burn();
 
     m_table[i].emptyHole();
-    m_table[i].fold = false;
+    m_table[i].setFold(false);
 
   }
   m_dealerGui.m_publicCards->burn();
