@@ -14,30 +14,28 @@
 
 int main()
 {
+//    try
+//    {
+
+//        Comms::SerialPort packet("/dev/ttyACM4");
+//        Comms::BytePayload data;
+
+//        data.push_back( 0x0E | 0x00 );
+
+//        packet.SendData(data);
+//    }
+//    catch(boost::system::system_error& e)
+//    {
+//        std::cout << "Error " << e.what() << std::endl;
+//        return false;
+//    }
+
     player p0;
-    sendCard(p0, PlayingCard(Rank::EIGHT, Suit::HEART));
+    //sendCard(p0, PlayingCard(Rank::EIGHT, Suit::HEART));
+    sendMoney(p0, 2000);
+    //sendBetLimits(p0, 1000, 5000);
+
+
 
     return 0;
 }
-
-
-
-//int main()
-//{
-//    Comms::PlayerDevices players = Comms::SerialPort::DetectSerialDevices();
-
-//    for( auto i : players )
-//    {
-//        std::string portname = i.second;
-
-//        Comms::BytePayload data;
-//        data.push_back('H');
-//        data.push_back('e');
-//        data.push_back('l');
-//        data.push_back('l');
-//        data.push_back('o');
-
-//        Comms::SerialPort test(portname);
-//        test.SendData(data);
-//    }
-//}

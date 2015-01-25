@@ -48,14 +48,12 @@ OBJECTS_DIR   = obj/
 SOURCES       = src/dealer/playingcard.cpp \
 		src/dealer/player.cpp \
 		src/dealer/cardStack.cpp \
-		src/comms/packet.cpp \
 		src/comms/comms_main.cpp \
 		src/comms/SerialPort.cpp \
 		src/comms/dealerIO.cpp 
 OBJECTS       = obj/playingcard.o \
 		obj/player.o \
 		obj/cardStack.o \
-		obj/packet.o \
 		obj/comms_main.o \
 		obj/SerialPort.o \
 		obj/dealerIO.o
@@ -63,7 +61,6 @@ DIST          = .qmake.cache \
 		comms.pri src/dealer/playingcard.cpp \
 		src/dealer/player.cpp \
 		src/dealer/cardStack.cpp \
-		src/comms/packet.cpp \
 		src/comms/comms_main.cpp \
 		src/comms/SerialPort.cpp \
 		src/comms/dealerIO.cpp
@@ -235,7 +232,7 @@ qmake_all: FORCE
 
 dist: 
 	@test -d obj/comms1.0.0 || mkdir -p obj/comms1.0.0
-	$(COPY_FILE) --parents $(DIST) obj/comms1.0.0/ && $(COPY_FILE) --parents include/card.h include/dealer/playingcard.h include/comms/packet.h include/comms/PacketTypes.h include/comms/PacketErrors.h include/comms/SerialPort.h include/shared/card.h include/comms/dealerIO.h obj/comms1.0.0/ && $(COPY_FILE) --parents src/dealer/playingcard.cpp src/dealer/player.cpp src/dealer/cardStack.cpp src/comms/packet.cpp src/comms/comms_main.cpp src/comms/SerialPort.cpp src/comms/dealerIO.cpp obj/comms1.0.0/ && (cd `dirname obj/comms1.0.0` && $(TAR) comms1.0.0.tar comms1.0.0 && $(COMPRESS) comms1.0.0.tar) && $(MOVE) `dirname obj/comms1.0.0`/comms1.0.0.tar.gz . && $(DEL_FILE) -r obj/comms1.0.0
+	$(COPY_FILE) --parents $(DIST) obj/comms1.0.0/ && $(COPY_FILE) --parents include/card.h include/dealer/playingcard.h include/comms/packet.h include/comms/PacketTypes.h include/comms/PacketErrors.h include/comms/SerialPort.h include/shared/card.h include/comms/dealerIO.h obj/comms1.0.0/ && $(COPY_FILE) --parents src/dealer/playingcard.cpp src/dealer/player.cpp src/dealer/cardStack.cpp src/comms/comms_main.cpp src/comms/SerialPort.cpp src/comms/dealerIO.cpp obj/comms1.0.0/ && (cd `dirname obj/comms1.0.0` && $(TAR) comms1.0.0.tar comms1.0.0 && $(COMPRESS) comms1.0.0.tar) && $(MOVE) `dirname obj/comms1.0.0`/comms1.0.0.tar.gz . && $(DEL_FILE) -r obj/comms1.0.0
 
 
 clean:compiler_clean 
@@ -286,11 +283,6 @@ obj/cardStack.o: src/dealer/cardStack.cpp include/dealer/cardStack.h \
 		include/dealer/playingcard.h \
 		include/shared/card.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o obj/cardStack.o src/dealer/cardStack.cpp
-
-obj/packet.o: src/comms/packet.cpp include/comms/packet.h \
-		include/comms/PacketErrors.h \
-		include/comms/PacketTypes.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o obj/packet.o src/comms/packet.cpp
 
 obj/comms_main.o: src/comms/comms_main.cpp include/comms/SerialPort.h \
 		include/comms/PacketErrors.h \
