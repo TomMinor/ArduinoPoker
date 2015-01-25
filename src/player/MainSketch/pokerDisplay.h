@@ -2,13 +2,14 @@
 /// @author Michelle Wu
 /// @version 1.0
 /// @date 22/01/2015
-
 #ifndef POKERDISPLAY_H__
 #define POKERDISPLAY_H__
 
+
+#include "card.h"
 #include "Arduino.h"
 #include <LiquidCrystal.h>
-#include "card.h"
+
 
 extern LiquidCrystal lcd;
 
@@ -31,11 +32,31 @@ public:
     /// @param [in] _totCards, total number of cards
     void displayCard( uint8_t _rank, uint8_t _suit, int _x, int _y, int _nCard, int _totCards );
     
+    /// @brief displayName
+    /// @param [in] _line, line to be displayed..
+    /// @param [in] _name name to be displayed
+    void displayName(char* _name);
+    
+    /// @brief displayMoney
+    /// @param [in] _line, line to be displayed.
+    /// @param [in] _money, money to be displayed.
+    void displayMoney(uint8_t _line, uint16_t _money);
+    
+    void displayCards(uint8_t _line, uint8_t _numCards,card _cards[]);
+       
     /// @brief createCustomChar
     void createCustomChar();
     
     /// @brief displays "Waiting cards" on lcd
     void waitCards();
+    
+    /// @brief winner, prints a winning message.
+    void winner();
+    
+    /// @brief resetScreen, prints the reset screen text.
+    void screenReset();
+        
+    
     
 private:
     

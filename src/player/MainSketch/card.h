@@ -1,6 +1,14 @@
 #ifndef __CARD_H_
 #define __CARD_H_
 
+#include "Arduino.h"
+
+struct card
+{
+  uint8_t suit = 0;
+  uint8_t rank = 0; 
+};
+
 /* Store suit in left nybble */
 #define SUIT_NAMESPACE Suit
 namespace SUIT_NAMESPACE
