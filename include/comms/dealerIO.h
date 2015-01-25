@@ -12,11 +12,8 @@ namespace Comms
 
 typedef std::map<unsigned int, std::string> PlayerDevices;
 
-bool test(const std::string& _port);
-
 bool setPlayer(const std::string& _port, const std::vector<PlayingCard>& _cards, uint16_t _money);
 
-bool sendBetLimits(const std::string& _port, uint16_t _min, uint16_t  _max);
 bool sendMoney(const std::string& _port, uint16_t _amount);
 bool sendCard(const std::string& _port, PlayingCard _card);
 

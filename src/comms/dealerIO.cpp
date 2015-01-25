@@ -7,25 +7,6 @@
 namespace Comms
 {
 
-bool test(const std::string& _port)
-{
-  try
-  {
-      Comms::SerialPort packet(_port);
-      Comms::BytePayload output;
-
-      packet.RecieveData(output);
-
-  }
-  catch(boost::system::system_error& e)
-  {
-      std::cout << "Error " << e.what() << std::endl;
-      return false;
-  }
-
-  return true;
-}
-
 bool setPlayer(const std::string& _port, const std::vector<PlayingCard>& _cards, uint16_t _money)
 {
     for( auto card : _cards )
@@ -44,40 +25,40 @@ bool setPlayer(const std::string& _port, const std::vector<PlayingCard>& _cards,
     return true;
 }
 
-bool sendBetLimits(const std::string& _port, uint16_t _min, uint16_t _max)
-{
-    try
-    {
+//bool sendBetLimits(const std::string& _port, uint16_t _min, uint16_t _max)
+//{
+//    try
+//    {
 
 
-        Comms::SerialPort packet(_port);
-        Comms::BytePayload data;
+//        Comms::SerialPort packet(_port);
+//        Comms::BytePayload data;
 
-        //@todo Make this a macro
-        /* Split into 2 bytes for transfer (player will reconstruct the int from these 2 bytes) */
-        uint8_t right = (uint8_t)_min;
-        uint8_t left = (uint8_t)(_min >> 8);
+//        //@todo Make this a macro
+//        /* Split into 2 bytes for transfer (player will reconstruct the int from these 2 bytes) */
+//        uint8_t right = (uint8_t)_min;
+//        uint8_t left = (uint8_t)(_min >> 8);
 
-        data.push_back( Comms::P_LIMITS | 0x04 );
-        data.push_back( right );
-        data.push_back( left );
+//        data.push_back( Comms::P_LIMITS | 0x04 );
+//        data.push_back( right );
+//        data.push_back( left );
 
-        right = (uint8_t)_max;
-        left = (uint8_t)(_max >> 8);
+//        right = (uint8_t)_max;
+//        left = (uint8_t)(_max >> 8);
 
-        data.push_back( right );
-        data.push_back( left );
+//        data.push_back( right );
+//        data.push_back( left );
 
-        packet.SendData(data);
-    }
-    catch(boost::system::system_error& e)
-    {
-        std::cout << "Error " << e.what() << std::endl;
-        return false;
-    }
+//        packet.SendData(data);
+//    }
+//    catch(boost::system::system_error& e)
+//    {
+//        std::cout << "Error " << e.what() << std::endl;
+//        return false;
+//    }
 
-    return true;
-}
+//    return true;
+//}
 
 bool sendMoney(const std::string& _port, uint16_t _amount)
 {
