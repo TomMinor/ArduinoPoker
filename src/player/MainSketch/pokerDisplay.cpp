@@ -251,8 +251,8 @@ void display::screenReset()
 void display::displayMoney(uint8_t _line, uint16_t _money)
 {
   lcd.setCursor(0, _line);
-
-  lcd.print("Money: $");
+  
+  lcd.print("Money: ");
   
   if(_money == 0)
   {
@@ -260,7 +260,8 @@ void display::displayMoney(uint8_t _line, uint16_t _money)
   }
   else
   {
-    lcd.print(String(_money));
+    // poorly hacked together
+    lcd.print("$"+String(_money)+"    ");
   }
 
 }
@@ -300,6 +301,7 @@ void display::displayCards(uint8_t _line, uint8_t _numCards,card _cards[])
       if(checkForCard(_cards[i]) == true)
       {
         displayCard( _cards[i].rank, _cards[i].suit, 7+(3*i), 0, i+1, _numCards);
+        lcd.print("    ");
       }
     }
   }
