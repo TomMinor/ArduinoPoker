@@ -180,9 +180,9 @@ void dealerLib::bet()
                  {
                      for(unsigned int j=0;j<m_livePlayers.size();j++)
                      {
-                         if(j==i)                       {p[j]=true;}
+                         if(j==i)                           {p[j]=true;}
                          else if(m_livePlayers[j].isFold()) {p[j] = true;}
-                         else                           {p[j] = false;}
+                         else                               {p[j] = false;}
                      }
                  }
              }
