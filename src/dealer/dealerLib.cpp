@@ -257,7 +257,7 @@ void dealerLib::update()
   m_dealerGui.draw();
 }
 //-----------------------------------------------------------------------------------------
-void dealerLib::resetCards()
+void dealerLib::reset()
 {
 
   for(unsigned int i = 0; i < m_table.size(); i++)
@@ -276,6 +276,10 @@ void dealerLib::resetCards()
   m_communityCards.erase(m_communityCards.begin(), m_communityCards.end());
 
   m_deck.reset();
+
+  m_livePlayers = m_table;
+
+
 
 
 
@@ -384,34 +388,6 @@ void dealerLib::kickBrokePlayer()
 //}
 
 
-bool dealerLib::callComms(commsRequest request)
-{
-  switch (request){
-    case SENDBETLIMIT:
-
-      break;
-
-    case SENDMONEY:
-      break;
-
-    case SENDCARD:
-      break;
-
-    case GETNAME:
-      break;
-
-    case GETBET:
-      break;
-
-    case WAIT:
-      break;
-
-    default:
-      break;
-    }
-}
-
-
 int dealerLib::getNumPlayers()const
 {
   return m_numPlayers;
@@ -422,13 +398,17 @@ std::vector<player> dealerLib::getLivePlayers()const
   return m_livePlayers;
 }
 
-void dealerLib::splitPot()
+void dealerLib::decideWinners()
 {
   std::vector<player> winners;
   std::vector<player>::iterator playerIt;
   winners = hands::winner(m_livePlayers, m_communityCards);
   int remainder = m_pot % winners.size();
+  bool remainderExists = isRemainder(remainder);
+
   int winnings = (m_pot - remainder) / winners.size();
+
+  getWinnerIds(winners);
 
   for(playerIt = winners.begin(); playerIt != winners.end(); playerIt++)
   {
@@ -440,4 +420,27 @@ void dealerLib::splitPot()
 
 
 
+}
+
+std::vector<int> dealerLib::getWinnerIds(std::vector<player> _winners)
+{
+  std::vector<int> winnerIds;
+
+  std::vector<player>::iterator playerIt;
+
+  for(playerIt = _winners.begin(); playerIt != _winners.end(); playerIt++)
+  {
+    winnerIds.push_back(playerIt->getID());
+  }
+
+  return winnerIds;
+
+
+}
+
+bool dealerLib::isRemainder(int _remainder)
+{
+  if(_remainder > 0) {return true;}
+
+  else {return false;}
 }
