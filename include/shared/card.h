@@ -32,7 +32,6 @@ namespace Rank
     QUEEN = (0x0B),
     KING  = (0x0C),
     ACE   = (0x0D)
-
   };
 }
 
@@ -49,13 +48,11 @@ namespace Rank
 #define RANKMASK        (0x0F)
 #define RANKOF(card)    (card & RANKMASK)
 
+///@brief A macro to convert uint16_t to 2 bytes
+#define U16_TO_BYTE_L(U16) ( U16     & 0xFF)
+#define U16_TO_BYTE_H(U16) ((U16>>8) & 0xFF)
 
-
-///@brief macros to convert U16 to bytes
-#define U16_TO_BYTE_L(U16) ( U16     & BYTE_MASK)
-#define U16_TO_BYTE_H(U16) ((U16>>8) & BYTE_MASK)
-
-///@brief A macro to convert bytes U16
+///@brief A macro to convert 2 bytes to uint16_t
 #define BYTE_TO_U16(byte1,byte2)((((uint16_t)byte1)<<8)|byte2)
 
 #endif

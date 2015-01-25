@@ -16,6 +16,9 @@
 namespace Comms
 {
 
+///
+/// \brief BytePayload
+///
 typedef std::vector<uint8_t> BytePayload;
 
 ///
@@ -24,30 +27,46 @@ typedef std::vector<uint8_t> BytePayload;
 class SerialPort
 {
 public:
-SerialPort(const std::string& _portPath);
 
-void SendData(const std::vector<uint8_t> _payload);
-void RecieveData(std::vector<uint8_t> &_payload);
+  ///
+  /// \brief SerialPort
+  /// \param _portPath
+  ///
+  SerialPort(const std::string& _portPath);
 
-///
-/// \brief DetectSerialDevices Scans /dev for connected serial devices
-/// \return std::map that maps player ID to the device filepath
-///
-static PlayerDevices DetectSerialDevices();
+  ///
+  /// \brief SendData
+  /// \param _payload
+  ///
+  void SendData(const std::vector<uint8_t> _payload);
+
+  ///
+  /// \brief RecieveData
+  /// \param _payload
+  ///
+  void RecieveData(std::vector<uint8_t> &_payload);
+
+  ///
+  /// \brief DetectSerialDevices Scans /dev for connected serial devices
+  /// \return std::map that maps player ID to the device filepath
+  ///
+  static PlayerDevices DetectSerialDevices();
 
 private:
-///
-/// \brief m_portpath
-///
-std::string m_portpath;
+  ///
+  /// \brief m_portpath
+  ///
+  std::string m_portpath;
 
-///
-/// \brief m_dataBuffer
-///
-char m_dataBuffer[256];
+  ///
+  /// \brief io
+  ///
+  boost::asio::io_service io;
 
-boost::asio::io_service io;
-boost::asio::serial_port m_serial;
+  ///
+  /// \brief m_serial
+  ///
+  boost::asio::serial_port m_serial;
 };
 
 }

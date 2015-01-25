@@ -6,36 +6,21 @@
 
 namespace Comms
 {
-    enum PacketType
-    {
-        P_CARDS           = 0x10,
-        P_NAME            = 0x20,
-        P_MONEY           = 0x30,
-        P_LIMITS          = 0x40,
-        P_RESETPLAYER     = 0x50,
-        P_REQUESTBET      = 0x60,
-        P_RECIEVEWINNINGS = 0x70,
-        P_BETAMOUNT       = 0x80,
-        P_RESETCARD       = 0x90,
+  ///
+  /// \brief The PacketType enum
+  ///
+    enum PacketHeader
+    {                   /*  Type | Payload (Number of bytes to send/expect) */
+        P_CARDS           = 0x10 | 0x01,
+        P_NAME            = 0x20 | 0x0F,
+        P_MONEY           = 0x30 | 0x02,
+        P_LIMITS          = 0x40 | 0x04,
+        P_RESETPLAYER     = 0x50 | 0x00,
+        P_REQUESTBET      = 0x60 | 0x01,
+        P_RECIEVEWINNINGS = 0x70 | 0x02,
+        P_BETAMOUNT       = 0x80 | 0x01,
+        P_RESETCARD       = 0x90 | 0x00,
     };
-
-    inline uint8_t LookupPacketTypeSize(PacketType _type)
-    {
-      assert((int)_type < 0x0F);
-
-      static const uint8_t lookup[0x0F] = {
-          /*P_CARDS*/           1,
-          /*P_NAME*/            15,
-          /*P_MONEY*/           2,
-          /*P_LIMITS*/          4,
-          /*P_ROUNDSTATE*/      1,
-          /*P_REQUESTBET*/      1,
-          /*P_RECIEVEWINNINGS*/ 1,
-          /*P_BETAMOUNT*/       1,
-      };
-
-      return lookup[_type];
-    }
 }
 
 
