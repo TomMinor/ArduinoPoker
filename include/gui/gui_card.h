@@ -53,7 +53,7 @@ public:
     inline void burn() {m_shouldBurn = true;}
 
     /// \brief A card-specific update function that is needed to implement flipping and burning.
-    virtual void update(); //implement flipping
+    virtual bool update(); //implement flipping
 
 private:
     /// \brief True if the card should be face-down, false otherwise.

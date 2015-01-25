@@ -165,8 +165,11 @@ public:
     Element* uniqueElement(SDL_Texture* _tex, const SDL_Rect &_srcRect, const SDL_Rect &_destRect, const Orientation &_orient = BOTTOM);
     Element* uniqueElement(Element* _inputElement);
 
-    /// \brief Calls the update() function of all the visual elements to keep their states moving.
-    void update();
+    void runUntilStationary();
+
+    /// \brief Calls the update() function of each visual element to keep their states moving.
+    /// \return True if we need another update() cycle before everything will stop moving, false when we're ready to move on.
+    bool update();
 
     /// \brief Draws all the elements in the window. Should probably always be called right after update() unless you're doing something fancy with different update and draw
     /// frequencies.
@@ -179,8 +182,11 @@ public:
 
 private:
 
+public:
+
     /// \brief A pointer to the SDL rendering context.
     SDL_Renderer* m_renderer;
+private:
 
     /// \brief A pointer to an SDL texture containing the contents of the renderer. This is then upscaled by nearest-neighbour in the window for those lovely big pixels.
     SDL_Texture* m_renderTarget;

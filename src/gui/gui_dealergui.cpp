@@ -271,7 +271,17 @@ void GUI::DealerGUI::receiveBetFrom(const unsigned int &_playerID, Uint16 &_amou
     }
 }
 
-void GUI::DealerGUI::update()
+void GUI::DealerGUI::runUntilStationary()
+{
+    while (update())
+    {
+        draw();
+        SDL_Delay(32);
+    }
+    draw();
+}
+
+bool GUI::DealerGUI::update()
 {
 //    for (std::vector< boost::shared_ptr<Element> >::iterator it; it!=m_elements.end(); ++it)
 //    {
@@ -287,6 +297,8 @@ void GUI::DealerGUI::update()
 //        }
 //    }
 
+    bool returnThis = false;
+
     for (int i=0; i<(int)m_elements.size(); ++i)
     {
         if(m_elements[i]->shouldKillNow())
@@ -296,9 +308,11 @@ void GUI::DealerGUI::update()
         }
         else
         {
-            m_elements[i]->update();
+            bool hi = m_elements[i]->update();
+            returnThis = returnThis || hi;
         }
     }
+    return returnThis;
 
 //    if ((int)m_taskQueue.size() >= 1)//if there are any pending tasks
 //    {
