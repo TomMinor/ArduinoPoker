@@ -15,7 +15,7 @@ SOURCES+= $$PWD/src/dealer/deck.cpp \
           $$PWD/src/gui/gui_element.cpp \
           $$PWD/src/gui/gui_elementmaker.cpp \
           $$PWD/src/gui/gui_hand.cpp \
-          $$PWD/src/gui/gui_label.cpp \
+          $$PWD/src/gui/gui_label.cpp
 
 
 HEADERS+= $$PWD/include/dealer/deck.h \

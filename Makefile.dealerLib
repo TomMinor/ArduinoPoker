@@ -409,13 +409,13 @@ dealerLib.o: src/dealer/dealerLib.cpp include/dealer/dealerLib.h \
 		include/dealer/cardStack.h \
 		include/dealer/deck.h \
 		include/dealer/comms.h \
-		include/dealer/pokerHands.h \
 		include/gui/gui_dealergui.h \
 		include/gui/gui_elementmaker.h \
 		include/gui/gui_element.h \
 		include/gui/gui_card.h \
 		include/gui/gui_label.h \
 		include/gui/gui_hand.h \
+		include/dealer/pokerHands.h \
 		include/comms/SerialPort.h \
 		include/comms/PacketErrors.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o dealerLib.o src/dealer/dealerLib.cpp
@@ -427,13 +427,13 @@ dealerLibMain.o: src/dealer/dealerLibMain.cpp include/dealer/dealerLib.h \
 		include/dealer/cardStack.h \
 		include/dealer/deck.h \
 		include/dealer/comms.h \
-		include/dealer/pokerHands.h \
 		include/gui/gui_dealergui.h \
 		include/gui/gui_elementmaker.h \
 		include/gui/gui_element.h \
 		include/gui/gui_card.h \
 		include/gui/gui_label.h \
-		include/gui/gui_hand.h
+		include/gui/gui_hand.h \
+		include/dealer/pokerHands.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o dealerLibMain.o src/dealer/dealerLibMain.cpp
 
 cardStack.o: src/dealer/cardStack.cpp include/dealer/cardStack.h \

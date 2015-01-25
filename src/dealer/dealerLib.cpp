@@ -2,7 +2,6 @@
 #include "comms/SerialPort.h"
 
 
-
 dealerLib::dealerLib()
 {
   m_deck.shuffle();
@@ -229,11 +228,11 @@ void dealerLib::dealHands()
 
     for(unsigned int j =0; j < m_table.size(); j++)
     {
+
       PlayingCard tmpCard = m_deck.deal();
       m_table[j].setHoleCard(tmpCard);
 
       dealerGui.dealCardTo(j, tmpCard);
-
       thing.sendCard(*playerIt, tmpCard);
     }
   }

@@ -107,6 +107,7 @@ int main()
             std::cout<<"num players: "<<table.getNumPlayers()<<"\n";
             std::cout<<"num liveplayers: "<<table.getNumPlayers()<<"\n";
           }
+
         table.dealHands();//call gui.dealCardTo(playerID,PlayingCard)
 
         //table.dealHands(pack);//call gui.dealCardTo(playerID,PlayingCard)
@@ -121,18 +122,30 @@ int main()
 //        burned->setPos(gui.getDeckPos());
 //        burned->updateRect();
 //        burned->burn();
+
         table.dealFlop();//internally call addPublicCard(PlayingCard) x3
         //table.dealFlop();//internally call addPublicCard(PlayingCard) x3
+
         //table.bet();//internally call gui.receiveBetFrom(playerID,amount)
                         //call gui.receiveBetFrom(playerID,Unit16 amount,bool isFirstBet)
         table.dealRiverTurn();//internally calladdPublicCard(PlayingCard)
         //table.dealRiverTurn();//internally calladdPublicCard(PlayingCard)
+
 
         //table.bet();//internally call gui.receiveBetFrom(playerID,amount)
                         //call gui.receiveBetFrom(playerID,Unit16 amount,bool isFirstBet)
 
         table.dealRiverTurn();//internally calladdPublicCard(PlayingCard)
         //table.dealRiverTurn();//internally calladdPublicCard(PlayingCard)
+
+        //table.dealRiverTurn();//internally calladdPublicCard(PlayingCard)
+
+        //table.bet();//internally call gui.receiveBetFrom(playerID,amount)
+                        //call gui.receiveBetFrom(playerID,Unit16 amount,bool isFirstBet)
+
+        //table.dealRiverTurn();//internally calladdPublicCard(PlayingCard)
+
+
         //table.bet();//internally call gui.receiveBetFrom(playerID,amount)
         //call gui.receiveBetFrom(playerID,Unit16 amount,bool isFirstBet)
 

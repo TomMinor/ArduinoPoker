@@ -20,41 +20,7 @@ typedef struct
     unsigned int cardHeight;
 } CardInfo;
 
-//obselete
-typedef enum
-{
-    ACE,
-    TWO,
-    THREE,
-    FOUR,
-    FIVE,
-    SIX,
-    SEVEN,
-    EIGHT,
-    NINE,
-    TEN,
-    JACK,
-    QUEEN,
-    KING
-} Rank;
 
-//also obselete!
-typedef enum
-{
-    CLUBS,
-    SPADES,
-    HEARTS,
-    DIAMONDS
-} Suit;
-
-////stuff we need to know to create a particular card
-////GUESS WHAT
-////OBSELETE
-typedef struct
-{
-    Rank rank;
-    Suit suit;
-} CardType;
 
 /// \brief A visual representation of a playing card that can be flipped, burned and moved around.
 class Card : public Element

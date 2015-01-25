@@ -16,13 +16,16 @@ namespace GUI
 class Hand
 {
 public:
+    /// \brief The hand constructor.
+    /// \param _cards A vector containing all the cards in this hand.
+    /// \param _orient
     Hand(const std::vector<Card*> &_cards, const Orientation &_orient);
     void addCard(Card*_inputCard);
     void setPos(const SDL_Point &_p);
     void moveTo(const SDL_Point &_p);
     void burn();
     void kill();
-    void setFlipped(const bool &_isFlipped);
+    void setFlipped(const bool &_isFlipped, const bool &_instantly = false);
     int getHeight();
     int getWidth();
     void align(const Orientation &_orient, const bool &_instantly = false);

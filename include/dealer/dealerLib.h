@@ -5,6 +5,7 @@
 #include "deck.h"
 #include "cardStack.h"
 #include "comms.h"
+#include "gui/gui_dealergui.h"
 
 #include "pokerHands.h"
 
@@ -32,9 +33,7 @@ public:
   void dealHands();
   void dealFlop();
   void dealRiverTurn();
-
   int checkMaxBet();
-
   void resetCards();
   void update();
   void init();
@@ -44,7 +43,6 @@ public:
   bool checkIfLost(player _player);
   void removeTheNoobs();
   void splitPot();
-
 
 
   bool callComms(commsRequest request);
