@@ -223,7 +223,7 @@ void display::waitCards()
 }
 
 
-void display::winner(uint8_t _money)
+void display::winner(uint16_t _money)
 {
   lcd.clear();
   
@@ -252,7 +252,16 @@ void display::displayMoney(uint8_t _line, uint16_t _money)
 {
   lcd.setCursor(0, _line);
 
-  lcd.print("Money: $"+String(_money));
+  lcd.print("Money: $");
+  
+  if(_money == 0)
+  {
+    lcd.print("NO MONEY");
+  }
+  else
+  {
+    lcd.print(String(_money));
+  }
 
 }
 
@@ -264,14 +273,42 @@ void display::displayName(char* _name)
   lcd.print(_name);
 }
 
+bool display::checkForCard(card _card)
+{
+  if(_card.suit == 0 || _card.rank == 0)
+  {
+    return false;
+  }
+  else 
+  {
+    return true;
+  }
+}
+
+
 void display::displayCards(uint8_t _line, uint8_t _numCards,card _cards[])
 {  
   lcd.setCursor(0, _line);  
   lcd.print("Cards: ");
-  for(int i = 0; i < _numCards; ++i)
+  
+  if(checkForCard(_cards[0]) == true)
   {
-    displayCard( _cards[i].rank, _cards[i].suit, 7+(3*i), 0, i+1, _numCards);
+    displayCard( _cards[0].rank, _cards[0].suit, 7, 0, 1, _numCards);
+    
+    for(int i = 1; i < _numCards; ++i)
+    {
+      if(checkForCard(_cards[i]) == true)
+      {
+        displayCard( _cards[i].rank, _cards[i].suit, 7+(3*i), 0, i+1, _numCards);
+      }
+    }
   }
+  else
+  {
+    lcd.print("NO CARDS");
+  }
+  
+
 }
 
 

@@ -34,7 +34,10 @@ class player
     display m_display;
     
     /// @brief input class variable.
-    input m_button;   
+    input m_button;
+ 
+    /// @brief input class variable.
+    uint8_t m_maxNumCards;      
 
   public:
 
@@ -84,10 +87,7 @@ class player
     /// @param [out] returns name of player.
     char* getName() { return m_playerName; }
     
-    /// @brief checkFirstcard
-    /// @param [out] returns bool if first card is empty.
-    bool checkFirstCard();
-        
+           
     /// @brief joinGame
     /// @brief Method task the player to join, stops them from carrying on unless they do.
     /// @brief infinite loop if they so no.
@@ -97,7 +97,11 @@ class player
     /// @brief Method prints the players data on the screen.
     void playerDataScreen();
     
-
+    /// @brief setMaxCardLimit().
+    /// @brief Sets the maximum amount of cards the player can hold.
+    /// @brief [in] _max, max number of cards
+    void setMaxCardLimit(uint8_t _max);
+    
 };
 
 #endif

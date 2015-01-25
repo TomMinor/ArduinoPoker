@@ -6,7 +6,9 @@
 
 
 //card array that stores 2 bytes {card1,card2}
-uint8_t cards[6]={Rank::SIX, Suit::SPADE, byte(Rank::ACE), Suit::CLUB, };
+uint8_t card1[2]={Rank::SIX, Suit::SPADE};
+uint8_t card2[2]={Rank::ACE, Suit::CLUB};
+uint8_t card3[2]={Rank::EIGHT, Suit::HEART};
 //unsigned int bet=0;
 //bool betState=true;
 //bool recieved=false;
@@ -24,6 +26,9 @@ void setup()
 
   lcd.begin(16,2);
   Serial.begin(9600);
+  
+  player.setMaxCardLimit(2);
+  
   player.joinGame();
 //  
 //  //player.setMoney(100);
@@ -32,6 +37,11 @@ void setup()
 //  //player.receiveCard(cards);
 //  //player.receiveCard(cards);
 //  lcd.clear();
+
+  //player.receiveCard(card3);
+  //player.receiveCard(card2);
+  lcd.clear();
+
 }
 
 
@@ -49,32 +59,17 @@ void loop()
 //   Serial.print("\n");
 //   Serial.print((((uint8_t)b<<8)|a),HE),
 //   delay(500);
-  //lcd.clear();
+//   lcd.clear();
   uint8_t state;
-  
-  if(player.getMoney() == 0)
-  {
-    lcd.setCursor(0,0);
-    lcd.print("Waiting for ");
-    lcd.setCursor(0,1);
-    lcd.print("money. ");
-  }
-  else if(player.checkFirstCard() == false)
-  {
-    lcd.setCursor(0,0);
-    lcd.print("Waiting for ");
-    lcd.setCursor(0,1);
-    lcd.print("cards. ");
-  }
-  else
-  {
+ 
     
-    player.playerDataScreen();
-  }
+  player.playerDataScreen();
+  
   
  
   
   state = getData(coms);
+  
   
   switch(state)
   {

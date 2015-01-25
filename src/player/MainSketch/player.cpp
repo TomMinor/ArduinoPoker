@@ -10,6 +10,8 @@ player::player()
   
   m_numCards = 0;
   
+  m_maxNumCards = 0;
+  
 }
 
 player::~player()
@@ -98,14 +100,17 @@ void player::setMoney(uint16_t _money)
 void player::receiveCard(uint8_t _cards[])
 {
      
-  //m_display.waitCards();
- 
-  //uint8_t tmp = (m_numCards*2);
-   
-  m_cards[m_numCards].rank = _cards[0];
-  m_cards[m_numCards].suit = _cards[1];
-     
-  m_numCards++;
+  if(m_numCards < m_maxNumCards)
+  {
+    m_cards[m_numCards].rank = _cards[0];
+    m_cards[m_numCards].suit = _cards[1];
+    m_numCards++;
+  }  
+  else
+  {
+    // maybe print max card limit reached.
+    return;
+  }
 }
 
 
@@ -233,17 +238,6 @@ void player::joinGame()
   }
 }
     
-bool player::checkFirstCard()
-{
-  if(m_cards[0].suit == 0 || m_cards[0].rank == 0)
-  {
-    return false;
-  }
-  else 
-  {
-    return true;
-  }
-}
 
 void player::playerDataScreen()
 {
@@ -255,4 +249,8 @@ void player::playerDataScreen()
  
 }
 
+void player::setMaxCardLimit(uint8_t _max)
+{
+   m_maxNumCards = _max; 
+}
     
