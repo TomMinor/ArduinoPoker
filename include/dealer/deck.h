@@ -15,7 +15,7 @@ public:
   deck();
   ~deck();
 
-  void init();
+  void initDeck();
   void reset();
   void shuffle();
   void printDeck();

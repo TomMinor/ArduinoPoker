@@ -23,6 +23,11 @@ void player::setName(const std::string &_name)
     m_name = _name;
 }
 
+void player::setID(const int &_id)
+{
+  m_id = _id;
+}
+
 void player::setHoleCard(const PlayingCard &_card)
 {
     m_cards.addCard(_card);
@@ -51,6 +56,17 @@ void player::setMoney(const int &_money)
 void player::takeBet(const int &_bet)
 {
     m_money -= _bet;
+}
+
+void player::setBet(const int &_bet)
+{
+  m_bet = _bet;
+}
+
+void player::removeBet()
+{
+  m_money - m_bet;
+  m_bet = 0;
 }
 
 void player::receivePot(const int &_pot)
@@ -152,6 +168,10 @@ int player::getBet()const
   return m_bet;
 }
 
+int player::getID()const
+{
+  return m_id;
+}
 //--------------------------------------------------------------------
 void player::printInfo()const
 {

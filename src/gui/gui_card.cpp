@@ -25,7 +25,7 @@ GUI::Card::Card(SDL_Renderer *_ren,
 void GUI::Card::update()
 {
     //Check 1: should the card burn?
-    if(m_shouldBurn)
+    if(m_shouldBurn && m_progressAmount >= 1.0f)
     {
         if(!FullyFlipped)
         {

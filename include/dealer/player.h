@@ -20,6 +20,10 @@ public:
   /// @param [in] const std::string
   void setName(const std::string &_name);
 
+  /// @brief method to set players name (m_name).
+  /// @param [in] const std::string
+  void setID(const int &_id);
+
   /// @brief method to set players Hole card (m_cards),
   /// adds card to back of stack.
   /// @param [in] const PlayingCard
@@ -45,6 +49,14 @@ public:
   /// @brief method to set players bet (m_bet)
   /// @param [in] const int
   void takeBet(const int &_bet);
+
+  /// @brief method to set players bet (m_bet)
+  /// @param [in] const int
+  void setBet(const int &_bet);
+
+  /// @brief method to set players bet (m_bet)
+  /// @param [in] const int
+  void removeBet();
 
   /// @brief method to add betting money to players money.
   /// @param [in] const PlayingCard
@@ -125,6 +137,11 @@ public:
   /// @return int
   int getBet()const;
 
+  ///@brief method to access the players id (m_id)
+  /// @return int
+  int getID()const;
+
+
 
   cardStack m_hand;
   bool fold;
@@ -132,6 +149,7 @@ public:
 
 private:
   std::string m_name;
+  int m_id;
   cardStack m_cards;
   int m_score;
   int m_kicker;

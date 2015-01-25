@@ -5,6 +5,18 @@
 #include "deck.h"
 #include "cardStack.h"
 #include "comms.h"
+#include "gui/gui_dealergui.h"
+#include "pokerHands.h"
+
+enum commsRequest
+{
+  sendBetLimits,
+  sendMoney,
+  sendCard,
+  getName,
+  getBet,
+  wait
+};
 
 class dealerLib
 {
@@ -12,25 +24,38 @@ public:
   dealerLib();
   ~dealerLib();
   void Betting();
-  void dealHands(deck _pack);
-  void dealFlop(deck _pack);
-  void dealRiverTurn(deck _pack);
-  void resetCards();//player.popHole card x2 and thn set cards
-  void update();
+  void bet();
+  bool checkBoolArray(bool _array[])const;
+  void addBetToPot(const int &_bet);
+  void dealHands();
+  void dealFlop();
+  void dealRiverTurn();
   int checkMaxBet();
-  void initialisePlayers();
+  void resetCards();
+  void update();
+  void init();
+  void initPlayer(const int &_id);
   void clearTable();
   void removePlayer(std::vector<player>::iterator it);
   bool checkIfLost(player _player);
   void removeTheNoobs();
-//  void addBetsToPot(); probs dont need this anymore, just hardcoded it into Betting()
+  void splitPot();
+
+
+  bool callComms(commsRequest request);
+  int getNumPlayers()const;
+  std::vector<player> getLivePlayers()const;
 
 
 private:
   cardStack m_communityCards;
   cardStack::iterator cardItr;
   int m_numPlayers;
-  int m_pot;
+
+  unsigned int m_pot;
+  deck m_deck;
+  GUI::DealerGUI dealerGui;
+
 
   std::vector<player> m_table;
   std::vector<player> m_livePlayers;

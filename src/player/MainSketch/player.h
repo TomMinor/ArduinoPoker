@@ -7,18 +7,12 @@
 #define PLAYER_H__
 
 #include "input.h"
+#include "card.h"
 #include "comms.h"
 #include "pokerDisplay.h"
+#include "Arduino.h"
 #include <LiquidCrystal.h>
-#include <Arduino.h>
 
-
-
-struct card
-{
-  uint8_t suit = 0;
-  uint8_t rank = 0; 
-};
 
 class player
 {
@@ -90,22 +84,24 @@ class player
     /// @param [out] returns name of player.
     char* getName() { return m_playerName; }
     
+    /// @brief checkFirstcard
+    /// @param [out] returns bool if first card is empty.
     bool checkFirstCard();
-    
-    
-    /// @brief showPlayerData().
-    /// @brief Method prints the players data on the screen.
-    void showPlayerData();
-    
+        
     /// @brief joinGame
     /// @brief Method task the player to join, stops them from carrying on unless they do.
     /// @brief infinite loop if they so no.
     void joinGame();
+       
+    void playerDataScreen();
     
+<<<<<<< HEAD
+=======
+    /// @brief PlayerDataScreen().
+    /// @brief Method prints the players data on the screen.
+    void playerDataScreen();
     
-    void winner();
-    
-
+>>>>>>> origin/master
 };
 
 #endif

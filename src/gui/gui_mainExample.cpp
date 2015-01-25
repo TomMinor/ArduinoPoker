@@ -5,7 +5,7 @@ int main()
 {
     GUI::DealerGUI gui;
 
-    std::vector<player*> players;
+    std::vector<const player*> players;
 
     std::cout<<"Initialising players\n";
 
@@ -38,7 +38,7 @@ int main()
 //    cardList.push_back(aceOfSpades);
 //    cardList.push_back(aceOfSpades);
     //GUI_Hand* testHand = gui.uniqueHand(cardList,BOTTOM);
-    std::vector<player*> winningPlayers;
+    std::vector<const player*> winningPlayers;
     //winningPlayers.push_back(&p1);
     //winningPlayers.push_back(&p2);
     winningPlayers.push_back(&p3);

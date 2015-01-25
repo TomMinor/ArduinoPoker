@@ -22,6 +22,7 @@ uint16_t player::placeBet(uint16_t _max, uint16_t _min)
    bool quit = false;
    bool fold = false;
    
+   
    //check if they have enough money, shouldnt happen.
    if(m_money < _min)
    {
@@ -31,23 +32,24 @@ uint16_t player::placeBet(uint16_t _max, uint16_t _min)
    while(!quit)
    {
      bool exit = false;
-     fold = false;
      bool showData = false;
-     
+     fold = false;
      uint16_t bet = _min;
-
+     
      lcd.clear();
 
      lcd.print("Place bet:");
-
-     delay(1000);
-
+      
+     delay(500);
+     
      while(!exit)
      {
       m_button.updateValue();
   
       if      (m_button.right())                                                  { lcd.clear();lcd.print("Place bet:");showData = false;    }
-      else if (m_button.left())                                                   { this->showPlayerData(); showData = true;                 }
+      else if (m_button.left())                                                   { this->playerDataScreen(); showData = true;               }
+      else if (m_button.up() && showData == true )                                { lcd.clear(); m_display.displayName(getName());           }
+      else if (m_button.down() && showData == true )                              { this->playerDataScreen();                                }
       else if (m_button.up()   && bet < _max && bet < m_money && showData==false) { bet++; fold = false;                                     }
       else if (m_button.down() && bet > _min && bet <= m_money && showData==false){ bet--; fold = false;                                     }
       else if (m_button.down() && bet == _min && showData==false)                 { fold = true;                                             }
@@ -59,7 +61,8 @@ uint16_t player::placeBet(uint16_t _max, uint16_t _min)
       // print the bet or fold
       lcd.setCursor(0,1);
       if(fold == true && showData == false)       { lcd.print("FOLD");      }
-      else if(fold == false && showData == false) { lcd.print(String(bet)+"       "); } 
+      else if(fold == false && showData == false) { lcd.print(String(bet)+"       "); }
+      
      }
 
      lcd.clear();
@@ -82,7 +85,11 @@ uint16_t player::placeBet(uint16_t _max, uint16_t _min)
 void player::receiveMoney(uint16_t _money)
 {
     m_money = m_money + _money;
-    this->winner();
+<<<<<<< HEAD
+    m_display.winner();
+=======
+    m_display.winner(_money);
+>>>>>>> origin/master
 }
 
 void player::setMoney(uint16_t _money)
@@ -203,18 +210,6 @@ void player::resetCards()
     m_numCards = 0;
 }
 
-void player::showPlayerData()
-{    
-  lcd.clear(); 
-  lcd.print("Cards: ");
-  for(int i = 0; i < m_numCards; ++i)
-  {
-    m_display.displayCard( m_cards[i].rank, m_cards[i].suit, 7+(3*i), 0, i+1, m_numCards );
-  }
-  
-  lcd.setCursor(0,1);
-  lcd.print("Money: "+String(m_money)); 
-}
 
 void player::joinGame()
 {
@@ -232,28 +227,8 @@ void player::joinGame()
   }
   else if(play == false)
   {
-    while(true)
-    {
-      lcd.setCursor(0,0);
-      lcd.print("Hit reset    ");
-      lcd.setCursor(0,1);
-      lcd.print("to try again.   ");
-    }
+    m_display.screenReset();
   }
-}
-
-void player::winner()
-{
- 
-  lcd.clear();
-  
-  lcd.print("Winner Winner!");
-  
-  lcd.setCursor(0,1);
-  
-  lcd.print("Chicken Dinner!");
-  
-  delay(3000);
 }
     
 bool player::checkFirstCard()
@@ -266,6 +241,16 @@ bool player::checkFirstCard()
   {
     return true;
   }
+}
+
+void player::playerDataScreen()
+{
+  lcd.clear();
+  
+  m_display.displayCards(0, m_numCards, m_cards);
+  
+  m_display.displayMoney(1, m_money);
+ 
 }
 
     
