@@ -14,28 +14,13 @@
 
 int main()
 {
-//    try
-//    {
-
-//        Comms::SerialPort packet("/dev/ttyACM4");
-//        Comms::BytePayload data;
-
-//        data.push_back( 0x0E | 0x00 );
-
-//        packet.SendData(data);
-//    }
-//    catch(boost::system::system_error& e)
-//    {
-//        std::cout << "Error " << e.what() << std::endl;
-//        return false;
-//    }
-
     player p0;
-    //sendCard(p0, PlayingCard(Rank::EIGHT, Suit::HEART));
-    sendMoney(p0, 2000);
+
+    //sendMoney(p0, 5395);
+    Comms::sendCard(p0, PlayingCard(Rank::NINE, Suit::CLUB));
+    Comms::sendCard(p0, PlayingCard(Rank::ACE, Suit::SPADE));
+
     //sendBetLimits(p0, 1000, 5000);
-
-
 
     return 0;
 }

@@ -80,8 +80,8 @@ PacketError SerialPort::SendData(const std::vector<uint8_t> _payload)
 //        return E_CORRUPT;
 //    }
 
-        //@todo Timeout
-        static char serialBuffer[15] = {0};
+    //@todo Timeout
+    static char serialBuffer[15] = {0};
     numOfBytes = boost::asio::read( m_serial, boost::asio::buffer( &serialBuffer, 1) );
 
     numOfBytes = boost::asio::write( m_serial, boost::asio::buffer( _payload.data() + 1, _payload.size() - 1  ) );
@@ -92,7 +92,10 @@ PacketError SerialPort::SendData(const std::vector<uint8_t> _payload)
 
 //    std::cout << "Sent : " << numOfBytes << '\n';
 
-//    numOfBytes = boost::asio::read( m_serial, boost::asio::buffer( &buffer, _payload.size()) );
+//     numOfBytes = boost::asio::read( m_serial, boost::asio::buffer( &serialBuffer, 2) );
+//     printf("Count : %d\nData 0x%X,0x%X\n", numOfBytes, (int)serialBuffer[0], (int)serialBuffer[1]);
+
+//    numOfBytes = boost::asio::read( m_serial, boost::asio::buffer( &buffer, _payload.size() ) );
 
 //    std::cout << "Recieved : " ;
 //    for(int i=0; i < _payload.size(); i++)

@@ -4,6 +4,9 @@
 
 //@todo More error checking
 
+namespace Comms
+{
+
 bool setPlayer(player _player, const std::vector<PlayingCard>& _cards, uint16_t _money)
 {
     for( auto card : _cards )
@@ -80,13 +83,15 @@ bool sendCard(player _player, PlayingCard _card)
 {
     try
     {
-        Comms::SerialPort packet("/dev/ttyACM3");
+        Comms::SerialPort packet("/dev/ttyACM1");
         Comms::BytePayload data;
 
         /* Header Byte ( Type ) */
-        data.push_back( Comms::P_CARDS );
+        data.push_back( Comms::P_CARDS | 1 );
 
-        data.push_back( _card.getValue());
+        data.push_back( _card.getValue() );
+
+        printf("Card value : %X\n", _card.getValue());
 
         packet.SendData(data);
     }
@@ -99,17 +104,39 @@ bool sendCard(player _player, PlayingCard _card)
     return true;
 }
 
-bool receiveBet(player _player, unsigned int _timeout)
+bool receiveBet(player _player, uint16_t& _data, unsigned int _timeout)
 {
+    try
+    {
+        Comms::SerialPort packet("/dev/ttyACM1");
+        Comms::BytePayload payload;
+
+        packet.RecieveData(payload);
+
+        if(payload.size() != 2)
+        {
+            //@todo Make this an exception
+            return false;
+        }
+    }
+    catch(boost::system::system_error& e)
+    {
+        std::cout << "Error " << e.what() << std::endl;
+        return false;
+    }
+
+    return true;
 
 }
 
-bool receiveName(player _player, unsigned int _timeout)
+bool receiveName(player _player, std::string &_data, unsigned int _timeout)
 {
 
 }
 
 bool waitForResponse()
 {
+
+}
 
 }
