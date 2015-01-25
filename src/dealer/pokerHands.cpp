@@ -1,5 +1,6 @@
 #include "dealer/pokerHands.h"
 
+#include "assert.h"
 
 //--------------------------------------------------------------------------------------
 //--------------------------------------------------------------------------------------
@@ -576,6 +577,8 @@ std::vector<player> hands::winner(std::vector<player> &_livePlayers, const cardS
 {
     unsigned int numPlayers = _livePlayers.size();
 
+    assert(numPlayers > 0);
+
     int topScore = 0;
     std::vector<int> winnerID;
     std::vector<player> WINNERS;
@@ -611,6 +614,7 @@ std::vector<player> hands::winner(std::vector<player> &_livePlayers, const cardS
     else
     {
         // Only one winner
+      std::cout<<winnerID.size()<<"\n";
         _livePlayers[winnerID[0]].printInfo();
         WINNERS.push_back(_livePlayers[winnerID[0]]);
     }

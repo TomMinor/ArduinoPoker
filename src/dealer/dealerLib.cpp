@@ -257,6 +257,7 @@ void dealerLib::update()
 {
   m_dealerGui.update();
   m_dealerGui.draw();
+  m_dealerGui.runUntilStationary();
 }
 //-----------------------------------------------------------------------------------------
 void dealerLib::reset()
@@ -313,10 +314,14 @@ void dealerLib::init()
   m_deviceMap = Comms::SerialPort::DetectSerialDevices();
 
   m_numPlayers = m_deviceMap.size();
-  for (unsigned int i=0;i<m_deviceMap.size();i++)
+
+  for(Comms::PlayerDevices::iterator it = m_deviceMap.begin();
+      it != m_deviceMap.end();
+      ++it)
   {
-      initPlayer(i);
+    initPlayer( it->first );
   }
+
   std::vector<const player*> guiPlayers;
   for(unsigned int i=0;i<m_numPlayers;i++)
   {
@@ -336,10 +341,28 @@ void dealerLib::initPlayer(const int &_id)
   m_table.push_back(player());
   m_table[_id].setID(_id);
   std::string playerName;// = "default";
-  if(!(Comms::receiveName(m_deviceMap.at(m_table[_id].getID()),playerName)))
+  bool flag = true;
+
+  Comms::sendResetPlayer(m_deviceMap.at(_id));
+
+//  for(int retry = 0; flag && retry < 1; retry++)
+//  {
+//    if( Comms::receiveName(m_deviceMap.at(_id),playerName) )
+//    {
+  //if(playerName.length()==0)
   {
-      //error request name again
+    Comms::receiveName(m_deviceMap.at(_id),playerName);
+      Comms::sendMoney(m_deviceMap.at(_id),(Uint16)m_table[_id].getMoney());
   }
+      flag =false;
+      //break;
+    //}
+//    else
+//    {
+//      std::cout << "Retrying set player name..." << std::endl;
+//      usleep(1000 * 2000);
+//    }
+//  }
 
   //playerName = static_cast<std::ostringstream*>( &(std::ostringstream() <<_id) )->str();
 

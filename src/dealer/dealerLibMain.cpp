@@ -54,7 +54,6 @@ int main()
     int diff_time = 0;
     int accumulator = 0;
 
-    setbuf(stdout, NULL);
 
     SDL_TimerID timer_id;
 
@@ -75,14 +74,27 @@ int main()
             }
         }
 
-        usleep(10 * 5000);
+//        usleep(10 * 5000);
 
         table.dealHands();
+        table.update();
         table.bet();
+        table.update();
         table.dealFlop();
+        table.update();
+        table.bet();
+        table.update();
+        table.dealRiverTurn();
+        table.update();
+        table.bet();
+        table.update();
+        table.dealRiverTurn();
+        table.bet();
+        table.decideWinners();
 
         last_time = cur_time;
         table.update();
+        table.reset();
 
     }
 
