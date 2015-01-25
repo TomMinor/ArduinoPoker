@@ -108,7 +108,7 @@ void GUI::DealerGUI::initialise(std::vector<const player *> _players,
     char buf[bufsize] = "";
     readlink("/proc/self/exe",buf,bufsize);
     std::string ourDir = std::string(buf);
-    ourDir = ourDir.substr(0, ourDir.size()-8);
+    ourDir = ourDir.substr(0, ourDir.size()-9);
 
     // Load a font
     TTF_Font *font;
@@ -186,6 +186,7 @@ void GUI::DealerGUI::broadcastMessage(const std::string &_message, const unsigne
     for (unsigned int i = 0; i < m_players.size(); ++i)
     {
         GUI::Label* messageLabel = uniqueLabel(_message,m_players[i].orient,_duration);
+        std::cout<<"Broadcasting message: \""<<_message<<"\"\n";
         m_activeMessages.push_back(messageLabel);
         messageLabel->setPos(m_players[i].pos_offScreen);
         messageLabel->moveTo(m_players[i].pos_onScreen);
@@ -239,6 +240,7 @@ void GUI::DealerGUI::receiveBetFrom(const unsigned int &_playerID, Uint16 &_amou
     std::stringstream amountStream;
     amountStream << _amount;
     std::string betString = std::string("$") + amountStream.str();
+    std::cout<<"before possible danger: "<<betString<<"\n";
 
     if (_isFirstBet)
     {
@@ -319,6 +321,7 @@ void GUI::DealerGUI::update()
 void GUI::DealerGUI::draw()
 {
     SDL_SetRenderTarget(m_renderer, m_renderTarget);
+
     clearScreen(2,180,2);
 
 //    for (std::vector< boost::shared_ptr<Element> >::iterator it; it!=m_elements.end(); ++it)
@@ -473,7 +476,7 @@ GUI::Label* GUI::DealerGUI::uniqueLabel(const std::string &_inputString, const G
 {
     boost::shared_ptr<GUI::Label> temp(m_maker.makeLabel(_inputString,_orient,_lifetime));
     m_elements.push_back(temp);
-    return temp.get();
+     return temp.get();
 }
 
 GUI::Hand* GUI::DealerGUI::uniqueHand(const std::vector<PlayingCard> &_cards, const unsigned int &_playerID)
@@ -694,7 +697,7 @@ void GUI::DealerGUI::setUpUniqueElements(std::vector<PlayingCard> _publicCards, 
     char buf[bufsize] = "";
     readlink("/proc/self/exe",buf,bufsize);
     std::string ourDir = std::string(buf);
-    ourDir = ourDir.substr(0, ourDir.size()-8);
+    ourDir = ourDir.substr(0, ourDir.size()-9);
 
     // Load the pot image
     SDL_Surface *temp;

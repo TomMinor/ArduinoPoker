@@ -137,24 +137,20 @@ void dealerLib::bet()
   //Thus breaking out of the while loop
   while(!(checkBoolArray(p)))
   {
-      std::cout<<"enter bet WHILE LOOP\n";
+      std::cout<<currentBet<<" current bet, "<<oldBet<<" old bet\n";
       for(unsigned int i=0;i<m_livePlayers.size();i++)
       {
-          std::cout<<"enter bet FOR LOOP\n";
           // find max bet
          int maxBet = checkMaxBet() - m_livePlayers[i].getBet();
          if(maxBet==0){p[i]=true;}
          else
          {
-             std::cout<<"MAX BET greater than 0\n";
-//             if(!(Comms::receiveBet(m_deviceMap.at(m_livePlayers[i].getID()),playerBet,currentBet,maxBet)))
-//             {
-//                 // error, try to receive again
-//             }
+             if(!(Comms::receiveBet(m_deviceMap.at(m_livePlayers[i].getID()),playerBet,currentBet,maxBet)))
+             {
+                 // error, try to receive again
+             }
 
              std::cout<<"player bet received from comms: "<<playerBet<<"\n";
-             playerBet = 100;
-             std::cout<<"player bet manually set: "<<playerBet<<"\n";
 
              playerRaise = playerBet;
              playerBet += m_livePlayers[i].getBet();
@@ -163,9 +159,7 @@ void dealerLib::bet()
              // check if player has fold
              if(m_livePlayers[i].isFold())
              {
-                 std::cout<<"Player"<<m_livePlayers[i].getID()<<" folded\n";
                  // remove player from live players
-                 //playerBet = m_livePlayers[i].getBet();
                  GUI::Hand* burned = m_dealerGui.uniqueHand(m_livePlayers[i].getHole(),m_livePlayers[i].getID());
                  burned->setPos(m_dealerGui.getOffScreenPos(m_livePlayers[i].getID()));
                  burned->setFlipped(true,true);
@@ -178,24 +172,20 @@ void dealerLib::bet()
              }
              else
              {
-                 std::cout<<"player made bet\n";
                  currentBet = m_livePlayers[i].getBet();
                  m_dealerGui.receiveBetFrom(m_livePlayers[i].getID(),playerRaise);
-                 std::cout<<"past gui method receiveBetFrom\n";
                  if(currentBet == oldBet)
                  {
                      p[i] = true;
-                     std::cout<<"Player MATCHED BET\n";
                  }
                  else
                  {
-                     std::cout<<"Player RAISED\n";
                      for(unsigned int j=0;j<m_livePlayers.size();j++)
                      {
-                         if(j==i)                           {p[j]=true;}
-                         else if(m_livePlayers[j].isFold()) {p[j] = true;}
+                         if(m_livePlayers[j].isFold()) {p[j] = true;}
                          else                               {p[j] = false;}
                      }
+                     p[i]=true;
                  }
              }
              oldBet = currentBet;
@@ -295,9 +285,6 @@ void dealerLib::reset()
   m_livePlayers = m_table;
 
 
-
-
-
 }
 
 
@@ -348,8 +335,8 @@ void dealerLib::initPlayer(const int &_id)
 {
   m_table.push_back(player());
   m_table[_id].setID(_id);
-  std::string playerName = "default";
-  //if(!(Comms::receiveName(m_deviceMap.at(m_table[_id].getID()),playerName)))
+  std::string playerName;// = "default";
+  if(!(Comms::receiveName(m_deviceMap.at(m_table[_id].getID()),playerName)))
   {
       //error request name again
   }
