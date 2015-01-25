@@ -15,7 +15,7 @@
 int main()
 {
     player p0;
-    sendCard(p0, PlayingCard(Rank::EIGHT, Suit::HEART));
+    Comms::sendCard(p0, PlayingCard(Rank::EIGHT, Suit::HEART));
 
     return 0;
 }

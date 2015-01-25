@@ -18,7 +18,7 @@ namespace GUI
 /// as a pointer to the original class.
 typedef struct
 {
-    player* playerClass;
+    const player * playerClass;
     SDL_Point pos_onScreen;
     SDL_Point pos_offScreen;
     Orientation orient;
@@ -46,7 +46,7 @@ public:
     /// \brief Sets up SDL and all the initial elements and variables.
     /// \param _players A vector of all the players that will be taking part in the game.
     /// \param _publicCards A vector of the initial cards in the river. Can be empty and the cards added later with addPublicCard().
-    void initialise(std::vector<player*> _players, std::vector<PlayingCard> _publicCards);//init SDL and bring up the window etc.
+    void initialise(std::vector<const player*> _players, const std::vector<PlayingCard>& _publicCards);//init SDL and bring up the window etc.
 
     /// \brief Prints a message that players on all sides of the table can read.
     /// \param _message The message to print.
@@ -90,7 +90,7 @@ public:
     /// \param _winners A vector of pointers to the winning players.
     /// \return A vector of pointers to the hands displayed on-screen. If the dealer (not the dealer GUI) wishes to start a new round without calling the reset() function,
     /// it is their responsibility to store these pointers and delete or burn the hands when the players are ready to begin a new round.
-    std::vector<Hand*> showWinner(std::vector<player*> _winners);
+    std::vector<Hand*> showWinner(std::vector<const player*> _winners);
 
     //use these functions to convert the other systems' classes/structs to the GUI system's
     //(probably no longer needed)
@@ -150,7 +150,7 @@ public:
     /// \brief Resets the visual game state.
     /// \param _players A vector of players to start the new game with. Pass no parameter to use the same players as the last game.
     /// \param _publicCards A vector of cards to start the river with in the new game.
-    void reset(std::vector<player*> _players = std::vector<player*>(), std::vector<PlayingCard> _publicCards = std::vector<PlayingCard>());
+    void reset(std::vector<const player *> _players = std::vector<const player*>(), std::vector<PlayingCard> _publicCards = std::vector<PlayingCard>());
 
 private:
 
@@ -165,10 +165,10 @@ private:
     std::vector< boost::shared_ptr<Hand> > m_hands;
     std::vector< Label* > m_activeMessages;
 
-    Player createPlayer(player* _playerRef, const Orientation &_orient, const int _offset);
+    Player createPlayer(const player *_playerRef, const Orientation &_orient, const int _offset);
     void setUpUniqueElements(std::vector<PlayingCard> _publicCards);
     void setUpBorder(SDL_Texture* _tex);
-    void setUpPlayers(std::vector<player*> _players);
+    void setUpPlayers(std::vector<const player*> _players);
 
     void SDLErrorExit(const std::string &_msg);
     void clearScreen(SDL_Renderer *_ren,char _r,char _g,char _b	);

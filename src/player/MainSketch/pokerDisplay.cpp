@@ -225,17 +225,20 @@ void display::waitCards()
   }
 }
 
-void display::winner()
+void display::winner(uint8_t _money)
 {
   lcd.clear();
   
+  lcd.print("You won $"+String(_money));
+  delay(1500);
+  
+  lcd.clear();
+  
   lcd.print("Winner Winner!");
-  
-  lcd.setCursor(0,1);
-  
+  lcd.setCursor(0,1); 
   lcd.print("Chicken Dinner!");
   
-  delay(3000);
+  delay(1500);
 }
 
 void display::screenReset()
@@ -249,7 +252,7 @@ void display::screenReset()
 void display::displayMoney(uint8_t _line, uint16_t _money)
 {
   lcd.setCursor(0, _line);
-  lcd.print("Money: "+String(_money));
+  lcd.print("Money: $"+String(_money));
 }
 
 void display::displayName(char* _name)

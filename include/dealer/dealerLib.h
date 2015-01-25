@@ -9,12 +9,12 @@
 
 enum commsRequest
 {
-  sendBetLimits,
-  sendMoney,
-  sendCard,
-  getName,
-  getBet,
-  wait
+  SENDBETLIMIT,
+  SENDMONEY,
+  SENDCARD,
+  GETNAME,
+  GETBET,
+  WAIT
 };
 
 class dealerLib

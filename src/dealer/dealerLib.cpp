@@ -1,5 +1,6 @@
 #include "dealer/dealerLib.h"
 #include "comms/SerialPort.h"
+#include "comms/dealerIO.h"
 
 
 dealerLib::dealerLib()
@@ -16,8 +17,6 @@ dealerLib::~dealerLib()
 void dealerLib::Betting()
 {
 //make a cooms object
-  comms thing;
-
   std::vector<int> playerBets;
   std::vector<int>::iterator firstPlayersBet;
   std::vector<int>::iterator otherPlayersBet;
@@ -48,7 +47,8 @@ void dealerLib::Betting()
 
     int maxBet = checkMaxBet();
 
-    thing.sendBetLimits(*playerItr, (*playerItr).getBet(), maxBet);
+
+    Comms::sendBetLimits(*playerItr, (*playerItr).getBet(), maxBet);
     // sendBetLimits should send player and min and max bet limits
     //thing.receiveBet(*playerItr);
     currentBet = playerItr->getBet();
@@ -126,7 +126,6 @@ bool dealerLib::checkBoolArray(bool _array[])const
 
 void dealerLib::bet()
 {
-  comms tom;
   Uint16 currentBet = 0;
   Uint16 oldBet = 0;
   Uint16 playerBet = 0;
@@ -140,8 +139,8 @@ void dealerLib::bet()
       {
           // find max bet
          int maxBet = checkMaxBet() - m_livePlayers[i].getBet();
-         tom.sendBetLimits(m_livePlayers[i],currentBet,maxBet);
-         tom.receiveBet(m_livePlayers[i],playerBet);
+         Comms::sendBetLimits(m_livePlayers[i],currentBet,maxBet);
+         Comms::receiveBet(m_livePlayers[i],playerBet);
          playerBet += m_livePlayers[i].getBet();
          m_livePlayers[i].setBet(playerBet);
 
@@ -217,7 +216,6 @@ void dealerLib::dealRiverTurn()
 //deals 2 cards to the players
 void dealerLib::dealHands()
 {
-  comms thing;
 
   std::vector<player>::iterator playerIt;
   for(int i=0; i<2; i++)
@@ -226,7 +224,7 @@ void dealerLib::dealHands()
     {
       PlayingCard tmpCard = m_deck.deal();
       playerIt->setHoleCard(tmpCard);
-      thing.sendCard(*playerIt, tmpCard);
+      Comms::sendCard(*playerIt, tmpCard);
     }
   }
 
@@ -285,7 +283,7 @@ void dealerLib::init()
   {
       initPlayer(i);
   }
-  std::vector<player*> guiPlayers;
+  std::vector<const player*> guiPlayers;
   for(unsigned int i=0;i<m_numPlayers;i++)
   {
       guiPlayers.push_back(&m_table[i]);
@@ -303,12 +301,10 @@ void dealerLib::init()
 
 void dealerLib::initPlayer(const int &_id)
 {
-  comms tmp;
-
   m_table.push_back(player());
   m_table[_id].setID(_id);
   std::string playerName = "default";
-  if(!(tmp.receiveName(m_table[_id],playerName)))
+  if(!(Comms::receiveName(m_table[_id],playerName)))
   {
       //error request name again
   }
@@ -367,23 +363,23 @@ void dealerLib::removeTheNoobs()
 bool dealerLib::callComms(commsRequest request)
 {
   switch (request){
-    case sendBetLimits:
+    case SENDBETLIMIT:
 
       break;
 
-    case sendMoney:
+    case SENDMONEY:
       break;
 
-    case sendCard:
+    case SENDCARD:
       break;
 
-    case getName:
+    case GETNAME:
       break;
 
-    case getBet:
+    case GETBET:
       break;
 
-    case wait:
+    case WAIT:
       break;
 
     default:

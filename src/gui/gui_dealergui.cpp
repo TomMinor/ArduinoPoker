@@ -57,7 +57,7 @@ GUI::DealerGUI::~DealerGUI()
     SDL_Quit();
 }
 
-void GUI::DealerGUI::initialise(std::vector<player *> _players, std::vector<PlayingCard> _publicCards)
+void GUI::DealerGUI::initialise(std::vector<const player *> _players, const std::vector<PlayingCard> &_publicCards)
 {
     //-----------------------------------------------------------------------------
     // First thing we need to do is initialise SDL in this case we are
@@ -328,7 +328,7 @@ void GUI::DealerGUI::draw()
     SDL_RenderPresent(m_renderer);
 }
 
-GUI::Player GUI::DealerGUI::createPlayer(player *_playerRef, const GUI::Orientation &_orient, const int _offset)
+GUI::Player GUI::DealerGUI::createPlayer(const player *_playerRef, const GUI::Orientation &_orient, const int _offset)
 {
     //onScreen is the position where this player's public items will be drawn
     //offScreen is where items will be moved to make it look like they are being given to this player
@@ -570,7 +570,7 @@ void GUI::DealerGUI::clearScreen(SDL_Renderer *_ren,char _r,char _g,char _b	)
 //    return uniqueHand(handCards,BOTTOM);
 //}
 
-std::vector<GUI::Hand*> GUI::DealerGUI::showWinner(std::vector<player*> _winners)
+std::vector<GUI::Hand*> GUI::DealerGUI::showWinner(std::vector<const player *> _winners)
 {
     std::vector<GUI::Hand*> winningHands;
     SDL_Point current = getCentre();
@@ -606,7 +606,7 @@ std::vector<GUI::Hand*> GUI::DealerGUI::showWinner(std::vector<player*> _winners
         return std::vector<GUI::Hand*>();
     }
 
-    for (std::vector<player*>::iterator it = _winners.begin(); it != _winners.end(); ++it)
+    for (std::vector<const player*>::iterator it = _winners.begin(); it != _winners.end(); ++it)
     {
         GUI::Hand* thisHand = uniqueHand((*it)->getHand());
         thisHand->moveTo(current);
@@ -617,7 +617,7 @@ std::vector<GUI::Hand*> GUI::DealerGUI::showWinner(std::vector<player*> _winners
     return winningHands;
 }
 
-void GUI::DealerGUI::reset(std::vector<player*> _players, std::vector<PlayingCard> _publicCards)
+void GUI::DealerGUI::reset(std::vector<const player*> _players, std::vector<PlayingCard> _publicCards)
 {
     m_hands.clear();
     m_elements.clear();
@@ -625,7 +625,7 @@ void GUI::DealerGUI::reset(std::vector<player*> _players, std::vector<PlayingCar
     setUpPlayers(_players);
 }
 
-void GUI::DealerGUI::setUpPlayers(std::vector<player *> _players)
+void GUI::DealerGUI::setUpPlayers(std::vector<const player *> _players)
 {
     switch (_players.size())
     {
@@ -711,7 +711,7 @@ void GUI::DealerGUI::setUpUniqueElements(std::vector<PlayingCard> _publicCards)
     SDL_Point position = getCentre();
     position.y -= 48;
 
-    m_publicCards = uniqueHand(_publicCards);
+    m_publicCards = uniqueHand(_publicCards,BOTTOM);
     //m_publicCards->setFlipped(true);
     m_publicCards->moveTo(position);
 
@@ -733,7 +733,7 @@ void GUI::DealerGUI::setUpUniqueElements(std::vector<PlayingCard> _publicCards)
 
 void GUI::DealerGUI::addPublicCard(const PlayingCard &_type)
 {
-    GUI::Card* newCard = uniqueCard(_type);
+    GUI::Card* newCard = uniqueCard(_type,BOTTOM);
     newCard->setPos(m_deckPos);
     newCard->setFlipped(true,true);
     newCard->setFlipped(false);
@@ -743,15 +743,7 @@ void GUI::DealerGUI::addPublicCard(const PlayingCard &_type)
 void GUI::DealerGUI::kickPlayer(const unsigned int &_playerID, const unsigned int &_money)
 {
     GUI::Player* thatPlayer = &m_players[_playerID];
-    SDL_Point newPos = thatPlayer->nameLabel->getPos();
-    switch (thatPlayer->orient)
-    {
-        case BOTTOM : newPos.y += thatPlayer->nameLabel->getHeight(); break;
-        case TOP    : newPos.y -= thatPlayer->nameLabel->getHeight(); break;
-        case LEFT   : newPos.x -= thatPlayer->nameLabel->getWidth();  break;
-        case RIGHT  : newPos.x += thatPlayer->nameLabel->getWidth();  break;
-    }
-    thatPlayer->nameLabel->moveTo(newPos);
+    thatPlayer->nameLabel->moveTo(thatPlayer->pos_offScreen);
     broadcastMessage(thatPlayer->playerClass->getName() + std::string(" has been kicked for this round"));
 
     std::stringstream amountStream;
@@ -777,7 +769,17 @@ void GUI::DealerGUI::kickPlayer(const unsigned int &_playerID, const unsigned in
 void GUI::DealerGUI::addPlayerBack(const unsigned int &_playerID)
 {
     GUI::Player* thatPlayer = &m_players[_playerID];
-    thatPlayer->nameLabel->align(thatPlayer->orient);
+    thatPlayer->nameLabel->align(thatPlayer->orient,true);
+    SDL_Point newPos = thatPlayer->nameLabel->getPos();
+    switch (thatPlayer->orient)
+    {
+        case BOTTOM : newPos.y -= 10; break;
+        case TOP    : newPos.y += 10; break;
+        case LEFT   : newPos.x += 10; break;
+        case RIGHT  : newPos.x -= 10; break;
+    }
+
+    thatPlayer->nameLabel->moveTo(newPos);
     broadcastMessage(thatPlayer->playerClass->getName() + std::string(" is back in play"));
 }
 

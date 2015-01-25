@@ -6,7 +6,7 @@ SOURCES+= $$PWD/src/dealer/deck.cpp \
           $$PWD/src/dealer/dealerLib.cpp \
           $$PWD/src/dealer/dealerLibMain.cpp \
           $$PWD/src/dealer/cardStack.cpp \
-          $$PWD/src/dealer/comms.cpp \
+          #$$PWD/src/dealer/comms.cpp \
           $$PWD/src/comms/SerialPort.cpp \
           $$PWD/src/gui/gui_card.cpp \
           $$PWD/src/gui/gui_dealergui.cpp \
@@ -14,6 +14,7 @@ SOURCES+= $$PWD/src/dealer/deck.cpp \
           $$PWD/src/gui/gui_elementmaker.cpp \
           $$PWD/src/gui/gui_hand.cpp \
           $$PWD/src/gui/gui_label.cpp \
+          $$PWD/src/comms/dealerIO.cpp
 
 
 HEADERS+= $$PWD/include/dealer/deck.h \
@@ -21,13 +22,15 @@ HEADERS+= $$PWD/include/dealer/deck.h \
           $$PWD/include/dealer/player.h \
           $$PWD/include/dealer/dealerLib.h \
           $$PWD/include/dealer/cardStack.h \
-          $$PWD/include/dealer/comms.h \
+          #$$PWD/include/dealer/comms.h \
           $$PWD/include/gui/gui_card.h \
           $$PWD/include/gui/gui_dealergui.h \
           $$PWD/include/gui/gui_element.h \
           $$PWD/include/gui/gui_elementmaker.h \
           $$PWD/include/gui/gui_hand.h \
-          $$PWD/include/gui/gui_label.h
+          $$PWD/include/gui/gui_label.h \
+          $$PWD/include/comms/dealerIO.h
+
 
 INCLUDEPATH +=./include
 

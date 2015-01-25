@@ -84,18 +84,17 @@ class player
     /// @param [out] returns name of player.
     char* getName() { return m_playerName; }
     
+    /// @brief checkFirstcard
+    /// @param [out] returns bool if first card is empty.
     bool checkFirstCard();
-    
-    
-    /// @brief showPlayerData().
-    /// @brief Method prints the players data on the screen.
-    void showPlayerData();
-    
+        
     /// @brief joinGame
     /// @brief Method task the player to join, stops them from carrying on unless they do.
     /// @brief infinite loop if they so no.
     void joinGame();
-       
+    
+    /// @brief PlayerDataScreen().
+    /// @brief Method prints the players data on the screen.
     void playerDataScreen();
     
 };
