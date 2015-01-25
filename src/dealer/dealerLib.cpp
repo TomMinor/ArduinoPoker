@@ -197,22 +197,27 @@ void dealerLib::addBetToPot(const int &_bet)
 
 //--------------------------------------------------------------
 //deals out the first three community cards
-void dealerLib::dealFlop(deck _pack)
+void dealerLib::dealFlop()
 {
   for(int i=0; i<3; i++)
-    m_communityCards.push_back(_pack.deal());
+  {
+    PlayingCard card = m_deck.deal();
+    m_communityCards.push_back(card);
+    dealerGui.addPublicCard(card);
+  }
 }
 //--------------------------------------------------------------
 
 //deals adds an extra card to the community cards. Used for the river and the turn
-void dealerLib::dealRiverTurn(deck _pack)
+void dealerLib::dealRiverTurn()
 {
-  m_communityCards.push_back(_pack.deal());
+  PlayingCard card = m_deck.deal();
+  m_communityCards.push_back(card);
 }
 //--------------------------------------------------------------
 
 //deals 2 cards to the players
-void dealerLib::dealHands(deck _pack)
+void dealerLib::dealHands()
 {
   comms thing;
 
@@ -220,9 +225,12 @@ void dealerLib::dealHands(deck _pack)
   for(int i=0; i<2; i++)
   {
     for(playerIt = m_table.begin(); playerIt != m_table.end(); playerIt++)
+
+    for(unsigned int j =0; j < m_table.size(); j++)
     {
-      PlayingCard tmpCard = _pack.deal();
-      playerIt->setHoleCard(tmpCard);
+      PlayingCard tmpCard = m_deck.deal();
+      m_table[j].setHoleCard(tmpCard);
+      dealerGui.dealCardTo(j, tmpCard);
       thing.sendCard(*playerIt, tmpCard);
     }
   }
@@ -238,9 +246,13 @@ void dealerLib::resetCards()
 {
   std::vector<player>::iterator playerIt;
 
-  for(playerIt=m_table.begin(); playerIt!=m_table.end(); playerIt++)
+  for(unsigned int i = 0; i < m_table.size(); i++)
   {
-    playerIt->emptyHole();
+    GUI::Hand* burned = dealerGui.uniqueHand(m_table[i].getHole(), i);
+    burned->setFlipped(true, true);
+//    burned->setPos(dealerGui.)
+    m_table[i].emptyHole();
+
   }
 
   m_communityCards.erase(m_communityCards.begin(), m_communityCards.end());
@@ -386,4 +398,24 @@ int dealerLib::getNumPlayers()const
 std::vector<player> dealerLib::getLivePlayers()const
 {
   return m_livePlayers;
+}
+
+void dealerLib::splitPot()
+{
+  std::vector<player> winners;
+  std::vector<player>::iterator playerIt;
+  winners = hands::winner(m_livePlayers, m_communityCards);
+  int remainder = m_pot % winners.size();
+  int winnings = (m_pot - remainder) / winners.size();
+
+  for(playerIt = winners.begin(); playerIt != winners.end(); playerIt++)
+  {
+    playerIt->receivePot(winnings);
+  }
+
+  m_pot = remainder;
+
+
+
+
 }

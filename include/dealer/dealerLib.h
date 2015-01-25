@@ -6,6 +6,7 @@
 #include "cardStack.h"
 #include "comms.h"
 #include "gui/gui_dealergui.h"
+#include "pokerHands.h"
 
 enum commsRequest
 {
@@ -26,10 +27,10 @@ public:
   void bet();
   bool checkBoolArray(bool _array[])const;
   void addBetToPot(const int &_bet);
+  void dealHands();
+  void dealFlop();
+  void dealRiverTurn();
   int checkMaxBet();
-  void dealHands(deck _pack);
-  void dealFlop(deck _pack);
-  void dealRiverTurn(deck _pack);
   void resetCards();
   void update();
   void init();
@@ -38,6 +39,7 @@ public:
   void removePlayer(std::vector<player>::iterator it);
   bool checkIfLost(player _player);
   void removeTheNoobs();
+  void splitPot();
 
 
   bool callComms(commsRequest request);

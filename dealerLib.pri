@@ -1,5 +1,6 @@
 TARGET=dealerLib
 
+
 SOURCES+= $$PWD/src/dealer/deck.cpp \
           $$PWD/src/dealer/playingcard.cpp \
           $$PWD/src/dealer/player.cpp \
@@ -7,14 +8,14 @@ SOURCES+= $$PWD/src/dealer/deck.cpp \
           $$PWD/src/dealer/dealerLibMain.cpp \
           $$PWD/src/dealer/cardStack.cpp \
           $$PWD/src/dealer/comms.cpp \
+          $$PWD/src/dealer/pokerHands.cpp \
           $$PWD/src/comms/SerialPort.cpp \
           $$PWD/src/gui/gui_card.cpp \
           $$PWD/src/gui/gui_dealergui.cpp \
           $$PWD/src/gui/gui_element.cpp \
           $$PWD/src/gui/gui_elementmaker.cpp \
           $$PWD/src/gui/gui_hand.cpp \
-          $$PWD/src/gui/gui_label.cpp \
-
+          $$PWD/src/gui/gui_label.cpp
 
 HEADERS+= $$PWD/include/dealer/deck.h \
           $$PWD/include/dealer/playingcard.h \
@@ -22,6 +23,7 @@ HEADERS+= $$PWD/include/dealer/deck.h \
           $$PWD/include/dealer/dealerLib.h \
           $$PWD/include/dealer/cardStack.h \
           $$PWD/include/dealer/comms.h \
+          $$PWD/include/dealer/pokerHands.h \
           $$PWD/include/gui/gui_card.h \
           $$PWD/include/gui/gui_dealergui.h \
           $$PWD/include/gui/gui_element.h \

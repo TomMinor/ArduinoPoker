@@ -10,7 +10,6 @@ DESTDIR=./
 SOURCES += src/dealer/playingcard.cpp \
     src/dealer/player.cpp \
     src/dealer/cardStack.cpp \
-    src/comms/packet.cpp \
     src/comms/comms_main.cpp \
     $$PWD/src/comms/SerialPort.cpp \
     $$PWD/src/comms/dealerIO.cpp
