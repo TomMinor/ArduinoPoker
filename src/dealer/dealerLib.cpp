@@ -1,6 +1,5 @@
 #include "dealer/dealerLib.h"
-#include "comms/SerialPort.h"
-#include "comms/dealerIO.h"
+
 
 
 dealerLib::dealerLib()
@@ -129,6 +128,7 @@ void dealerLib::bet()
   Uint16 currentBet = 0;
   Uint16 oldBet = 0;
   Uint16 playerBet = 0;
+  Uint16 playerRaise = 0;
   bool p[m_livePlayers.size()];
 
   //When all bets are matched the array will all be true
@@ -140,7 +140,10 @@ void dealerLib::bet()
           // find max bet
          int maxBet = checkMaxBet() - m_livePlayers[i].getBet();
          Comms::sendBetLimits(m_livePlayers[i],currentBet,maxBet);
+         //Comms::sendBetLimits(m_deviceMap.at(m_livePlayers[i].getID()),currentBet,maxBet);
          Comms::receiveBet(m_livePlayers[i],playerBet);
+         //Comms::receiveBet(m_deviceMap.at(m_livePlayers[i].getID()),playerBet);
+         playerRaise = playerBet;
          playerBet += m_livePlayers[i].getBet();
          m_livePlayers[i].setBet(playerBet);
 
@@ -149,10 +152,10 @@ void dealerLib::bet()
          {
              // remove player from live players
              //playerBet = m_livePlayers[i].getBet();
-             GUI::Hand* burned = dealerGui.uniqueHand(m_livePlayers[i].getHole(),m_livePlayers[i].getID());
-             burned->setPos(dealerGui.getOffScreenPos(m_livePlayers[i].getID()));
+             GUI::Hand* burned = m_dealerGui.uniqueHand(m_livePlayers[i].getHole(),m_livePlayers[i].getID());
+             burned->setPos(m_dealerGui.getOffScreenPos(m_livePlayers[i].getID()));
              burned->setFlipped(true,true);
-             burned->moveTo(dealerGui.getCentre());
+             burned->moveTo(m_dealerGui.getCentre());
              burned->burn();
              addBetToPot(playerBet);
              m_livePlayers.erase(m_livePlayers.begin()+i);
@@ -161,8 +164,7 @@ void dealerLib::bet()
          else
          {
              currentBet = m_livePlayers[i].getBet();
-             dealerGui.receiveBetFrom(m_livePlayers[i].getID(),currentBet);
-             //currentBet = playerBet;
+             m_dealerGui.receiveBetFrom(m_livePlayers[i].getID(),playerRaise);
              if(currentBet == oldBet)
              {
                  p[i] = true;
@@ -224,7 +226,11 @@ void dealerLib::dealHands()
     {
       PlayingCard tmpCard = m_deck.deal();
       playerIt->setHoleCard(tmpCard);
-      Comms::sendCard(*playerIt, tmpCard);
+      //Comms::sendCard(m_deviceMap.at(playerIt->getID()), tmpCard);
+      if(!(Comms::sendCard(*playerIt, tmpCard)))
+      {
+          //error re-send card
+      }
     }
   }
 
@@ -232,8 +238,8 @@ void dealerLib::dealHands()
 //-----------------------------------------------------------------------------------------
 void dealerLib::update()
 {
-  dealerGui.update();
-  dealerGui.draw();
+  m_dealerGui.update();
+  m_dealerGui.draw();
 }
 //-----------------------------------------------------------------------------------------
 void dealerLib::resetCards()
@@ -276,10 +282,10 @@ int dealerLib::checkMaxBet()
 void dealerLib::init()
 {
 
-  Comms::PlayerDevices devices = Comms::SerialPort::DetectSerialDevices();
+  m_deviceMap = Comms::SerialPort::DetectSerialDevices();
 
-  m_numPlayers = devices.size();
-  for (unsigned int i=0;i<devices.size();i++)
+  m_numPlayers = m_deviceMap.size();
+  for (unsigned int i=0;i<m_deviceMap.size();i++)
   {
       initPlayer(i);
   }
@@ -290,9 +296,8 @@ void dealerLib::init()
   }
   cardStack flop;
   flop.push_back(PlayingCard(Rank::NINE,Suit::HEART));
-  std::cout<<"size of guiPlayer: "<<guiPlayers.size()<<"\n";
-
-  dealerGui.initialise(guiPlayers,flop);
+  m_dealerGui.initialise(guiPlayers,flop);
+  m_dealerGui.m_publicCards->kill();
 
   m_livePlayers = m_table;
 }

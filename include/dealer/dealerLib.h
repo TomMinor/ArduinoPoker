@@ -1,10 +1,12 @@
 #ifndef _DEALERLIB__H_
 #define _DEALERLIB__H_
 
+#include <map>
 #include "player.h"
 #include "deck.h"
 #include "cardStack.h"
-#include "comms.h"
+#include "comms/dealerIO.h"
+#include "comms/SerialPort.h"
 #include "gui/gui_dealergui.h"
 
 enum commsRequest
@@ -52,8 +54,8 @@ private:
 
   unsigned int m_pot;
   deck m_deck;
-  GUI::DealerGUI dealerGui;
-  //comms dealerComm;
+  GUI::DealerGUI m_dealerGui;
+  Comms::PlayerDevices m_deviceMap;
 
 
 
