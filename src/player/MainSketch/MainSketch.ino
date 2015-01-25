@@ -17,21 +17,21 @@ LiquidCrystal lcd(8, 9, 4, 5, 6, 7);
 player player;
 
 data coms;
-
-
+uint8_t a= U16_TO_BYTE_L(0xff0f);
+uint8_t b= U16_TO_BYTE_H(0xff0f);
 void setup() 
 {
 
   lcd.begin(16,2);
   Serial.begin(9600);
   player.joinGame();
-  
-  //player.setMoney(100);
+//  
+//  //player.setMoney(100);
   coms.limit_L = 50;
-  coms.limit_H = 80;
-  //player.receiveCard(cards);
-  //player.receiveCard(cards);
-  lcd.clear();
+coms.limit_H = 80;
+//  //player.receiveCard(cards);
+//  //player.receiveCard(cards);
+//  lcd.clear();
 }
 
 
@@ -39,6 +39,16 @@ void setup()
 void loop() 
 {
    
+//   Serial.print("\n");
+//   Serial.print(0xff0f,HEX);
+//   Serial.print("\n");
+//   Serial.print("\n");
+//   Serial.print(a,HEX),
+//   Serial.print("\n");
+//   Serial.print(b,HEX),
+//   Serial.print("\n");
+//   Serial.print((((uint8_t)b<<8)|a),HE),
+//   delay(500);
   //lcd.clear();
   uint8_t state;
   
@@ -83,14 +93,16 @@ void loop()
     case DEALER_CALLS::SET_MONEY:
     {
       player.setMoney(coms.money);
-      Serial.print(coms.money);
+      
       break;
     }
     case DEALER_CALLS::INITIATE_BET:
     {
       uint16_t bet = 0;
       bet = player.placeBet(coms.limit_H, coms.limit_L);
+      lcd.clear();
       sendBet(bet);
+      //delay(1000);   
       break;
     }
     case DEALER_CALLS::WIN_MONEY:

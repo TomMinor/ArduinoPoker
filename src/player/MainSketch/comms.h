@@ -91,6 +91,7 @@ enum MASK
   LOW_NIBBLE    = 0x0F,
   
   BYTE_MASK  =0xFF
+  
 };
 
 ///@brief a header  enum to define the different header different content that is sent in the header

@@ -100,7 +100,7 @@ void player::receiveCard(uint8_t _cards[])
      
   //m_display.waitCards();
  
-  uint8_t tmp = (m_numCards*2);
+  //uint8_t tmp = (m_numCards*2);
    
   m_cards[m_numCards].rank = _cards[0];
   m_cards[m_numCards].suit = _cards[1];
