@@ -32,15 +32,15 @@ int main()
         std::cout << "2nd error\n";
     }
 
-//    //Comms::sendResetCards(port);
+    //Comms::sendResetCards(port);
 
-//    //Comms::sendResetPlayer(port);
+    //Comms::sendResetPlayer(port);
 
     uint16_t bet;
 //    std::cout << "Waiting for bet" << std::endl;
     //while(true)
     //{
-      Comms::receiveBet(port, bet, 1000, 1600);
+      //Comms::receiveBet(port, bet, 1000, 1600);
     //}
 
     //std::cout << bet << "\n";

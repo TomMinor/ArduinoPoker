@@ -106,16 +106,14 @@ void SerialPort::RecieveData(std::vector<uint8_t> &_payload)
   size_t recievedBytes = 0;
 
   //@todo Timeout
-  std::cout << "Trying to get header" << std::endl;
+  //std::cout << "Trying to get header" << std::endl;
 
   // Read header
   char serialBuffer[15] = {0};
   recievedBytes = boost::asio::read( m_serial, boost::asio::buffer( &serialBuffer, 1) );
 
-  std::cout << "Reached" << std::endl;
-
   //std::cout << "Recieved : " << std::dec << recievedBytes << ", " << std::hex << std::uppercase << (int)serialBuffer[0] << std::endl;
-  printf("First Recieved : %d -> %X\n", recievedBytes, 0x000000FF & serialBuffer[0]);
+  //printf("First Recieved : %d -> %X\n", recievedBytes, 0x000000FF & serialBuffer[0]);
 
   // Assume we couldn't connect if we can't send any bytes
   if(recievedBytes  < 1)
@@ -132,30 +130,17 @@ void SerialPort::RecieveData(std::vector<uint8_t> &_payload)
   uint8_t header = serialBuffer[0];
   uint8_t payloadSize = header & 0x0F;
 
-  printf("Payload Size: %d\n", (int)payloadSize);
+  //printf("Payload Size: %d\n", (int)payloadSize);
 
-  std::cout << "Payload" << std::endl;
+  //std::cout << "Payload" << std::endl;
 
-  int i = 0;
-  while(true)
+  recievedBytes  = boost::asio::read( m_serial, boost::asio::buffer( &serialBuffer, payloadSize));
+  std::cout << "Recieved Bytes : " << recievedBytes << std::endl;
+
+  for(unsigned int i=0; i < recievedBytes; i++)
   {
-    char tmpbuffer = 0;
-    recievedBytes  = boost::asio::read( m_serial, boost::asio::buffer( &tmpbuffer, 1));
-
-    std::cout << "Test" << std::endl;
-
-
-    std::cout << "Recieved : " << std::dec << recievedBytes << ", " << std::hex << std::uppercase << (int)(0x000000FF & tmpbuffer) << std::endl;
-    //usleep(1000 * 1000);
+    _payload.push_back(serialBuffer[i]);
   }
-
-
-  std::cout << "Read bytes : " << recievedBytes  << "\n";
-
-//  for(int i=0; i < 15; i++)
-//  {
-//    _payload.push_back(serialBuffer[i]);
-//  }
 
 //  if(recievedBytes  < payloadSize)
 //  {
@@ -164,3 +149,4 @@ void SerialPort::RecieveData(std::vector<uint8_t> &_payload)
 }
 
 }
+

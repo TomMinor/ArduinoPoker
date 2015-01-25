@@ -234,61 +234,63 @@ bool receiveBet(const std::string& _port, uint16_t& _data, uint16_t _min, uint16
     BytePayload payload;
     packet.RecieveData(payload);
 
-    std::cout << "Payload Size : " << payload.size() << "\n";
+    printf("Payload Size : %d\n", payload.size());
 
     if(payload.size() != 2)
     {
       throw boost::system::system_error(boost::asio::error::fault, "Expected 2 bytes");
     }
 
-        //@todo Check the header is correct
+    //@todo Check the header is correct
 
-        //@todo Make this a macro
-        /* Split into 2 bytes for transfer (player will reconstruct the int from these 2 bytes) */
-         right = (uint8_t)payload[0];
-         left = (uint8_t)(payload[1] << 8);
+    /* Split into 2 bytes for transfer (player will reconstruct the int from these 2 bytes) */
+    _data = BYTE_TO_U16(payload[1], payload[0]);
 
-        _data = right | left;
-    }
-    catch(boost::system::system_error& e)
-    {
-        std::cout << "Recieve Bet Error : " << e.what() << std::endl;
-        return false;
-    }
+    printf("Final Value : 0x%X : %d\n", _data, _data );
+  }
+  catch(boost::system::system_error& e)
+  {
+    std::cout << "Recieve Bet Error : " << e.what() << std::endl;
+    return false;
+  }
 
-    return true;
+  return true;
 }
 
 bool receiveName(const std::string& _port, std::string &_data, unsigned int _timeout)
-{
-    try
+{/*
+  try
+  {
+    Comms::SerialPort packet(_port);
+    Comms::BytePayload data;
+
+    data.push_back( Comms::P_NAME | 0x15 );
+
+    packet.SendData(data);
+
+    BytePayload payload;
+    packet.RecieveData(payload);
+
+    printf("Payload Size : %d\n", payload.size());
+
+    if(payload.size() != 2)
     {
-        SerialPort packet(_port);
-        BytePayload payload;
-
-        packet.RecieveData(payload);
-
-        if(payload.size() > 15)
-        {
-            throw boost::system::system_error(boost::asio::error::fault, "Expected less than 15 bytes");
-        }
-
-        //@todo Check the header is correct
-
-        for(BytePayload::iterator it = payload.begin();
-            it != payload.end();
-            ++it)
-        {
-            _data += (char)*it;
-        }
-    }
-    catch(boost::system::system_error& e)
-    {
-        std::cout << "Receive name error " << e.what() << std::endl;
-        return false;
+      throw boost::system::system_error(boost::asio::error::fault, "Expected 2 bytes");
     }
 
-    return true;
-}
+    //@todo Check the header is correct
+
+    /* Split into 2 bytes for transfer (player will reconstruct the int from these 2 bytes) */
+    _data = BYTE_TO_U16(payload[1], payload[0]);
+
+    printf("Final Value : 0x%X : %d\n", _data, _data );
+  }
+  catch(boost::system::system_error& e)
+  {
+    std::cout << "Recieve Bet Error : " << e.what() << std::endl;
+    return false;
+  }
+
+  return true;*/
 
 }
