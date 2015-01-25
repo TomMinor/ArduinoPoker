@@ -86,10 +86,7 @@ void player::receiveMoney(uint16_t _money)
 {
     m_money = m_money + _money;
     m_display.winner(_money);
-<<<<<<< HEAD
 
-=======
->>>>>>> 2c5b0b22d81dcdbb3dddb1dbe33891096dc8e441
 }
 
 void player::setMoney(uint16_t _money)

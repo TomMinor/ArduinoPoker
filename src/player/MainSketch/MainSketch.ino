@@ -27,8 +27,8 @@ void setup()
   player.joinGame();
 //  
 //  //player.setMoney(100);
-  coms.limit_L = 50;
-coms.limit_H = 80;
+  //coms.limit_L = 50;
+//coms.limit_H = 80;
 //  //player.receiveCard(cards);
 //  //player.receiveCard(cards);
 //  lcd.clear();

@@ -97,10 +97,7 @@ class player
     /// @brief Method prints the players data on the screen.
     void playerDataScreen();
     
-<<<<<<< HEAD
 
-=======
->>>>>>> 2c5b0b22d81dcdbb3dddb1dbe33891096dc8e441
 };
 
 #endif

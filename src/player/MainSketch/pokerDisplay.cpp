@@ -222,10 +222,7 @@ void display::waitCards()
   }
 }
 
-<<<<<<< HEAD
-=======
 
->>>>>>> 2c5b0b22d81dcdbb3dddb1dbe33891096dc8e441
 void display::winner(uint8_t _money)
 {
   lcd.clear();
@@ -240,10 +237,7 @@ void display::winner(uint8_t _money)
   lcd.print("Chicken Dinner!");
   
   delay(1500);
-<<<<<<< HEAD
-=======
 
->>>>>>> 2c5b0b22d81dcdbb3dddb1dbe33891096dc8e441
 }
 
 void display::screenReset()
@@ -257,13 +251,9 @@ void display::screenReset()
 void display::displayMoney(uint8_t _line, uint16_t _money)
 {
   lcd.setCursor(0, _line);
-<<<<<<< HEAD
 
   lcd.print("Money: $"+String(_money));
 
-=======
-  lcd.print("Money: $"+String(_money));
->>>>>>> 2c5b0b22d81dcdbb3dddb1dbe33891096dc8e441
 }
 
 void display::displayName(char* _name)

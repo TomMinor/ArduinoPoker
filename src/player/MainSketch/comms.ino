@@ -206,8 +206,8 @@ uint8_t getData(data &_coms)
           Serial.readBytes(coms.limit_buff,4);  
           
           //store limit data to local coms struct 
-          //coms.limit_H  = BYTE_TO_U16(coms.limit_buff[0],coms.limit_buff[1]);
-          //coms.limit_L  = BYTE_TO_U16(coms.limit_buff[2],coms.limit_buff[3]);
+           coms.limit_H  = BYTE_TO_U16(coms.limit_buff[2],coms.limit_buff[3]) ;
+           coms.limit_L  = BYTE_TO_U16(coms.limit_buff[0],coms.limit_buff[1]);
           
           return DEALER_CALLS::INITIATE_BET;
           break;
@@ -228,7 +228,8 @@ uint8_t getData(data &_coms)
           //Serial.write(DATA::RECIEVED);
           //puts the arduino into a state to listen for data
           while(Serial.available()<=0);
-          
+           //Serial.print(packets,DEC);
+          //Serial.print("\N");
           //read the number according to the packets indicated in the header
           Serial.readBytes(coms.wMoney_buff,packets);  //CHANGE THE TO READBYTES(PACKET)
           
