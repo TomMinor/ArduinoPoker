@@ -341,7 +341,7 @@ void dealerLib::initPlayer(const int &_id)
       //error request name again
   }
 
-  playerName = static_cast<std::ostringstream*>( &(std::ostringstream() <<_id) )->str();
+  //playerName = static_cast<std::ostringstream*>( &(std::ostringstream() <<_id) )->str();
 
   std::cout<<"we have a name: "<<playerName<<"\n";
   m_table[_id].setName(playerName);

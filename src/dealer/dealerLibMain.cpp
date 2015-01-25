@@ -75,7 +75,7 @@ int main()
             }
         }
 
-        //usleep(10 * 5000);
+        usleep(10 * 5000);
 
         table.dealHands();
         table.bet();
