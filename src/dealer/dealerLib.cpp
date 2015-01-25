@@ -164,6 +164,7 @@ void dealerLib::bet()
                  burned->moveTo(m_dealerGui.getCentre());
                  burned->burn();
                  addBetToPot(playerBet);
+                 updatePlayer(i);
                  m_livePlayers.erase(m_livePlayers.begin()+i);
                  p[i] = true;
              }
@@ -197,6 +198,7 @@ void dealerLib::bet()
       playerBet = m_livePlayers[i].getBet();
       addBetToPot(playerBet);
       m_livePlayers[i].removeBet();
+      updatePlayer(i);
   }
 
 }
@@ -260,6 +262,7 @@ void dealerLib::update()
 void dealerLib::reset()
 {
 
+
   for(unsigned int i = 0; i < m_table.size(); i++)
   {
 
@@ -270,12 +273,14 @@ void dealerLib::reset()
     burned->burn();
 
     m_table[i].emptyHole();
+    m_table[i].fold = false;
 
   }
   m_dealerGui.m_publicCards->burn();
   m_communityCards.erase(m_communityCards.begin(), m_communityCards.end());
 
   m_deck.reset();
+
 
   m_livePlayers = m_table;
 
@@ -443,4 +448,9 @@ bool dealerLib::isRemainder(int _remainder)
   if(_remainder > 0) {return true;}
 
   else {return false;}
+}
+
+void dealerLib::updatePlayer(int _element)
+{
+  m_table[m_livePlayers[_element].getID()] = m_livePlayers[_element];
 }

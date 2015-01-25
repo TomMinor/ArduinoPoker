@@ -150,6 +150,8 @@ public:
   ///
   bool isRemainder(int _remainder);
 
+  void updatePlayer(int _element);
+
 private:
 
   ///
@@ -196,6 +198,7 @@ private:
   /// \brief m_livePlayers
   ///
   std::vector<player> m_livePlayers;
+
 };
 
 #endif
