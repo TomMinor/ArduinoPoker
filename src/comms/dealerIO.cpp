@@ -258,13 +258,13 @@ bool receiveBet(const std::string& _port, uint16_t& _data, uint16_t _min, uint16
 }
 
 bool receiveName(const std::string& _port, std::string &_data, unsigned int _timeout)
-{/*
+{
   try
   {
     Comms::SerialPort packet(_port);
     Comms::BytePayload data;
 
-    data.push_back( Comms::P_NAME | 0x15 );
+    data.push_back( Comms::P_NAME | 0x0);
 
     packet.SendData(data);
 
@@ -273,17 +273,15 @@ bool receiveName(const std::string& _port, std::string &_data, unsigned int _tim
 
     printf("Payload Size : %d\n", payload.size());
 
-    if(payload.size() != 2)
+    if(payload.size() < 15)
     {
-      throw boost::system::system_error(boost::asio::error::fault, "Expected 2 bytes");
+      throw boost::system::system_error(boost::asio::error::fault, "Expected 15 bytes");
     }
 
-    //@todo Check the header is correct
-
-    /* Split into 2 bytes for transfer (player will reconstruct the int from these 2 bytes) */
-    _data = BYTE_TO_U16(payload[1], payload[0]);
-
-    printf("Final Value : 0x%X : %d\n", _data, _data );
+    for(auto byte : payload)
+    {
+      _data += (char)byte;
+    }
   }
   catch(boost::system::system_error& e)
   {
@@ -291,6 +289,7 @@ bool receiveName(const std::string& _port, std::string &_data, unsigned int _tim
     return false;
   }
 
-  return true;*/
+  return true;
+}
 
 }

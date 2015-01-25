@@ -18,19 +18,23 @@ int main()
 {
     const char* port = "/dev/ttyACM0";
 
-//    Comms::test(port);
 
-    Comms::sendMoney(port, 2000);
+//    Comms::sendMoney(port, 2000);
 
-    if(!Comms::sendCard(port, PlayingCard(Rank::KING, Suit::HEART)))
-    {
-        std::cout << "1st error\n";
-    }
+//    if(!Comms::sendCard(port, PlayingCard(Rank::KING, Suit::HEART)))
+//    {
+//        std::cout << "1st error\n";
+//    }
 
-    if(!Comms::sendCard(port, PlayingCard(Rank::JACK, Suit::SPADE)))
-    {
-        std::cout << "2nd error\n";
-    }
+//    if(!Comms::sendCard(port, PlayingCard(Rank::JACK, Suit::SPADE)))
+//    {
+//        std::cout << "2nd error\n";
+//    }
+
+    std::string data;
+    Comms::receiveName(port, data);
+    std::cout << data << "\n";
+
 
     //Comms::sendResetCards(port);
 
