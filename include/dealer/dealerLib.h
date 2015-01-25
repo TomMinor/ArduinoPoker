@@ -1,21 +1,23 @@
 #ifndef _DEALERLIB__H_
 #define _DEALERLIB__H_
 
+#include <map>
 #include "player.h"
 #include "deck.h"
 #include "cardStack.h"
-#include "comms.h"
+#include "comms/dealerIO.h"
+#include "comms/SerialPort.h"
 #include "gui/gui_dealergui.h"
 #include "pokerHands.h"
 
 enum commsRequest
 {
-  sendBetLimits,
-  sendMoney,
-  sendCard,
-  getName,
-  getBet,
-  wait
+  SENDBETLIMIT,
+  SENDMONEY,
+  SENDCARD,
+  GETNAME,
+  GETBET,
+  WAIT
 };
 
 class dealerLib
@@ -38,7 +40,7 @@ public:
   void clearTable();
   void removePlayer(std::vector<player>::iterator it);
   bool checkIfLost(player _player);
-  void removeTheNoobs();
+  void kickBrokePlayer();
   void splitPot();
 
 
@@ -54,8 +56,9 @@ private:
 
   unsigned int m_pot;
   deck m_deck;
-  GUI::DealerGUI dealerGui;
+  GUI::DealerGUI m_dealerGui;
 
+  Comms::PlayerDevices m_deviceMap;
 
   std::vector<player> m_table;
   std::vector<player> m_livePlayers;

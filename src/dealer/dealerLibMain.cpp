@@ -6,8 +6,7 @@
 #include "dealer/pokerHands.h"
 #include <SDL/SDL.h>
 #include <SDL2/SDL.h>
-
-
+#include <QTimer>
 
 //std::vector<PlayingCard>::iterator it;
 
@@ -51,43 +50,62 @@
 
 //}
 
+Uint32 updateComms(Uint32 interval, void *parm)
+{
+  static bool lock = false;
+
+  if(!lock)
+  {
+      lock = true;
+
+      dealerLib* myTable = reinterpret_cast<dealerLib*>(parm);
+//      myTable->dealHands();
+//      myTable->bet();
+//      myTable->dealFlop();
+//      myTable->bet();
+//      myTable->dealRiverTurn();
+//      myTable->bet();
+//      myTable->dealRiverTurn();
+//      myTable->bet();
+
+
+      printf("HNNGGH!");
+      SDL_Delay(1000);
+      lock= false;
+  }
+
+  return interval;
+}
 
 int main()
 {
     //GUI::DealerGUI gui;
+//    std::vector<player> players;
 
-    std::vector<player> players;
+//    player p1;
+//    p1.setName(std::string("dick"));
+//    players.push_back(p1);
+//    player p2;
+//    p2.setName(std::string("butt"));
+//    players.push_back(p2);
+//    player p3;
+//    p3.setName(std::string("buck"));
+//    players.push_back(p3);
+//    player p4;
+//    p4.setName(std::string("ditt"));
+//    players.push_back(p4);
 
-    std::cout<<"Initialising players\n";
 
-    player p1;
-    p1.setName(std::string("dick"));
-    players.push_back(p1);
-    player p2;
-    p2.setName(std::string("butt"));
-    players.push_back(p2);
-    player p3;
-    p3.setName(std::string("buck"));
-    players.push_back(p3);
-    player p4;
-    p4.setName(std::string("ditt"));
-    players.push_back(p4);
-
-    std::cout<<"Initialised all players\n";
-
-    PlayingCard aceOfSpades = PlayingCard(Rank::ACE,Suit::SPADE);
-    std::vector<PlayingCard> cardList;
-    cardList.push_back(aceOfSpades);
-    p1.setHandCard(aceOfSpades);
-    p2.setHandCard(aceOfSpades);
-    p3.setHandCard(aceOfSpades);
-    p4.setHandCard(aceOfSpades);
-    std::vector<player*> winningPlayers;
-    winningPlayers.push_back(&p3);
-    winningPlayers.push_back(&p4);
-    //Uint16 amount = 100;
-
-    //gui.initialise(players, cardList);
+//    PlayingCard aceOfSpades = PlayingCard(Rank::ACE,Suit::SPADE);
+//    std::vector<PlayingCard> cardList;
+//    cardList.push_back(aceOfSpades);
+//    p1.setHandCard(aceOfSpades);
+//    p2.setHandCard(aceOfSpades);
+//    p3.setHandCard(aceOfSpades);
+//    p4.setHandCard(aceOfSpades);
+//    std::vector<player*> winningPlayers;
+//    winningPlayers.push_back(&p3);
+//    winningPlayers.push_back(&p4);
 
     SDL_Event event;
     bool quit=false;
@@ -99,8 +117,46 @@ int main()
     pack.initDeck();
 
 
+    int running = 1;
+    int last_time = 0;
+    int cur_time = 0;
+    int diff_time = 0;
+
+    int accumulator = 0;
+
+    setbuf(stdout, NULL);
+
+    SDL_TimerID timer_id;
+
+    timer_id = SDL_AddTimer(10,updateComms,&table);
+
+
+    while(running)
+    {
+        table.update();
+        // Handle events here
+        while(SDL_PollEvent(&event))
+        {
+            // Handle keystrokes here
+            if(event.type == SDL_KEYDOWN)
+            {
+                if(event.key.keysym.sym == SDLK_ESCAPE){
+                    running = false;
+                }
+            }
+        }
+
+
+        last_time = cur_time;
+
+    }
+
+
 //    while (!quit)
 //    {
+//      printf("Result = %d\n", result);
+//    }
+
         if(table.getNumPlayers() !=0)
           {
             quit =true;

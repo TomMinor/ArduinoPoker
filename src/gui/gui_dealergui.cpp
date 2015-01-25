@@ -69,7 +69,7 @@ void GUI::DealerGUI::initialise(std::vector<const player *> _players,
     // we would | (or) the flags together see http://www.libsdl.org/intro.en/usinginit.html
     // we check the return value and if not 0 it is an error
     //-----------------------------------------------------------------------------
-    if (SDL_Init( SDL_INIT_VIDEO ) !=0)
+    if (SDL_Init( SDL_INIT_VIDEO | SDL_INIT_TIMER ) !=0)
     {
         SDLErrorExit("error initialising SDL");
     }
@@ -108,7 +108,7 @@ void GUI::DealerGUI::initialise(std::vector<const player *> _players,
     char buf[bufsize] = "";
     readlink("/proc/self/exe",buf,bufsize);
     std::string ourDir = std::string(buf);
-    ourDir = ourDir.substr(0, ourDir.size()-8);
+    ourDir = ourDir.substr(0, ourDir.size()-9);
 
     // Load a font
     TTF_Font *font;
@@ -171,6 +171,7 @@ void GUI::DealerGUI::initialise(std::vector<const player *> _players,
 
     setUpUniqueElements(_publicCards);
     setUpPlayers(_players);
+    std::cout<<"are we here?\n\n";
 
 }
 
@@ -673,7 +674,7 @@ void GUI::DealerGUI::setUpUniqueElements(std::vector<PlayingCard> _publicCards)
     char buf[bufsize] = "";
     readlink("/proc/self/exe",buf,bufsize);
     std::string ourDir = std::string(buf);
-    ourDir = ourDir.substr(0, ourDir.size()-8);
+    ourDir = ourDir.substr(0, ourDir.size()-9);
 
     // Load the pot image
     SDL_Surface *temp;

@@ -16,6 +16,7 @@ int main()
 {
     player p0;
 
+
     //sendMoney(p0, 5395);
     Comms::sendCard(p0, PlayingCard(Rank::NINE, Suit::CLUB));
     Comms::sendCard(p0, PlayingCard(Rank::ACE, Suit::SPADE));

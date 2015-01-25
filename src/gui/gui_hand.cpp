@@ -89,6 +89,7 @@ void GUI::Hand::moveTo(const SDL_Point &_p)
 
         if (m_orient == BOTTOM || m_orient == TOP)
         {
+
             current.x -= getWidth() / 2;
             current.x += m_cards[0]->getWidth()/2;
         }
@@ -110,6 +111,7 @@ void GUI::Hand::moveTo(const SDL_Point &_p)
             {
                 current.y += (*it)->getHeight();
             }
+
         }
     }
 }
@@ -128,6 +130,7 @@ void GUI::Hand::burn()
 
 int GUI::Hand::getHeight()
 {
+
     if (!m_cards.empty())
     {
         if (m_orient == BOTTOM || m_orient == TOP)
@@ -171,6 +174,7 @@ int GUI::Hand::getWidth()
     //        return m_cards.size() * 56;
             return m_cards.size() * m_cards[0]->getWidth();
         }
+
     }
 
     return 0;
