@@ -28,6 +28,7 @@ void deck::reset()
 {
   m_pack.erase(m_pack.begin(),m_pack.end());
   initDeck();
+  shuffle();
 }
 
 void deck::shuffle()

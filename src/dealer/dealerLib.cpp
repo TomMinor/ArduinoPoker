@@ -123,6 +123,8 @@ bool dealerLib::checkBoolArray(bool _array[])const
   return !flag;
 }
 
+//---------------------------------------------------------
+
 void dealerLib::bet()
 {
   Uint16 currentBet = 0;
@@ -152,6 +154,7 @@ void dealerLib::bet()
 
              // check if player has fold
              if(m_livePlayers[i].fold)
+
              {
                  // remove player from live players
                  //playerBet = m_livePlayers[i].getBet();
@@ -222,26 +225,26 @@ void dealerLib::dealRiverTurn()
 {
   PlayingCard card = m_deck.deal();
   m_communityCards.push_back(card);
+  m_dealerGui.addPublicCard(card);
 }
 //--------------------------------------------------------------
 
 //deals 2 cards to the players
 void dealerLib::dealHands()
 {
-
   std::vector<player>::iterator playerIt;
   for(int i=0; i<2; i++)
   {
-
-    for(unsigned int j =0; j < m_table.size(); j++)
+    for(playerIt = m_table.begin(); playerIt != m_table.end(); playerIt++)
     {
       PlayingCard tmpCard = m_deck.deal();
       if(!(Comms::sendCard(*playerIt, tmpCard)))
       {
           //error re-send card
       }
-      m_table[j].setHoleCard(tmpCard);
-      m_dealerGui.dealCardTo(m_table[j].getID(), tmpCard);
+
+      playerIt->setHoleCard(tmpCard);
+      m_dealerGui.dealCardTo(playerIt->getID(), tmpCard);
 
     }
   }
@@ -256,17 +259,20 @@ void dealerLib::update()
 //-----------------------------------------------------------------------------------------
 void dealerLib::resetCards()
 {
-  std::vector<player>::iterator playerIt;
 
   for(unsigned int i = 0; i < m_table.size(); i++)
   {
-    GUI::Hand* burned = m_dealerGui.uniqueHand(m_table[i].getHole(), i);
-    burned->setFlipped(true, true);
-//    burned->setPos(dealerGui.)
+
+    GUI::Hand* burned = m_dealerGui.uniqueHand(m_table[i].getHole(), m_table[i].getID());
+//    burned->setFlipped(true, true);
+    burned->setPos(m_dealerGui.getOffScreenPos(i));
+    burned->setPos(m_dealerGui.getOnScreenPos(i));
+    burned->burn();
+
     m_table[i].emptyHole();
 
   }
-
+  m_dealerGui.m_publicCards->burn();
   m_communityCards.erase(m_communityCards.begin(), m_communityCards.end());
 
   m_deck.reset();
@@ -339,16 +345,14 @@ void dealerLib::initPlayer(const int &_id)
 
 void dealerLib::clearTable()
 {
-  for(int i = 0; i < m_numPlayers; i++)
-  {
-    m_table.pop_back();
-  }
+  m_table.erase(m_table.begin(), m_table.end());
 }
 
 //-----------------------------------------------------------------------------------------
 
 void dealerLib::removePlayer(std::vector<player>::iterator it)
 {
+//  m_dealerGui.kickPlayer(it->getID());
   m_table.erase(it);
 }
 
@@ -362,7 +366,7 @@ bool dealerLib::checkIfLost(player _player)
 
 //-----------------------------------------------------------------------------------------
 
-void dealerLib::removeTheNoobs()
+void dealerLib::kickBrokePlayer()
 {
   std::vector<player>::iterator playerIt;
 
