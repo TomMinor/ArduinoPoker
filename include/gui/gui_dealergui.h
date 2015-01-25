@@ -62,7 +62,7 @@ public:
     /// \brief Creates a card at the deck position and sends it off screen in the specified player's direction.
     /// \param _playerID The index into the m_players vector to find the player to send the card to.
     /// \param _type The type (rank and suit) of the card to send - usually irrelevant since the card will be face-down anyway.
-    void dealCardTo(const unsigned int &_playerID, const PlayingCard &_type = PlayingCard(Rank::ACE,Suit::SPADE));
+    void dealCardTo(const unsigned int &_playerID, const PlayingCard &_type);
 
     /// \brief Sends a label denoting the amount the player is betting from their off-screen position to the pot, as well as printing a message saying how much this player
     /// is betting.
@@ -93,7 +93,7 @@ public:
 
     //use these functions to convert the other systems' classes/structs to the GUI system's
     //(probably no longer needed)
-    CardType convert(const PlayingCard &_card);
+    //CardType convert(const PlayingCard &_card);
     Player convert(const player &_player);
     Hand convert(const std::vector<PlayingCard> &_cards);
 
@@ -108,6 +108,12 @@ public:
 
     /// \brief Returns the position of the pot. Useful for dealing with bets etc.
     inline SDL_Point getPotPos() {return m_potPos;}
+
+    /// \brief Returns the specified player's on-screen position.
+    inline SDL_Point getOnScreenPos(const unsigned int &_playerID) {return m_players[_playerID].pos_onScreen;}
+
+    /// \brief Returns the specified player's off-screen position.
+    inline SDL_Point getOffScreenPos(const unsigned int &_playerID) {return m_players[_playerID].pos_offScreen;}
 
     //use these functions to store references to elements that you
     //want to control manually but draw/update/destroy automatically
@@ -136,7 +142,8 @@ public:
     /// \brief Calls the update() function of all the visual elements to keep their states moving.
     void update();
 
-    /// \brief Draws all the elements in the window. Should probably always be called right after update() unless you're doing something fancy.
+    /// \brief Draws all the elements in the window. Should probably always be called right after update() unless you're doing something fancy with different update and draw
+    /// frequencies.
     void draw();
 
     /// \brief Resets the visual game state.
