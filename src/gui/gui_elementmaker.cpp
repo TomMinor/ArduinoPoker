@@ -66,8 +66,11 @@ GUI::Label *GUI::ElementMaker::makeLabel(const std::string &_inputString, const 
        exit(1);
     }
 
+    std::cout << std::hex << std::uppercase << &m_labelFormat->ren << " adress of renderer\n";
+
     //make texture from surface
-    SDL_Texture *tex = SDL_CreateTextureFromSurface(m_labelFormat->ren, temp);
+    SDL_Texture *tex = NULL;
+    tex = SDL_CreateTextureFromSurface(m_labelFormat->ren, temp);
     if (!tex)
     {
         std::cerr << "SDL_CreateTextureFromSurface() Failed: " << SDL_GetError() << "\n";

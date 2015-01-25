@@ -10,16 +10,6 @@
 #include "gui/gui_dealergui.h"
 #include "pokerHands.h"
 
-enum commsRequest
-{
-  SENDBETLIMIT,
-  SENDMONEY,
-  SENDCARD,
-  GETNAME,
-  GETBET,
-  WAIT
-};
-
 class dealerLib
 {
 public:
@@ -39,14 +29,15 @@ public:
   void bet();
 
   ///
-  /// \brief checkBoolArray
+  /// \brief checkBoolArray checks if all elements in the array are true
   /// \param _array
-  /// \return
+  /// \return boolean This is used as the condition of a while loop.
+  /// Betting ends when all elements of the array are the same (true)
   ///
   bool checkBoolArray(bool _array[])const;
 
   ///
-  /// \brief addBetToPot
+  /// \brief addBetToPot adds players bet to the pot
   /// \param _bet This is the amount the player has bet
   ///
   void addBetToPot(const int &_bet);
@@ -68,119 +59,127 @@ public:
 
   ///
   /// \brief checkMaxBet The maximum bet is the smallest amount of money a player has.
-  /// The function iterates through all the live players and works out who has the least money
-  /// by setiing the maxBet if its the smallest amount so far
-  /// \return int maxBet
+  /// The function iterates through all the live players and works out who has the least money.
+  /// This value is then used as the maximum allowance a player can bet
+  /// \return int maxBet The maximum amount of money a player can bet
   ///
   int checkMaxBet();
 
   ///
-  /// \brief resetCards removes all cards from
+  /// \brief reset Removes all cards from the game and resets the deck. It also updates player
+  /// information to the m_table vector from the more temporary m_livePlayers vector and resets all
+  /// the player's fold booleans to false
   ///
   void reset();
 
   ///
-  /// \brief update
+  /// \brief update Calls the guis update and draw functions
   ///
   void update();
 
   ///
-  /// \brief init
+  /// \brief init Initialises gui and player and sets up a std::map that maps
+  /// the playerId to a serialPort
   ///
   void init();
 
   ///
-  /// \brief initPlayer
-  /// \param _id
+  /// \brief initPlayer Initialises a vector of players, m_table, and sets the players Ids
+  /// and name
+  /// \param _id The position in the vector is used to set the players ID
   ///
   void initPlayer(const int &_id);
 
-  ///
-  /// \brief clearTable
-  ///
-  void clearTable();
 
   ///
-  /// \brief removePlayer
-  /// \param it
+  /// \brief removePlayer removes the player from a vector. This will be called when a player runs out of money
+  /// and when a player folds
+  /// \param it The iterator of a vector of players
   ///
   void removePlayer(std::vector<player>::iterator it);
 
   ///
-  /// \brief checkIfLost
-  /// \param _player
-  /// \return
+  /// \brief checkIfLost Checks if a player has ran out of money
+  /// \param _player The player who is being checked
+  /// \return boolean If the player has no money, its set to true
   ///
   bool checkIfLost(player _player);
 
   ///
-  /// \brief kickBrokePlayer
+  /// \brief kickBrokePlayer Removes a player that has ran out of money. Its used after calling
+  /// the checkIfLost() function
   ///
   void kickBrokePlayer();
 
   ///
-  /// \brief decideWinners
+  /// \brief decideWinners Calculates which players have won and creates a vector of winners
+  /// It also passes the money in the pot to these winners. If there is more than one winner,
+  /// the pot is split. If it can't be split evenly,the remainder is left in the pot to be won the next round
   ///
   void decideWinners();
 
+  ///
+  /// \brief isRemainder Checks if there is a remainder leftover from splitting the pot
+  /// \param _remainder The result of a modulus function
+  /// \return A boolean true is returned if there is a remainder
+  ///
+  bool isRemainder(int _remainder);
 
   ///
-  /// \brief getNumPlayers
-  /// \return
+  /// \brief updatePlayer Passes the player information from a vector of m_livePlayers (not folded players), whose life only lasts
+  /// for the betting loop to a more permanent vector of players m_table which holds players still in the game.
+  /// \param _element allows the element of one vector to be matched with the correct player id of the other vector
+  ///
+  void updatePlayer(int _element);
+//-----------------------------------------------------------------------------------------------------------
+//============Get Functions==============================================================================
+//-----------------------------------------------------------------------------------------------------------
+
+  ///
+  /// \brief getNumPlayers method to access number of players m_numPlayers
+  /// \return int m_numPlayers
   ///
   int getNumPlayers()const;
 
   ///
-  /// \brief getLivePlayers
-  /// \return
+  /// \brief getLivePlayers method to access the vector of players that haven't folded
+  /// \return m_livePlayers
   ///
   std::vector<player> getLivePlayers()const;
 
   ///
-  /// \brief sendWinnersToGui
-  /// \param _winners
-  /// \return
+  /// \brief getWinnersIds method to create a vector of the winning players playerIds
+  /// \param _winners A vector of the winning players
+  /// \return winnerIds A vector of the winners playerIDs
   ///
   std::vector<int> getWinnerIds(std::vector<player> _winners);
 
-  ///
-  /// \brief isRemainder
-  /// \param _remainder
-  /// \return
-  ///
-  bool isRemainder(int _remainder);
-
-  void updatePlayer(int _element);
 
 private:
 
   ///
-  /// \brief m_communityCards
+  /// \brief m_communityCards A vector that stores the 5 public cards
   ///
   cardStack m_communityCards;
 
-  ///
-  /// \brief cardItr
-  ///
-  cardStack::iterator cardItr;
 
   ///
-  /// \brief m_numPlayers
+  /// \brief m_numPlayers Number of players in the game
   ///
   int m_numPlayers;
 
   ///
-  /// \brief m_pot
+  /// \brief m_pot The money to be won int the pot
   ///
   unsigned int m_pot;
 
   ///
-  /// \brief m_deck
+  /// \brief m_deck The deck of cards
   ///
   deck m_deck;
 
   ///
-  /// \brief m_dealerGui
+  /// \brief m_dealerGui An instance of GUI
   ///
   GUI::DealerGUI m_dealerGui;
 
@@ -190,12 +189,12 @@ private:
   Comms::PlayerDevices m_deviceMap;
 
   ///
-  /// \brief m_table
+  /// \brief m_table A vector of players still in the game
   ///
   std::vector<player> m_table;
 
   ///
-  /// \brief m_livePlayers
+  /// \brief m_livePlayers A vector of players who haven't folded
   ///
   std::vector<player> m_livePlayers;
 
