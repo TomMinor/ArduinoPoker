@@ -30,7 +30,7 @@ void GUI::Card::update()
         if(!FullyFlipped)
         {
             setFlipped(true);
-            m_xOffset = continueFlip();
+            continueFlip();
             //return;
         }
         else
@@ -50,7 +50,7 @@ void GUI::Card::update()
     //Check 2: is the card midway between flips?
     else if(!FullyFlipped || !FullyUnflipped)
     {
-        m_xOffset = continueFlip();
+        continueFlip();
     }
 
     Element::update();
@@ -58,7 +58,7 @@ void GUI::Card::update()
     m_destRect.x = m_origin.x + m_xOffset;
 }
 
-int GUI::Card::continueFlip()
+void GUI::Card::continueFlip()
 {
     float amount = m_flippedAmount + (m_isFlipped ? FLIPSPEED : -FLIPSPEED);
     m_flippedAmount = std::max(-1.0f, std::min(amount, 1.0f));//clamp
@@ -79,7 +79,7 @@ int GUI::Card::continueFlip()
     //std::cout<<"flippedAmount: "<<m_flippedAmount<<" xscale: "<<xScale<<"\n";
     m_destRect.w = static_cast<int>(CARDWIDTH * xScale);
 
-    return -m_destRect.w / 2;
+    m_xOffset = -m_destRect.w / 2;
 }
 
 void GUI::Card::setFlipped(const bool &_isFlipped, const bool &_instantly)

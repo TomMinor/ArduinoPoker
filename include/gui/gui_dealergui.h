@@ -18,10 +18,19 @@ namespace GUI
 /// as a pointer to the original class.
 typedef struct
 {
+    /// \brief A pointer to the dealer-side player object.
     const player * playerClass;
+
+    /// \brief An SDL point representing where the player will place their public virtual items e.g. cards.
     SDL_Point pos_onScreen;
+
+    /// \brief An SDL point outside the screen boundaries representing where items will be sent/appear from to look like they belong to the player sitting there.
     SDL_Point pos_offScreen;
+
+    /// \brief The edge of the screen this player will be sitting at.
     Orientation orient;
+
+    /// \brief A pointer to a label object displaying the player's name which will be drawn on their side of the screen.
     Label* nameLabel;
 } Player;
 
@@ -96,11 +105,16 @@ public:
     /// \param _playerID The index into the m_players vector to find the player whose name to bring back.
     void bringNameBack(const unsigned int &_playerID);
 
+    /// \brief Does a visual representation of sending the chips in the pot to the winning player(s).
+    /// \param _winnerIDs A vector containing the index(es) of the winning player(s).
+    /// \param _hasRemainder True if the pot cannot be split evenly between the winning players, thus leaving some chips still in it.
+    void splitPot(const std::vector<unsigned int> &_winnerIDs, const bool &_hasRemainder);
+
     /// \brief Broadcasts a message saying who has won this round and shows the cards they had in the middle of the screen. Can handle multiple winning players.
     /// \param _winners A vector of pointers to the winning players.
     /// \return A vector of pointers to the hands displayed on-screen. If the dealer (not the dealer GUI) wishes to start a new round without calling the reset() function,
     /// it is their responsibility to store these pointers and delete or burn the hands when the players are ready to begin a new round.
-    std::vector<Hand*> showWinner(std::vector<const player*> _winners);
+    std::vector<Hand*> showWinner(const std::vector<unsigned int> &_winnerIDs, const bool &_hasRemainder, const unsigned int &_winnings);
 
     //use these functions to convert the other systems' classes/structs to the GUI system's
     //(probably no longer needed)
@@ -149,6 +163,7 @@ public:
     Element* uniqueElement(SDL_Texture* _tex, const Orientation &_orient = BOTTOM);
     /// \brief Returns a pointer to an element that will be drawn/updated/destroyed automatically.
     Element* uniqueElement(SDL_Texture* _tex, const SDL_Rect &_srcRect, const SDL_Rect &_destRect, const Orientation &_orient = BOTTOM);
+    Element* uniqueElement(Element* _inputElement);
 
     /// \brief Calls the update() function of all the visual elements to keep their states moving.
     void update();
@@ -164,24 +179,71 @@ public:
 
 private:
 
+    /// \brief A pointer to the SDL rendering context.
     SDL_Renderer* m_renderer;
+
+    /// \brief A pointer to an SDL texture containing the contents of the renderer. This is then upscaled by nearest-neighbour in the window for those lovely big pixels.
     SDL_Texture* m_renderTarget;
+
+    /// \brief An element factory that effectively implements specialised constructors for element subclasses, making their creation much easier.
     GUI::ElementMaker m_maker;
+
+    /// \brief The position of the deck of cards. Useful for the "spawn point" of a card being dealt to a player, for example.
     SDL_Point m_deckPos;
+
+    /// \brief The position of the pot. Visual representations of a bet are sent to this location.
     SDL_Point m_potPos;
+
+    /// \brief A pointer to the visual representation of the pot.
     Element* m_pot;
+
+    /// \brief A vector containing a number of GUI player structs. Each one contains a pointer to a dealer-side player object as well as some extra info the GUI needs.
     std::vector< Player > m_players;
+
+    /// \brief A vector containing smart pointers to all the active elements. Since each one is dynamically allocated, the smart pointers will deallocate their memory when
+    /// they are cleared from the vector.
     std::vector< boost::shared_ptr<Element> > m_elements;
+
+    /// \brief A vector containing smart pointers to all the active hands. Since each one is dynamically allocated, the smart pointers will deallocate their memory when
+    /// they are cleared from the vector.
     std::vector< boost::shared_ptr<Hand> > m_hands;
+
+    /// \brief A vector containing pointers to all the messages currently being displayed. This is so we can remove them when a new message is displayed and prevent text
+    /// being drawn on top of other text and looking messy.
     std::vector< Label* > m_activeMessages;
 
+    /// \brief Returns a GUI player struct with the given parameters.
+    /// \param _playerRef A pointer to the dealer-side player object.
+    /// \param _orient Which side of the screen-table this player should be sitting at.
+    /// \param _offset How far from their side of the screen this player will place their virtual items e.g. cards.
+    /// \return A GUI player struct.
     Player createPlayer(const player *_playerRef, const Orientation &_orient, const int _offset);
-    void setUpUniqueElements(std::vector<PlayingCard> _publicCards);
-    void setUpBorder(SDL_Texture* _tex);
+
+    /// \brief Creates most of the initial elements (e.g. deck, pot) and places them at their correct positions.
+    /// \param _publicCards A vector containing the initial set of community cards. Can be empty if the dealer wishes to set this up later.
+    /// \param _numPlayers The number of players; used by setUpBorder().
+    void setUpUniqueElements(std::vector<PlayingCard> _publicCards = std::vector<PlayingCard>(), const unsigned int &_numPlayers = 4);
+
+    /// \brief Creates and positions our pretty border. This has its own function because the border is resolution-independent and therefore made up of a number of different
+    /// elements at specific positions, so a lot of lines of code are needed.
+    /// \param _tex A pointer to the SDL texture to use.
+    /// \param _numPlayers The number of "tags" (fancy boxes for player names) to create. Pass no argument here if the look of empty tags rather than empty sections of border
+    /// is preferred.
+    void setUpBorder(SDL_Texture* _tex, const unsigned int &_numPlayers = 4);
+
+    /// \brief Creates all the GUI player structs to put into m_players and sets up their name labels in the correct positions.
+    /// \param _players A vector containing pointers to all the dealer-side player objects.
     void setUpPlayers(std::vector<const player*> _players);
 
+    /// \brief A convenient function to quit SDL and print a message if an error is encountered.
+    /// \param _msg The error message to print to cerr.
     void SDLErrorExit(const std::string &_msg);
-    void clearScreen(SDL_Renderer *_ren,char _r,char _g,char _b	);
+
+    /// \brief Turns the whole window one colour. Used just before drawing all the elements to prevent trails behind moving elements.
+    /// \param _r The R value of the colour to use.
+    /// \param _g The G value of the colour to use.
+    /// \param _b The B value of the colour to use.
+    void clearScreen(Uint8 _r,Uint8 _g,Uint8 _b);
 };
 
 }

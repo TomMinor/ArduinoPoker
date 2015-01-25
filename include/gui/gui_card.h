@@ -49,19 +49,34 @@ public:
     /// \param _instantly True to skip the flipping animation. Useful for setting a card's initial flip state.
     void setFlipped(const bool &_isFlipped, const bool &_instantly = false);
 
-    /// \brief Turns the card face-down, plays a burning animation and marks the card for removal from the game.
+    /// \brief Turns the card face-down, plays a burning animation and then marks the card for removal from the game.
     inline void burn() {m_shouldBurn = true;}
 
     /// \brief A card-specific update function that is needed to implement flipping and burning.
     virtual void update(); //implement flipping
 
 private:
+    /// \brief True if the card should be face-down, false otherwise.
     bool m_isFlipped;
+
+    /// \brief Represents how far the card is through its flipping animation. -1 is fully face-up, 0 is on its edge, and 1 is fully face-down.
     float m_flippedAmount;
+
+    /// \brief A "pure data" PlayingCard object from which we can tell the rank and the suit to use.
     PlayingCard m_cardType;
+
+    /// \brief Whether the card should be in its burning state. If true, it will turn face-down and play through its burning animation during update() calls.
     bool m_shouldBurn;
+
+    /// \brief Which frame of the burning animation to use.
     int m_burnLevel;
-    int continueFlip();
+
+    /// \brief Go a step further through the flipping animation.
+    void continueFlip();
+
+    /// \brief The flipping animation is done by scaling the card's SDL rectangle in the x direction, but unfortunately the way SDL modifies the rectangle makes it difficult
+    /// to scale about its centre rather than its left edge. This variable is used to push the rectangle to the right before it is drawn to give the illusion of scaling about
+    /// the centre (believe me, I've tried other ways).
     int m_xOffset;
 };
 

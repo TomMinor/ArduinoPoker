@@ -63,8 +63,13 @@ public:
     SDL_Point aligned(const Orientation &_orient);
 
 private:
+    /// \brief A vector containing pointers to all the card elements in this hand.
     std::vector<Card*> m_cards;
+
+    /// \brief The edge of the screen this hand should face.
     Orientation m_orient;
+
+    /// \brief The centre of this hand that the cards should line up around.
     SDL_Point m_origin;
 };
 
