@@ -127,8 +127,8 @@ void dealerLib::bet()
 {
   comms tom;
   Uint16 currentBet = 0;
-  int oldBet = 0;
-  int playerBet = 0;
+  Uint16 oldBet = 0;
+  Uint16 playerBet = 0;
   bool p[m_livePlayers.size()];
 
   //When all bets are matched the array will all be true
@@ -140,7 +140,7 @@ void dealerLib::bet()
           // find max bet
          int maxBet = checkMaxBet() - m_livePlayers[i].getBet();
          tom.sendBetLimits(m_livePlayers[i],currentBet,maxBet);
-         //tom.receiveBet(m_livePlayers[i],playerBet);
+         tom.receiveBet(m_livePlayers[i],playerBet);
          playerBet += m_livePlayers[i].getBet();
          m_livePlayers[i].setBet(playerBet);
 

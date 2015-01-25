@@ -58,8 +58,6 @@ int main()
 
     std::vector<player> players;
 
-    std::cout<<"Initialising players\n";
-
     player p1;
     p1.setName(std::string("dick"));
     players.push_back(p1);
@@ -73,7 +71,6 @@ int main()
     p4.setName(std::string("ditt"));
     players.push_back(p4);
 
-    std::cout<<"Initialised all players\n";
 
     PlayingCard aceOfSpades = PlayingCard(Rank::ACE,Suit::SPADE);
     std::vector<PlayingCard> cardList;
