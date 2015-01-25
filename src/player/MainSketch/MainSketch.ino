@@ -6,7 +6,9 @@
 
 
 //card array that stores 2 bytes {card1,card2}
-//uint8_t cards[6]={byte(Rank::SIX), Suit::SPADE, byte(Rank::KING), Suit::DIAMOND, byte(Rank::ACE), Suit::CLUB};
+uint8_t card1[2]={Rank::SIX, Suit::SPADE};
+uint8_t card2[2]={Rank::ACE, Suit::CLUB};
+uint8_t card3[2]={Rank::EIGHT, Suit::HEART};
 //unsigned int bet=0;
 //bool betState=true;
 //bool recieved=false;
@@ -17,21 +19,25 @@ LiquidCrystal lcd(8, 9, 4, 5, 6, 7);
 player player;
 
 data coms;
-
-
+uint8_t a= U16_TO_BYTE_L(0xff0f);
+uint8_t b= U16_TO_BYTE_H(0xff0f);
 void setup() 
 {
 
   lcd.begin(16,2);
   Serial.begin(9600);
+  
+  player.setMaxCardLimit(2);
+  
   player.joinGame();
-  
-  //player.setMoney(100);
-  //coms.limit_L = 50;
-  //coms.limit_H = 80;
-  //player.receiveCard(0, cards);
-  //player.receiveCard(1, cards);
-  
+//  
+  player.setMoney(150);
+  coms.limit_L = 100;
+  coms.limit_H = 200;
+  player.receiveCard(card1);
+  //player.receiveCard(card3);
+  //player.receiveCard(card2);
+  lcd.clear();
 }
 
 
@@ -39,38 +45,33 @@ void setup()
 void loop() 
 {
    
-  lcd.clear();
+//   Serial.print("\n");
+//   Serial.print(0xff0f,HEX);
+//   Serial.print("\n");
+//   Serial.print("\n");
+//   Serial.print(a,HEX),
+//   Serial.print("\n");
+//   Serial.print(b,HEX),
+//   Serial.print("\n");
+//   Serial.print((((uint8_t)b<<8)|a),HE),
+//   delay(500);
+//   lcd.clear();
   uint8_t state;
+ 
+    
+  player.playerDataScreen();
   
-  if(player.getMoney() == 0)
-  {
-    lcd.setCursor(0,0);
-    lcd.print("Waiting for ");
-    lcd.setCursor(0,1);
-    lcd.print("money.");
-  }
-  else if(player.checkFirstCard() == false)
-  {
-    lcd.setCursor(0,0);
-    lcd.print("Waiting for ");
-    lcd.setCursor(0,1);
-    lcd.print("cards.");
-  }
-  else
-  {
-    player.playerDataScreen();
-  }
   
  
   
   state = getData(coms);
   
+  
   switch(state)
   {
     case DEALER_CALLS::SET_CARDS:
     {
-      player.receiveCard(0, coms.cards);
-      player.receiveCard(1, coms.cards);
+      player.receiveCard(coms.cards);
       break;
     }
     case DEALER_CALLS::SET_NAME:
@@ -83,14 +84,16 @@ void loop()
     case DEALER_CALLS::SET_MONEY:
     {
       player.setMoney(coms.money);
-      Serial.print(coms.money);
+      
       break;
     }
     case DEALER_CALLS::INITIATE_BET:
     {
       uint16_t bet = 0;
       bet = player.placeBet(coms.limit_H, coms.limit_L);
+      lcd.clear();
       sendBet(bet);
+      //delay(1000);   
       break;
     }
     case DEALER_CALLS::WIN_MONEY:
@@ -100,12 +103,15 @@ void loop()
     }
     case DEALER_CALLS::RESET_CARDS:
     {
+      
       player.resetCards();
+      lcd.clear();
       break;
     }
     case DEALER_CALLS::RESET_PLAYER:
     {
       player.resetPlayer(coms.money);
+      lcd.clear();
       break;
     }
     default:

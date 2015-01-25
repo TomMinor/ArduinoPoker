@@ -10,6 +10,8 @@ player::player()
   
   m_numCards = 0;
   
+  m_maxNumCards = 0;
+  
 }
 
 player::~player()
@@ -47,7 +49,7 @@ uint16_t player::placeBet(uint16_t _max, uint16_t _min)
       m_button.updateValue();
   
       if      (m_button.right())                                                  { lcd.clear();lcd.print("Place bet:");showData = false;    }
-      else if (m_button.left())                                                   { this->playerDataScreen(); showData = true;               }
+      else if (m_button.left())                                                   { lcd.clear(); this->playerDataScreen(); showData = true;  }
       else if (m_button.up() && showData == true )                                { lcd.clear(); m_display.displayName(getName());           }
       else if (m_button.down() && showData == true )                              { this->playerDataScreen();                                }
       else if (m_button.up()   && bet < _max && bet < m_money && showData==false) { bet++; fold = false;                                     }
@@ -85,11 +87,8 @@ uint16_t player::placeBet(uint16_t _max, uint16_t _min)
 void player::receiveMoney(uint16_t _money)
 {
     m_money = m_money + _money;
-<<<<<<< HEAD
-    m_display.winner();
-=======
     m_display.winner(_money);
->>>>>>> origin/master
+
 }
 
 void player::setMoney(uint16_t _money)
@@ -97,16 +96,24 @@ void player::setMoney(uint16_t _money)
   m_money = _money;
 }
 
-void player::receiveCard( uint8_t _block, uint8_t _cards[] )
+	
+void player::receiveCard(uint8_t _cards[])
 {
-  m_numCards++;
-  //m_display.waitCards();
-  
-  uint8_t tmp = _block*2; 
-
-  m_cards[_block].rank = _cards[tmp];
-  m_cards[_block].suit = _cards[tmp+1];
+     
+  if(m_numCards < m_maxNumCards)
+  {
+    m_cards[m_numCards].rank = _cards[0];
+    m_cards[m_numCards].suit = _cards[1];
+    m_numCards++;
+  }  
+  else
+  {
+    // maybe print max card limit reached.
+    return;
+  }
 }
+
+
 
 
 void player::setName()
@@ -231,21 +238,10 @@ void player::joinGame()
   }
 }
     
-bool player::checkFirstCard()
-{
-  if(m_cards[0].suit == 0 || m_cards[0].rank == 0)
-  {
-    return false;
-  }
-  else 
-  {
-    return true;
-  }
-}
 
 void player::playerDataScreen()
 {
-  lcd.clear();
+  //lcd.clear();
   
   m_display.displayCards(0, m_numCards, m_cards);
   
@@ -253,4 +249,8 @@ void player::playerDataScreen()
  
 }
 
+void player::setMaxCardLimit(uint8_t _max)
+{
+   m_maxNumCards = _max; 
+}
     

@@ -53,7 +53,7 @@ void dealerLib::Betting()
     currentBet = playerItr->getBet();
 
 //if player has folded, remove them from the vectors
-    if((*playerItr).fold)
+    if((*playerItr).isFold())
     {
       m_pot += playerBets.at(*otherPlayersBet);
       playerBets.erase(otherPlayersBet);
@@ -143,7 +143,7 @@ void dealerLib::bet()
          int maxBet = checkMaxBet() - m_livePlayers[i].getBet();
          if(maxBet==0){p[i]=true;}
          else
-           {
+         {
              Comms::sendBetLimits(m_livePlayers[i],currentBet,maxBet);
              //Comms::sendBetLimits(m_deviceMap.at(m_livePlayers[i].getID()),currentBet,maxBet);
              Comms::receiveBet(m_livePlayers[i],playerBet);
@@ -153,7 +153,7 @@ void dealerLib::bet()
              m_livePlayers[i].setBet(playerBet);
 
              // check if player has fold
-             if(m_livePlayers[i].fold)
+             if(m_livePlayers[i].isFold())
 
              {
                  // remove player from live players
@@ -164,6 +164,7 @@ void dealerLib::bet()
                  burned->moveTo(m_dealerGui.getCentre());
                  burned->burn();
                  addBetToPot(playerBet);
+                 updatePlayer(i);
                  m_livePlayers.erase(m_livePlayers.begin()+i);
                  p[i] = true;
              }
@@ -179,17 +180,14 @@ void dealerLib::bet()
                  {
                      for(unsigned int j=0;j<m_livePlayers.size();j++)
                      {
-                         if(j==i){p[j]=true;}
-                         else if(m_livePlayers[j].fold)
-                         {
-                             p[j] = true;
-                         }
-                         else{p[j] = false;}
+                         if(j==i)                           {p[j]=true;}
+                         else if(m_livePlayers[j].isFold()) {p[j] = true;}
+                         else                               {p[j] = false;}
                      }
                  }
              }
              oldBet = currentBet;
-           }
+         }
       }
   }
   for(unsigned int i=0;i<m_livePlayers.size();i++)
@@ -197,6 +195,7 @@ void dealerLib::bet()
       playerBet = m_livePlayers[i].getBet();
       addBetToPot(playerBet);
       m_livePlayers[i].removeBet();
+      updatePlayer(i);
   }
 
 }
@@ -257,8 +256,9 @@ void dealerLib::update()
   m_dealerGui.draw();
 }
 //-----------------------------------------------------------------------------------------
-void dealerLib::resetCards()
+void dealerLib::reset()
 {
+
 
   for(unsigned int i = 0; i < m_table.size(); i++)
   {
@@ -270,12 +270,18 @@ void dealerLib::resetCards()
     burned->burn();
 
     m_table[i].emptyHole();
+    m_table[i].setFold(false);
 
   }
   m_dealerGui.m_publicCards->burn();
   m_communityCards.erase(m_communityCards.begin(), m_communityCards.end());
 
   m_deck.reset();
+
+
+  m_livePlayers = m_table;
+
+
 
 
 
@@ -384,34 +390,6 @@ void dealerLib::kickBrokePlayer()
 //}
 
 
-bool dealerLib::callComms(commsRequest request)
-{
-  switch (request){
-    case SENDBETLIMIT:
-
-      break;
-
-    case SENDMONEY:
-      break;
-
-    case SENDCARD:
-      break;
-
-    case GETNAME:
-      break;
-
-    case GETBET:
-      break;
-
-    case WAIT:
-      break;
-
-    default:
-      break;
-    }
-}
-
-
 int dealerLib::getNumPlayers()const
 {
   return m_numPlayers;
@@ -422,13 +400,17 @@ std::vector<player> dealerLib::getLivePlayers()const
   return m_livePlayers;
 }
 
-void dealerLib::splitPot()
+void dealerLib::decideWinners()
 {
   std::vector<player> winners;
   std::vector<player>::iterator playerIt;
   winners = hands::winner(m_livePlayers, m_communityCards);
   int remainder = m_pot % winners.size();
+  bool remainderExists = isRemainder(remainder);
+
   int winnings = (m_pot - remainder) / winners.size();
+
+  getWinnerIds(winners);
 
   for(playerIt = winners.begin(); playerIt != winners.end(); playerIt++)
   {
@@ -440,4 +422,32 @@ void dealerLib::splitPot()
 
 
 
+}
+
+std::vector<int> dealerLib::getWinnerIds(std::vector<player> _winners)
+{
+  std::vector<int> winnerIds;
+
+  std::vector<player>::iterator playerIt;
+
+  for(playerIt = _winners.begin(); playerIt != _winners.end(); playerIt++)
+  {
+    winnerIds.push_back(playerIt->getID());
+  }
+
+  return winnerIds;
+
+
+}
+
+bool dealerLib::isRemainder(int _remainder)
+{
+  if(_remainder > 0) {return true;}
+
+  else {return false;}
+}
+
+void dealerLib::updatePlayer(int _element)
+{
+  m_table[m_livePlayers[_element].getID()] = m_livePlayers[_element];
 }
