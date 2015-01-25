@@ -32,13 +32,18 @@ GUI::Element::~Element()
 {
 }
 
-void GUI::Element::setPos(const SDL_Point &_p)
+void GUI::Element::setPos(const SDL_Point &_p, const bool &_updateRect)
 {
     m_pointDest=_p;
     m_progressAmount=1.0;
     //pre-origin: m_destRect.x = _p.x;
     //pre-origin: m_destRect.y = _p.y;
     m_origin = _p;
+
+    if (_updateRect)
+    {
+        updateRect();
+    }
 }
 
 void GUI::Element::moveTo(const SDL_Point &_p)
@@ -145,11 +150,11 @@ void GUI::Element::printRect()
     std::cout<<"Width: "<<m_destRect.w<<" Height: "<<m_destRect.h<<" X: "<<m_destRect.x<<" Y: "<<m_destRect.y<<"\n";
 }
 
-void GUI::Element::align(const Orientation &_orient, const bool &_instantly)
+void GUI::Element::align(const Orientation &_orient, const bool &_instantly, const bool &_updateRect)
 {
     if (_instantly)
     {
-        setPos(aligned(_orient));
+        setPos(aligned(_orient),_updateRect);
     }
     else
     {
@@ -157,11 +162,11 @@ void GUI::Element::align(const Orientation &_orient, const bool &_instantly)
     }
 }
 
-void GUI::Element::centre(const bool &_instantly)
+void GUI::Element::centre(const bool &_instantly, const bool &_updateRect)
 {
     if (_instantly)
     {
-        setPos(getCentre());
+        setPos(getCentre(),_updateRect);
     }
     else
     {

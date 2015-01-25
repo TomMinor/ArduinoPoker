@@ -46,7 +46,8 @@ public:
 
     /// \brief Moves the element to the specified location instantly.
     /// \param _p The SDL point to move the element to.
-    void setPos(const SDL_Point &_p);//move to this point instantly
+    /// \param _updateRect True if you want to update the element's SDL rectangle along with the unrendered origin, which you will 99% of the time.
+    void setPos(const SDL_Point &_p, const bool &_updateRect = true);//move to this point instantly
 
     /// \brief Sets this element's "target" location which it will move closer to with cosine interpolation every time update() is called.
     /// \param _p The point to move to.
@@ -61,11 +62,11 @@ public:
     /// \brief Moves this element to the specified edge of the screen.
     /// \param _orient The edge to move the element to.
     /// \param _instantly True to move instantly, false to interpolate the position on each update.
-    void align(const Orientation &_orient, const bool &_instantly = false);
+    void align(const Orientation &_orient, const bool &_instantly = false, const bool &_updateRect = true);
 
     /// \brief Moves this element to the centre of the screen.
     /// \param _instantly True to move instantly, false to interpolate the position on each update.
-    void centre(const bool &_instantly = false);
+    void centre(const bool &_instantly = false, const bool &_updateRect = true);
 
     /// \brief Returns the point this element would move to to line up with the specified edge of the screen.
     /// \param _orient The edge of the screen this element would move to.
@@ -106,22 +107,46 @@ public:
 
 protected:
     //stuff SDL needs to know
+    /// \brief A pointer to the SDL rendering context.
     SDL_Renderer *m_ren;
+
+    /// \brief A pointer to the SDL texture this element uses.
     SDL_Texture *m_texture;
+
+    /// \brief An SDL rectangle covering the part of the texture to use.
     SDL_Rect m_srcRect;
+
+    /// \brief An SDL rectangle covering the part of the screen to draw this element to.
     SDL_Rect m_destRect;
+
+    /// \brief Which edge of the screen this element should face.
     Orientation m_orientation;
 
     //movement stuff
+    /// \brief The "centre of mass" of this element on which movement/position calculations are performed.
     SDL_Point m_origin;
+
+    /// \brief The point this element was at when moveTo() was last called.
     SDL_Point m_pointPrev;
+
+    /// \brief The point this element is moving to i.e. the argument used in the last call to moveTo().
     SDL_Point m_pointDest;
+
+    /// \brief A value between 0 and 1 representing how far this element has travelled between the previous position and the destination position. Used in cosine
+    /// interpolation calculations.
     float m_progressAmount;
 
-    bool m_shouldKillSoon;//if true then the object will set shouldKillNow to true when it finishes moving and life runs out
-    bool m_shouldKillNow;//if true then the object will be deleted on the next update() of the DealerGUI
-    bool m_isImmortal;//if true then the object will never set shouldKillNow to true
-    int m_life;//how many cycles the element should last while stationary; set to 0 for it to last infinitely
+    /// \brief If true, the element will set shouldKillNow to true as soon as it finishes moving and life runs out.
+    bool m_shouldKillSoon;
+
+    /// \brief If true, the element will be deleted on the next update() of the DealerGUI.
+    bool m_shouldKillNow;
+
+    /// \brief If true, the element will never decrement life and thus have an indefinite lifetime.
+    bool m_isImmortal;
+
+    /// \brief How many update() cycles the element should last while stationary before shouldKillNow is set to true.
+    int m_life;
 };
 
 }

@@ -7,22 +7,18 @@ int main()
 
     std::vector<const player*> players;
 
-    std::cout<<"Initialising players\n";
-
     player p1;
     p1.setName(std::string("LONGNAMETEST"));
-    players.push_back(&p1);
+//    players.push_back(&p1);
     player p2;
     p2.setName(std::string("dickbutt"));
-    players.push_back(&p2);
+//    players.push_back(&p2);
     player p3;
     p3.setName(std::string("@Horse_ebooks"));
     players.push_back(&p3);
     player p4;
     p4.setName(std::string("Michael Rosen"));
     players.push_back(&p4);
-
-    std::cout<<"Initialised all players\n";
 
     PlayingCard aceOfSpades = PlayingCard(Rank::KING,Suit::HEART);
 //    GUI_Label* testLabel = gui.uniqueLabel(std::string("test"),LEFT);
@@ -46,7 +42,13 @@ int main()
     Uint16 amount = 100;
 //    SDL_Point centre = {160, 128};
 
-    gui.initialise(players, cardList, 512, 400, 2);
+    std::vector<unsigned int> winningIDs;
+    winningIDs.push_back(3);
+//    winningIDs.push_back(1);
+//    winningIDs.push_back(2);
+//    winningIDs.push_back(0);
+
+    gui.initialise(players, cardList);
 
     SDL_Event event;
     bool quit=false;
@@ -100,7 +102,7 @@ int main()
                         case SDLK_m : gui.broadcastMessage(std::string("Oh hey look a message")); break;
                         case SDLK_t : gui.setPlayerName(0,std::string("dickfuck")); break;
                         case SDLK_z : gui.addPublicCard(PlayingCard(Rank::ACE,Suit::SPADE));  break;
-                        case SDLK_x : gui.showWinner(winningPlayers); break;
+                        case SDLK_x : gui.showWinner(winningIDs,false,amount); break;
                         case SDLK_r : gui.reset(players,cardList); break;
                         //case SDLK_UP : gui.m_deckCard->setFlipped(true); break;
                         //case SDLK_DOWN : gui.m_deckCard->setFlipped(false); break;
