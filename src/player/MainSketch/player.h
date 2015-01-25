@@ -92,11 +92,16 @@ class player
     /// @brief Method task the player to join, stops them from carrying on unless they do.
     /// @brief infinite loop if they so no.
     void joinGame();
+       
+    void playerDataScreen();
     
+<<<<<<< HEAD
+=======
     /// @brief PlayerDataScreen().
     /// @brief Method prints the players data on the screen.
     void playerDataScreen();
     
+>>>>>>> origin/master
 };
 
 #endif

@@ -85,7 +85,11 @@ uint16_t player::placeBet(uint16_t _max, uint16_t _min)
 void player::receiveMoney(uint16_t _money)
 {
     m_money = m_money + _money;
+<<<<<<< HEAD
+    m_display.winner();
+=======
     m_display.winner(_money);
+>>>>>>> origin/master
 }
 
 void player::setMoney(uint16_t _money)

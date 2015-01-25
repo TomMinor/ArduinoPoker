@@ -139,50 +139,54 @@ void dealerLib::bet()
       {
           // find max bet
          int maxBet = checkMaxBet() - m_livePlayers[i].getBet();
-         Comms::sendBetLimits(m_livePlayers[i],currentBet,maxBet);
-         //Comms::sendBetLimits(m_deviceMap.at(m_livePlayers[i].getID()),currentBet,maxBet);
-         Comms::receiveBet(m_livePlayers[i],playerBet);
-         //Comms::receiveBet(m_deviceMap.at(m_livePlayers[i].getID()),playerBet);
-         playerRaise = playerBet;
-         playerBet += m_livePlayers[i].getBet();
-         m_livePlayers[i].setBet(playerBet);
-
-         // check if player has fold
-         if(m_livePlayers[i].fold)
-         {
-             // remove player from live players
-             //playerBet = m_livePlayers[i].getBet();
-             GUI::Hand* burned = m_dealerGui.uniqueHand(m_livePlayers[i].getHole(),m_livePlayers[i].getID());
-             burned->setPos(m_dealerGui.getOffScreenPos(m_livePlayers[i].getID()));
-             burned->setFlipped(true,true);
-             burned->moveTo(m_dealerGui.getCentre());
-             burned->burn();
-             addBetToPot(playerBet);
-             m_livePlayers.erase(m_livePlayers.begin()+i);
-             p[i] = true;
-         }
+         if(maxBet==0){p[i]=true;}
          else
-         {
-             currentBet = m_livePlayers[i].getBet();
-             m_dealerGui.receiveBetFrom(m_livePlayers[i].getID(),playerRaise);
-             if(currentBet == oldBet)
+           {
+             Comms::sendBetLimits(m_livePlayers[i],currentBet,maxBet);
+             //Comms::sendBetLimits(m_deviceMap.at(m_livePlayers[i].getID()),currentBet,maxBet);
+             Comms::receiveBet(m_livePlayers[i],playerBet);
+             //Comms::receiveBet(m_deviceMap.at(m_livePlayers[i].getID()),playerBet);
+             playerRaise = playerBet;
+             playerBet += m_livePlayers[i].getBet();
+             m_livePlayers[i].setBet(playerBet);
+
+             // check if player has fold
+             if(m_livePlayers[i].fold)
              {
+                 // remove player from live players
+                 //playerBet = m_livePlayers[i].getBet();
+                 GUI::Hand* burned = m_dealerGui.uniqueHand(m_livePlayers[i].getHole(),m_livePlayers[i].getID());
+                 burned->setPos(m_dealerGui.getOffScreenPos(m_livePlayers[i].getID()));
+                 burned->setFlipped(true,true);
+                 burned->moveTo(m_dealerGui.getCentre());
+                 burned->burn();
+                 addBetToPot(playerBet);
+                 m_livePlayers.erase(m_livePlayers.begin()+i);
                  p[i] = true;
              }
              else
              {
-                 for(unsigned int j=0;j<m_livePlayers.size();j++)
+                 currentBet = m_livePlayers[i].getBet();
+                 m_dealerGui.receiveBetFrom(m_livePlayers[i].getID(),playerRaise);
+                 if(currentBet == oldBet)
                  {
-                     if(j==i){p[j]=true;}
-                     else if(m_livePlayers[j].fold)
+                     p[i] = true;
+                 }
+                 else
+                 {
+                     for(unsigned int j=0;j<m_livePlayers.size();j++)
                      {
-                         p[j] = true;
+                         if(j==i){p[j]=true;}
+                         else if(m_livePlayers[j].fold)
+                         {
+                             p[j] = true;
+                         }
+                         else{p[j] = false;}
                      }
-                     else{p[j] = false;}
                  }
              }
-         }
-         oldBet = currentBet;
+             oldBet = currentBet;
+           }
       }
   }
   for(unsigned int i=0;i<m_livePlayers.size();i++)
@@ -204,14 +208,20 @@ void dealerLib::addBetToPot(const int &_bet)
 void dealerLib::dealFlop()
 {
   for(int i=0; i<3; i++)
-    m_communityCards.push_back(m_deck.deal());
+
+  {
+    PlayingCard card = m_deck.deal();
+    m_communityCards.push_back(card);
+    m_dealerGui.addPublicCard(card);
+  }
 }
 //--------------------------------------------------------------
 
 //deals adds an extra card to the community cards. Used for the river and the turn
 void dealerLib::dealRiverTurn()
 {
-  m_communityCards.push_back(m_deck.deal());
+  PlayingCard card = m_deck.deal();
+  m_communityCards.push_back(card);
 }
 //--------------------------------------------------------------
 
@@ -222,15 +232,17 @@ void dealerLib::dealHands()
   std::vector<player>::iterator playerIt;
   for(int i=0; i<2; i++)
   {
-    for(playerIt = m_table.begin(); playerIt != m_table.end(); playerIt++)
+
+    for(unsigned int j =0; j < m_table.size(); j++)
     {
       PlayingCard tmpCard = m_deck.deal();
-      playerIt->setHoleCard(tmpCard);
-      //Comms::sendCard(m_deviceMap.at(playerIt->getID()), tmpCard);
       if(!(Comms::sendCard(*playerIt, tmpCard)))
       {
           //error re-send card
       }
+      m_table[j].setHoleCard(tmpCard);
+      m_dealerGui.dealCardTo(m_table[j].getID(), tmpCard);
+
     }
   }
 
@@ -246,9 +258,13 @@ void dealerLib::resetCards()
 {
   std::vector<player>::iterator playerIt;
 
-  for(playerIt=m_table.begin(); playerIt!=m_table.end(); playerIt++)
+  for(unsigned int i = 0; i < m_table.size(); i++)
   {
-    playerIt->emptyHole();
+    GUI::Hand* burned = m_dealerGui.uniqueHand(m_table[i].getHole(), i);
+    burned->setFlipped(true, true);
+//    burned->setPos(dealerGui.)
+    m_table[i].emptyHole();
+
   }
 
   m_communityCards.erase(m_communityCards.begin(), m_communityCards.end());
@@ -295,9 +311,8 @@ void dealerLib::init()
       guiPlayers.push_back(&m_table[i]);
   }
   cardStack flop;
-  flop.push_back(PlayingCard(Rank::NINE,Suit::HEART));
   m_dealerGui.initialise(guiPlayers,flop);
-  m_dealerGui.m_publicCards->kill();
+  //m_dealerGui.m_publicCards->killNow();
 
   m_livePlayers = m_table;
 }
@@ -401,4 +416,24 @@ int dealerLib::getNumPlayers()const
 std::vector<player> dealerLib::getLivePlayers()const
 {
   return m_livePlayers;
+}
+
+void dealerLib::splitPot()
+{
+  std::vector<player> winners;
+  std::vector<player>::iterator playerIt;
+  winners = hands::winner(m_livePlayers, m_communityCards);
+  int remainder = m_pot % winners.size();
+  int winnings = (m_pot - remainder) / winners.size();
+
+  for(playerIt = winners.begin(); playerIt != winners.end(); playerIt++)
+  {
+    playerIt->receivePot(winnings);
+  }
+
+  m_pot = remainder;
+
+
+
+
 }
