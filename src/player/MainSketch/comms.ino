@@ -105,33 +105,6 @@ uint8_t getData(data &_coms)
             }
             
             
-            
-            
-            /*
-            //puts the arduino into a state to listen for data
-            while(Serial.available()<=0);
-            //read the number of packets and store it in coms card_buffer
-            Serial.readBytes(coms.card_buff,packets); 
-            //coms.card_buff[0]=Suit::SPADE|Rank::SIX;
-            //checks if the recived card is the first card or second card
-            if (coms.cardRecieved==0)
-            {
-              coms.cards[0]   = RANKOF(coms.card_buff[0]);
-              coms.cards[1]   = SUITOF(coms.card_buff[0]);
-              coms.cardRecieved+=1;
-            }
-            else
-            {
-              coms.cards[2]   = RANKOF(coms.card_buff[0]);
-              coms.cards[3]   = SUITOF(coms.card_buff[0]);
-            }
-            
-            //if the second card has been filled, it will replace the first card when it recieves a new card 
-            if (coms.cardRecieved==1)
-            {
-              coms.cardRecieved=0;
-            }
-            */
             //Notify the player class that cards have been recieved
             return DEALER_CALLS::SET_CARDS;         
             break;
@@ -139,28 +112,23 @@ uint8_t getData(data &_coms)
      
      case NAME:
           {
-            //Serial.write(DATA::RECIEVED);
-            //for testing purposes
-            
+              
             //notify player that dealer want to set name
             return DEALER_CALLS::SET_NAME; 
             break;
           }
      case RESET_CARDS:
          {
-           //Serial.write(DATA::RECIEVED);
-          //for testing purposes
-          
+              
           //notify player that dealer want to set name
           return DEALER_CALLS::RESET_CARDS; 
           break;
           }
     case ROUND_STATE:
          {
-           //Serial.write(DATA::RECIEVED);
+      
           while(Serial.available()<=0);
-          //Serial.print(packets,DEC);
-          //Serial.print("\N");
+      
           //read the number of packets and store it in coms money_buffer
           Serial.readBytes(coms.money_buff,packets);  
           
@@ -173,14 +141,11 @@ uint8_t getData(data &_coms)
      case MONEY:
           {
           //writes confirmation when releavant header is detected
-          //Serial.write(DATA::RECIEVED);
-          //for testing purposes
           
-          
+                    
           //puts the arduino into a state to listen for data
           while(Serial.available()<=0);
-          //Serial.print(packets,DEC);
-          //Serial.print("\N");
+         
           //read the number of packets and store it in coms money_buffer
           Serial.readBytes(coms.money_buff,packets);  
           
@@ -191,6 +156,23 @@ uint8_t getData(data &_coms)
           return DEALER_CALLS::SET_MONEY; 
           break;
           }
+     case RECIV_WINNINGS:
+          //for testing purposes
+          //Serial.print("RECIEVE_BET");
+          //Serial.write(DATA::RECIEVED);
+          //puts the arduino into a state to listen for data
+          while(Serial.available()<=0);
+           //Serial.print(packets,DEC);
+          //Serial.print("\N");
+          //read the number according to the packets indicated in the header
+          Serial.readBytes(coms.wMoney_buff,2);  //CHANGE THE TO READBYTES(PACKET)
+          
+          //storing the winnings to the coms 
+          coms.wMoney  = BYTE_TO_U16(coms.wMoney_buff[0],coms.wMoney_buff[1]);
+          
+          //notifying the dealer class that winnings have been recieved
+          return DEALER_CALLS::WIN_MONEY;          
+          break;
      case LIMITS:
           {
           //for testing purposes
@@ -206,8 +188,8 @@ uint8_t getData(data &_coms)
           Serial.readBytes(coms.limit_buff,4);  
           
           //store limit data to local coms struct 
-          //coms.limit_H  = BYTE_TO_U16(coms.limit_buff[0],coms.limit_buff[1]);
-          //coms.limit_L  = BYTE_TO_U16(coms.limit_buff[2],coms.limit_buff[3]);
+           coms.limit_H  = BYTE_TO_U16(coms.limit_buff[2],coms.limit_buff[3]) ;
+           coms.limit_L  = BYTE_TO_U16(coms.limit_buff[0],coms.limit_buff[1]);
           
           return DEALER_CALLS::INITIATE_BET;
           break;
@@ -222,22 +204,7 @@ uint8_t getData(data &_coms)
 //          return DEALER_CALLS::INITIATE_BET;          
 //          break;
 //     
-     case RECIV_WINNINGS:
-          //for testing purposes
-          //Serial.print("RECIEVE_BET");
-          //Serial.write(DATA::RECIEVED);
-          //puts the arduino into a state to listen for data
-          while(Serial.available()<=0);
-          
-          //read the number according to the packets indicated in the header
-          Serial.readBytes(coms.wMoney_buff,packets);  //CHANGE THE TO READBYTES(PACKET)
-          
-          //storing the winnings to the coms 
-          coms.wMoney  = BYTE_TO_U16(coms.wMoney_buff[0],coms.wMoney_buff[1]);
-          
-          //notifying the dealer class that winnings have been recieved
-          return DEALER_CALLS::WIN_MONEY;          
-          break;
+
      
      default:
      

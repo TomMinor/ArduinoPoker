@@ -12,7 +12,7 @@ typedef struct data
 {
   int   cardRecieved=0;
   byte  card;
-  byte  cards[4];
+  byte  cards[2];
   
   byte  money_buff[2];
   uint16_t money;
@@ -21,11 +21,8 @@ typedef struct data
   uint16_t limit_L;
   uint16_t limit_H;
   
-  byte  wMoney_buff[2];
+  uint8_t  wMoney_buff[2];
   uint16_t wMoney;
- 
-
-
 }data;
 
 

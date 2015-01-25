@@ -108,7 +108,7 @@ void GUI::DealerGUI::initialise(std::vector<const player *> _players,
     char buf[bufsize] = "";
     readlink("/proc/self/exe",buf,bufsize);
     std::string ourDir = std::string(buf);
-    ourDir = ourDir.substr(0, ourDir.size()-9);
+    ourDir = ourDir.substr(0, ourDir.size()-8);
 
     // Load a font
     TTF_Font *font;
@@ -169,7 +169,7 @@ void GUI::DealerGUI::initialise(std::vector<const player *> _players,
 
     m_renderTarget = SDL_CreateTexture(m_renderer,pixelFormat,SDL_TEXTUREACCESS_TARGET,_windowWidth,_windowHeight);
 
-    setUpUniqueElements(_publicCards);
+    setUpUniqueElements(_publicCards,_players.size());
     setUpPlayers(_players);
     std::cout<<"are we here?\n\n";
 
@@ -263,6 +263,12 @@ void GUI::DealerGUI::receiveBetFrom(const unsigned int &_playerID, Uint16 &_amou
     betLabel->setPos(thatPlayer->pos_offScreen);
     betLabel->moveTo(thatPoint);
     betLabel->kill();
+
+    if ((m_pot->getPos().x != m_potPos.x) && (m_pot->getPos().y != m_potPos.y))
+    {
+        m_pot->setPos(thatPlayer->pos_offScreen);
+        m_pot->moveTo(m_potPos);
+    }
 }
 
 void GUI::DealerGUI::update()
@@ -313,7 +319,7 @@ void GUI::DealerGUI::update()
 void GUI::DealerGUI::draw()
 {
     SDL_SetRenderTarget(m_renderer, m_renderTarget);
-    clearScreen(m_renderer,2,180,2);
+    clearScreen(2,180,2);
 
 //    for (std::vector< boost::shared_ptr<Element> >::iterator it; it!=m_elements.end(); ++it)
 //    {
@@ -512,6 +518,13 @@ GUI::Element* GUI::DealerGUI::uniqueElement(SDL_Texture* _tex, const SDL_Rect &_
     return temp.get();
 }
 
+GUI::Element* GUI::DealerGUI::uniqueElement(Element* _inputElement)
+{
+    boost::shared_ptr<GUI::Element> temp(m_maker.makeElement(_inputElement));
+    m_elements.push_back(temp);
+    return temp.get();
+}
+
 void GUI::DealerGUI::SDLErrorExit(const std::string &_msg)
 {
   std::cerr<<_msg<<"\n";
@@ -520,10 +533,10 @@ void GUI::DealerGUI::SDLErrorExit(const std::string &_msg)
   exit(EXIT_FAILURE);
 }
 
-void GUI::DealerGUI::clearScreen(SDL_Renderer *_ren,char _r,char _g,char _b	)
+void GUI::DealerGUI::clearScreen(Uint8 _r, Uint8 _g, Uint8 _b	)
 {
-    SDL_SetRenderDrawColor(_ren, _r,_g,_b,255);
-    SDL_RenderClear(_ren);
+    SDL_SetRenderDrawColor(m_renderer, _r,_g,_b,255);
+    SDL_RenderClear(m_renderer);
 }
 
 //void GUI::DealerGUI::setPlayerName(const unsigned int &_playerID, std::string _name)
@@ -587,24 +600,30 @@ void GUI::DealerGUI::clearScreen(SDL_Renderer *_ren,char _r,char _g,char _b	)
 //    return uniqueHand(handCards,BOTTOM);
 //}
 
-std::vector<GUI::Hand*> GUI::DealerGUI::showWinner(std::vector<const player *> _winners)
+std::vector<GUI::Hand*> GUI::DealerGUI::showWinner(const std::vector<unsigned int> &_winnerIDs, const bool &_hasRemainder, const unsigned int &_winnings)
 {
+    splitPot(_winnerIDs,_hasRemainder);
+
     std::vector<GUI::Hand*> winningHands;
     SDL_Point current = getCentre();
-    current.y -= _winners.size() * 38;
+    current.y -= _winnerIDs.size() * 38;
     current.y += 38;
 
-    if (_winners.size() == 1)
+    std::stringstream moneyStream;
+    moneyStream << _winnings;
+    std::string moneyString = std::string("$") + moneyStream.str();
+
+    if (_winnerIDs.size() == 1)
     {
-        broadcastMessage(std::string("The winner is ") + _winners[0]->getName() + std::string("! Here is their hand."));
+        broadcastMessage(m_players[_winnerIDs[0]].playerClass->getName() + std::string(" wins ") + moneyString + std::string("! Here is their hand."));
     }
-    else if (_winners.size() >= 1)
+    else if (_winnerIDs.size() >= 1)
     {
-        std::string message("The winners are ");
-        for (unsigned long i = 0; i < _winners.size()-1; i++)
+        std::string message("");
+        for (unsigned long i = 0; i < _winnerIDs.size()-1; i++)
         {
-            message += _winners[i]->getName();
-            if (_winners.size() != 2)
+            message += m_players[_winnerIDs[i]].playerClass->getName();
+            if (_winnerIDs.size() != 2)
             {
                 message += std::string(", ");
             }
@@ -614,7 +633,7 @@ std::vector<GUI::Hand*> GUI::DealerGUI::showWinner(std::vector<const player *> _
             }
         }
 
-        message += std::string("and ") + _winners.back()->getName() + std::string("!");
+        message += std::string("and ") + m_players[_winnerIDs.back()].playerClass->getName() + std::string(" each win ") + moneyString + std::string("!");
         broadcastMessage(message);
     }
     else
@@ -623,9 +642,10 @@ std::vector<GUI::Hand*> GUI::DealerGUI::showWinner(std::vector<const player *> _
         return std::vector<GUI::Hand*>();
     }
 
-    for (std::vector<const player*>::iterator it = _winners.begin(); it != _winners.end(); ++it)
+    for (std::vector<unsigned int>::const_iterator it = _winnerIDs.begin(); it != _winnerIDs.end(); ++it)
     {
-        GUI::Hand* thisHand = uniqueHand((*it)->getHand());
+        GUI::Hand* thisHand = uniqueHand(m_players[(*it)].playerClass->getHand());
+        thisHand->setPos(m_players[(*it)].pos_offScreen);
         thisHand->moveTo(current);
         current.y += thisHand->getHeight();
         winningHands.push_back(thisHand);
@@ -638,7 +658,7 @@ void GUI::DealerGUI::reset(std::vector<const player*> _players, std::vector<Play
 {
     m_hands.clear();
     m_elements.clear();
-    setUpUniqueElements(_publicCards);
+    setUpUniqueElements(_publicCards, _players.size());
     setUpPlayers(_players);
 }
 
@@ -667,14 +687,14 @@ void GUI::DealerGUI::setUpPlayers(std::vector<const player *> _players)
     }
 }
 
-void GUI::DealerGUI::setUpUniqueElements(std::vector<PlayingCard> _publicCards)
+void GUI::DealerGUI::setUpUniqueElements(std::vector<PlayingCard> _publicCards, const unsigned int &_numPlayers)
 {
     //get our directory
     const size_t bufsize = 128;
     char buf[bufsize] = "";
     readlink("/proc/self/exe",buf,bufsize);
     std::string ourDir = std::string(buf);
-    ourDir = ourDir.substr(0, ourDir.size()-9);
+    ourDir = ourDir.substr(0, ourDir.size()-8);
 
     // Load the pot image
     SDL_Surface *temp;
@@ -723,7 +743,7 @@ void GUI::DealerGUI::setUpUniqueElements(std::vector<PlayingCard> _publicCards)
 
     SDL_FreeSurface(temp);
 
-    setUpBorder(borderTexture);
+    setUpBorder(borderTexture,_numPlayers);
 
     SDL_Point position = getCentre();
     position.y -= 48;
@@ -739,7 +759,8 @@ void GUI::DealerGUI::setUpUniqueElements(std::vector<PlayingCard> _publicCards)
     m_potPos = position;
 
     m_pot = uniqueElement(potTexture);
-    m_pot->setPos(m_potPos);
+    SDL_Point offScreen = {-128, -128};
+    m_pot->setPos(offScreen);
     m_pot->updateRect();
 
     GUI::Card* deckCard = uniqueCard(PlayingCard((card_t)1),LEFT);
@@ -789,7 +810,7 @@ void GUI::DealerGUI::addPlayerBack(const unsigned int &_playerID)
     broadcastMessage(m_players[_playerID].playerClass->getName() + std::string(" is back in play"));
 }
 
-void GUI::DealerGUI::setUpBorder(SDL_Texture *_tex)
+void GUI::DealerGUI::setUpBorder(SDL_Texture *_tex, const unsigned int &_numPlayers)
 {
     //FYI, all this complex code is necessary to make the borders resolution-independent
     SDL_Point bounds = getScreenDimensions();
@@ -797,7 +818,7 @@ void GUI::DealerGUI::setUpBorder(SDL_Texture *_tex)
 
     //==================== Fillers ====================
 
-    if (getScreenDimensions().x > BORDER_IMGWIDTH)
+    if (getScreenDimensions().x > 2 * BORDER_CORNERWIDTH)
     {
         src.h = BORDER_LINEWIDTH;
         src.w = BORDER_FILLERWIDTH;
@@ -810,17 +831,17 @@ void GUI::DealerGUI::setUpBorder(SDL_Texture *_tex)
         dest.y = 0;
 
         GUI::Element* topFiller = uniqueElement(_tex,src,dest);
-        topFiller->centre();
-        topFiller->align(TOP,true);
+        topFiller->centre(true,false);
+        topFiller->align(TOP,true,false);
 
         src.y = BORDER_IMGWIDTH - BORDER_LINEWIDTH;
         dest.y = bounds.y - src.h;
         GUI::Element* bottomFiller = uniqueElement(_tex,src,dest);
-        bottomFiller->centre();
-        bottomFiller->align(TOP,true);
+        bottomFiller->centre(true,false);
+        bottomFiller->align(TOP,true,false);
     }
 
-    if (getScreenDimensions().y > BORDER_IMGWIDTH)
+    if (getScreenDimensions().y > 2 * BORDER_CORNERWIDTH)
     {
         src.h = BORDER_FILLERWIDTH;
         src.w = BORDER_LINEWIDTH;
@@ -833,14 +854,14 @@ void GUI::DealerGUI::setUpBorder(SDL_Texture *_tex)
         dest.y = 0;
 
         GUI::Element* leftFiller = uniqueElement(_tex,src,dest);
-        leftFiller->centre();
-        leftFiller->align(LEFT,true);
+        leftFiller->centre(true,false);
+        leftFiller->align(LEFT,true,false);
 
         src.x = BORDER_IMGWIDTH - BORDER_LINEWIDTH;
         dest.x = bounds.x - src.w;
         GUI::Element* rightFiller = uniqueElement(_tex,src,dest);
-        rightFiller->centre();
-        rightFiller->align(RIGHT,true);
+        rightFiller->centre(true,false);
+        rightFiller->align(RIGHT,true,false);
     }
 
     //==================== Corners ====================
@@ -853,27 +874,29 @@ void GUI::DealerGUI::setUpBorder(SDL_Texture *_tex)
     dest = src;
 
     GUI::Element* topLeft = uniqueElement(_tex,src,dest);
-    topLeft->align(TOP,true);
-    topLeft->align(LEFT,true);
+    topLeft->align(TOP,true,false);
+    topLeft->align(LEFT,true,false);
 
     src.x = BORDER_IMGWIDTH - BORDER_CORNERWIDTH;
     dest.x = bounds.x - BORDER_CORNERWIDTH;
     GUI::Element* topRight = uniqueElement(_tex,src,dest);
-    topRight->align(TOP,true);
-    topRight->align(RIGHT,true);
+    topRight->align(TOP,true,false);
+    topRight->align(RIGHT,true,false);
 
     src.y = BORDER_IMGWIDTH - BORDER_CORNERWIDTH;
     dest.y = bounds.y - BORDER_CORNERWIDTH;
     GUI::Element* bottomRight = uniqueElement(_tex,src,dest);
-    bottomRight->align(BOTTOM,true);
-    bottomRight->align(RIGHT,true);
+    bottomRight->align(BOTTOM,true,false);
+    bottomRight->align(RIGHT,true,false);
 
     src.x = 0;
     dest.x = 0;
     GUI::Element* bottomLeft = uniqueElement(_tex,src,dest);
-    bottomLeft->align(BOTTOM,true);
+    bottomLeft->align(BOTTOM,true,false);
 
     //==================== Tags ====================
+
+    std::cout<<"number of players: "<<_numPlayers<<"\n";
 
     src.h = BORDER_IMGWIDTH - BORDER_CORNERWIDTH - BORDER_CORNERWIDTH;
     src.w = src.h;
@@ -884,28 +907,38 @@ void GUI::DealerGUI::setUpBorder(SDL_Texture *_tex)
 
     dest.x = (bounds.x / 2) - (src.w / 2);
     GUI::Element* top = uniqueElement(_tex,src,dest);
-    top->centre(true);
-    top->align(TOP,true);
+    top->centre(true,false);
+    top->align(TOP,true,false);
 
     src.y = BORDER_IMGWIDTH - src.h;
     dest.y = bounds.y - src.h;
     GUI::Element* bottom = uniqueElement(_tex,src,dest);
-    bottom->centre(true);
-    bottom->align(BOTTOM,true);
+    bottom->centre(true,false);
+    bottom->align(BOTTOM,true,false);
+
+    if (_numPlayers == 2)
+    {
+        return;
+    }
 
     src.y = BORDER_CORNERWIDTH;
-    dest.y = (bounds.y / 2) - (src.h / 2);
-    src.x = 0;
-    dest.x = 0;
-    GUI::Element* left = uniqueElement(_tex,src,dest);
-    left->centre(true);
-    left->align(LEFT,true);
-
+    dest.y = (bounds.y / 2) - (src.h / 2);  
     src.x = BORDER_IMGWIDTH - src.w;
     dest.x = bounds.x - src.w;
     GUI::Element* right = uniqueElement(_tex,src,dest);
-    right->centre(true);
-    right->align(RIGHT,true);
+    right->centre(true,false);
+    right->align(RIGHT,true,false);
+
+    if (_numPlayers == 3)
+    {
+        return;
+    }
+
+    src.x = 0;
+    dest.x = 0;
+    GUI::Element* left = uniqueElement(_tex,src,dest);
+    left->centre(true,false);
+    left->align(LEFT,true,false);
 }
 
 void GUI::DealerGUI::sendNameAway(const unsigned int &_playerID)
@@ -928,4 +961,22 @@ void GUI::DealerGUI::bringNameBack(const unsigned int &_playerID)
     }
 
     thatPlayer->nameLabel->moveTo(newPos);
+}
+
+void GUI::DealerGUI::splitPot(const std::vector<unsigned int> &_winnerIDs, const bool &_hasRemainder)
+{
+    for (std::vector<unsigned int>::const_iterator it = _winnerIDs.begin(); it != _winnerIDs.end(); ++it)
+    {
+        GUI::Player* thatPlayer = &m_players[(*it)];
+        GUI::Element* theirChips = uniqueElement(m_pot);
+        theirChips->setPos(m_potPos);
+        theirChips->moveTo(thatPlayer->pos_offScreen);
+        theirChips->kill();
+    }
+
+    if (!_hasRemainder)
+    {
+        SDL_Point goAway = {-128,-128};
+        m_pot->setPos(goAway);
+    }
 }

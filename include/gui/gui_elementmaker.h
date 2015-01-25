@@ -36,6 +36,11 @@ public:
     /// \return A pointer to the new element.
     Element *makeElement(SDL_Texture *_tex, const SDL_Rect &_srcRect, const SDL_Rect &_destRect, const Orientation &_orient = BOTTOM);
 
+    /// \brief Constructs a dynamically allocated copy of the given element.
+    /// \param _inputElement A pointer to the element to copy.
+    /// \return A pointer to the new element.
+    Element *makeElement(Element* _inputElement);
+
     /// \brief Constructs a dynamically allocated card with the given parameters.
     /// \param _type The type of card to produce (its rank and suit).
     /// \param _orient The edge of the screen this card will face.
@@ -50,7 +55,10 @@ public:
     Label *makeLabel(const std::string &_inputString, const Orientation &_orient = BOTTOM, const int &_lifetime = 0);
 
 private:
+    /// \brief A pointer to a struct containing constant info about all cards, so this info will not have to be used in any of the maker's function parameters.
     const CardInfo* m_cardInfo;
+
+    /// \brief A pointer to a struct containing constant info about all labels, so this info will not have to be used in any of the maker's function parameters.
     const LabelFormat* m_labelFormat;
 };
 

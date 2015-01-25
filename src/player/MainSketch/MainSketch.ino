@@ -31,13 +31,17 @@ void setup()
   
   player.joinGame();
 //  
-  player.setMoney(150);
-  coms.limit_L = 100;
-  coms.limit_H = 200;
-  player.receiveCard(card1);
+//  //player.setMoney(100);
+  //coms.limit_L = 50;
+//coms.limit_H = 80;
+//  //player.receiveCard(cards);
+//  //player.receiveCard(cards);
+//  lcd.clear();
+
   //player.receiveCard(card3);
   //player.receiveCard(card2);
   lcd.clear();
+
 }
 
 

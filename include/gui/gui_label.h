@@ -14,8 +14,13 @@ namespace GUI
 /// \brief This struct contains variables for SDL that will be the same for all labels, which we therefore won't want to send to the constructor individually every time.
 typedef struct
 {
+    /// \brief A pointer to the SDL rendering context.
     SDL_Renderer *ren;
+
+    /// \brief A pointer to a font that the SDL TTF library uses.
     TTF_Font *font;
+
+    /// \brief The colour of the text.
     SDL_Color colour;
 } LabelFormat;
 

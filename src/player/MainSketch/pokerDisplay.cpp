@@ -223,7 +223,7 @@ void display::waitCards()
 }
 
 
-void display::winner(uint8_t _money)
+void display::winner(uint16_t _money)
 {
   lcd.clear();
   
@@ -251,6 +251,7 @@ void display::screenReset()
 void display::displayMoney(uint8_t _line, uint16_t _money)
 {
   lcd.setCursor(0, _line);
+
   lcd.print("Money: $");
   
   if(_money == 0)
@@ -261,6 +262,7 @@ void display::displayMoney(uint8_t _line, uint16_t _money)
   {
     lcd.print(String(_money));
   }
+
 }
 
 void display::displayName(char* _name)

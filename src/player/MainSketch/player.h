@@ -97,7 +97,6 @@ class player
     /// @brief Method prints the players data on the screen.
     void playerDataScreen();
     
-    
     /// @brief setMaxCardLimit().
     /// @brief Sets the maximum amount of cards the player can hold.
     /// @brief [in] _max, max number of cards
