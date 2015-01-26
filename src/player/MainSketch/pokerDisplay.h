@@ -1,7 +1,8 @@
 /// @brief display class
-/// @author Michelle Wu
+/// @author Michelle Wu, George Madges
 /// @version 1.0
 /// @date 22/01/2015
+
 #ifndef POKERDISPLAY_H__
 #define POKERDISPLAY_H__
 
@@ -21,6 +22,18 @@ public:
     /// @brief dtor
     ~display();
     
+    /// @brief createCustomChar
+    void createCustomChar();
+
+    /// @brief displayName
+    /// @param [in] _name name to be displayed
+    void displayName( char* _name );
+    
+    /// @brief displayMoney
+    /// @param [in] _line, line to be displayed.
+    /// @param [in] _money, money to be displayed.
+    void displayMoney( uint8_t _line, uint16_t _money );
+    
     /// @brief displayCard
     /// @param [in] _rank, rank of the card
     /// @param [in] _suit, suit of the card
@@ -30,40 +43,22 @@ public:
     /// @param [in] _totCards, total number of cards
     void displayCard( uint8_t _rank, uint8_t _suit, int _x, int _y, int _nCard, int _totCards );
     
-    /// @brief displayName
-    /// @param [in] _line, line to be displayed..
-    /// @param [in] _name name to be displayed
-    void displayName( char* _name );
-    
-    /// @brief displayMoney
-    /// @param [in] _line, line to be displayed.
-    /// @param [in] _money, money to be displayed.
-    void displayMoney( uint8_t _line, uint16_t _money );
-    
-    ///@brief displayCards
-    ///@param [in] _line, what line you want it printed on. 
-    ///@param [in] _numCards, number of cards.
-    ///@param [in] _cards{}, array of cards being passed to display.
-
-    void displayCards(uint8_t _line, uint8_t _numCards, card _cards[]);
-
-    /// @brief checkFirstcard
-    /// @brief [in] _card, card in the array you want to check.
-    /// @param [out] returns bool if first card is empty.
+    /// @brief checkForCard
+    /// @param [in] _card, card in the array you want to check.
+    /// @param [out] returns bool if card is empty.
     bool checkForCard(card _card);   
     
+    /// @brief displayCards
+    /// @param [in] _line, what line you want it printed on. 
+    /// @param [in] _numCards, number of cards.
+    /// @param [in] _cards[], array of cards being passed to display.
 
-    /// @brief createCustomChar
-    void createCustomChar();
+    void displayCards(uint8_t _line, uint8_t _numCards, card _cards[]);
     
-    /// @brief displays "Waiting cards" on lcd
-    void waitCards();
-
-    ///@brief winner, prints a winning message.
-    ///@param [in] money that the player has one.
+    /// @brief winner, prints a winning message.
+    /// @param [in] money that the player has won.
     void winner(uint16_t _money);
 
-    
     /// @brief resetScreen, prints the reset screen text.
     void screenReset();
 

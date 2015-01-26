@@ -4,46 +4,52 @@
 #include "input.h"
 #include "card.h"
 
+// need to delete all test data.
 
 //card array that stores 2 bytes {card1,card2}
-uint8_t card1[2]={Rank::SIX, Suit::SPADE};
-uint8_t card2[2]={Rank::ACE, Suit::CLUB};
-uint8_t card3[2]={Rank::EIGHT, Suit::HEART};
+//uint8_t card1[2]={Rank::SIX, Suit::SPADE};
+//uint8_t card2[2]={Rank::ACE, Suit::CLUB};
+//uint8_t card3[2]={Rank::EIGHT, Suit::HEART};
 
 
 //unsigned int bet=0;
 //bool betState=true;
 //bool recieved=false;
 
-
+// initialise global lcd.
 LiquidCrystal lcd(8, 9, 4, 5, 6, 7);
 
+//initialise player.
 player player;
 
+//initialise comms.
 data coms;
+
 uint8_t a= U16_TO_BYTE_L(0xff0f);
 uint8_t b= U16_TO_BYTE_H(0xff0f);
+
 void setup() 
 {
-
+  //set up lcd
   lcd.begin(16,2);
+  //start serial
   Serial.begin(9600);
   
+  //set player card limit to 2
   player.setMaxCardLimit(2);
   
+  //ask player to join game.
   player.joinGame();
-//  
-//  //player.setMoney(100);
-  //coms.limit_L = 50;
+  
+//player.setMoney(100);
+//coms.limit_L = 50;
 //coms.limit_H = 80;
-//  //player.receiveCard(cards);
-//  //player.receiveCard(cards);
-//  lcd.clear();
-  //player.receiveCard(card1);
-  //player.receiveCard(card3);
-  //player.receiveCard(card2);
-  lcd.clear();
+//player.receiveCard(card1);
+//player.receiveCard(card3);
+//player.receiveCard(card2);
 
+  //clear screen.
+  lcd.clear();
 }
 
 

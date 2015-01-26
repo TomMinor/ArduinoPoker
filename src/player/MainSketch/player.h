@@ -3,6 +3,8 @@
 /// @version 1.0
 /// @date 21/01/2015
 
+
+
 #ifndef PLAYER_H__
 #define PLAYER_H__
 
@@ -13,12 +15,14 @@
 #include "Arduino.h"
 #include <LiquidCrystal.h>
 
+// LOOK AT PLAYER RESET
+
 
 class player
 {
   private:
 
-    /// @brief The players money
+    /// @brief The player's money.
     uint16_t m_money;
 
     /// @brief Number of cards being held by the player.
@@ -27,16 +31,16 @@ class player
     /// @brief Array of chars storing the players name.
     char m_playerName[15];
 
-    /// @brief Array of cards.
+    /// @brief Array of cards (up to 5 cards).
     card m_cards[5];
     
-    /// @brief Display
+    /// @brief Display.
     display m_display;
     
-    /// @brief input class variable.
+    /// @brief Input class variable.
     input m_button;
  
-    /// @brief input class variable.
+    /// @brief Max number of cards the player can have.
     uint8_t m_maxNumCards;      
 
   public:
@@ -44,7 +48,7 @@ class player
     /// @brief ctor.
     player();
 
-    /// @brief dtor
+    /// @brief dtor.
     ~player();
     
     /// @brief setMoney
@@ -71,8 +75,7 @@ class player
     void setName();
 
     /// @brief resetPlayer
-    /// @param _money, amount of money the player starts with.
-    /// @param _cardNum, amount of cards the player will be given.
+    /// @param [in] _money, amount of money the player starts with.
     void resetPlayer(uint16_t _money);
 
     /// @brief resetCards
@@ -84,22 +87,21 @@ class player
     uint16_t getMoney() { return m_money; }
 
     /// @brief getName
-    /// @param [out] returns name of player.
+    /// @param [out] returns pointer to name of player.
     char* getName() { return m_playerName; }
     
-           
     /// @brief joinGame
     /// @brief Method task the player to join, stops them from carrying on unless they do.
-    /// @brief infinite loop if they so no.
+    /// @brief Infinite loop if they say no.
     void joinGame();
        
-    /// @brief PlayerDataScreen().
+    /// @brief PlayerDataScreen
     /// @brief Method prints the players data on the screen.
     void playerDataScreen();
     
-    /// @brief setMaxCardLimit().
+    /// @brief setMaxCardLimit
     /// @brief Sets the maximum amount of cards the player can hold.
-    /// @brief [in] _max, max number of cards
+    /// @brief [in] _max, max number of cards.
     void setMaxCardLimit(uint8_t _max);
     
 };
