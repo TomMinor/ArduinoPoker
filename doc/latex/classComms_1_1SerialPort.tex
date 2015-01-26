@@ -1,0 +1,136 @@
+\hypertarget{classComms_1_1SerialPort}{\section{Comms\-:\-:Serial\-Port Class Reference}
+\label{classComms_1_1SerialPort}\index{Comms\-::\-Serial\-Port@{Comms\-::\-Serial\-Port}}
+}
+
+
+The \hyperlink{classComms_1_1SerialPort}{Serial\-Port} class encapsulates sending and recieving data from a player. It assumes the protocol is to open a transmission by sending a header byte containing both the type (left nibble) and the size of the byte payload (right nibble), any bytes sent after the header are considered the payload.  
+
+
+
+
+{\ttfamily \#include $<$Serial\-Port.\-h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classComms_1_1SerialPort_afa01d5ec56ccf54adf49e0e2b827cb0c}{Serial\-Port} (const std\-::string \&\-\_\-port\-Path)
+\begin{DoxyCompactList}\small\item\em \hyperlink{classComms_1_1SerialPort}{Serial\-Port} ctor initializes the serial port. \end{DoxyCompactList}\item 
+void \hyperlink{classComms_1_1SerialPort_a9045f380b2923237c3201af2c816124f}{Send\-Data} (const std\-::vector$<$ uint8\-\_\-t $>$ \-\_\-payload)
+\begin{DoxyCompactList}\small\item\em Send\-Data sends a header followed by an arbritary payload. \end{DoxyCompactList}\item 
+void \hyperlink{classComms_1_1SerialPort_ae2040a81a8e920fda477ab9490b3d85a}{Recieve\-Data} (std\-::vector$<$ uint8\-\_\-t $>$ \&\-\_\-payload)
+\begin{DoxyCompactList}\small\item\em Recieve\-Data. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{namespaceComms_ae7f8ecf87c32fe890069143ff75f2885}{Player\-Devices} \hyperlink{classComms_1_1SerialPort_a7e5a8b6b261907fde43b7cafc82ea5fa}{Detect\-Serial\-Devices} ()
+\begin{DoxyCompactList}\small\item\em Detect\-Serial\-Devices Scans /dev for connected serial devices. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+std\-::string \hyperlink{classComms_1_1SerialPort_a44f3f249a5a16500380a493e067e789e}{m\-\_\-portpath}
+\begin{DoxyCompactList}\small\item\em m\-\_\-portpath is the path to the serial device, e.\-g. \char`\"{}/dev/tty\-A\-C\-M0\char`\"{} \end{DoxyCompactList}\item 
+boost\-::asio\-::io\-\_\-service \hyperlink{classComms_1_1SerialPort_afb8e53cba011475d406156ccf351b139}{io}
+\begin{DoxyCompactList}\small\item\em io is used by m\-\_\-serial. \end{DoxyCompactList}\item 
+boost\-::asio\-::serial\-\_\-port \hyperlink{classComms_1_1SerialPort_a4a708bd17e0f5e20f23b32c1e0db9568}{m\-\_\-serial}
+\begin{DoxyCompactList}\small\item\em m\-\_\-serial is a Boost serial port object, used to write/read data. It is initialized in the constructor. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+The \hyperlink{classComms_1_1SerialPort}{Serial\-Port} class encapsulates sending and recieving data from a player. It assumes the protocol is to open a transmission by sending a header byte containing both the type (left nibble) and the size of the byte payload (right nibble), any bytes sent after the header are considered the payload. 
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{classComms_1_1SerialPort_afa01d5ec56ccf54adf49e0e2b827cb0c}{\index{Comms\-::\-Serial\-Port@{Comms\-::\-Serial\-Port}!Serial\-Port@{Serial\-Port}}
+\index{Serial\-Port@{Serial\-Port}!Comms::SerialPort@{Comms\-::\-Serial\-Port}}
+\subsubsection[{Serial\-Port}]{\setlength{\rightskip}{0pt plus 5cm}Comms\-::\-Serial\-Port\-::\-Serial\-Port (
+\begin{DoxyParamCaption}
+\item[{const std\-::string \&}]{\-\_\-port\-Path}
+\end{DoxyParamCaption}
+)}}\label{classComms_1_1SerialPort_afa01d5ec56ccf54adf49e0e2b827cb0c}
+
+
+\hyperlink{classComms_1_1SerialPort}{Serial\-Port} ctor initializes the serial port. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \-\_\-port\-Path} & is the path to the device we want to talk to. \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{classComms_1_1SerialPort_a7e5a8b6b261907fde43b7cafc82ea5fa}{\index{Comms\-::\-Serial\-Port@{Comms\-::\-Serial\-Port}!Detect\-Serial\-Devices@{Detect\-Serial\-Devices}}
+\index{Detect\-Serial\-Devices@{Detect\-Serial\-Devices}!Comms::SerialPort@{Comms\-::\-Serial\-Port}}
+\subsubsection[{Detect\-Serial\-Devices}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Player\-Devices} Comms\-::\-Serial\-Port\-::\-Detect\-Serial\-Devices (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{classComms_1_1SerialPort_a7e5a8b6b261907fde43b7cafc82ea5fa}
+
+
+Detect\-Serial\-Devices Scans /dev for connected serial devices. 
+
+\begin{DoxyReturn}{Returns}
+std\-::map that maps player I\-D to the device filepath 
+\end{DoxyReturn}
+\hypertarget{classComms_1_1SerialPort_ae2040a81a8e920fda477ab9490b3d85a}{\index{Comms\-::\-Serial\-Port@{Comms\-::\-Serial\-Port}!Recieve\-Data@{Recieve\-Data}}
+\index{Recieve\-Data@{Recieve\-Data}!Comms::SerialPort@{Comms\-::\-Serial\-Port}}
+\subsubsection[{Recieve\-Data}]{\setlength{\rightskip}{0pt plus 5cm}void Comms\-::\-Serial\-Port\-::\-Recieve\-Data (
+\begin{DoxyParamCaption}
+\item[{std\-::vector$<$ uint8\-\_\-t $>$ \&}]{\-\_\-payload}
+\end{DoxyParamCaption}
+)}}\label{classComms_1_1SerialPort_ae2040a81a8e920fda477ab9490b3d85a}
+
+
+Recieve\-Data. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \-\_\-payload} & \\
+\hline
+\end{DoxyParams}
+\hypertarget{classComms_1_1SerialPort_a9045f380b2923237c3201af2c816124f}{\index{Comms\-::\-Serial\-Port@{Comms\-::\-Serial\-Port}!Send\-Data@{Send\-Data}}
+\index{Send\-Data@{Send\-Data}!Comms::SerialPort@{Comms\-::\-Serial\-Port}}
+\subsubsection[{Send\-Data}]{\setlength{\rightskip}{0pt plus 5cm}void Comms\-::\-Serial\-Port\-::\-Send\-Data (
+\begin{DoxyParamCaption}
+\item[{const std\-::vector$<$ uint8\-\_\-t $>$}]{\-\_\-payload}
+\end{DoxyParamCaption}
+)}}\label{classComms_1_1SerialPort_a9045f380b2923237c3201af2c816124f}
+
+
+Send\-Data sends a header followed by an arbritary payload. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \-\_\-payload} & is a sequence of byte data to be sent over the serial connection. \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Data Documentation}
+\hypertarget{classComms_1_1SerialPort_afb8e53cba011475d406156ccf351b139}{\index{Comms\-::\-Serial\-Port@{Comms\-::\-Serial\-Port}!io@{io}}
+\index{io@{io}!Comms::SerialPort@{Comms\-::\-Serial\-Port}}
+\subsubsection[{io}]{\setlength{\rightskip}{0pt plus 5cm}boost\-::asio\-::io\-\_\-service Comms\-::\-Serial\-Port\-::io\hspace{0.3cm}{\ttfamily [private]}}}\label{classComms_1_1SerialPort_afb8e53cba011475d406156ccf351b139}
+
+
+io is used by m\-\_\-serial. 
+
+\hypertarget{classComms_1_1SerialPort_a44f3f249a5a16500380a493e067e789e}{\index{Comms\-::\-Serial\-Port@{Comms\-::\-Serial\-Port}!m\-\_\-portpath@{m\-\_\-portpath}}
+\index{m\-\_\-portpath@{m\-\_\-portpath}!Comms::SerialPort@{Comms\-::\-Serial\-Port}}
+\subsubsection[{m\-\_\-portpath}]{\setlength{\rightskip}{0pt plus 5cm}std\-::string Comms\-::\-Serial\-Port\-::m\-\_\-portpath\hspace{0.3cm}{\ttfamily [private]}}}\label{classComms_1_1SerialPort_a44f3f249a5a16500380a493e067e789e}
+
+
+m\-\_\-portpath is the path to the serial device, e.\-g. \char`\"{}/dev/tty\-A\-C\-M0\char`\"{} 
+
+\hypertarget{classComms_1_1SerialPort_a4a708bd17e0f5e20f23b32c1e0db9568}{\index{Comms\-::\-Serial\-Port@{Comms\-::\-Serial\-Port}!m\-\_\-serial@{m\-\_\-serial}}
+\index{m\-\_\-serial@{m\-\_\-serial}!Comms::SerialPort@{Comms\-::\-Serial\-Port}}
+\subsubsection[{m\-\_\-serial}]{\setlength{\rightskip}{0pt plus 5cm}boost\-::asio\-::serial\-\_\-port Comms\-::\-Serial\-Port\-::m\-\_\-serial\hspace{0.3cm}{\ttfamily [private]}}}\label{classComms_1_1SerialPort_a4a708bd17e0f5e20f23b32c1e0db9568}
+
+
+m\-\_\-serial is a Boost serial port object, used to write/read data. It is initialized in the constructor. 
+
+
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+include/comms/\hyperlink{SerialPort_8h}{Serial\-Port.\-h}\item 
+src/comms/\hyperlink{SerialPort_8cpp}{Serial\-Port.\-cpp}\end{DoxyCompactItemize}

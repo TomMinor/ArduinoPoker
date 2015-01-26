@@ -1,0 +1,820 @@
+\hypertarget{classGUI_1_1DealerGUI}{\section{G\-U\-I\-:\-:Dealer\-G\-U\-I Class Reference}
+\label{classGUI_1_1DealerGUI}\index{G\-U\-I\-::\-Dealer\-G\-U\-I@{G\-U\-I\-::\-Dealer\-G\-U\-I}}
+}
+
+
+The main class used for displaying things on the screen.  
+
+
+
+
+{\ttfamily \#include $<$gui\-\_\-dealergui.\-h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classGUI_1_1DealerGUI_a5e83f89d34df58fb80d51806c8883b1b}{Dealer\-G\-U\-I} ()
+\item 
+\hyperlink{classGUI_1_1DealerGUI_a7067ad844fe0da6df34222765f2cc2c8}{$\sim$\-Dealer\-G\-U\-I} ()
+\item 
+void \hyperlink{classGUI_1_1DealerGUI_a2d812c087cc3afb24d8f5d33c4254a08}{initialise} (std\-::vector$<$ const \hyperlink{classplayer}{player} $\ast$ $>$ \-\_\-players, const std\-::vector$<$ \hyperlink{classPlayingCard}{Playing\-Card} $>$ \&\-\_\-public\-Cards, const unsigned int \&\-\_\-window\-Width=480, const unsigned int \&\-\_\-window\-Height=360, const unsigned int \&\-\_\-pixel\-Scale=3)
+\begin{DoxyCompactList}\small\item\em Sets up S\-D\-L and all the initial elements and variables. \end{DoxyCompactList}\item 
+void \hyperlink{classGUI_1_1DealerGUI_a7295dc1791bce73e67d63fb52bb1b6c1}{broadcast\-Message} (const std\-::string \&\-\_\-message, const unsigned int \&\-\_\-duration=128)
+\begin{DoxyCompactList}\small\item\em Prints a message that players on all sides of the table can read. \end{DoxyCompactList}\item 
+void \hyperlink{classGUI_1_1DealerGUI_addb09544abba00f35a7a966c53e45320}{set\-Player\-Name} (const unsigned int \&\-\_\-player\-I\-D, std\-::string \-\_\-name)
+\begin{DoxyCompactList}\small\item\em Changes a player's name. \end{DoxyCompactList}\item 
+void \hyperlink{classGUI_1_1DealerGUI_a7a3dfe5dd93b0fdd1d1a81c5045848f9}{deal\-Card\-To} (const unsigned int \&\-\_\-player\-I\-D, const \hyperlink{classPlayingCard}{Playing\-Card} \&\-\_\-type)
+\begin{DoxyCompactList}\small\item\em Creates a card at the deck position and sends it off screen in the specified player's direction. \end{DoxyCompactList}\item 
+void \hyperlink{classGUI_1_1DealerGUI_a2e6063744ea37610274ae27cfdfa22b4}{receive\-Bet\-From} (const unsigned int \&\-\_\-player\-I\-D, Uint16 \&\-\_\-amount, bool \-\_\-is\-First\-Bet=false)
+\begin{DoxyCompactList}\small\item\em Sends a label denoting the amount the player is betting from their off-\/screen position to the pot, as well as printing a message saying how much this player is betting. \end{DoxyCompactList}\item 
+void \hyperlink{classGUI_1_1DealerGUI_a9a72c24d2f1b21a1727d4fe8e566a333}{kick\-Player} (const unsigned int \&\-\_\-player\-I\-D, const unsigned int \&\-\_\-money)
+\begin{DoxyCompactList}\small\item\em Moves a player's name label off-\/screen along with another label from the pot denoting the amount of money they take back out of it. A message is also sent saying that this player has been kicked from the round. \end{DoxyCompactList}\item 
+void \hyperlink{classGUI_1_1DealerGUI_a77dc22fd5e7ca39e8f39e1253b2d89ff}{add\-Player\-Back} (const unsigned int \&\-\_\-player\-I\-D)
+\begin{DoxyCompactList}\small\item\em Puts the specified player's name label back in its usual position and sends a message saying that this player is back in the game. \end{DoxyCompactList}\item 
+void \hyperlink{classGUI_1_1DealerGUI_affba353381b0d13f70c710b74d748b19}{add\-Public\-Card} (const \hyperlink{classPlayingCard}{Playing\-Card} \&\-\_\-type)
+\begin{DoxyCompactList}\small\item\em Creates a new card at the deck position and adds it to the river, face-\/up. \end{DoxyCompactList}\item 
+void \hyperlink{classGUI_1_1DealerGUI_a44900148a67b4f63cbc020bff2f8d4bc}{send\-Name\-Away} (const unsigned int \&\-\_\-player\-I\-D)
+\begin{DoxyCompactList}\small\item\em Pushes the specified player's name off-\/screen to signify that they are not currently in play. \end{DoxyCompactList}\item 
+void \hyperlink{classGUI_1_1DealerGUI_a7b74fd6934299149fd9a6556c6f2936c}{bring\-Name\-Back} (const unsigned int \&\-\_\-player\-I\-D)
+\begin{DoxyCompactList}\small\item\em Puts the specified player's name back on-\/screen. \end{DoxyCompactList}\item 
+void \hyperlink{classGUI_1_1DealerGUI_a5d181369974bfa46fe359a70c14207b9}{split\-Pot} (const std\-::vector$<$ unsigned int $>$ \&\-\_\-winner\-I\-Ds, const bool \&\-\_\-has\-Remainder)
+\begin{DoxyCompactList}\small\item\em Does a visual representation of sending the chips in the pot to the winning \hyperlink{classplayer}{player(s)}. \end{DoxyCompactList}\item 
+std\-::vector$<$ \hyperlink{classGUI_1_1Hand}{Hand} $\ast$ $>$ \hyperlink{classGUI_1_1DealerGUI_a11958f49e40d21b97148c2335a0b6e6f}{show\-Winner} (const std\-::vector$<$ unsigned int $>$ \&\-\_\-winner\-I\-Ds, const bool \&\-\_\-has\-Remainder, const unsigned int \&\-\_\-winnings)
+\begin{DoxyCompactList}\small\item\em Broadcasts a message saying who has won this round and shows the cards they had in the middle of the screen. Can handle multiple winning players. \end{DoxyCompactList}\item 
+\hyperlink{structGUI_1_1Player}{Player} \hyperlink{classGUI_1_1DealerGUI_a59545beb9ff61c257cddf36d40f657b7}{convert} (const \hyperlink{classplayer}{player} \&\-\_\-player)
+\item 
+\hyperlink{classGUI_1_1Hand}{Hand} \hyperlink{classGUI_1_1DealerGUI_aca7d10268c0a29ef40486f262f48362a}{convert} (const std\-::vector$<$ \hyperlink{classPlayingCard}{Playing\-Card} $>$ \&\-\_\-cards)
+\item 
+S\-D\-L\-\_\-\-Point \hyperlink{classGUI_1_1DealerGUI_a38c3466ee4a78ea2b87dce4519fb04ba}{get\-Centre} ()
+\begin{DoxyCompactList}\small\item\em Returns an S\-D\-L point in the centre of the window. \end{DoxyCompactList}\item 
+S\-D\-L\-\_\-\-Point \hyperlink{classGUI_1_1DealerGUI_ae76232120276a60eb6d537986426cd6b}{get\-Screen\-Dimensions} ()
+\begin{DoxyCompactList}\small\item\em Returns the point on the screen with the maximum possible co-\/ordinates. Useful for getting window dimensions. \end{DoxyCompactList}\item 
+S\-D\-L\-\_\-\-Point \hyperlink{classGUI_1_1DealerGUI_a2e6c084b0613baec0805981c66977e7e}{get\-Deck\-Pos} ()
+\begin{DoxyCompactList}\small\item\em Returns the position of the deck. Useful when dealing with cards that are meant to look like they came from the deck. \end{DoxyCompactList}\item 
+S\-D\-L\-\_\-\-Point \hyperlink{classGUI_1_1DealerGUI_ada2eefeb414c1c436265ac4b8c9f6856}{get\-Pot\-Pos} ()
+\begin{DoxyCompactList}\small\item\em Returns the position of the pot. Useful for dealing with bets etc. \end{DoxyCompactList}\item 
+S\-D\-L\-\_\-\-Point \hyperlink{classGUI_1_1DealerGUI_a1703289b59952a99d90b746f050d09ae}{get\-On\-Screen\-Pos} (const unsigned int \&\-\_\-player\-I\-D)
+\begin{DoxyCompactList}\small\item\em Returns the specified player's on-\/screen position. \end{DoxyCompactList}\item 
+S\-D\-L\-\_\-\-Point \hyperlink{classGUI_1_1DealerGUI_ab7fb3219f9300b4f5f59dc5a81d94135}{get\-Off\-Screen\-Pos} (const unsigned int \&\-\_\-player\-I\-D)
+\begin{DoxyCompactList}\small\item\em Returns the specified player's off-\/screen position. \end{DoxyCompactList}\item 
+\hyperlink{classGUI_1_1Card}{Card} $\ast$ \hyperlink{classGUI_1_1DealerGUI_a14ed5f077dbaff37129aeb3004378ebd}{unique\-Card} (const \hyperlink{classPlayingCard}{Playing\-Card} \&\-\_\-type, const unsigned int \&\-\_\-player\-I\-D)
+\begin{DoxyCompactList}\small\item\em Returns a pointer to a card that will be drawn/updated/destroyed automatically. \end{DoxyCompactList}\item 
+\hyperlink{classGUI_1_1Card}{Card} $\ast$ \hyperlink{classGUI_1_1DealerGUI_abe813d72472a743e56ed6a456230a217}{unique\-Card} (const \hyperlink{classPlayingCard}{Playing\-Card} \&\-\_\-type, const \hyperlink{namespaceGUI_a1a3a8094d47f7be06ce123fab38abf6a}{Orientation} \&\-\_\-orient=\hyperlink{namespaceGUI_a1a3a8094d47f7be06ce123fab38abf6aafb2c9cf323a63df7a7ac4ade2e4e63e5}{B\-O\-T\-T\-O\-M})
+\begin{DoxyCompactList}\small\item\em Returns a pointer to a card that will be drawn/updated/destroyed automatically. \end{DoxyCompactList}\item 
+\hyperlink{classGUI_1_1Label}{Label} $\ast$ \hyperlink{classGUI_1_1DealerGUI_a2b3184e9a70c7c6373a4889e3e0fc23e}{unique\-Label} (const std\-::string \&\-\_\-input\-String, const unsigned int \&\-\_\-player\-I\-D, const int \&\-\_\-lifetime=0)
+\begin{DoxyCompactList}\small\item\em Returns a pointer to a label that will be drawn/updated/destroyed automatically. \end{DoxyCompactList}\item 
+\hyperlink{classGUI_1_1Label}{Label} $\ast$ \hyperlink{classGUI_1_1DealerGUI_ae36a17f5b0739c02b2c35e3d15715817}{unique\-Label} (const std\-::string \&\-\_\-input\-String, const \hyperlink{namespaceGUI_a1a3a8094d47f7be06ce123fab38abf6a}{Orientation} \&\-\_\-orient=\hyperlink{namespaceGUI_a1a3a8094d47f7be06ce123fab38abf6aafb2c9cf323a63df7a7ac4ade2e4e63e5}{B\-O\-T\-T\-O\-M}, const int \&\-\_\-lifetime=0)
+\begin{DoxyCompactList}\small\item\em Returns a pointer to a label that will be drawn/updated/destroyed automatically. \end{DoxyCompactList}\item 
+\hyperlink{classGUI_1_1Hand}{Hand} $\ast$ \hyperlink{classGUI_1_1DealerGUI_a5b30e8379e6d9782c6f3d4f834b1e567}{unique\-Hand} (const std\-::vector$<$ \hyperlink{classPlayingCard}{Playing\-Card} $>$ \&\-\_\-cards, const unsigned int \&\-\_\-player\-I\-D)
+\begin{DoxyCompactList}\small\item\em Returns a pointer to a hand that will be drawn/updated/destroyed automatically. \end{DoxyCompactList}\item 
+\hyperlink{classGUI_1_1Hand}{Hand} $\ast$ \hyperlink{classGUI_1_1DealerGUI_a1b05cdea047b2dc8c8a15156ea168159}{unique\-Hand} (const std\-::vector$<$ \hyperlink{classPlayingCard}{Playing\-Card} $>$ \&\-\_\-cards, const \hyperlink{namespaceGUI_a1a3a8094d47f7be06ce123fab38abf6a}{Orientation} \&\-\_\-orient=\hyperlink{namespaceGUI_a1a3a8094d47f7be06ce123fab38abf6aafb2c9cf323a63df7a7ac4ade2e4e63e5}{B\-O\-T\-T\-O\-M})
+\begin{DoxyCompactList}\small\item\em Returns a pointer to a hand that will be drawn/updated/destroyed automatically. \end{DoxyCompactList}\item 
+\hyperlink{classGUI_1_1Element}{Element} $\ast$ \hyperlink{classGUI_1_1DealerGUI_a56ad9cac2f249bd46c733451d336f61d}{unique\-Element} (S\-D\-L\-\_\-\-Texture $\ast$\-\_\-tex, const \hyperlink{namespaceGUI_a1a3a8094d47f7be06ce123fab38abf6a}{Orientation} \&\-\_\-orient=\hyperlink{namespaceGUI_a1a3a8094d47f7be06ce123fab38abf6aafb2c9cf323a63df7a7ac4ade2e4e63e5}{B\-O\-T\-T\-O\-M})
+\begin{DoxyCompactList}\small\item\em Returns a pointer to an element that will be drawn/updated/destroyed automatically. \end{DoxyCompactList}\item 
+\hyperlink{classGUI_1_1Element}{Element} $\ast$ \hyperlink{classGUI_1_1DealerGUI_a360b7d38793512857999dd2c4fa7c61a}{unique\-Element} (S\-D\-L\-\_\-\-Texture $\ast$\-\_\-tex, const S\-D\-L\-\_\-\-Rect \&\-\_\-src\-Rect, const S\-D\-L\-\_\-\-Rect \&\-\_\-dest\-Rect, const \hyperlink{namespaceGUI_a1a3a8094d47f7be06ce123fab38abf6a}{Orientation} \&\-\_\-orient=\hyperlink{namespaceGUI_a1a3a8094d47f7be06ce123fab38abf6aafb2c9cf323a63df7a7ac4ade2e4e63e5}{B\-O\-T\-T\-O\-M})
+\begin{DoxyCompactList}\small\item\em Returns a pointer to an element that will be drawn/updated/destroyed automatically. \end{DoxyCompactList}\item 
+\hyperlink{classGUI_1_1Element}{Element} $\ast$ \hyperlink{classGUI_1_1DealerGUI_aba2e7ddc17133171cbbcfac1665ec94f}{unique\-Element} (\hyperlink{classGUI_1_1Element}{Element} $\ast$\-\_\-input\-Element)
+\item 
+void \hyperlink{classGUI_1_1DealerGUI_a1e05bdb4cc6037342614bff1a1e7cc6e}{run\-Until\-Stationary} ()
+\item 
+bool \hyperlink{classGUI_1_1DealerGUI_a479eecd663924d0616e516af9ca2679e}{update} ()
+\begin{DoxyCompactList}\small\item\em Calls the \hyperlink{classGUI_1_1DealerGUI_a479eecd663924d0616e516af9ca2679e}{update()} function of each visual element to keep their states moving. \end{DoxyCompactList}\item 
+void \hyperlink{classGUI_1_1DealerGUI_a034f53fffe418f01eadd8e7aa7a74589}{draw} ()
+\begin{DoxyCompactList}\small\item\em Draws all the elements in the window. Should probably always be called right after \hyperlink{classGUI_1_1DealerGUI_a479eecd663924d0616e516af9ca2679e}{update()} unless you're doing something fancy with different update and draw frequencies. \end{DoxyCompactList}\item 
+void \hyperlink{classGUI_1_1DealerGUI_aa4cca14de7ab4526b6fafc6c5f226397}{reset} (std\-::vector$<$ const \hyperlink{classplayer}{player} $\ast$ $>$ \-\_\-players=std\-::vector$<$ const \hyperlink{classplayer}{player} $\ast$ $>$(), std\-::vector$<$ \hyperlink{classPlayingCard}{Playing\-Card} $>$ \-\_\-public\-Cards=std\-::vector$<$ \hyperlink{classPlayingCard}{Playing\-Card} $>$())
+\begin{DoxyCompactList}\small\item\em Resets the visual game state. D\-O\-N'T U\-S\-E T\-H\-I\-S, I\-T'S B\-U\-G\-G\-Y R\-I\-G\-H\-T N\-O\-W. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classGUI_1_1Hand}{Hand} $\ast$ \hyperlink{classGUI_1_1DealerGUI_a3f31e18b4139bd25499b4b947bfdfa00}{m\-\_\-public\-Cards}
+\begin{DoxyCompactList}\small\item\em The \char`\"{}river\char`\"{} of cards on the table. \end{DoxyCompactList}\item 
+S\-D\-L\-\_\-\-Renderer $\ast$ \hyperlink{classGUI_1_1DealerGUI_a9e8046ba588810bc65e6df86c20225fc}{m\-\_\-renderer}
+\begin{DoxyCompactList}\small\item\em A pointer to the S\-D\-L rendering context. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{structGUI_1_1Player}{Player} \hyperlink{classGUI_1_1DealerGUI_a6ea2f743642751e1eb98fec9ebb4f8c0}{create\-Player} (const \hyperlink{classplayer}{player} $\ast$\-\_\-player\-Ref, const \hyperlink{namespaceGUI_a1a3a8094d47f7be06ce123fab38abf6a}{Orientation} \&\-\_\-orient, const int \-\_\-offset)
+\begin{DoxyCompactList}\small\item\em Returns a \hyperlink{namespaceGUI}{G\-U\-I} player struct with the given parameters. \end{DoxyCompactList}\item 
+void \hyperlink{classGUI_1_1DealerGUI_a34e6c9803aace17c7464fac4e4e30ef5}{set\-Up\-Unique\-Elements} (std\-::vector$<$ \hyperlink{classPlayingCard}{Playing\-Card} $>$ \-\_\-public\-Cards=std\-::vector$<$ \hyperlink{classPlayingCard}{Playing\-Card} $>$(), const unsigned int \&\-\_\-num\-Players=4)
+\begin{DoxyCompactList}\small\item\em Creates most of the initial elements (e.\-g. deck, pot) and places them at their correct positions. \end{DoxyCompactList}\item 
+void \hyperlink{classGUI_1_1DealerGUI_a4944cae17d869ee0b264661c2a3f4c9c}{set\-Up\-Border} (S\-D\-L\-\_\-\-Texture $\ast$\-\_\-tex, const unsigned int \&\-\_\-num\-Players=4)
+\begin{DoxyCompactList}\small\item\em Creates and positions our pretty border. This has its own function because the border is resolution-\/independent and therefore made up of a number of different elements at specific positions, so a lot of lines of code are needed. \end{DoxyCompactList}\item 
+void \hyperlink{classGUI_1_1DealerGUI_a3ed42e5088996a09356296adf91dbf5d}{set\-Up\-Players} (std\-::vector$<$ const \hyperlink{classplayer}{player} $\ast$ $>$ \-\_\-players)
+\begin{DoxyCompactList}\small\item\em Creates all the \hyperlink{namespaceGUI}{G\-U\-I} player structs to put into m\-\_\-players and sets up their name labels in the correct positions. \end{DoxyCompactList}\item 
+void \hyperlink{classGUI_1_1DealerGUI_a69617e99be7bc30bb13a108f46272ef7}{S\-D\-L\-Error\-Exit} (const std\-::string \&\-\_\-msg)
+\begin{DoxyCompactList}\small\item\em A convenient function to quit S\-D\-L and print a message if an error is encountered. \end{DoxyCompactList}\item 
+void \hyperlink{classGUI_1_1DealerGUI_a3398dc062bf31a05034e50ebf8a1700f}{clear\-Screen} (Uint8 \-\_\-r, Uint8 \-\_\-g, Uint8 \-\_\-b)
+\begin{DoxyCompactList}\small\item\em Turns the whole window one colour. Used just before drawing all the elements to prevent trails behind moving elements. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+S\-D\-L\-\_\-\-Texture $\ast$ \hyperlink{classGUI_1_1DealerGUI_aac251d3fe040ccb08cb174a13ef68a35}{m\-\_\-render\-Target}
+\begin{DoxyCompactList}\small\item\em A pointer to an S\-D\-L texture containing the contents of the renderer. This is then upscaled by nearest-\/neighbour in the window for those lovely big pixels. \end{DoxyCompactList}\item 
+\hyperlink{classGUI_1_1ElementMaker}{G\-U\-I\-::\-Element\-Maker} \hyperlink{classGUI_1_1DealerGUI_a0e798f7e0f7cb249e24b9687e9e79e1d}{m\-\_\-maker}
+\begin{DoxyCompactList}\small\item\em An element factory that effectively implements specialised constructors for element subclasses, making their creation much easier. \end{DoxyCompactList}\item 
+S\-D\-L\-\_\-\-Point \hyperlink{classGUI_1_1DealerGUI_ab7cd52bf63f7eca7d1726e11e1b8100e}{m\-\_\-deck\-Pos}
+\begin{DoxyCompactList}\small\item\em The position of the deck of cards. Useful for the \char`\"{}spawn point\char`\"{} of a card being dealt to a player, for example. \end{DoxyCompactList}\item 
+S\-D\-L\-\_\-\-Point \hyperlink{classGUI_1_1DealerGUI_a4084246f33414f6c1e882fdb8c288746}{m\-\_\-pot\-Pos}
+\begin{DoxyCompactList}\small\item\em The position of the pot. Visual representations of a bet are sent to this location. \end{DoxyCompactList}\item 
+\hyperlink{classGUI_1_1Element}{Element} $\ast$ \hyperlink{classGUI_1_1DealerGUI_a9292267bd8cf7df3e997936304258855}{m\-\_\-pot}
+\begin{DoxyCompactList}\small\item\em A pointer to the visual representation of the pot. \end{DoxyCompactList}\item 
+std\-::vector$<$ \hyperlink{structGUI_1_1Player}{Player} $>$ \hyperlink{classGUI_1_1DealerGUI_a387c683523139e78c1b9d662d4062044}{m\-\_\-players}
+\begin{DoxyCompactList}\small\item\em A vector containing a number of \hyperlink{namespaceGUI}{G\-U\-I} player structs. Each one contains a pointer to a dealer-\/side player object as well as some extra info the \hyperlink{namespaceGUI}{G\-U\-I} needs. \end{DoxyCompactList}\item 
+std\-::vector$<$ boost\-::shared\-\_\-ptr\\*
+$<$ \hyperlink{classGUI_1_1Element}{Element} $>$ $>$ \hyperlink{classGUI_1_1DealerGUI_a6985ea1998d7070d905953d7032701a8}{m\-\_\-elements}
+\begin{DoxyCompactList}\small\item\em A vector containing smart pointers to all the active elements. Since each one is dynamically allocated, the smart pointers will deallocate their memory when they are cleared from the vector. \end{DoxyCompactList}\item 
+std\-::vector$<$ boost\-::shared\-\_\-ptr\\*
+$<$ \hyperlink{classGUI_1_1Hand}{Hand} $>$ $>$ \hyperlink{classGUI_1_1DealerGUI_ac4d414e9b6f32e1b2fc69d861d7f9244}{m\-\_\-hands}
+\begin{DoxyCompactList}\small\item\em A vector containing smart pointers to all the active hands. Since each one is dynamically allocated, the smart pointers will deallocate their memory when they are cleared from the vector. \end{DoxyCompactList}\item 
+std\-::vector$<$ \hyperlink{classGUI_1_1Label}{Label} $\ast$ $>$ \hyperlink{classGUI_1_1DealerGUI_a9f528201ce3d04aba77c56a6370815dd}{m\-\_\-active\-Messages}
+\begin{DoxyCompactList}\small\item\em A vector containing pointers to all the messages currently being displayed. This is so we can remove them when a new message is displayed and prevent text being drawn on top of other text and looking messy. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+The main class used for displaying things on the screen. 
+
+The \hyperlink{namespaceGUI}{G\-U\-I} class includes functions to be called for most of the events that will happen in the game such as dealing a card to a player, receiving a bet from a player or adding a card to the public set. A unique example is the \char`\"{}show\-Winner()\char`\"{} function which returns a std\-::vector of Hands which must be burned outside of the \hyperlink{namespaceGUI}{G\-U\-I} class before a new round is started. There are also functions to return dynamically allocated instances of visual elements (e.\-g. cards, text) that will be drawn, updated, and destroyed by the \hyperlink{namespaceGUI}{G\-U\-I} class but can be controlled externally. Finally, there are the \hyperlink{classGUI_1_1DealerGUI_a479eecd663924d0616e516af9ca2679e}{update()} and \hyperlink{classGUI_1_1DealerGUI_a034f53fffe418f01eadd8e7aa7a74589}{draw()} functions which should be called about 30 times a second during gameplay and the \hyperlink{classGUI_1_1DealerGUI_aa4cca14de7ab4526b6fafc6c5f226397}{reset()} function which should be used when a new round is started. 
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{classGUI_1_1DealerGUI_a5e83f89d34df58fb80d51806c8883b1b}{\index{G\-U\-I\-::\-Dealer\-G\-U\-I@{G\-U\-I\-::\-Dealer\-G\-U\-I}!Dealer\-G\-U\-I@{Dealer\-G\-U\-I}}
+\index{Dealer\-G\-U\-I@{Dealer\-G\-U\-I}!GUI::DealerGUI@{G\-U\-I\-::\-Dealer\-G\-U\-I}}
+\subsubsection[{Dealer\-G\-U\-I}]{\setlength{\rightskip}{0pt plus 5cm}G\-U\-I\-::\-Dealer\-G\-U\-I\-::\-Dealer\-G\-U\-I (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classGUI_1_1DealerGUI_a5e83f89d34df58fb80d51806c8883b1b}
+\hypertarget{classGUI_1_1DealerGUI_a7067ad844fe0da6df34222765f2cc2c8}{\index{G\-U\-I\-::\-Dealer\-G\-U\-I@{G\-U\-I\-::\-Dealer\-G\-U\-I}!$\sim$\-Dealer\-G\-U\-I@{$\sim$\-Dealer\-G\-U\-I}}
+\index{$\sim$\-Dealer\-G\-U\-I@{$\sim$\-Dealer\-G\-U\-I}!GUI::DealerGUI@{G\-U\-I\-::\-Dealer\-G\-U\-I}}
+\subsubsection[{$\sim$\-Dealer\-G\-U\-I}]{\setlength{\rightskip}{0pt plus 5cm}G\-U\-I\-::\-Dealer\-G\-U\-I\-::$\sim$\-Dealer\-G\-U\-I (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classGUI_1_1DealerGUI_a7067ad844fe0da6df34222765f2cc2c8}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{classGUI_1_1DealerGUI_a77dc22fd5e7ca39e8f39e1253b2d89ff}{\index{G\-U\-I\-::\-Dealer\-G\-U\-I@{G\-U\-I\-::\-Dealer\-G\-U\-I}!add\-Player\-Back@{add\-Player\-Back}}
+\index{add\-Player\-Back@{add\-Player\-Back}!GUI::DealerGUI@{G\-U\-I\-::\-Dealer\-G\-U\-I}}
+\subsubsection[{add\-Player\-Back}]{\setlength{\rightskip}{0pt plus 5cm}void G\-U\-I\-::\-Dealer\-G\-U\-I\-::add\-Player\-Back (
+\begin{DoxyParamCaption}
+\item[{const unsigned int \&}]{\-\_\-player\-I\-D}
+\end{DoxyParamCaption}
+)}}\label{classGUI_1_1DealerGUI_a77dc22fd5e7ca39e8f39e1253b2d89ff}
+
+
+Puts the specified player's name label back in its usual position and sends a message saying that this player is back in the game. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \-\_\-player\-I\-D} & The index into the m\-\_\-players vector to find the player to bring back. \\
+\hline
+\end{DoxyParams}
+\hypertarget{classGUI_1_1DealerGUI_affba353381b0d13f70c710b74d748b19}{\index{G\-U\-I\-::\-Dealer\-G\-U\-I@{G\-U\-I\-::\-Dealer\-G\-U\-I}!add\-Public\-Card@{add\-Public\-Card}}
+\index{add\-Public\-Card@{add\-Public\-Card}!GUI::DealerGUI@{G\-U\-I\-::\-Dealer\-G\-U\-I}}
+\subsubsection[{add\-Public\-Card}]{\setlength{\rightskip}{0pt plus 5cm}void G\-U\-I\-::\-Dealer\-G\-U\-I\-::add\-Public\-Card (
+\begin{DoxyParamCaption}
+\item[{const {\bf Playing\-Card} \&}]{\-\_\-type}
+\end{DoxyParamCaption}
+)}}\label{classGUI_1_1DealerGUI_affba353381b0d13f70c710b74d748b19}
+
+
+Creates a new card at the deck position and adds it to the river, face-\/up. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \-\_\-type} & The type of card (rank and suit) to add. \\
+\hline
+\end{DoxyParams}
+\hypertarget{classGUI_1_1DealerGUI_a7b74fd6934299149fd9a6556c6f2936c}{\index{G\-U\-I\-::\-Dealer\-G\-U\-I@{G\-U\-I\-::\-Dealer\-G\-U\-I}!bring\-Name\-Back@{bring\-Name\-Back}}
+\index{bring\-Name\-Back@{bring\-Name\-Back}!GUI::DealerGUI@{G\-U\-I\-::\-Dealer\-G\-U\-I}}
+\subsubsection[{bring\-Name\-Back}]{\setlength{\rightskip}{0pt plus 5cm}void G\-U\-I\-::\-Dealer\-G\-U\-I\-::bring\-Name\-Back (
+\begin{DoxyParamCaption}
+\item[{const unsigned int \&}]{\-\_\-player\-I\-D}
+\end{DoxyParamCaption}
+)}}\label{classGUI_1_1DealerGUI_a7b74fd6934299149fd9a6556c6f2936c}
+
+
+Puts the specified player's name back on-\/screen. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \-\_\-player\-I\-D} & The index into the m\-\_\-players vector to find the player whose name to bring back. \\
+\hline
+\end{DoxyParams}
+\hypertarget{classGUI_1_1DealerGUI_a7295dc1791bce73e67d63fb52bb1b6c1}{\index{G\-U\-I\-::\-Dealer\-G\-U\-I@{G\-U\-I\-::\-Dealer\-G\-U\-I}!broadcast\-Message@{broadcast\-Message}}
+\index{broadcast\-Message@{broadcast\-Message}!GUI::DealerGUI@{G\-U\-I\-::\-Dealer\-G\-U\-I}}
+\subsubsection[{broadcast\-Message}]{\setlength{\rightskip}{0pt plus 5cm}void G\-U\-I\-::\-Dealer\-G\-U\-I\-::broadcast\-Message (
+\begin{DoxyParamCaption}
+\item[{const std\-::string \&}]{\-\_\-message, }
+\item[{const unsigned int \&}]{\-\_\-duration = {\ttfamily 128}}
+\end{DoxyParamCaption}
+)}}\label{classGUI_1_1DealerGUI_a7295dc1791bce73e67d63fb52bb1b6c1}
+
+
+Prints a message that players on all sides of the table can read. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \-\_\-message} & The message to print. \\
+\hline
+{\em \-\_\-duration} & How many \hyperlink{classGUI_1_1DealerGUI_a479eecd663924d0616e516af9ca2679e}{update()} calls this message will last for. Passing 0 will cause it to last forever (probably not a good idea). \\
+\hline
+\end{DoxyParams}
+\hypertarget{classGUI_1_1DealerGUI_a3398dc062bf31a05034e50ebf8a1700f}{\index{G\-U\-I\-::\-Dealer\-G\-U\-I@{G\-U\-I\-::\-Dealer\-G\-U\-I}!clear\-Screen@{clear\-Screen}}
+\index{clear\-Screen@{clear\-Screen}!GUI::DealerGUI@{G\-U\-I\-::\-Dealer\-G\-U\-I}}
+\subsubsection[{clear\-Screen}]{\setlength{\rightskip}{0pt plus 5cm}void G\-U\-I\-::\-Dealer\-G\-U\-I\-::clear\-Screen (
+\begin{DoxyParamCaption}
+\item[{Uint8}]{\-\_\-r, }
+\item[{Uint8}]{\-\_\-g, }
+\item[{Uint8}]{\-\_\-b}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [private]}}}\label{classGUI_1_1DealerGUI_a3398dc062bf31a05034e50ebf8a1700f}
+
+
+Turns the whole window one colour. Used just before drawing all the elements to prevent trails behind moving elements. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \-\_\-r} & The R value of the colour to use. \\
+\hline
+{\em \-\_\-g} & The G value of the colour to use. \\
+\hline
+{\em \-\_\-b} & The B value of the colour to use. \\
+\hline
+\end{DoxyParams}
+\hypertarget{classGUI_1_1DealerGUI_a59545beb9ff61c257cddf36d40f657b7}{\index{G\-U\-I\-::\-Dealer\-G\-U\-I@{G\-U\-I\-::\-Dealer\-G\-U\-I}!convert@{convert}}
+\index{convert@{convert}!GUI::DealerGUI@{G\-U\-I\-::\-Dealer\-G\-U\-I}}
+\subsubsection[{convert}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Player} G\-U\-I\-::\-Dealer\-G\-U\-I\-::convert (
+\begin{DoxyParamCaption}
+\item[{const {\bf player} \&}]{\-\_\-player}
+\end{DoxyParamCaption}
+)}}\label{classGUI_1_1DealerGUI_a59545beb9ff61c257cddf36d40f657b7}
+\hypertarget{classGUI_1_1DealerGUI_aca7d10268c0a29ef40486f262f48362a}{\index{G\-U\-I\-::\-Dealer\-G\-U\-I@{G\-U\-I\-::\-Dealer\-G\-U\-I}!convert@{convert}}
+\index{convert@{convert}!GUI::DealerGUI@{G\-U\-I\-::\-Dealer\-G\-U\-I}}
+\subsubsection[{convert}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Hand} G\-U\-I\-::\-Dealer\-G\-U\-I\-::convert (
+\begin{DoxyParamCaption}
+\item[{const std\-::vector$<$ {\bf Playing\-Card} $>$ \&}]{\-\_\-cards}
+\end{DoxyParamCaption}
+)}}\label{classGUI_1_1DealerGUI_aca7d10268c0a29ef40486f262f48362a}
+\hypertarget{classGUI_1_1DealerGUI_a6ea2f743642751e1eb98fec9ebb4f8c0}{\index{G\-U\-I\-::\-Dealer\-G\-U\-I@{G\-U\-I\-::\-Dealer\-G\-U\-I}!create\-Player@{create\-Player}}
+\index{create\-Player@{create\-Player}!GUI::DealerGUI@{G\-U\-I\-::\-Dealer\-G\-U\-I}}
+\subsubsection[{create\-Player}]{\setlength{\rightskip}{0pt plus 5cm}{\bf G\-U\-I\-::\-Player} G\-U\-I\-::\-Dealer\-G\-U\-I\-::create\-Player (
+\begin{DoxyParamCaption}
+\item[{const {\bf player} $\ast$}]{\-\_\-player\-Ref, }
+\item[{const {\bf Orientation} \&}]{\-\_\-orient, }
+\item[{const int}]{\-\_\-offset}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [private]}}}\label{classGUI_1_1DealerGUI_a6ea2f743642751e1eb98fec9ebb4f8c0}
+
+
+Returns a \hyperlink{namespaceGUI}{G\-U\-I} player struct with the given parameters. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \-\_\-player\-Ref} & A pointer to the dealer-\/side player object. \\
+\hline
+{\em \-\_\-orient} & Which side of the screen-\/table this player should be sitting at. \\
+\hline
+{\em \-\_\-offset} & How far from their side of the screen this player will place their virtual items e.\-g. cards. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A \hyperlink{namespaceGUI}{G\-U\-I} player struct. 
+\end{DoxyReturn}
+\hypertarget{classGUI_1_1DealerGUI_a7a3dfe5dd93b0fdd1d1a81c5045848f9}{\index{G\-U\-I\-::\-Dealer\-G\-U\-I@{G\-U\-I\-::\-Dealer\-G\-U\-I}!deal\-Card\-To@{deal\-Card\-To}}
+\index{deal\-Card\-To@{deal\-Card\-To}!GUI::DealerGUI@{G\-U\-I\-::\-Dealer\-G\-U\-I}}
+\subsubsection[{deal\-Card\-To}]{\setlength{\rightskip}{0pt plus 5cm}void G\-U\-I\-::\-Dealer\-G\-U\-I\-::deal\-Card\-To (
+\begin{DoxyParamCaption}
+\item[{const unsigned int \&}]{\-\_\-player\-I\-D, }
+\item[{const {\bf Playing\-Card} \&}]{\-\_\-type}
+\end{DoxyParamCaption}
+)}}\label{classGUI_1_1DealerGUI_a7a3dfe5dd93b0fdd1d1a81c5045848f9}
+
+
+Creates a card at the deck position and sends it off screen in the specified player's direction. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \-\_\-player\-I\-D} & The index into the m\-\_\-players vector to find the player to send the card to. \\
+\hline
+{\em \-\_\-type} & The type (rank and suit) of the card to send -\/ usually irrelevant since the card will be face-\/down anyway. \\
+\hline
+\end{DoxyParams}
+\hypertarget{classGUI_1_1DealerGUI_a034f53fffe418f01eadd8e7aa7a74589}{\index{G\-U\-I\-::\-Dealer\-G\-U\-I@{G\-U\-I\-::\-Dealer\-G\-U\-I}!draw@{draw}}
+\index{draw@{draw}!GUI::DealerGUI@{G\-U\-I\-::\-Dealer\-G\-U\-I}}
+\subsubsection[{draw}]{\setlength{\rightskip}{0pt plus 5cm}void G\-U\-I\-::\-Dealer\-G\-U\-I\-::draw (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classGUI_1_1DealerGUI_a034f53fffe418f01eadd8e7aa7a74589}
+
+
+Draws all the elements in the window. Should probably always be called right after \hyperlink{classGUI_1_1DealerGUI_a479eecd663924d0616e516af9ca2679e}{update()} unless you're doing something fancy with different update and draw frequencies. 
+
+\hypertarget{classGUI_1_1DealerGUI_a38c3466ee4a78ea2b87dce4519fb04ba}{\index{G\-U\-I\-::\-Dealer\-G\-U\-I@{G\-U\-I\-::\-Dealer\-G\-U\-I}!get\-Centre@{get\-Centre}}
+\index{get\-Centre@{get\-Centre}!GUI::DealerGUI@{G\-U\-I\-::\-Dealer\-G\-U\-I}}
+\subsubsection[{get\-Centre}]{\setlength{\rightskip}{0pt plus 5cm}S\-D\-L\-\_\-\-Point G\-U\-I\-::\-Dealer\-G\-U\-I\-::get\-Centre (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classGUI_1_1DealerGUI_a38c3466ee4a78ea2b87dce4519fb04ba}
+
+
+Returns an S\-D\-L point in the centre of the window. 
+
+\hypertarget{classGUI_1_1DealerGUI_a2e6c084b0613baec0805981c66977e7e}{\index{G\-U\-I\-::\-Dealer\-G\-U\-I@{G\-U\-I\-::\-Dealer\-G\-U\-I}!get\-Deck\-Pos@{get\-Deck\-Pos}}
+\index{get\-Deck\-Pos@{get\-Deck\-Pos}!GUI::DealerGUI@{G\-U\-I\-::\-Dealer\-G\-U\-I}}
+\subsubsection[{get\-Deck\-Pos}]{\setlength{\rightskip}{0pt plus 5cm}S\-D\-L\-\_\-\-Point G\-U\-I\-::\-Dealer\-G\-U\-I\-::get\-Deck\-Pos (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{classGUI_1_1DealerGUI_a2e6c084b0613baec0805981c66977e7e}
+
+
+Returns the position of the deck. Useful when dealing with cards that are meant to look like they came from the deck. 
+
+\hypertarget{classGUI_1_1DealerGUI_ab7fb3219f9300b4f5f59dc5a81d94135}{\index{G\-U\-I\-::\-Dealer\-G\-U\-I@{G\-U\-I\-::\-Dealer\-G\-U\-I}!get\-Off\-Screen\-Pos@{get\-Off\-Screen\-Pos}}
+\index{get\-Off\-Screen\-Pos@{get\-Off\-Screen\-Pos}!GUI::DealerGUI@{G\-U\-I\-::\-Dealer\-G\-U\-I}}
+\subsubsection[{get\-Off\-Screen\-Pos}]{\setlength{\rightskip}{0pt plus 5cm}S\-D\-L\-\_\-\-Point G\-U\-I\-::\-Dealer\-G\-U\-I\-::get\-Off\-Screen\-Pos (
+\begin{DoxyParamCaption}
+\item[{const unsigned int \&}]{\-\_\-player\-I\-D}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{classGUI_1_1DealerGUI_ab7fb3219f9300b4f5f59dc5a81d94135}
+
+
+Returns the specified player's off-\/screen position. 
+
+\hypertarget{classGUI_1_1DealerGUI_a1703289b59952a99d90b746f050d09ae}{\index{G\-U\-I\-::\-Dealer\-G\-U\-I@{G\-U\-I\-::\-Dealer\-G\-U\-I}!get\-On\-Screen\-Pos@{get\-On\-Screen\-Pos}}
+\index{get\-On\-Screen\-Pos@{get\-On\-Screen\-Pos}!GUI::DealerGUI@{G\-U\-I\-::\-Dealer\-G\-U\-I}}
+\subsubsection[{get\-On\-Screen\-Pos}]{\setlength{\rightskip}{0pt plus 5cm}S\-D\-L\-\_\-\-Point G\-U\-I\-::\-Dealer\-G\-U\-I\-::get\-On\-Screen\-Pos (
+\begin{DoxyParamCaption}
+\item[{const unsigned int \&}]{\-\_\-player\-I\-D}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{classGUI_1_1DealerGUI_a1703289b59952a99d90b746f050d09ae}
+
+
+Returns the specified player's on-\/screen position. 
+
+\hypertarget{classGUI_1_1DealerGUI_ada2eefeb414c1c436265ac4b8c9f6856}{\index{G\-U\-I\-::\-Dealer\-G\-U\-I@{G\-U\-I\-::\-Dealer\-G\-U\-I}!get\-Pot\-Pos@{get\-Pot\-Pos}}
+\index{get\-Pot\-Pos@{get\-Pot\-Pos}!GUI::DealerGUI@{G\-U\-I\-::\-Dealer\-G\-U\-I}}
+\subsubsection[{get\-Pot\-Pos}]{\setlength{\rightskip}{0pt plus 5cm}S\-D\-L\-\_\-\-Point G\-U\-I\-::\-Dealer\-G\-U\-I\-::get\-Pot\-Pos (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{classGUI_1_1DealerGUI_ada2eefeb414c1c436265ac4b8c9f6856}
+
+
+Returns the position of the pot. Useful for dealing with bets etc. 
+
+\hypertarget{classGUI_1_1DealerGUI_ae76232120276a60eb6d537986426cd6b}{\index{G\-U\-I\-::\-Dealer\-G\-U\-I@{G\-U\-I\-::\-Dealer\-G\-U\-I}!get\-Screen\-Dimensions@{get\-Screen\-Dimensions}}
+\index{get\-Screen\-Dimensions@{get\-Screen\-Dimensions}!GUI::DealerGUI@{G\-U\-I\-::\-Dealer\-G\-U\-I}}
+\subsubsection[{get\-Screen\-Dimensions}]{\setlength{\rightskip}{0pt plus 5cm}S\-D\-L\-\_\-\-Point G\-U\-I\-::\-Dealer\-G\-U\-I\-::get\-Screen\-Dimensions (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classGUI_1_1DealerGUI_ae76232120276a60eb6d537986426cd6b}
+
+
+Returns the point on the screen with the maximum possible co-\/ordinates. Useful for getting window dimensions. 
+
+\hypertarget{classGUI_1_1DealerGUI_a2d812c087cc3afb24d8f5d33c4254a08}{\index{G\-U\-I\-::\-Dealer\-G\-U\-I@{G\-U\-I\-::\-Dealer\-G\-U\-I}!initialise@{initialise}}
+\index{initialise@{initialise}!GUI::DealerGUI@{G\-U\-I\-::\-Dealer\-G\-U\-I}}
+\subsubsection[{initialise}]{\setlength{\rightskip}{0pt plus 5cm}void G\-U\-I\-::\-Dealer\-G\-U\-I\-::initialise (
+\begin{DoxyParamCaption}
+\item[{std\-::vector$<$ const {\bf player} $\ast$ $>$}]{\-\_\-players, }
+\item[{const std\-::vector$<$ {\bf Playing\-Card} $>$ \&}]{\-\_\-public\-Cards, }
+\item[{const unsigned int \&}]{\-\_\-window\-Width = {\ttfamily 480}, }
+\item[{const unsigned int \&}]{\-\_\-window\-Height = {\ttfamily 360}, }
+\item[{const unsigned int \&}]{\-\_\-pixel\-Scale = {\ttfamily 3}}
+\end{DoxyParamCaption}
+)}}\label{classGUI_1_1DealerGUI_a2d812c087cc3afb24d8f5d33c4254a08}
+
+
+Sets up S\-D\-L and all the initial elements and variables. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \-\_\-players} & A vector of all the players that will be taking part in the game. \\
+\hline
+{\em \-\_\-public\-Cards} & A vector of the initial cards in the river. Can be empty and the cards added later with \hyperlink{classGUI_1_1DealerGUI_affba353381b0d13f70c710b74d748b19}{add\-Public\-Card()}. \\
+\hline
+\end{DoxyParams}
+\hypertarget{classGUI_1_1DealerGUI_a9a72c24d2f1b21a1727d4fe8e566a333}{\index{G\-U\-I\-::\-Dealer\-G\-U\-I@{G\-U\-I\-::\-Dealer\-G\-U\-I}!kick\-Player@{kick\-Player}}
+\index{kick\-Player@{kick\-Player}!GUI::DealerGUI@{G\-U\-I\-::\-Dealer\-G\-U\-I}}
+\subsubsection[{kick\-Player}]{\setlength{\rightskip}{0pt plus 5cm}void G\-U\-I\-::\-Dealer\-G\-U\-I\-::kick\-Player (
+\begin{DoxyParamCaption}
+\item[{const unsigned int \&}]{\-\_\-player\-I\-D, }
+\item[{const unsigned int \&}]{\-\_\-money}
+\end{DoxyParamCaption}
+)}}\label{classGUI_1_1DealerGUI_a9a72c24d2f1b21a1727d4fe8e566a333}
+
+
+Moves a player's name label off-\/screen along with another label from the pot denoting the amount of money they take back out of it. A message is also sent saying that this player has been kicked from the round. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \-\_\-player\-I\-D} & The index into the m\-\_\-players vector to find the player to kick. \\
+\hline
+{\em \-\_\-money} & The amount of money in dollars that the player takes back out of the pot. \\
+\hline
+\end{DoxyParams}
+\hypertarget{classGUI_1_1DealerGUI_a2e6063744ea37610274ae27cfdfa22b4}{\index{G\-U\-I\-::\-Dealer\-G\-U\-I@{G\-U\-I\-::\-Dealer\-G\-U\-I}!receive\-Bet\-From@{receive\-Bet\-From}}
+\index{receive\-Bet\-From@{receive\-Bet\-From}!GUI::DealerGUI@{G\-U\-I\-::\-Dealer\-G\-U\-I}}
+\subsubsection[{receive\-Bet\-From}]{\setlength{\rightskip}{0pt plus 5cm}void G\-U\-I\-::\-Dealer\-G\-U\-I\-::receive\-Bet\-From (
+\begin{DoxyParamCaption}
+\item[{const unsigned int \&}]{\-\_\-player\-I\-D, }
+\item[{Uint16 \&}]{\-\_\-amount, }
+\item[{bool}]{\-\_\-is\-First\-Bet = {\ttfamily false}}
+\end{DoxyParamCaption}
+)}}\label{classGUI_1_1DealerGUI_a2e6063744ea37610274ae27cfdfa22b4}
+
+
+Sends a label denoting the amount the player is betting from their off-\/screen position to the pot, as well as printing a message saying how much this player is betting. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \-\_\-player\-I\-D} & The index into the m\-\_\-players vector to find the player who we receive the bet from. \\
+\hline
+{\em \-\_\-amount} & The amount in dollars to be displayed on the bet label. \\
+\hline
+{\em \-\_\-is\-First\-Bet} & True to set the message as \char`\"{}$<$\-Player$>$ makes a bet of $<$\-Amount$>$\char`\"{}, false to set the message as \char`\"{}$<$\-Player$>$ raises the bet to $<$\-Amount$>$\char`\"{}. \\
+\hline
+\end{DoxyParams}
+\hypertarget{classGUI_1_1DealerGUI_aa4cca14de7ab4526b6fafc6c5f226397}{\index{G\-U\-I\-::\-Dealer\-G\-U\-I@{G\-U\-I\-::\-Dealer\-G\-U\-I}!reset@{reset}}
+\index{reset@{reset}!GUI::DealerGUI@{G\-U\-I\-::\-Dealer\-G\-U\-I}}
+\subsubsection[{reset}]{\setlength{\rightskip}{0pt plus 5cm}void G\-U\-I\-::\-Dealer\-G\-U\-I\-::reset (
+\begin{DoxyParamCaption}
+\item[{std\-::vector$<$ const {\bf player} $\ast$ $>$}]{\-\_\-players = {\ttfamily std\-:\-:vector$<$const~{\bf player}$\ast$$>$()}, }
+\item[{std\-::vector$<$ {\bf Playing\-Card} $>$}]{\-\_\-public\-Cards = {\ttfamily std\-:\-:vector$<${\bf Playing\-Card}$>$()}}
+\end{DoxyParamCaption}
+)}}\label{classGUI_1_1DealerGUI_aa4cca14de7ab4526b6fafc6c5f226397}
+
+
+Resets the visual game state. D\-O\-N'T U\-S\-E T\-H\-I\-S, I\-T'S B\-U\-G\-G\-Y R\-I\-G\-H\-T N\-O\-W. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \-\_\-players} & A vector of players to start the new game with. Pass no parameter to use the same players as the last game. \\
+\hline
+{\em \-\_\-public\-Cards} & A vector of cards to start the river with in the new game. \\
+\hline
+\end{DoxyParams}
+\hypertarget{classGUI_1_1DealerGUI_a1e05bdb4cc6037342614bff1a1e7cc6e}{\index{G\-U\-I\-::\-Dealer\-G\-U\-I@{G\-U\-I\-::\-Dealer\-G\-U\-I}!run\-Until\-Stationary@{run\-Until\-Stationary}}
+\index{run\-Until\-Stationary@{run\-Until\-Stationary}!GUI::DealerGUI@{G\-U\-I\-::\-Dealer\-G\-U\-I}}
+\subsubsection[{run\-Until\-Stationary}]{\setlength{\rightskip}{0pt plus 5cm}void G\-U\-I\-::\-Dealer\-G\-U\-I\-::run\-Until\-Stationary (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classGUI_1_1DealerGUI_a1e05bdb4cc6037342614bff1a1e7cc6e}
+\hypertarget{classGUI_1_1DealerGUI_a69617e99be7bc30bb13a108f46272ef7}{\index{G\-U\-I\-::\-Dealer\-G\-U\-I@{G\-U\-I\-::\-Dealer\-G\-U\-I}!S\-D\-L\-Error\-Exit@{S\-D\-L\-Error\-Exit}}
+\index{S\-D\-L\-Error\-Exit@{S\-D\-L\-Error\-Exit}!GUI::DealerGUI@{G\-U\-I\-::\-Dealer\-G\-U\-I}}
+\subsubsection[{S\-D\-L\-Error\-Exit}]{\setlength{\rightskip}{0pt plus 5cm}void G\-U\-I\-::\-Dealer\-G\-U\-I\-::\-S\-D\-L\-Error\-Exit (
+\begin{DoxyParamCaption}
+\item[{const std\-::string \&}]{\-\_\-msg}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [private]}}}\label{classGUI_1_1DealerGUI_a69617e99be7bc30bb13a108f46272ef7}
+
+
+A convenient function to quit S\-D\-L and print a message if an error is encountered. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \-\_\-msg} & The error message to print to cerr. \\
+\hline
+\end{DoxyParams}
+\hypertarget{classGUI_1_1DealerGUI_a44900148a67b4f63cbc020bff2f8d4bc}{\index{G\-U\-I\-::\-Dealer\-G\-U\-I@{G\-U\-I\-::\-Dealer\-G\-U\-I}!send\-Name\-Away@{send\-Name\-Away}}
+\index{send\-Name\-Away@{send\-Name\-Away}!GUI::DealerGUI@{G\-U\-I\-::\-Dealer\-G\-U\-I}}
+\subsubsection[{send\-Name\-Away}]{\setlength{\rightskip}{0pt plus 5cm}void G\-U\-I\-::\-Dealer\-G\-U\-I\-::send\-Name\-Away (
+\begin{DoxyParamCaption}
+\item[{const unsigned int \&}]{\-\_\-player\-I\-D}
+\end{DoxyParamCaption}
+)}}\label{classGUI_1_1DealerGUI_a44900148a67b4f63cbc020bff2f8d4bc}
+
+
+Pushes the specified player's name off-\/screen to signify that they are not currently in play. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \-\_\-player\-I\-D} & The index into the m\-\_\-players vector to find the player whose name to send away. \\
+\hline
+\end{DoxyParams}
+\hypertarget{classGUI_1_1DealerGUI_addb09544abba00f35a7a966c53e45320}{\index{G\-U\-I\-::\-Dealer\-G\-U\-I@{G\-U\-I\-::\-Dealer\-G\-U\-I}!set\-Player\-Name@{set\-Player\-Name}}
+\index{set\-Player\-Name@{set\-Player\-Name}!GUI::DealerGUI@{G\-U\-I\-::\-Dealer\-G\-U\-I}}
+\subsubsection[{set\-Player\-Name}]{\setlength{\rightskip}{0pt plus 5cm}void G\-U\-I\-::\-Dealer\-G\-U\-I\-::set\-Player\-Name (
+\begin{DoxyParamCaption}
+\item[{const unsigned int \&}]{\-\_\-player\-I\-D, }
+\item[{std\-::string}]{\-\_\-name}
+\end{DoxyParamCaption}
+)}}\label{classGUI_1_1DealerGUI_addb09544abba00f35a7a966c53e45320}
+
+
+Changes a player's name. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \-\_\-player\-I\-D} & The index into the m\-\_\-players vector to find the player whose name to set. \\
+\hline
+{\em \-\_\-name} & The new name for the player. \\
+\hline
+\end{DoxyParams}
+\hypertarget{classGUI_1_1DealerGUI_a4944cae17d869ee0b264661c2a3f4c9c}{\index{G\-U\-I\-::\-Dealer\-G\-U\-I@{G\-U\-I\-::\-Dealer\-G\-U\-I}!set\-Up\-Border@{set\-Up\-Border}}
+\index{set\-Up\-Border@{set\-Up\-Border}!GUI::DealerGUI@{G\-U\-I\-::\-Dealer\-G\-U\-I}}
+\subsubsection[{set\-Up\-Border}]{\setlength{\rightskip}{0pt plus 5cm}void G\-U\-I\-::\-Dealer\-G\-U\-I\-::set\-Up\-Border (
+\begin{DoxyParamCaption}
+\item[{S\-D\-L\-\_\-\-Texture $\ast$}]{\-\_\-tex, }
+\item[{const unsigned int \&}]{\-\_\-num\-Players = {\ttfamily 4}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [private]}}}\label{classGUI_1_1DealerGUI_a4944cae17d869ee0b264661c2a3f4c9c}
+
+
+Creates and positions our pretty border. This has its own function because the border is resolution-\/independent and therefore made up of a number of different elements at specific positions, so a lot of lines of code are needed. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \-\_\-tex} & A pointer to the S\-D\-L texture to use. \\
+\hline
+{\em \-\_\-num\-Players} & The number of \char`\"{}tags\char`\"{} (fancy boxes for player names) to create. Pass no argument here if the look of empty tags rather than empty sections of border is preferred. \\
+\hline
+\end{DoxyParams}
+\hypertarget{classGUI_1_1DealerGUI_a3ed42e5088996a09356296adf91dbf5d}{\index{G\-U\-I\-::\-Dealer\-G\-U\-I@{G\-U\-I\-::\-Dealer\-G\-U\-I}!set\-Up\-Players@{set\-Up\-Players}}
+\index{set\-Up\-Players@{set\-Up\-Players}!GUI::DealerGUI@{G\-U\-I\-::\-Dealer\-G\-U\-I}}
+\subsubsection[{set\-Up\-Players}]{\setlength{\rightskip}{0pt plus 5cm}void G\-U\-I\-::\-Dealer\-G\-U\-I\-::set\-Up\-Players (
+\begin{DoxyParamCaption}
+\item[{std\-::vector$<$ const {\bf player} $\ast$ $>$}]{\-\_\-players}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [private]}}}\label{classGUI_1_1DealerGUI_a3ed42e5088996a09356296adf91dbf5d}
+
+
+Creates all the \hyperlink{namespaceGUI}{G\-U\-I} player structs to put into m\-\_\-players and sets up their name labels in the correct positions. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \-\_\-players} & A vector containing pointers to all the dealer-\/side player objects. \\
+\hline
+\end{DoxyParams}
+\hypertarget{classGUI_1_1DealerGUI_a34e6c9803aace17c7464fac4e4e30ef5}{\index{G\-U\-I\-::\-Dealer\-G\-U\-I@{G\-U\-I\-::\-Dealer\-G\-U\-I}!set\-Up\-Unique\-Elements@{set\-Up\-Unique\-Elements}}
+\index{set\-Up\-Unique\-Elements@{set\-Up\-Unique\-Elements}!GUI::DealerGUI@{G\-U\-I\-::\-Dealer\-G\-U\-I}}
+\subsubsection[{set\-Up\-Unique\-Elements}]{\setlength{\rightskip}{0pt plus 5cm}void G\-U\-I\-::\-Dealer\-G\-U\-I\-::set\-Up\-Unique\-Elements (
+\begin{DoxyParamCaption}
+\item[{std\-::vector$<$ {\bf Playing\-Card} $>$}]{\-\_\-public\-Cards = {\ttfamily std\-:\-:vector$<${\bf Playing\-Card}$>$()}, }
+\item[{const unsigned int \&}]{\-\_\-num\-Players = {\ttfamily 4}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [private]}}}\label{classGUI_1_1DealerGUI_a34e6c9803aace17c7464fac4e4e30ef5}
+
+
+Creates most of the initial elements (e.\-g. deck, pot) and places them at their correct positions. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \-\_\-public\-Cards} & A vector containing the initial set of community cards. Can be empty if the dealer wishes to set this up later. \\
+\hline
+{\em \-\_\-num\-Players} & The number of players; used by \hyperlink{classGUI_1_1DealerGUI_a4944cae17d869ee0b264661c2a3f4c9c}{set\-Up\-Border()}. \\
+\hline
+\end{DoxyParams}
+\hypertarget{classGUI_1_1DealerGUI_a11958f49e40d21b97148c2335a0b6e6f}{\index{G\-U\-I\-::\-Dealer\-G\-U\-I@{G\-U\-I\-::\-Dealer\-G\-U\-I}!show\-Winner@{show\-Winner}}
+\index{show\-Winner@{show\-Winner}!GUI::DealerGUI@{G\-U\-I\-::\-Dealer\-G\-U\-I}}
+\subsubsection[{show\-Winner}]{\setlength{\rightskip}{0pt plus 5cm}std\-::vector$<$ {\bf G\-U\-I\-::\-Hand} $\ast$ $>$ G\-U\-I\-::\-Dealer\-G\-U\-I\-::show\-Winner (
+\begin{DoxyParamCaption}
+\item[{const std\-::vector$<$ unsigned int $>$ \&}]{\-\_\-winner\-I\-Ds, }
+\item[{const bool \&}]{\-\_\-has\-Remainder, }
+\item[{const unsigned int \&}]{\-\_\-winnings}
+\end{DoxyParamCaption}
+)}}\label{classGUI_1_1DealerGUI_a11958f49e40d21b97148c2335a0b6e6f}
+
+
+Broadcasts a message saying who has won this round and shows the cards they had in the middle of the screen. Can handle multiple winning players. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \-\_\-winners} & A vector of pointers to the winning players. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A vector of pointers to the hands displayed on-\/screen. If the dealer (not the dealer \hyperlink{namespaceGUI}{G\-U\-I}) wishes to start a new round without calling the \hyperlink{classGUI_1_1DealerGUI_aa4cca14de7ab4526b6fafc6c5f226397}{reset()} function, it is their responsibility to store these pointers and delete or burn the hands when the players are ready to begin a new round. 
+\end{DoxyReturn}
+\hypertarget{classGUI_1_1DealerGUI_a5d181369974bfa46fe359a70c14207b9}{\index{G\-U\-I\-::\-Dealer\-G\-U\-I@{G\-U\-I\-::\-Dealer\-G\-U\-I}!split\-Pot@{split\-Pot}}
+\index{split\-Pot@{split\-Pot}!GUI::DealerGUI@{G\-U\-I\-::\-Dealer\-G\-U\-I}}
+\subsubsection[{split\-Pot}]{\setlength{\rightskip}{0pt plus 5cm}void G\-U\-I\-::\-Dealer\-G\-U\-I\-::split\-Pot (
+\begin{DoxyParamCaption}
+\item[{const std\-::vector$<$ unsigned int $>$ \&}]{\-\_\-winner\-I\-Ds, }
+\item[{const bool \&}]{\-\_\-has\-Remainder}
+\end{DoxyParamCaption}
+)}}\label{classGUI_1_1DealerGUI_a5d181369974bfa46fe359a70c14207b9}
+
+
+Does a visual representation of sending the chips in the pot to the winning \hyperlink{classplayer}{player(s)}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \-\_\-winner\-I\-Ds} & A vector containing the index(es) of the winning \hyperlink{classplayer}{player(s)}. \\
+\hline
+{\em \-\_\-has\-Remainder} & True if the pot cannot be split evenly between the winning players, thus leaving some chips still in it. \\
+\hline
+\end{DoxyParams}
+\hypertarget{classGUI_1_1DealerGUI_a14ed5f077dbaff37129aeb3004378ebd}{\index{G\-U\-I\-::\-Dealer\-G\-U\-I@{G\-U\-I\-::\-Dealer\-G\-U\-I}!unique\-Card@{unique\-Card}}
+\index{unique\-Card@{unique\-Card}!GUI::DealerGUI@{G\-U\-I\-::\-Dealer\-G\-U\-I}}
+\subsubsection[{unique\-Card}]{\setlength{\rightskip}{0pt plus 5cm}{\bf G\-U\-I\-::\-Card} $\ast$ G\-U\-I\-::\-Dealer\-G\-U\-I\-::unique\-Card (
+\begin{DoxyParamCaption}
+\item[{const {\bf Playing\-Card} \&}]{\-\_\-type, }
+\item[{const unsigned int \&}]{\-\_\-player\-I\-D}
+\end{DoxyParamCaption}
+)}}\label{classGUI_1_1DealerGUI_a14ed5f077dbaff37129aeb3004378ebd}
+
+
+Returns a pointer to a card that will be drawn/updated/destroyed automatically. 
+
+\hypertarget{classGUI_1_1DealerGUI_abe813d72472a743e56ed6a456230a217}{\index{G\-U\-I\-::\-Dealer\-G\-U\-I@{G\-U\-I\-::\-Dealer\-G\-U\-I}!unique\-Card@{unique\-Card}}
+\index{unique\-Card@{unique\-Card}!GUI::DealerGUI@{G\-U\-I\-::\-Dealer\-G\-U\-I}}
+\subsubsection[{unique\-Card}]{\setlength{\rightskip}{0pt plus 5cm}{\bf G\-U\-I\-::\-Card} $\ast$ G\-U\-I\-::\-Dealer\-G\-U\-I\-::unique\-Card (
+\begin{DoxyParamCaption}
+\item[{const {\bf Playing\-Card} \&}]{\-\_\-type, }
+\item[{const {\bf Orientation} \&}]{\-\_\-orient = {\ttfamily {\bf B\-O\-T\-T\-O\-M}}}
+\end{DoxyParamCaption}
+)}}\label{classGUI_1_1DealerGUI_abe813d72472a743e56ed6a456230a217}
+
+
+Returns a pointer to a card that will be drawn/updated/destroyed automatically. 
+
+\hypertarget{classGUI_1_1DealerGUI_a56ad9cac2f249bd46c733451d336f61d}{\index{G\-U\-I\-::\-Dealer\-G\-U\-I@{G\-U\-I\-::\-Dealer\-G\-U\-I}!unique\-Element@{unique\-Element}}
+\index{unique\-Element@{unique\-Element}!GUI::DealerGUI@{G\-U\-I\-::\-Dealer\-G\-U\-I}}
+\subsubsection[{unique\-Element}]{\setlength{\rightskip}{0pt plus 5cm}{\bf G\-U\-I\-::\-Element} $\ast$ G\-U\-I\-::\-Dealer\-G\-U\-I\-::unique\-Element (
+\begin{DoxyParamCaption}
+\item[{S\-D\-L\-\_\-\-Texture $\ast$}]{\-\_\-tex, }
+\item[{const {\bf Orientation} \&}]{\-\_\-orient = {\ttfamily {\bf B\-O\-T\-T\-O\-M}}}
+\end{DoxyParamCaption}
+)}}\label{classGUI_1_1DealerGUI_a56ad9cac2f249bd46c733451d336f61d}
+
+
+Returns a pointer to an element that will be drawn/updated/destroyed automatically. 
+
+\hypertarget{classGUI_1_1DealerGUI_a360b7d38793512857999dd2c4fa7c61a}{\index{G\-U\-I\-::\-Dealer\-G\-U\-I@{G\-U\-I\-::\-Dealer\-G\-U\-I}!unique\-Element@{unique\-Element}}
+\index{unique\-Element@{unique\-Element}!GUI::DealerGUI@{G\-U\-I\-::\-Dealer\-G\-U\-I}}
+\subsubsection[{unique\-Element}]{\setlength{\rightskip}{0pt plus 5cm}{\bf G\-U\-I\-::\-Element} $\ast$ G\-U\-I\-::\-Dealer\-G\-U\-I\-::unique\-Element (
+\begin{DoxyParamCaption}
+\item[{S\-D\-L\-\_\-\-Texture $\ast$}]{\-\_\-tex, }
+\item[{const S\-D\-L\-\_\-\-Rect \&}]{\-\_\-src\-Rect, }
+\item[{const S\-D\-L\-\_\-\-Rect \&}]{\-\_\-dest\-Rect, }
+\item[{const {\bf Orientation} \&}]{\-\_\-orient = {\ttfamily {\bf B\-O\-T\-T\-O\-M}}}
+\end{DoxyParamCaption}
+)}}\label{classGUI_1_1DealerGUI_a360b7d38793512857999dd2c4fa7c61a}
+
+
+Returns a pointer to an element that will be drawn/updated/destroyed automatically. 
+
+\hypertarget{classGUI_1_1DealerGUI_aba2e7ddc17133171cbbcfac1665ec94f}{\index{G\-U\-I\-::\-Dealer\-G\-U\-I@{G\-U\-I\-::\-Dealer\-G\-U\-I}!unique\-Element@{unique\-Element}}
+\index{unique\-Element@{unique\-Element}!GUI::DealerGUI@{G\-U\-I\-::\-Dealer\-G\-U\-I}}
+\subsubsection[{unique\-Element}]{\setlength{\rightskip}{0pt plus 5cm}{\bf G\-U\-I\-::\-Element} $\ast$ G\-U\-I\-::\-Dealer\-G\-U\-I\-::unique\-Element (
+\begin{DoxyParamCaption}
+\item[{{\bf Element} $\ast$}]{\-\_\-input\-Element}
+\end{DoxyParamCaption}
+)}}\label{classGUI_1_1DealerGUI_aba2e7ddc17133171cbbcfac1665ec94f}
+\hypertarget{classGUI_1_1DealerGUI_a5b30e8379e6d9782c6f3d4f834b1e567}{\index{G\-U\-I\-::\-Dealer\-G\-U\-I@{G\-U\-I\-::\-Dealer\-G\-U\-I}!unique\-Hand@{unique\-Hand}}
+\index{unique\-Hand@{unique\-Hand}!GUI::DealerGUI@{G\-U\-I\-::\-Dealer\-G\-U\-I}}
+\subsubsection[{unique\-Hand}]{\setlength{\rightskip}{0pt plus 5cm}{\bf G\-U\-I\-::\-Hand} $\ast$ G\-U\-I\-::\-Dealer\-G\-U\-I\-::unique\-Hand (
+\begin{DoxyParamCaption}
+\item[{const std\-::vector$<$ {\bf Playing\-Card} $>$ \&}]{\-\_\-cards, }
+\item[{const unsigned int \&}]{\-\_\-player\-I\-D}
+\end{DoxyParamCaption}
+)}}\label{classGUI_1_1DealerGUI_a5b30e8379e6d9782c6f3d4f834b1e567}
+
+
+Returns a pointer to a hand that will be drawn/updated/destroyed automatically. 
+
+\hypertarget{classGUI_1_1DealerGUI_a1b05cdea047b2dc8c8a15156ea168159}{\index{G\-U\-I\-::\-Dealer\-G\-U\-I@{G\-U\-I\-::\-Dealer\-G\-U\-I}!unique\-Hand@{unique\-Hand}}
+\index{unique\-Hand@{unique\-Hand}!GUI::DealerGUI@{G\-U\-I\-::\-Dealer\-G\-U\-I}}
+\subsubsection[{unique\-Hand}]{\setlength{\rightskip}{0pt plus 5cm}{\bf G\-U\-I\-::\-Hand} $\ast$ G\-U\-I\-::\-Dealer\-G\-U\-I\-::unique\-Hand (
+\begin{DoxyParamCaption}
+\item[{const std\-::vector$<$ {\bf Playing\-Card} $>$ \&}]{\-\_\-cards, }
+\item[{const {\bf Orientation} \&}]{\-\_\-orient = {\ttfamily {\bf B\-O\-T\-T\-O\-M}}}
+\end{DoxyParamCaption}
+)}}\label{classGUI_1_1DealerGUI_a1b05cdea047b2dc8c8a15156ea168159}
+
+
+Returns a pointer to a hand that will be drawn/updated/destroyed automatically. 
+
+\hypertarget{classGUI_1_1DealerGUI_a2b3184e9a70c7c6373a4889e3e0fc23e}{\index{G\-U\-I\-::\-Dealer\-G\-U\-I@{G\-U\-I\-::\-Dealer\-G\-U\-I}!unique\-Label@{unique\-Label}}
+\index{unique\-Label@{unique\-Label}!GUI::DealerGUI@{G\-U\-I\-::\-Dealer\-G\-U\-I}}
+\subsubsection[{unique\-Label}]{\setlength{\rightskip}{0pt plus 5cm}{\bf G\-U\-I\-::\-Label} $\ast$ G\-U\-I\-::\-Dealer\-G\-U\-I\-::unique\-Label (
+\begin{DoxyParamCaption}
+\item[{const std\-::string \&}]{\-\_\-input\-String, }
+\item[{const unsigned int \&}]{\-\_\-player\-I\-D, }
+\item[{const int \&}]{\-\_\-lifetime = {\ttfamily 0}}
+\end{DoxyParamCaption}
+)}}\label{classGUI_1_1DealerGUI_a2b3184e9a70c7c6373a4889e3e0fc23e}
+
+
+Returns a pointer to a label that will be drawn/updated/destroyed automatically. 
+
+\hypertarget{classGUI_1_1DealerGUI_ae36a17f5b0739c02b2c35e3d15715817}{\index{G\-U\-I\-::\-Dealer\-G\-U\-I@{G\-U\-I\-::\-Dealer\-G\-U\-I}!unique\-Label@{unique\-Label}}
+\index{unique\-Label@{unique\-Label}!GUI::DealerGUI@{G\-U\-I\-::\-Dealer\-G\-U\-I}}
+\subsubsection[{unique\-Label}]{\setlength{\rightskip}{0pt plus 5cm}{\bf G\-U\-I\-::\-Label} $\ast$ G\-U\-I\-::\-Dealer\-G\-U\-I\-::unique\-Label (
+\begin{DoxyParamCaption}
+\item[{const std\-::string \&}]{\-\_\-input\-String, }
+\item[{const {\bf Orientation} \&}]{\-\_\-orient = {\ttfamily {\bf B\-O\-T\-T\-O\-M}}, }
+\item[{const int \&}]{\-\_\-lifetime = {\ttfamily 0}}
+\end{DoxyParamCaption}
+)}}\label{classGUI_1_1DealerGUI_ae36a17f5b0739c02b2c35e3d15715817}
+
+
+Returns a pointer to a label that will be drawn/updated/destroyed automatically. 
+
+\hypertarget{classGUI_1_1DealerGUI_a479eecd663924d0616e516af9ca2679e}{\index{G\-U\-I\-::\-Dealer\-G\-U\-I@{G\-U\-I\-::\-Dealer\-G\-U\-I}!update@{update}}
+\index{update@{update}!GUI::DealerGUI@{G\-U\-I\-::\-Dealer\-G\-U\-I}}
+\subsubsection[{update}]{\setlength{\rightskip}{0pt plus 5cm}bool G\-U\-I\-::\-Dealer\-G\-U\-I\-::update (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classGUI_1_1DealerGUI_a479eecd663924d0616e516af9ca2679e}
+
+
+Calls the \hyperlink{classGUI_1_1DealerGUI_a479eecd663924d0616e516af9ca2679e}{update()} function of each visual element to keep their states moving. 
+
+\begin{DoxyReturn}{Returns}
+True if we need another \hyperlink{classGUI_1_1DealerGUI_a479eecd663924d0616e516af9ca2679e}{update()} cycle before everything will stop moving, false when we're ready to move on. 
+\end{DoxyReturn}
+
+
+\subsection{Member Data Documentation}
+\hypertarget{classGUI_1_1DealerGUI_a9f528201ce3d04aba77c56a6370815dd}{\index{G\-U\-I\-::\-Dealer\-G\-U\-I@{G\-U\-I\-::\-Dealer\-G\-U\-I}!m\-\_\-active\-Messages@{m\-\_\-active\-Messages}}
+\index{m\-\_\-active\-Messages@{m\-\_\-active\-Messages}!GUI::DealerGUI@{G\-U\-I\-::\-Dealer\-G\-U\-I}}
+\subsubsection[{m\-\_\-active\-Messages}]{\setlength{\rightskip}{0pt plus 5cm}std\-::vector$<$ {\bf Label}$\ast$ $>$ G\-U\-I\-::\-Dealer\-G\-U\-I\-::m\-\_\-active\-Messages\hspace{0.3cm}{\ttfamily [private]}}}\label{classGUI_1_1DealerGUI_a9f528201ce3d04aba77c56a6370815dd}
+
+
+A vector containing pointers to all the messages currently being displayed. This is so we can remove them when a new message is displayed and prevent text being drawn on top of other text and looking messy. 
+
+\hypertarget{classGUI_1_1DealerGUI_ab7cd52bf63f7eca7d1726e11e1b8100e}{\index{G\-U\-I\-::\-Dealer\-G\-U\-I@{G\-U\-I\-::\-Dealer\-G\-U\-I}!m\-\_\-deck\-Pos@{m\-\_\-deck\-Pos}}
+\index{m\-\_\-deck\-Pos@{m\-\_\-deck\-Pos}!GUI::DealerGUI@{G\-U\-I\-::\-Dealer\-G\-U\-I}}
+\subsubsection[{m\-\_\-deck\-Pos}]{\setlength{\rightskip}{0pt plus 5cm}S\-D\-L\-\_\-\-Point G\-U\-I\-::\-Dealer\-G\-U\-I\-::m\-\_\-deck\-Pos\hspace{0.3cm}{\ttfamily [private]}}}\label{classGUI_1_1DealerGUI_ab7cd52bf63f7eca7d1726e11e1b8100e}
+
+
+The position of the deck of cards. Useful for the \char`\"{}spawn point\char`\"{} of a card being dealt to a player, for example. 
+
+\hypertarget{classGUI_1_1DealerGUI_a6985ea1998d7070d905953d7032701a8}{\index{G\-U\-I\-::\-Dealer\-G\-U\-I@{G\-U\-I\-::\-Dealer\-G\-U\-I}!m\-\_\-elements@{m\-\_\-elements}}
+\index{m\-\_\-elements@{m\-\_\-elements}!GUI::DealerGUI@{G\-U\-I\-::\-Dealer\-G\-U\-I}}
+\subsubsection[{m\-\_\-elements}]{\setlength{\rightskip}{0pt plus 5cm}std\-::vector$<$ boost\-::shared\-\_\-ptr$<${\bf Element}$>$ $>$ G\-U\-I\-::\-Dealer\-G\-U\-I\-::m\-\_\-elements\hspace{0.3cm}{\ttfamily [private]}}}\label{classGUI_1_1DealerGUI_a6985ea1998d7070d905953d7032701a8}
+
+
+A vector containing smart pointers to all the active elements. Since each one is dynamically allocated, the smart pointers will deallocate their memory when they are cleared from the vector. 
+
+\hypertarget{classGUI_1_1DealerGUI_ac4d414e9b6f32e1b2fc69d861d7f9244}{\index{G\-U\-I\-::\-Dealer\-G\-U\-I@{G\-U\-I\-::\-Dealer\-G\-U\-I}!m\-\_\-hands@{m\-\_\-hands}}
+\index{m\-\_\-hands@{m\-\_\-hands}!GUI::DealerGUI@{G\-U\-I\-::\-Dealer\-G\-U\-I}}
+\subsubsection[{m\-\_\-hands}]{\setlength{\rightskip}{0pt plus 5cm}std\-::vector$<$ boost\-::shared\-\_\-ptr$<${\bf Hand}$>$ $>$ G\-U\-I\-::\-Dealer\-G\-U\-I\-::m\-\_\-hands\hspace{0.3cm}{\ttfamily [private]}}}\label{classGUI_1_1DealerGUI_ac4d414e9b6f32e1b2fc69d861d7f9244}
+
+
+A vector containing smart pointers to all the active hands. Since each one is dynamically allocated, the smart pointers will deallocate their memory when they are cleared from the vector. 
+
+\hypertarget{classGUI_1_1DealerGUI_a0e798f7e0f7cb249e24b9687e9e79e1d}{\index{G\-U\-I\-::\-Dealer\-G\-U\-I@{G\-U\-I\-::\-Dealer\-G\-U\-I}!m\-\_\-maker@{m\-\_\-maker}}
+\index{m\-\_\-maker@{m\-\_\-maker}!GUI::DealerGUI@{G\-U\-I\-::\-Dealer\-G\-U\-I}}
+\subsubsection[{m\-\_\-maker}]{\setlength{\rightskip}{0pt plus 5cm}{\bf G\-U\-I\-::\-Element\-Maker} G\-U\-I\-::\-Dealer\-G\-U\-I\-::m\-\_\-maker\hspace{0.3cm}{\ttfamily [private]}}}\label{classGUI_1_1DealerGUI_a0e798f7e0f7cb249e24b9687e9e79e1d}
+
+
+An element factory that effectively implements specialised constructors for element subclasses, making their creation much easier. 
+
+\hypertarget{classGUI_1_1DealerGUI_a387c683523139e78c1b9d662d4062044}{\index{G\-U\-I\-::\-Dealer\-G\-U\-I@{G\-U\-I\-::\-Dealer\-G\-U\-I}!m\-\_\-players@{m\-\_\-players}}
+\index{m\-\_\-players@{m\-\_\-players}!GUI::DealerGUI@{G\-U\-I\-::\-Dealer\-G\-U\-I}}
+\subsubsection[{m\-\_\-players}]{\setlength{\rightskip}{0pt plus 5cm}std\-::vector$<$ {\bf Player} $>$ G\-U\-I\-::\-Dealer\-G\-U\-I\-::m\-\_\-players\hspace{0.3cm}{\ttfamily [private]}}}\label{classGUI_1_1DealerGUI_a387c683523139e78c1b9d662d4062044}
+
+
+A vector containing a number of \hyperlink{namespaceGUI}{G\-U\-I} player structs. Each one contains a pointer to a dealer-\/side player object as well as some extra info the \hyperlink{namespaceGUI}{G\-U\-I} needs. 
+
+\hypertarget{classGUI_1_1DealerGUI_a9292267bd8cf7df3e997936304258855}{\index{G\-U\-I\-::\-Dealer\-G\-U\-I@{G\-U\-I\-::\-Dealer\-G\-U\-I}!m\-\_\-pot@{m\-\_\-pot}}
+\index{m\-\_\-pot@{m\-\_\-pot}!GUI::DealerGUI@{G\-U\-I\-::\-Dealer\-G\-U\-I}}
+\subsubsection[{m\-\_\-pot}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Element}$\ast$ G\-U\-I\-::\-Dealer\-G\-U\-I\-::m\-\_\-pot\hspace{0.3cm}{\ttfamily [private]}}}\label{classGUI_1_1DealerGUI_a9292267bd8cf7df3e997936304258855}
+
+
+A pointer to the visual representation of the pot. 
+
+\hypertarget{classGUI_1_1DealerGUI_a4084246f33414f6c1e882fdb8c288746}{\index{G\-U\-I\-::\-Dealer\-G\-U\-I@{G\-U\-I\-::\-Dealer\-G\-U\-I}!m\-\_\-pot\-Pos@{m\-\_\-pot\-Pos}}
+\index{m\-\_\-pot\-Pos@{m\-\_\-pot\-Pos}!GUI::DealerGUI@{G\-U\-I\-::\-Dealer\-G\-U\-I}}
+\subsubsection[{m\-\_\-pot\-Pos}]{\setlength{\rightskip}{0pt plus 5cm}S\-D\-L\-\_\-\-Point G\-U\-I\-::\-Dealer\-G\-U\-I\-::m\-\_\-pot\-Pos\hspace{0.3cm}{\ttfamily [private]}}}\label{classGUI_1_1DealerGUI_a4084246f33414f6c1e882fdb8c288746}
+
+
+The position of the pot. Visual representations of a bet are sent to this location. 
+
+\hypertarget{classGUI_1_1DealerGUI_a3f31e18b4139bd25499b4b947bfdfa00}{\index{G\-U\-I\-::\-Dealer\-G\-U\-I@{G\-U\-I\-::\-Dealer\-G\-U\-I}!m\-\_\-public\-Cards@{m\-\_\-public\-Cards}}
+\index{m\-\_\-public\-Cards@{m\-\_\-public\-Cards}!GUI::DealerGUI@{G\-U\-I\-::\-Dealer\-G\-U\-I}}
+\subsubsection[{m\-\_\-public\-Cards}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Hand}$\ast$ G\-U\-I\-::\-Dealer\-G\-U\-I\-::m\-\_\-public\-Cards}}\label{classGUI_1_1DealerGUI_a3f31e18b4139bd25499b4b947bfdfa00}
+
+
+The \char`\"{}river\char`\"{} of cards on the table. 
+
+\hypertarget{classGUI_1_1DealerGUI_a9e8046ba588810bc65e6df86c20225fc}{\index{G\-U\-I\-::\-Dealer\-G\-U\-I@{G\-U\-I\-::\-Dealer\-G\-U\-I}!m\-\_\-renderer@{m\-\_\-renderer}}
+\index{m\-\_\-renderer@{m\-\_\-renderer}!GUI::DealerGUI@{G\-U\-I\-::\-Dealer\-G\-U\-I}}
+\subsubsection[{m\-\_\-renderer}]{\setlength{\rightskip}{0pt plus 5cm}S\-D\-L\-\_\-\-Renderer$\ast$ G\-U\-I\-::\-Dealer\-G\-U\-I\-::m\-\_\-renderer}}\label{classGUI_1_1DealerGUI_a9e8046ba588810bc65e6df86c20225fc}
+
+
+A pointer to the S\-D\-L rendering context. 
+
+\hypertarget{classGUI_1_1DealerGUI_aac251d3fe040ccb08cb174a13ef68a35}{\index{G\-U\-I\-::\-Dealer\-G\-U\-I@{G\-U\-I\-::\-Dealer\-G\-U\-I}!m\-\_\-render\-Target@{m\-\_\-render\-Target}}
+\index{m\-\_\-render\-Target@{m\-\_\-render\-Target}!GUI::DealerGUI@{G\-U\-I\-::\-Dealer\-G\-U\-I}}
+\subsubsection[{m\-\_\-render\-Target}]{\setlength{\rightskip}{0pt plus 5cm}S\-D\-L\-\_\-\-Texture$\ast$ G\-U\-I\-::\-Dealer\-G\-U\-I\-::m\-\_\-render\-Target\hspace{0.3cm}{\ttfamily [private]}}}\label{classGUI_1_1DealerGUI_aac251d3fe040ccb08cb174a13ef68a35}
+
+
+A pointer to an S\-D\-L texture containing the contents of the renderer. This is then upscaled by nearest-\/neighbour in the window for those lovely big pixels. 
+
+
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+include/gui/\hyperlink{gui__dealergui_8h}{gui\-\_\-dealergui.\-h}\item 
+src/gui/\hyperlink{gui__dealergui_8cpp}{gui\-\_\-dealergui.\-cpp}\end{DoxyCompactItemize}

@@ -1,0 +1,47 @@
+\hypertarget{pokerHands_8h}{\section{include/dealer/poker\-Hands.h File Reference}
+\label{pokerHands_8h}\index{include/dealer/poker\-Hands.\-h@{include/dealer/poker\-Hands.\-h}}
+}
+{\ttfamily \#include $<$vector$>$}\\*
+{\ttfamily \#include \char`\"{}playingcard.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}player.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}card\-Stack.\-h\char`\"{}}\\*
+\subsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{namespacehands}{hands}
+\begin{DoxyCompactList}\small\item\em encapsulates all methods used to find players best hand and ecide winner of Poker. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classcardStack}{card\-Stack} \hyperlink{namespacehands_a0d09bd6ca9e5b63f66ed66ccd9df34ab}{hands\-::find\-Spare\-Cards} (const \hyperlink{classplayer}{player} \&\-\_\-player, const \hyperlink{classcardStack}{card\-Stack} \&\-\_\-river)
+\begin{DoxyCompactList}\small\item\em method to find spare cards not already being used in players hand \end{DoxyCompactList}\item 
+void \hyperlink{namespacehands_a352ccbaca5c71fdccbefbfe4daceb122}{hands\-::add\-Highest\-Card} (\hyperlink{classplayer}{player} \&\-\_\-player, const \hyperlink{classcardStack}{card\-Stack} \&\-\_\-river)
+\item 
+void \hyperlink{namespacehands_acb821259e4d0fc9e34539618a7332a97}{hands\-::find\-Pair} (\hyperlink{classplayer}{player} \&\-\_\-player, const \hyperlink{classcardStack}{card\-Stack} \&\-\_\-river)
+\item 
+void \hyperlink{namespacehands_a976446f5c58424efbb3e7e832f3267c2}{hands\-::fill\-Hand} (\hyperlink{classplayer}{player} \&\-\_\-player, const \hyperlink{classcardStack}{card\-Stack} \&\-\_\-river)
+\item 
+bool \hyperlink{namespacehands_a587b3f74a5e856caf2001832e04c3138}{hands\-::check\-Straight\-Has\-Flush} (\hyperlink{classplayer}{player} \&\-\_\-player, const \hyperlink{classcardStack}{card\-Stack} \&\-\_\-river, const Suit\-::\-Value \-\_\-suit, unsigned int \-\_\-num\-Suit)
+\item 
+void \hyperlink{namespacehands_acba666e02d860de8bcb62a42d3421bb4}{hands\-::highest\-Card} (\hyperlink{classplayer}{player} \&\-\_\-player, const \hyperlink{classcardStack}{card\-Stack} \&\-\_\-river)
+\item 
+void \hyperlink{namespacehands_a79af06da728563131bce6f3cb1f9c669}{hands\-::pairs} (\hyperlink{classplayer}{player} \&\-\_\-player, const \hyperlink{classcardStack}{card\-Stack} \&\-\_\-river)
+\item 
+void \hyperlink{namespacehands_ad1d6dbad028c83769dca51fc62d65969}{hands\-::three} (\hyperlink{classplayer}{player} \&\-\_\-player, const \hyperlink{classcardStack}{card\-Stack} \&\-\_\-river)
+\item 
+void \hyperlink{namespacehands_a049d77b8152d001be0df8f3d733d9e71}{hands\-::straight} (\hyperlink{classplayer}{player} \&\-\_\-player, const \hyperlink{classcardStack}{card\-Stack} \&\-\_\-river)
+\item 
+void \hyperlink{namespacehands_a96b3a32f0fd760e7542148042b01697f}{hands\-::flush} (\hyperlink{classplayer}{player} \&\-\_\-player, const \hyperlink{classcardStack}{card\-Stack} \&\-\_\-river)
+\item 
+void \hyperlink{namespacehands_ad07dc24f489e0883880047c448bc8237}{hands\-::full\-House} (\hyperlink{classplayer}{player} \&\-\_\-player, const \hyperlink{classcardStack}{card\-Stack} \&\-\_\-river)
+\item 
+void \hyperlink{namespacehands_aa2871b87380a2a7340e800a47c919cc5}{hands\-::four} (\hyperlink{classplayer}{player} \&\-\_\-player, const \hyperlink{classcardStack}{card\-Stack} \&\-\_\-river)
+\item 
+void \hyperlink{namespacehands_a42bd5b3d774d397c4ce67ba39af4af36}{hands\-::straight\-Flush} (\hyperlink{classplayer}{player} \&\-\_\-player, const \hyperlink{classcardStack}{card\-Stack} \&\-\_\-river)
+\item 
+void \hyperlink{namespacehands_abf4446a1a0ec86dd9367c5372847b76f}{hands\-::best\-Hand} (\hyperlink{classplayer}{player} \&\-\_\-player, const \hyperlink{classcardStack}{card\-Stack} \&\-\_\-river)
+\item 
+std\-::vector$<$ \hyperlink{classplayer}{player} $>$ \hyperlink{namespacehands_aa5c02c0f440cbd185e7fc2280ead6072}{hands\-::tie\-Break} (std\-::vector$<$ \hyperlink{classplayer}{player} $>$ \&\-\_\-live\-Players, const std\-::vector$<$ int $>$ \-\_\-\-I\-D)
+\item 
+std\-::vector$<$ \hyperlink{classplayer}{player} $>$ \hyperlink{namespacehands_a058800342cbc5d20baf94496f5565019}{hands\-::winner} (std\-::vector$<$ \hyperlink{classplayer}{player} $>$ \&\-\_\-live\-Players, const \hyperlink{classcardStack}{card\-Stack} \&\-\_\-river)
+\end{DoxyCompactItemize}

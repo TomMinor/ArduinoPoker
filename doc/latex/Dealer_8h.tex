@@ -1,0 +1,91 @@
+\hypertarget{Dealer_8h}{\section{include/comms/\-Dealer.h File Reference}
+\label{Dealer_8h}\index{include/comms/\-Dealer.\-h@{include/comms/\-Dealer.\-h}}
+}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct Card \hyperlink{Dealer_8h_a1d862217db80f850f49ee1d961f93b59}{card\-\_\-t}
+\item 
+typedef unsigned int \\*
+Player\-I\-D\-\_\-t bool \hyperlink{Dealer_8h_a35574876efc69f89b18bf822b3bdcb12}{send\-Card} (Player\-I\-D\-\_\-t \-\_\-player, \hyperlink{Dealer_8h_a1d862217db80f850f49ee1d961f93b59}{card\-\_\-t} \-\_\-card)
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool \hyperlink{Dealer_8h_ad3f65fe5e7ef6c34b3a70d61f7df1af8}{send\-Bet\-Limits} (Player\-I\-D\-\_\-t \-\_\-player, unsigned int \-\_\-min, unsigned int \-\_\-max)
+\item 
+bool \hyperlink{Dealer_8h_abed3f948cbd5cc399aac011b7cc020b4}{send\-Monday} (Player\-I\-D\-\_\-t \-\_\-player, unsigned int \-\_\-amount)
+\item 
+bool \hyperlink{Dealer_8h_a44fd64022b0df95e3a3d468d35ae7513}{recieve\-Bet} (Player\-I\-D\-\_\-t \-\_\-player, unsigned int $\ast$\-\_\-bet, unsigned int \-\_\-timeout=4)
+\item 
+bool \hyperlink{Dealer_8h_a0879a7a92f1d6670054117dda334c839}{recieve\-Card} (Player\-I\-D\-\_\-t \-\_\-player, \hyperlink{Dealer_8h_a1d862217db80f850f49ee1d961f93b59}{card\-\_\-t} $\ast$\-\_\-card, unsigned int \-\_\-timeout=4)
+\item 
+bool \hyperlink{Dealer_8h_ae8b5231416c52cb220e3267577b7f304}{recieve\-Player\-Count} (Player\-I\-D\-\_\-t \-\_\-player, unsigned int $\ast$\-\_\-players, unsigned int \-\_\-timeout=4)
+\item 
+bool \hyperlink{Dealer_8h_aa984ce773c1b580cbe69ae65968513fc}{recieve\-Name} (Player\-I\-D\-\_\-t \-\_\-player, char $\ast$$\ast$\-\_\-name, unsigned int \-\_\-timeout=4)
+\end{DoxyCompactItemize}
+
+
+\subsection{Typedef Documentation}
+\hypertarget{Dealer_8h_a1d862217db80f850f49ee1d961f93b59}{\index{Dealer.\-h@{Dealer.\-h}!card\-\_\-t@{card\-\_\-t}}
+\index{card\-\_\-t@{card\-\_\-t}!Dealer.h@{Dealer.\-h}}
+\subsubsection[{card\-\_\-t}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct Card {\bf card\-\_\-t}}}\label{Dealer_8h_a1d862217db80f850f49ee1d961f93b59}
+\hypertarget{Dealer_8h_a35574876efc69f89b18bf822b3bdcb12}{\index{Dealer.\-h@{Dealer.\-h}!send\-Card@{send\-Card}}
+\index{send\-Card@{send\-Card}!Dealer.h@{Dealer.\-h}}
+\subsubsection[{send\-Card}]{\setlength{\rightskip}{0pt plus 5cm}typedef unsigned int Player\-I\-D\-\_\-t bool send\-Card(Player\-I\-D\-\_\-t \-\_\-player, {\bf card\-\_\-t} \-\_\-card)}}\label{Dealer_8h_a35574876efc69f89b18bf822b3bdcb12}
+
+
+\subsection{Function Documentation}
+\hypertarget{Dealer_8h_a44fd64022b0df95e3a3d468d35ae7513}{\index{Dealer.\-h@{Dealer.\-h}!recieve\-Bet@{recieve\-Bet}}
+\index{recieve\-Bet@{recieve\-Bet}!Dealer.h@{Dealer.\-h}}
+\subsubsection[{recieve\-Bet}]{\setlength{\rightskip}{0pt plus 5cm}bool recieve\-Bet (
+\begin{DoxyParamCaption}
+\item[{Player\-I\-D\-\_\-t}]{\-\_\-player, }
+\item[{unsigned int $\ast$}]{\-\_\-bet, }
+\item[{unsigned int}]{\-\_\-timeout = {\ttfamily 4}}
+\end{DoxyParamCaption}
+)}}\label{Dealer_8h_a44fd64022b0df95e3a3d468d35ae7513}
+\hypertarget{Dealer_8h_a0879a7a92f1d6670054117dda334c839}{\index{Dealer.\-h@{Dealer.\-h}!recieve\-Card@{recieve\-Card}}
+\index{recieve\-Card@{recieve\-Card}!Dealer.h@{Dealer.\-h}}
+\subsubsection[{recieve\-Card}]{\setlength{\rightskip}{0pt plus 5cm}bool recieve\-Card (
+\begin{DoxyParamCaption}
+\item[{Player\-I\-D\-\_\-t}]{\-\_\-player, }
+\item[{{\bf card\-\_\-t} $\ast$}]{\-\_\-card, }
+\item[{unsigned int}]{\-\_\-timeout = {\ttfamily 4}}
+\end{DoxyParamCaption}
+)}}\label{Dealer_8h_a0879a7a92f1d6670054117dda334c839}
+\hypertarget{Dealer_8h_aa984ce773c1b580cbe69ae65968513fc}{\index{Dealer.\-h@{Dealer.\-h}!recieve\-Name@{recieve\-Name}}
+\index{recieve\-Name@{recieve\-Name}!Dealer.h@{Dealer.\-h}}
+\subsubsection[{recieve\-Name}]{\setlength{\rightskip}{0pt plus 5cm}bool recieve\-Name (
+\begin{DoxyParamCaption}
+\item[{Player\-I\-D\-\_\-t}]{\-\_\-player, }
+\item[{char $\ast$$\ast$}]{\-\_\-name, }
+\item[{unsigned int}]{\-\_\-timeout = {\ttfamily 4}}
+\end{DoxyParamCaption}
+)}}\label{Dealer_8h_aa984ce773c1b580cbe69ae65968513fc}
+\hypertarget{Dealer_8h_ae8b5231416c52cb220e3267577b7f304}{\index{Dealer.\-h@{Dealer.\-h}!recieve\-Player\-Count@{recieve\-Player\-Count}}
+\index{recieve\-Player\-Count@{recieve\-Player\-Count}!Dealer.h@{Dealer.\-h}}
+\subsubsection[{recieve\-Player\-Count}]{\setlength{\rightskip}{0pt plus 5cm}bool recieve\-Player\-Count (
+\begin{DoxyParamCaption}
+\item[{Player\-I\-D\-\_\-t}]{\-\_\-player, }
+\item[{unsigned int $\ast$}]{\-\_\-players, }
+\item[{unsigned int}]{\-\_\-timeout = {\ttfamily 4}}
+\end{DoxyParamCaption}
+)}}\label{Dealer_8h_ae8b5231416c52cb220e3267577b7f304}
+\hypertarget{Dealer_8h_ad3f65fe5e7ef6c34b3a70d61f7df1af8}{\index{Dealer.\-h@{Dealer.\-h}!send\-Bet\-Limits@{send\-Bet\-Limits}}
+\index{send\-Bet\-Limits@{send\-Bet\-Limits}!Dealer.h@{Dealer.\-h}}
+\subsubsection[{send\-Bet\-Limits}]{\setlength{\rightskip}{0pt plus 5cm}bool send\-Bet\-Limits (
+\begin{DoxyParamCaption}
+\item[{Player\-I\-D\-\_\-t}]{\-\_\-player, }
+\item[{unsigned int}]{\-\_\-min, }
+\item[{unsigned int}]{\-\_\-max}
+\end{DoxyParamCaption}
+)}}\label{Dealer_8h_ad3f65fe5e7ef6c34b3a70d61f7df1af8}
+\hypertarget{Dealer_8h_abed3f948cbd5cc399aac011b7cc020b4}{\index{Dealer.\-h@{Dealer.\-h}!send\-Monday@{send\-Monday}}
+\index{send\-Monday@{send\-Monday}!Dealer.h@{Dealer.\-h}}
+\subsubsection[{send\-Monday}]{\setlength{\rightskip}{0pt plus 5cm}bool send\-Monday (
+\begin{DoxyParamCaption}
+\item[{Player\-I\-D\-\_\-t}]{\-\_\-player, }
+\item[{unsigned int}]{\-\_\-amount}
+\end{DoxyParamCaption}
+)}}\label{Dealer_8h_abed3f948cbd5cc399aac011b7cc020b4}

@@ -1,0 +1,312 @@
+\hypertarget{classPlayingCard}{\section{Playing\-Card Class Reference}
+\label{classPlayingCard}\index{Playing\-Card@{Playing\-Card}}
+}
+
+
+The \hyperlink{classPlayingCard}{Playing\-Card} class The \hyperlink{classPlayingCard}{Playing\-Card} class encapsulates the single byte card representation defined in \char`\"{}card.\-h\char`\"{}. It overloads various operators for ease of playing card comparison and provides string lookup tables for string representations of the card.  
+
+
+
+
+{\ttfamily \#include $<$playingcard.\-h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classPlayingCard_a8de8d00a9b0c939e854f3e1eb0c76951}{Playing\-Card} (\hyperlink{namespaceRank_ac73ee8d855dc84f13c2d79ff5704e016}{Rank\-::\-Value} \-\_\-rank, Suit\-::\-Value \-\_\-suit)
+\begin{DoxyCompactList}\small\item\em \hyperlink{classPlayingCard}{Playing\-Card}. \end{DoxyCompactList}\item 
+\hyperlink{classPlayingCard_a8cd3272329a18aaff129090b747dc89b}{Playing\-Card} (\hyperlink{Dealer_8h_a1d862217db80f850f49ee1d961f93b59}{card\-\_\-t} \-\_\-value)
+\begin{DoxyCompactList}\small\item\em \hyperlink{classPlayingCard}{Playing\-Card}. \end{DoxyCompactList}\item 
+bool \hyperlink{classPlayingCard_abab3787e297f6d300fc1fabfa0d450c3}{Is\-Rank} (\hyperlink{namespaceRank_ac73ee8d855dc84f13c2d79ff5704e016}{Rank\-::\-Value} \-\_\-rank) const 
+\begin{DoxyCompactList}\small\item\em Is\-Rank. \end{DoxyCompactList}\item 
+bool \hyperlink{classPlayingCard_aa6a396991cc5fbd8633f7bc558feee15}{Is\-Suit} (Suit\-::\-Value \-\_\-suit) const 
+\begin{DoxyCompactList}\small\item\em Is\-Suit. \end{DoxyCompactList}\item 
+std\-::string \hyperlink{classPlayingCard_ad6db036ab4c9679c72168ebdb47a5af4}{Rank\-String} () const 
+\begin{DoxyCompactList}\small\item\em Rank\-String. \end{DoxyCompactList}\item 
+std\-::string \hyperlink{classPlayingCard_ad41bb59005104084b31401b54023b7e5}{Suit\-String} () const 
+\begin{DoxyCompactList}\small\item\em Suit\-String. \end{DoxyCompactList}\item 
+int \hyperlink{classPlayingCard_a1ef9f3301d355d11286f55baa7203119}{get\-Rank} () const 
+\begin{DoxyCompactList}\small\item\em get\-Rank getter for the card's rank. \end{DoxyCompactList}\item 
+int \hyperlink{classPlayingCard_a494d180a53c5b019e2c05d5394527e20}{get\-Suit} () const 
+\begin{DoxyCompactList}\small\item\em get\-Suit getter for the card's suit. \end{DoxyCompactList}\item 
+int \hyperlink{classPlayingCard_a49ccae93e0f76cc6d4a9bf21af01785c}{get\-Suit\-Value} () const 
+\begin{DoxyCompactList}\small\item\em get\-Suit\-Value Getter for the card's actual suit value. \end{DoxyCompactList}\item 
+\hyperlink{Dealer_8h_a1d862217db80f850f49ee1d961f93b59}{card\-\_\-t} \hyperlink{classPlayingCard_ab7d378802b887941584531bf752374c6}{get\-Value} () const 
+\begin{DoxyCompactList}\small\item\em get\-Value Getter for the card's byte value \end{DoxyCompactList}\item 
+void \hyperlink{classPlayingCard_ae10f4ac30e42df655fa3a4d4a6bdf267}{operator=} (const \hyperlink{classPlayingCard}{Playing\-Card} \&\-\_\-card)
+\begin{DoxyCompactList}\small\item\em operator = Card assignment operator. \end{DoxyCompactList}\item 
+bool \hyperlink{classPlayingCard_a25b6acc583f2e9c582ae5dd98a4605d4}{operator==} (const \hyperlink{classPlayingCard}{Playing\-Card} \&\-\_\-card) const 
+\begin{DoxyCompactList}\small\item\em operator == Equality operator. \end{DoxyCompactList}\item 
+bool \hyperlink{classPlayingCard_af17d532643be02312af99f675a6a0486}{operator!=} (const \hyperlink{classPlayingCard}{Playing\-Card} \&\-\_\-card) const 
+\begin{DoxyCompactList}\small\item\em operator != Inequality operator. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{Dealer_8h_a1d862217db80f850f49ee1d961f93b59}{card\-\_\-t} \hyperlink{classPlayingCard_a9e6ebe066a1a412017420218b6988534}{m\-\_\-value}
+\begin{DoxyCompactList}\small\item\em m\-\_\-value m\-\_\-value Stores the suit and rank of the playing card in a single byte. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+std\-::ostream \& \hyperlink{classPlayingCard_aa42bbb7ad79fb6c9d174d1b3b59714fb}{operator$<$$<$} (std\-::ostream \&\-\_\-stream, const \hyperlink{classPlayingCard}{Playing\-Card} \&\-\_\-card)
+\begin{DoxyCompactList}\small\item\em operator $<$$<$ Returns a stream containing a string with the format \char`\"{}$<$\-Rank\-String()$>$ of $<$\-Suit\-String()$>$'s\char`\"{} \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+The \hyperlink{classPlayingCard}{Playing\-Card} class The \hyperlink{classPlayingCard}{Playing\-Card} class encapsulates the single byte card representation defined in \char`\"{}card.\-h\char`\"{}. It overloads various operators for ease of playing card comparison and provides string lookup tables for string representations of the card. 
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{classPlayingCard_a8de8d00a9b0c939e854f3e1eb0c76951}{\index{Playing\-Card@{Playing\-Card}!Playing\-Card@{Playing\-Card}}
+\index{Playing\-Card@{Playing\-Card}!PlayingCard@{Playing\-Card}}
+\subsubsection[{Playing\-Card}]{\setlength{\rightskip}{0pt plus 5cm}Playing\-Card\-::\-Playing\-Card (
+\begin{DoxyParamCaption}
+\item[{{\bf Rank\-::\-Value}}]{\-\_\-rank, }
+\item[{Suit\-::\-Value}]{\-\_\-suit}
+\end{DoxyParamCaption}
+)}}\label{classPlayingCard_a8de8d00a9b0c939e854f3e1eb0c76951}
+
+
+\hyperlink{classPlayingCard}{Playing\-Card}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \-\_\-rank} & \\
+\hline
+{\em \-\_\-suit} & \\
+\hline
+\end{DoxyParams}
+\hypertarget{classPlayingCard_a8cd3272329a18aaff129090b747dc89b}{\index{Playing\-Card@{Playing\-Card}!Playing\-Card@{Playing\-Card}}
+\index{Playing\-Card@{Playing\-Card}!PlayingCard@{Playing\-Card}}
+\subsubsection[{Playing\-Card}]{\setlength{\rightskip}{0pt plus 5cm}Playing\-Card\-::\-Playing\-Card (
+\begin{DoxyParamCaption}
+\item[{{\bf card\-\_\-t}}]{\-\_\-value}
+\end{DoxyParamCaption}
+)}}\label{classPlayingCard_a8cd3272329a18aaff129090b747dc89b}
+
+
+\hyperlink{classPlayingCard}{Playing\-Card}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \-\_\-value} & \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{classPlayingCard_a1ef9f3301d355d11286f55baa7203119}{\index{Playing\-Card@{Playing\-Card}!get\-Rank@{get\-Rank}}
+\index{get\-Rank@{get\-Rank}!PlayingCard@{Playing\-Card}}
+\subsubsection[{get\-Rank}]{\setlength{\rightskip}{0pt plus 5cm}int Playing\-Card\-::get\-Rank (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}}\label{classPlayingCard_a1ef9f3301d355d11286f55baa7203119}
+
+
+get\-Rank getter for the card's rank. 
+
+\begin{DoxyReturn}{Returns}
+the numerical value of the card's rank. 
+\end{DoxyReturn}
+\hypertarget{classPlayingCard_a494d180a53c5b019e2c05d5394527e20}{\index{Playing\-Card@{Playing\-Card}!get\-Suit@{get\-Suit}}
+\index{get\-Suit@{get\-Suit}!PlayingCard@{Playing\-Card}}
+\subsubsection[{get\-Suit}]{\setlength{\rightskip}{0pt plus 5cm}int Playing\-Card\-::get\-Suit (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}}\label{classPlayingCard_a494d180a53c5b019e2c05d5394527e20}
+
+
+get\-Suit getter for the card's suit. 
+
+\begin{DoxyReturn}{Returns}
+the numerical value of the card's suit (0 -\/ 3), returns -\/1 if the suit is invalid. 
+\end{DoxyReturn}
+\hypertarget{classPlayingCard_a49ccae93e0f76cc6d4a9bf21af01785c}{\index{Playing\-Card@{Playing\-Card}!get\-Suit\-Value@{get\-Suit\-Value}}
+\index{get\-Suit\-Value@{get\-Suit\-Value}!PlayingCard@{Playing\-Card}}
+\subsubsection[{get\-Suit\-Value}]{\setlength{\rightskip}{0pt plus 5cm}int Playing\-Card\-::get\-Suit\-Value (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}}\label{classPlayingCard_a49ccae93e0f76cc6d4a9bf21af01785c}
+
+
+get\-Suit\-Value Getter for the card's actual suit value. 
+
+\begin{DoxyReturn}{Returns}
+the suit's value. 
+\end{DoxyReturn}
+\hypertarget{classPlayingCard_ab7d378802b887941584531bf752374c6}{\index{Playing\-Card@{Playing\-Card}!get\-Value@{get\-Value}}
+\index{get\-Value@{get\-Value}!PlayingCard@{Playing\-Card}}
+\subsubsection[{get\-Value}]{\setlength{\rightskip}{0pt plus 5cm}{\bf card\-\_\-t} Playing\-Card\-::get\-Value (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}}\label{classPlayingCard_ab7d378802b887941584531bf752374c6}
+
+
+get\-Value Getter for the card's byte value 
+
+\begin{DoxyReturn}{Returns}
+The card's raw byte data. 
+\end{DoxyReturn}
+\hypertarget{classPlayingCard_abab3787e297f6d300fc1fabfa0d450c3}{\index{Playing\-Card@{Playing\-Card}!Is\-Rank@{Is\-Rank}}
+\index{Is\-Rank@{Is\-Rank}!PlayingCard@{Playing\-Card}}
+\subsubsection[{Is\-Rank}]{\setlength{\rightskip}{0pt plus 5cm}bool Playing\-Card\-::\-Is\-Rank (
+\begin{DoxyParamCaption}
+\item[{{\bf Rank\-::\-Value}}]{\-\_\-rank}
+\end{DoxyParamCaption}
+) const}}\label{classPlayingCard_abab3787e297f6d300fc1fabfa0d450c3}
+
+
+Is\-Rank. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \-\_\-rank} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if \-\_\-rank equals the playing card's rank 
+\end{DoxyReturn}
+\hypertarget{classPlayingCard_aa6a396991cc5fbd8633f7bc558feee15}{\index{Playing\-Card@{Playing\-Card}!Is\-Suit@{Is\-Suit}}
+\index{Is\-Suit@{Is\-Suit}!PlayingCard@{Playing\-Card}}
+\subsubsection[{Is\-Suit}]{\setlength{\rightskip}{0pt plus 5cm}bool Playing\-Card\-::\-Is\-Suit (
+\begin{DoxyParamCaption}
+\item[{Suit\-::\-Value}]{\-\_\-suit}
+\end{DoxyParamCaption}
+) const}}\label{classPlayingCard_aa6a396991cc5fbd8633f7bc558feee15}
+
+
+Is\-Suit. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \-\_\-suit} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if \-\_\-rank equals the playing card's suit 
+\end{DoxyReturn}
+\hypertarget{classPlayingCard_af17d532643be02312af99f675a6a0486}{\index{Playing\-Card@{Playing\-Card}!operator!=@{operator!=}}
+\index{operator!=@{operator!=}!PlayingCard@{Playing\-Card}}
+\subsubsection[{operator!=}]{\setlength{\rightskip}{0pt plus 5cm}bool Playing\-Card\-::operator!= (
+\begin{DoxyParamCaption}
+\item[{const {\bf Playing\-Card} \&}]{\-\_\-card}
+\end{DoxyParamCaption}
+) const}}\label{classPlayingCard_af17d532643be02312af99f675a6a0486}
+
+
+operator != Inequality operator. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \-\_\-card} & The card to check against. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if either rank or suit do not match. 
+\end{DoxyReturn}
+\hypertarget{classPlayingCard_ae10f4ac30e42df655fa3a4d4a6bdf267}{\index{Playing\-Card@{Playing\-Card}!operator=@{operator=}}
+\index{operator=@{operator=}!PlayingCard@{Playing\-Card}}
+\subsubsection[{operator=}]{\setlength{\rightskip}{0pt plus 5cm}void Playing\-Card\-::operator= (
+\begin{DoxyParamCaption}
+\item[{const {\bf Playing\-Card} \&}]{\-\_\-card}
+\end{DoxyParamCaption}
+)}}\label{classPlayingCard_ae10f4ac30e42df655fa3a4d4a6bdf267}
+
+
+operator = Card assignment operator. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \-\_\-card} & The card to set the value of this to. \\
+\hline
+\end{DoxyParams}
+\hypertarget{classPlayingCard_a25b6acc583f2e9c582ae5dd98a4605d4}{\index{Playing\-Card@{Playing\-Card}!operator==@{operator==}}
+\index{operator==@{operator==}!PlayingCard@{Playing\-Card}}
+\subsubsection[{operator==}]{\setlength{\rightskip}{0pt plus 5cm}bool Playing\-Card\-::operator== (
+\begin{DoxyParamCaption}
+\item[{const {\bf Playing\-Card} \&}]{\-\_\-card}
+\end{DoxyParamCaption}
+) const}}\label{classPlayingCard_a25b6acc583f2e9c582ae5dd98a4605d4}
+
+
+operator == Equality operator. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \-\_\-card} & The card to check against. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if both cards are identical. 
+\end{DoxyReturn}
+\hypertarget{classPlayingCard_ad6db036ab4c9679c72168ebdb47a5af4}{\index{Playing\-Card@{Playing\-Card}!Rank\-String@{Rank\-String}}
+\index{Rank\-String@{Rank\-String}!PlayingCard@{Playing\-Card}}
+\subsubsection[{Rank\-String}]{\setlength{\rightskip}{0pt plus 5cm}std\-::string Playing\-Card\-::\-Rank\-String (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}}\label{classPlayingCard_ad6db036ab4c9679c72168ebdb47a5af4}
+
+
+Rank\-String. 
+
+\begin{DoxyReturn}{Returns}
+The string representation of the playing card's rank. 
+\end{DoxyReturn}
+\hypertarget{classPlayingCard_ad41bb59005104084b31401b54023b7e5}{\index{Playing\-Card@{Playing\-Card}!Suit\-String@{Suit\-String}}
+\index{Suit\-String@{Suit\-String}!PlayingCard@{Playing\-Card}}
+\subsubsection[{Suit\-String}]{\setlength{\rightskip}{0pt plus 5cm}std\-::string Playing\-Card\-::\-Suit\-String (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}}\label{classPlayingCard_ad41bb59005104084b31401b54023b7e5}
+
+
+Suit\-String. 
+
+\begin{DoxyReturn}{Returns}
+The string representation of the playing card's suit. 
+\end{DoxyReturn}
+
+
+\subsection{Friends And Related Function Documentation}
+\hypertarget{classPlayingCard_aa42bbb7ad79fb6c9d174d1b3b59714fb}{\index{Playing\-Card@{Playing\-Card}!operator$<$$<$@{operator$<$$<$}}
+\index{operator$<$$<$@{operator$<$$<$}!PlayingCard@{Playing\-Card}}
+\subsubsection[{operator$<$$<$}]{\setlength{\rightskip}{0pt plus 5cm}std\-::ostream\& operator$<$$<$ (
+\begin{DoxyParamCaption}
+\item[{std\-::ostream \&}]{\-\_\-stream, }
+\item[{const {\bf Playing\-Card} \&}]{\-\_\-card}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [friend]}}}\label{classPlayingCard_aa42bbb7ad79fb6c9d174d1b3b59714fb}
+
+
+operator $<$$<$ Returns a stream containing a string with the format \char`\"{}$<$\-Rank\-String()$>$ of $<$\-Suit\-String()$>$'s\char`\"{} 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \-\_\-stream} & \\
+\hline
+{\em \-\_\-card} & The card whose value will be printed. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+a reference to a stream. 
+\end{DoxyReturn}
+
+
+\subsection{Member Data Documentation}
+\hypertarget{classPlayingCard_a9e6ebe066a1a412017420218b6988534}{\index{Playing\-Card@{Playing\-Card}!m\-\_\-value@{m\-\_\-value}}
+\index{m\-\_\-value@{m\-\_\-value}!PlayingCard@{Playing\-Card}}
+\subsubsection[{m\-\_\-value}]{\setlength{\rightskip}{0pt plus 5cm}{\bf card\-\_\-t} Playing\-Card\-::m\-\_\-value\hspace{0.3cm}{\ttfamily [private]}}}\label{classPlayingCard_a9e6ebe066a1a412017420218b6988534}
+
+
+m\-\_\-value m\-\_\-value Stores the suit and rank of the playing card in a single byte. 
+
+
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+include/dealer/\hyperlink{playingcard_8h}{playingcard.\-h}\item 
+src/dealer/\hyperlink{playingcard_8cpp}{playingcard.\-cpp}\end{DoxyCompactItemize}

@@ -1,0 +1,57 @@
+\hypertarget{dealerIO_8h}{\section{include/comms/dealer\-I\-O.h File Reference}
+\label{dealerIO_8h}\index{include/comms/dealer\-I\-O.\-h@{include/comms/dealer\-I\-O.\-h}}
+}
+
+
+An interface for the Dealer team to communicate with the Arduino players, provides utility functions for all the data that needs to be sent/recieved.  
+
+
+{\ttfamily \#include $<$stdlib.\-h$>$}\\*
+{\ttfamily \#include $<$stdint.\-h$>$}\\*
+{\ttfamily \#include $<$map$>$}\\*
+{\ttfamily \#include $<$string$>$}\\*
+{\ttfamily \#include \char`\"{}dealer/player.\-h\char`\"{}}\\*
+\subsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{namespaceComms}{Comms}
+\end{DoxyCompactItemize}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef std\-::map$<$ unsigned int, \\*
+std\-::string $>$ \hyperlink{namespaceComms_ae7f8ecf87c32fe890069143ff75f2885}{Comms\-::\-Player\-Devices}
+\begin{DoxyCompactList}\small\item\em Player\-Devices Maps a player I\-D onto it's device path string. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool \hyperlink{namespaceComms_ad8554008bce28b575ab7a46ae1c4b821}{Comms\-::set\-Player} (const std\-::string \&\-\_\-port, const std\-::vector$<$ \hyperlink{classPlayingCard}{Playing\-Card} $>$ \&\-\_\-cards, uint16\-\_\-t \-\_\-money)
+\begin{DoxyCompactList}\small\item\em set\-Player Initialises the player connected to \-\_\-port with the data from \-\_\-cards and \-\_\-money. \end{DoxyCompactList}\item 
+bool \hyperlink{namespaceComms_a7d6a864c4776b2549220680a3a91d562}{Comms\-::send\-Money} (const std\-::string \&\-\_\-port, uint16\-\_\-t \-\_\-amount)
+\begin{DoxyCompactList}\small\item\em send\-Money Sets the money of the player on \-\_\-port. \end{DoxyCompactList}\item 
+bool \hyperlink{namespaceComms_ab5667910ab1e165e1ce83df355f3211e}{Comms\-::send\-Card} (const std\-::string \&\-\_\-port, \hyperlink{classPlayingCard}{Playing\-Card} \-\_\-card)
+\begin{DoxyCompactList}\small\item\em send\-Card Sends a card to the player on \-\_\-port. \end{DoxyCompactList}\item 
+bool \hyperlink{namespaceComms_a4dbb12818b660021ffb944c9f6f84a82}{Comms\-::send\-Win} (const std\-::string \&\-\_\-port, uint16\-\_\-t \-\_\-money)
+\begin{DoxyCompactList}\small\item\em send\-Win Tells the player on \-\_\-port that they've win and sends a money reward. \end{DoxyCompactList}\item 
+bool \hyperlink{namespaceComms_ac0e4a7381fc5fe570d69fea503489fba}{Comms\-::send\-Reset\-Player} (const std\-::string \&\-\_\-port)
+\begin{DoxyCompactList}\small\item\em send\-Reset\-Player Resets the player on \-\_\-port. \end{DoxyCompactList}\item 
+bool \hyperlink{namespaceComms_a081887fecdeda4f6a1e9f5d593b015a1}{Comms\-::send\-Reset\-Cards} (const std\-::string \&\-\_\-port)
+\begin{DoxyCompactList}\small\item\em send\-Reset\-Cards Resets the cards of the player on \-\_\-port. \end{DoxyCompactList}\item 
+bool \hyperlink{namespaceComms_a89d7a587eb06b38621bc16c99ae0ede6}{Comms\-::receive\-Bet} (const std\-::string \&\-\_\-port, uint16\-\_\-t \&\-\_\-data, uint16\-\_\-t \-\_\-min, uint16\-\_\-t \-\_\-max, unsigned int \-\_\-timeout=4)
+\begin{DoxyCompactList}\small\item\em receive\-Bet Asks the player on \-\_\-port to input a bet and blocks until the result is recieved. \end{DoxyCompactList}\item 
+bool \hyperlink{namespaceComms_a70a2eabc41885572c59dfd6fb6dffc9d}{Comms\-::receive\-Name} (const std\-::string \&\-\_\-port, std\-::string \&\-\_\-data, unsigned int \-\_\-timeout=4)
+\begin{DoxyCompactList}\small\item\em receive\-Name Asks the player on \-\_\-port to input a name (max 15 bytes long) and blocks until the result is recieved. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+An interface for the Dealer team to communicate with the Arduino players, provides utility functions for all the data that needs to be sent/recieved. \begin{DoxyAuthor}{Author}
+Tom Minor 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+1.\-0 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+26/1/15 Submitted for assignment deadline
+\end{DoxyDate}
+\begin{DoxyRefDesc}{Todo}
+\item[\hyperlink{todo__todo000001}{Todo}]Error checking could be tightened up in some areas. \end{DoxyRefDesc}

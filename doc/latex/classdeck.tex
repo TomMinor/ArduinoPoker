@@ -1,0 +1,127 @@
+\hypertarget{classdeck}{\section{deck Class Reference}
+\label{classdeck}\index{deck@{deck}}
+}
+
+
+{\ttfamily \#include $<$deck.\-h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classdeck_a2ff8465ba7b13201bdf650fe461b442e}{deck} ()
+\begin{DoxyCompactList}\small\item\em deck constructor calls a function to initialise the deck \end{DoxyCompactList}\item 
+\hyperlink{classdeck_a67daae3820e3a30970912ede1e334d5a}{$\sim$deck} ()
+\item 
+void \hyperlink{classdeck_a6cc2116abc53eebeff78bf993419e700}{init\-Deck} ()
+\begin{DoxyCompactList}\small\item\em init\-Deck Adds all the cards to the deck \end{DoxyCompactList}\item 
+void \hyperlink{classdeck_aee214eea45e2f7e7e641e43521c7e7a5}{reset} ()
+\begin{DoxyCompactList}\small\item\em removes all the cards from the deck, refills it and then shuffles the deck \end{DoxyCompactList}\item 
+void \hyperlink{classdeck_ae872ff1a6f7424f002cdf7e51988128d}{shuffle} ()
+\begin{DoxyCompactList}\small\item\em shuffle Uses a function built into the algorithm library that shuffles a vector \end{DoxyCompactList}\item 
+void \hyperlink{classdeck_a113901386bb98413916675859148b068}{print\-Deck} ()
+\begin{DoxyCompactList}\small\item\em print\-Deck prints out all element of the deck to the screen. \end{DoxyCompactList}\item 
+\hyperlink{classPlayingCard}{Playing\-Card} \hyperlink{classdeck_ab7f13200151036f6d614308ada9e6d01}{deal} ()
+\begin{DoxyCompactList}\small\item\em deal Pops off a card from the end of the vector and returns it \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classcardStack}{card\-Stack} \hyperlink{classdeck_a21e8795379e3fe381f3b63ba2c629ef5}{m\-\_\-pack}
+\begin{DoxyCompactList}\small\item\em m\-\_\-pack a vector of cards that represents the deck ofcards \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{classdeck_a2ff8465ba7b13201bdf650fe461b442e}{\index{deck@{deck}!deck@{deck}}
+\index{deck@{deck}!deck@{deck}}
+\subsubsection[{deck}]{\setlength{\rightskip}{0pt plus 5cm}deck\-::deck (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classdeck_a2ff8465ba7b13201bdf650fe461b442e}
+
+
+deck constructor calls a function to initialise the deck 
+
+\hypertarget{classdeck_a67daae3820e3a30970912ede1e334d5a}{\index{deck@{deck}!$\sim$deck@{$\sim$deck}}
+\index{$\sim$deck@{$\sim$deck}!deck@{deck}}
+\subsubsection[{$\sim$deck}]{\setlength{\rightskip}{0pt plus 5cm}deck\-::$\sim$deck (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classdeck_a67daae3820e3a30970912ede1e334d5a}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{classdeck_ab7f13200151036f6d614308ada9e6d01}{\index{deck@{deck}!deal@{deal}}
+\index{deal@{deal}!deck@{deck}}
+\subsubsection[{deal}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Playing\-Card} deck\-::deal (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classdeck_ab7f13200151036f6d614308ada9e6d01}
+
+
+deal Pops off a card from the end of the vector and returns it 
+
+\begin{DoxyReturn}{Returns}
+top\-Card The card at the top of the deck 
+\end{DoxyReturn}
+\hypertarget{classdeck_a6cc2116abc53eebeff78bf993419e700}{\index{deck@{deck}!init\-Deck@{init\-Deck}}
+\index{init\-Deck@{init\-Deck}!deck@{deck}}
+\subsubsection[{init\-Deck}]{\setlength{\rightskip}{0pt plus 5cm}void deck\-::init\-Deck (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classdeck_a6cc2116abc53eebeff78bf993419e700}
+
+
+init\-Deck Adds all the cards to the deck 
+
+\hypertarget{classdeck_a113901386bb98413916675859148b068}{\index{deck@{deck}!print\-Deck@{print\-Deck}}
+\index{print\-Deck@{print\-Deck}!deck@{deck}}
+\subsubsection[{print\-Deck}]{\setlength{\rightskip}{0pt plus 5cm}void deck\-::print\-Deck (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classdeck_a113901386bb98413916675859148b068}
+
+
+print\-Deck prints out all element of the deck to the screen. 
+
+\hypertarget{classdeck_aee214eea45e2f7e7e641e43521c7e7a5}{\index{deck@{deck}!reset@{reset}}
+\index{reset@{reset}!deck@{deck}}
+\subsubsection[{reset}]{\setlength{\rightskip}{0pt plus 5cm}void deck\-::reset (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classdeck_aee214eea45e2f7e7e641e43521c7e7a5}
+
+
+removes all the cards from the deck, refills it and then shuffles the deck 
+
+\hypertarget{classdeck_ae872ff1a6f7424f002cdf7e51988128d}{\index{deck@{deck}!shuffle@{shuffle}}
+\index{shuffle@{shuffle}!deck@{deck}}
+\subsubsection[{shuffle}]{\setlength{\rightskip}{0pt plus 5cm}void deck\-::shuffle (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classdeck_ae872ff1a6f7424f002cdf7e51988128d}
+
+
+shuffle Uses a function built into the algorithm library that shuffles a vector 
+
+
+
+\subsection{Member Data Documentation}
+\hypertarget{classdeck_a21e8795379e3fe381f3b63ba2c629ef5}{\index{deck@{deck}!m\-\_\-pack@{m\-\_\-pack}}
+\index{m\-\_\-pack@{m\-\_\-pack}!deck@{deck}}
+\subsubsection[{m\-\_\-pack}]{\setlength{\rightskip}{0pt plus 5cm}{\bf card\-Stack} deck\-::m\-\_\-pack\hspace{0.3cm}{\ttfamily [private]}}}\label{classdeck_a21e8795379e3fe381f3b63ba2c629ef5}
+
+
+m\-\_\-pack a vector of cards that represents the deck ofcards 
+
+
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+include/dealer/\hyperlink{deck_8h}{deck.\-h}\item 
+src/dealer/\hyperlink{deck_8cpp}{deck.\-cpp}\end{DoxyCompactItemize}

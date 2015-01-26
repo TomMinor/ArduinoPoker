@@ -1,0 +1,71 @@
+\hypertarget{structGUI_1_1Player}{\section{G\-U\-I\-:\-:Player Struct Reference}
+\label{structGUI_1_1Player}\index{G\-U\-I\-::\-Player@{G\-U\-I\-::\-Player}}
+}
+
+
+Since the \hyperlink{namespaceGUI}{G\-U\-I} requires a little more information about a given player than is contained in the player class, this struct contains that information as well as a pointer to the original class.  
+
+
+
+
+{\ttfamily \#include $<$gui\-\_\-dealergui.\-h$>$}
+
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+const \hyperlink{classplayer}{player} $\ast$ \hyperlink{structGUI_1_1Player_acadd2cb8c209e871196e90b6945d5d45}{player\-Class}
+\begin{DoxyCompactList}\small\item\em A pointer to the dealer-\/side player object. \end{DoxyCompactList}\item 
+S\-D\-L\-\_\-\-Point \hyperlink{structGUI_1_1Player_ae17ed358dbf130cd020bbb3db2b71dce}{pos\-\_\-on\-Screen}
+\begin{DoxyCompactList}\small\item\em An S\-D\-L point representing where the player will place their public virtual items e.\-g. cards. \end{DoxyCompactList}\item 
+S\-D\-L\-\_\-\-Point \hyperlink{structGUI_1_1Player_ab60cdc012c16dab854828c01c413bdaf}{pos\-\_\-off\-Screen}
+\begin{DoxyCompactList}\small\item\em An S\-D\-L point outside the screen boundaries representing where items will be sent/appear from to look like they belong to the player sitting there. \end{DoxyCompactList}\item 
+\hyperlink{namespaceGUI_a1a3a8094d47f7be06ce123fab38abf6a}{Orientation} \hyperlink{structGUI_1_1Player_ab28696f51c4aae54e89c7b0a3c695255}{orient}
+\begin{DoxyCompactList}\small\item\em The edge of the screen this player will be sitting at. \end{DoxyCompactList}\item 
+\hyperlink{classGUI_1_1Label}{Label} $\ast$ \hyperlink{structGUI_1_1Player_a9119240f399cbce53b8505938d1b7b70}{name\-Label}
+\begin{DoxyCompactList}\small\item\em A pointer to a label object displaying the player's name which will be drawn on their side of the screen. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Since the \hyperlink{namespaceGUI}{G\-U\-I} requires a little more information about a given player than is contained in the player class, this struct contains that information as well as a pointer to the original class. 
+
+\subsection{Member Data Documentation}
+\hypertarget{structGUI_1_1Player_a9119240f399cbce53b8505938d1b7b70}{\index{G\-U\-I\-::\-Player@{G\-U\-I\-::\-Player}!name\-Label@{name\-Label}}
+\index{name\-Label@{name\-Label}!GUI::Player@{G\-U\-I\-::\-Player}}
+\subsubsection[{name\-Label}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Label}$\ast$ G\-U\-I\-::\-Player\-::name\-Label}}\label{structGUI_1_1Player_a9119240f399cbce53b8505938d1b7b70}
+
+
+A pointer to a label object displaying the player's name which will be drawn on their side of the screen. 
+
+\hypertarget{structGUI_1_1Player_ab28696f51c4aae54e89c7b0a3c695255}{\index{G\-U\-I\-::\-Player@{G\-U\-I\-::\-Player}!orient@{orient}}
+\index{orient@{orient}!GUI::Player@{G\-U\-I\-::\-Player}}
+\subsubsection[{orient}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Orientation} G\-U\-I\-::\-Player\-::orient}}\label{structGUI_1_1Player_ab28696f51c4aae54e89c7b0a3c695255}
+
+
+The edge of the screen this player will be sitting at. 
+
+\hypertarget{structGUI_1_1Player_acadd2cb8c209e871196e90b6945d5d45}{\index{G\-U\-I\-::\-Player@{G\-U\-I\-::\-Player}!player\-Class@{player\-Class}}
+\index{player\-Class@{player\-Class}!GUI::Player@{G\-U\-I\-::\-Player}}
+\subsubsection[{player\-Class}]{\setlength{\rightskip}{0pt plus 5cm}const {\bf player}$\ast$ G\-U\-I\-::\-Player\-::player\-Class}}\label{structGUI_1_1Player_acadd2cb8c209e871196e90b6945d5d45}
+
+
+A pointer to the dealer-\/side player object. 
+
+\hypertarget{structGUI_1_1Player_ab60cdc012c16dab854828c01c413bdaf}{\index{G\-U\-I\-::\-Player@{G\-U\-I\-::\-Player}!pos\-\_\-off\-Screen@{pos\-\_\-off\-Screen}}
+\index{pos\-\_\-off\-Screen@{pos\-\_\-off\-Screen}!GUI::Player@{G\-U\-I\-::\-Player}}
+\subsubsection[{pos\-\_\-off\-Screen}]{\setlength{\rightskip}{0pt plus 5cm}S\-D\-L\-\_\-\-Point G\-U\-I\-::\-Player\-::pos\-\_\-off\-Screen}}\label{structGUI_1_1Player_ab60cdc012c16dab854828c01c413bdaf}
+
+
+An S\-D\-L point outside the screen boundaries representing where items will be sent/appear from to look like they belong to the player sitting there. 
+
+\hypertarget{structGUI_1_1Player_ae17ed358dbf130cd020bbb3db2b71dce}{\index{G\-U\-I\-::\-Player@{G\-U\-I\-::\-Player}!pos\-\_\-on\-Screen@{pos\-\_\-on\-Screen}}
+\index{pos\-\_\-on\-Screen@{pos\-\_\-on\-Screen}!GUI::Player@{G\-U\-I\-::\-Player}}
+\subsubsection[{pos\-\_\-on\-Screen}]{\setlength{\rightskip}{0pt plus 5cm}S\-D\-L\-\_\-\-Point G\-U\-I\-::\-Player\-::pos\-\_\-on\-Screen}}\label{structGUI_1_1Player_ae17ed358dbf130cd020bbb3db2b71dce}
+
+
+An S\-D\-L point representing where the player will place their public virtual items e.\-g. cards. 
+
+
+
+The documentation for this struct was generated from the following file\-:\begin{DoxyCompactItemize}
+\item 
+include/gui/\hyperlink{gui__dealergui_8h}{gui\-\_\-dealergui.\-h}\end{DoxyCompactItemize}

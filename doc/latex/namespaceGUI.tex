@@ -1,0 +1,56 @@
+\hypertarget{namespaceGUI}{\section{G\-U\-I Namespace Reference}
+\label{namespaceGUI}\index{G\-U\-I@{G\-U\-I}}
+}
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structGUI_1_1CardInfo}{Card\-Info}
+\begin{DoxyCompactList}\small\item\em This struct contains variables for S\-D\-L that will be the same for all cards, which we therefore won't want to send to the constructor individually every time. \end{DoxyCompactList}\item 
+class \hyperlink{classGUI_1_1Card}{Card}
+\begin{DoxyCompactList}\small\item\em A visual representation of a playing card that can be flipped, burned and moved around. \end{DoxyCompactList}\item 
+struct \hyperlink{structGUI_1_1Player}{Player}
+\begin{DoxyCompactList}\small\item\em Since the \hyperlink{namespaceGUI}{G\-U\-I} requires a little more information about a given player than is contained in the player class, this struct contains that information as well as a pointer to the original class. \end{DoxyCompactList}\item 
+class \hyperlink{classGUI_1_1DealerGUI}{Dealer\-G\-U\-I}
+\begin{DoxyCompactList}\small\item\em The main class used for displaying things on the screen. \end{DoxyCompactList}\item 
+class \hyperlink{classGUI_1_1Element}{Element}
+\begin{DoxyCompactList}\small\item\em The base class for any visual elements on the screen. \end{DoxyCompactList}\item 
+class \hyperlink{classGUI_1_1ElementMaker}{Element\-Maker}
+\begin{DoxyCompactList}\small\item\em This class serves as a factory for dynamically allocated visual elements. \end{DoxyCompactList}\item 
+class \hyperlink{classGUI_1_1Hand}{Hand}
+\begin{DoxyCompactList}\small\item\em This class is simply for easy manipulation of a number of cards at once. Despite the name, it does not necessarily refer to the cards a player is holding. \end{DoxyCompactList}\item 
+struct \hyperlink{structGUI_1_1LabelFormat}{Label\-Format}
+\begin{DoxyCompactList}\small\item\em This struct contains variables for S\-D\-L that will be the same for all labels, which we therefore won't want to send to the constructor individually every time. \end{DoxyCompactList}\item 
+class \hyperlink{classGUI_1_1Label}{Label}
+\begin{DoxyCompactList}\small\item\em A simple line of text constructed using S\-D\-L's T\-T\-F library that can be moved around as with other visual elements. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \hyperlink{namespaceGUI_a1a3a8094d47f7be06ce123fab38abf6a}{Orientation} \{ \hyperlink{namespaceGUI_a1a3a8094d47f7be06ce123fab38abf6aafb2c9cf323a63df7a7ac4ade2e4e63e5}{B\-O\-T\-T\-O\-M}, 
+\hyperlink{namespaceGUI_a1a3a8094d47f7be06ce123fab38abf6aaed947a071b4f5078a2c7d5bd873ed851}{R\-I\-G\-H\-T}, 
+\hyperlink{namespaceGUI_a1a3a8094d47f7be06ce123fab38abf6aa355815f18587c25fe8f1faaf5aca1fe2}{T\-O\-P}, 
+\hyperlink{namespaceGUI_a1a3a8094d47f7be06ce123fab38abf6aac41dc6ce32c46ed2258169c4844727ff}{L\-E\-F\-T}
+ \}
+\begin{DoxyCompactList}\small\item\em Since the game is meant to be played with the monitor laying flat as a \char`\"{}poker table\char`\"{} with the players sitting around it, this enum is used to specify which side of the \char`\"{}table\char`\"{} a given visual element should be facing. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Enumeration Type Documentation}
+\hypertarget{namespaceGUI_a1a3a8094d47f7be06ce123fab38abf6a}{\index{G\-U\-I@{G\-U\-I}!Orientation@{Orientation}}
+\index{Orientation@{Orientation}!GUI@{G\-U\-I}}
+\subsubsection[{Orientation}]{\setlength{\rightskip}{0pt plus 5cm}enum {\bf G\-U\-I\-::\-Orientation}}}\label{namespaceGUI_a1a3a8094d47f7be06ce123fab38abf6a}
+
+
+Since the game is meant to be played with the monitor laying flat as a \char`\"{}poker table\char`\"{} with the players sitting around it, this enum is used to specify which side of the \char`\"{}table\char`\"{} a given visual element should be facing. 
+
+\begin{Desc}
+\item[Enumerator]\par
+\begin{description}
+\index{B\-O\-T\-T\-O\-M@{B\-O\-T\-T\-O\-M}!G\-U\-I@{G\-U\-I}}\index{G\-U\-I@{G\-U\-I}!B\-O\-T\-T\-O\-M@{B\-O\-T\-T\-O\-M}}\item[{\em 
+\hypertarget{namespaceGUI_a1a3a8094d47f7be06ce123fab38abf6aafb2c9cf323a63df7a7ac4ade2e4e63e5}{B\-O\-T\-T\-O\-M}\label{namespaceGUI_a1a3a8094d47f7be06ce123fab38abf6aafb2c9cf323a63df7a7ac4ade2e4e63e5}
+}]\index{R\-I\-G\-H\-T@{R\-I\-G\-H\-T}!G\-U\-I@{G\-U\-I}}\index{G\-U\-I@{G\-U\-I}!R\-I\-G\-H\-T@{R\-I\-G\-H\-T}}\item[{\em 
+\hypertarget{namespaceGUI_a1a3a8094d47f7be06ce123fab38abf6aaed947a071b4f5078a2c7d5bd873ed851}{R\-I\-G\-H\-T}\label{namespaceGUI_a1a3a8094d47f7be06ce123fab38abf6aaed947a071b4f5078a2c7d5bd873ed851}
+}]\index{T\-O\-P@{T\-O\-P}!G\-U\-I@{G\-U\-I}}\index{G\-U\-I@{G\-U\-I}!T\-O\-P@{T\-O\-P}}\item[{\em 
+\hypertarget{namespaceGUI_a1a3a8094d47f7be06ce123fab38abf6aa355815f18587c25fe8f1faaf5aca1fe2}{T\-O\-P}\label{namespaceGUI_a1a3a8094d47f7be06ce123fab38abf6aa355815f18587c25fe8f1faaf5aca1fe2}
+}]\index{L\-E\-F\-T@{L\-E\-F\-T}!G\-U\-I@{G\-U\-I}}\index{G\-U\-I@{G\-U\-I}!L\-E\-F\-T@{L\-E\-F\-T}}\item[{\em 
+\hypertarget{namespaceGUI_a1a3a8094d47f7be06ce123fab38abf6aac41dc6ce32c46ed2258169c4844727ff}{L\-E\-F\-T}\label{namespaceGUI_a1a3a8094d47f7be06ce123fab38abf6aac41dc6ce32c46ed2258169c4844727ff}
+}]\end{description}
+\end{Desc}

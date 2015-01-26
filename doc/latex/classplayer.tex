@@ -1,0 +1,1053 @@
+\hypertarget{classplayer}{\section{player Class Reference}
+\label{classplayer}\index{player@{player}}
+}
+
+
+player class  
+
+
+
+
+{\ttfamily \#include $<$player.\-h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classplayer_a97de83bce15f880241f561b55b016b02}{player} ()
+\item 
+\hyperlink{classplayer_aab5d2e47b80e0481f09ca0df8b823057}{$\sim$player} ()
+\item 
+void \hyperlink{classplayer_a7d80b7b79c7ed9b4970989e70fb8e3e4}{set\-Name} (const std\-::string \&\-\_\-name)
+\begin{DoxyCompactList}\small\item\em method to set players name (m\-\_\-name). \end{DoxyCompactList}\item 
+void \hyperlink{classplayer_ae16ccb54982aa257a59de10e8dd1b9cc}{set\-I\-D} (const int \&\-\_\-id)
+\begin{DoxyCompactList}\small\item\em method to set players name (m\-\_\-name). \end{DoxyCompactList}\item 
+void \hyperlink{classplayer_ad66aadc84c419830fbae4388e1ba4a56}{set\-Hole\-Card} (const \hyperlink{classPlayingCard}{Playing\-Card} \&\-\_\-card)
+\begin{DoxyCompactList}\small\item\em method to set players Hole card (m\-\_\-cards), adds card to back of stack. \end{DoxyCompactList}\item 
+void \hyperlink{classplayer_ace9ccadf69b140b94dae999299634057}{set\-Hand\-Card} (const \hyperlink{classPlayingCard}{Playing\-Card} \&\-\_\-card)
+\begin{DoxyCompactList}\small\item\em method to set players hand card (m\-\_\-hand), adds card to back of stack. \end{DoxyCompactList}\item 
+void \hyperlink{classplayer_a03776f08d7790746b174e4d39e02fd3d}{set\-Score} (const int \&\-\_\-score)
+\begin{DoxyCompactList}\small\item\em method to set players score (m\-\_\-score) \end{DoxyCompactList}\item 
+void \hyperlink{classplayer_a8b8eccf07f1b5e335dde68858c09dd86}{set\-Kicker} (const int \&\-\_\-kicker)
+\begin{DoxyCompactList}\small\item\em method to set playesr kicker (m\-\_\-kicker) \end{DoxyCompactList}\item 
+void \hyperlink{classplayer_a16a84dc7bb2aefb88569ffcded5a49b8}{set\-Fold} (const bool \&\-\_\-fold)
+\begin{DoxyCompactList}\small\item\em method to set players fold member, set true if they have fold \end{DoxyCompactList}\item 
+void \hyperlink{classplayer_a9ed74ecf489c4e477cdc6a7e466a9bcb}{set\-Money} (const int \&\-\_\-money)
+\begin{DoxyCompactList}\small\item\em method to set players money (m\-\_\-money) \end{DoxyCompactList}\item 
+void \hyperlink{classplayer_ab982aaee95ec09f05828268b1eb5f7ea}{take\-Bet} (const int \&\-\_\-bet)
+\begin{DoxyCompactList}\small\item\em method to set players bet (m\-\_\-bet) \end{DoxyCompactList}\item 
+void \hyperlink{classplayer_a6cbe2def15e91150ee02b830f6d5100c}{set\-Bet} (const int \&\-\_\-bet)
+\begin{DoxyCompactList}\small\item\em method to set players bet (m\-\_\-bet) \end{DoxyCompactList}\item 
+void \hyperlink{classplayer_a36309336bf0bb870f6889f788975d016}{remove\-Bet} ()
+\begin{DoxyCompactList}\small\item\em method to set players bet (m\-\_\-bet) \end{DoxyCompactList}\item 
+void \hyperlink{classplayer_ac136c0a01decf0c01919d4ccf5b9d26f}{receive\-Pot} (const int \&\-\_\-pot)
+\begin{DoxyCompactList}\small\item\em method to add betting money to players money. \end{DoxyCompactList}\item 
+void \hyperlink{classplayer_a41b6b7f8937227b2d0a50c4de9d21165}{remove\-Last\-Hand\-Card} ()
+\begin{DoxyCompactList}\small\item\em method to remove last card in players poker hand stack. \end{DoxyCompactList}\item 
+void \hyperlink{classplayer_a326402ea79637f32e518800891a869db}{remove\-Hand\-Card} (const int \-\_\-i)
+\begin{DoxyCompactList}\small\item\em method to remove particular card by index from players poker hand stack. \end{DoxyCompactList}\item 
+void \hyperlink{classplayer_aafb28918145ad1d37a3b8309ecd59831}{remove\-Hand\-Card} (const \hyperlink{classPlayingCard}{Playing\-Card} \&\-\_\-card)
+\begin{DoxyCompactList}\small\item\em method to remove particular card from players poker hand stack. \end{DoxyCompactList}\item 
+void \hyperlink{classplayer_a74c3f50d0cf6f7b6870a9c7ae51526ac}{empty\-Hand} ()
+\begin{DoxyCompactList}\small\item\em method to empty players Hand stack. \end{DoxyCompactList}\item 
+void \hyperlink{classplayer_afaf3afa25cebc616d037d8bf80f606bb}{remove\-Last\-Hole\-Card} ()
+\begin{DoxyCompactList}\small\item\em method to remove last card in players Hole card stack \end{DoxyCompactList}\item 
+void \hyperlink{classplayer_a71ff3c2a4096a35ab36ba74a3df1a3bc}{remove\-Hole\-Card} (const int \-\_\-i)
+\begin{DoxyCompactList}\small\item\em method to remove particular card by index from the players Hole card stack. \end{DoxyCompactList}\item 
+void \hyperlink{classplayer_a9b2df592e33e9c0e47ba72a41f3ecd92}{remove\-Hole\-Card} (const \hyperlink{classPlayingCard}{Playing\-Card} \&\-\_\-card)
+\begin{DoxyCompactList}\small\item\em method to remove particular card from the players Hole card stack. \end{DoxyCompactList}\item 
+void \hyperlink{classplayer_a8b7237e077e12918291397a10202c334}{empty\-Hole} ()
+\begin{DoxyCompactList}\small\item\em method to empty players Hole card stack. \end{DoxyCompactList}\item 
+std\-::string \hyperlink{classplayer_a5e049a8e910a35a70cc99578a73cc979}{get\-Name} () const 
+\begin{DoxyCompactList}\small\item\em method to access players name (m\-\_\-name). \end{DoxyCompactList}\item 
+\hyperlink{classPlayingCard}{Playing\-Card} \hyperlink{classplayer_a05454c8c5c86b9e554843303199ca5b9}{get\-Hole\-Card} (const int \&\-\_\-i) const 
+\begin{DoxyCompactList}\small\item\em method to access a particular card from players Hole cards (m\-\_\-cards\mbox{[}i\mbox{]}), 2 cards dealers gives player at start of game. \end{DoxyCompactList}\item 
+\hyperlink{classcardStack}{card\-Stack} \hyperlink{classplayer_a2f60d18753bce9b146d08e72b4a2346d}{get\-Hole} () const 
+\begin{DoxyCompactList}\small\item\em method to access the stack of players Hole cards (m\-\_\-cards). \end{DoxyCompactList}\item 
+\hyperlink{classPlayingCard}{Playing\-Card} \hyperlink{classplayer_afd99bfe28c26ab807935fec5efeb50c6}{get\-Hand\-Card} (const int \&\-\_\-i) const 
+\begin{DoxyCompactList}\small\item\em method to access a particular card from the players poker hand (m\-\_\-hand\mbox{[}i\mbox{]}). \end{DoxyCompactList}\item 
+\hyperlink{classcardStack}{card\-Stack} \hyperlink{classplayer_a8fe96791d8b9f881c2bafd3f6f21b48e}{get\-Hand} () const 
+\begin{DoxyCompactList}\small\item\em method to access the stack of players poker hand cards (m\-\_\-hand). \end{DoxyCompactList}\item 
+int \hyperlink{classplayer_a3a96a6a88b2ebeed6700cd6725f83f5a}{get\-Num\-Cards} () const 
+\begin{DoxyCompactList}\small\item\em method to access the number of cards in the players poker hand. \end{DoxyCompactList}\item 
+int \hyperlink{classplayer_a3663784b926e6df4b866bf3a25256adc}{get\-Score} () const 
+\begin{DoxyCompactList}\small\item\em method to access the players score (m\-\_\-score) \end{DoxyCompactList}\item 
+int \hyperlink{classplayer_acff004025f4728885327eda9197bcd61}{get\-Kicker} () const 
+\begin{DoxyCompactList}\small\item\em method to acces the players kicker (m\-\_\-kicker) \end{DoxyCompactList}\item 
+int \hyperlink{classplayer_a17e4e4d85fb2d4e7335b2c1360af5612}{get\-Money} () const 
+\begin{DoxyCompactList}\small\item\em method to access the players money (m\-\_\-money) \end{DoxyCompactList}\item 
+void \hyperlink{classplayer_a019136df8e6ee2a429015927149f7750}{print\-Info} () const 
+\begin{DoxyCompactList}\small\item\em method to print the players info including\-: players name (m\-\_\-name), score (m\-\_\-score), kicker (m\-\_\-kicker) and poker hand (m\-\_\-hand) \end{DoxyCompactList}\item 
+int \hyperlink{classplayer_a6c58c32e556a70d2f3f718bd477530ea}{get\-Bet} () const 
+\begin{DoxyCompactList}\small\item\em method to access the players bet amount (m\-\_\-bet) \end{DoxyCompactList}\item 
+int \hyperlink{classplayer_a349d34f7e3875773b95ed391844f5037}{get\-I\-D} () const 
+\begin{DoxyCompactList}\small\item\em method to access the players id (m\-\_\-id) \end{DoxyCompactList}\item 
+bool \hyperlink{classplayer_aec2aa85b8acf8ba8f6dba3f7db0cc6d9}{is\-Fold} () const 
+\begin{DoxyCompactList}\small\item\em method to check if player has fold \end{DoxyCompactList}\item 
+\hyperlink{classplayer_a97de83bce15f880241f561b55b016b02}{player} ()
+\begin{DoxyCompactList}\small\item\em ctor. \end{DoxyCompactList}\item 
+\hyperlink{classplayer_aab5d2e47b80e0481f09ca0df8b823057}{$\sim$player} ()
+\begin{DoxyCompactList}\small\item\em dtor. \end{DoxyCompactList}\item 
+void \hyperlink{classplayer_ae2f660aa48cbf4efe527918c86da49b8}{set\-Money} (uint16\-\_\-t \-\_\-money)
+\begin{DoxyCompactList}\small\item\em set\-Money \end{DoxyCompactList}\item 
+uint16\-\_\-t \hyperlink{classplayer_a9947ae2b627a57266c454c750b8586c1}{place\-Bet} (uint16\-\_\-t \-\_\-max, uint16\-\_\-t \-\_\-min)
+\begin{DoxyCompactList}\small\item\em place\-Bet \end{DoxyCompactList}\item 
+void \hyperlink{classplayer_a60210e6c1d1d8f73b9717e85674b0d27}{receive\-Money} (uint16\-\_\-t \-\_\-money)
+\begin{DoxyCompactList}\small\item\em receive\-Money \end{DoxyCompactList}\item 
+void \hyperlink{classplayer_a1124798ec756d79667f54e390ee585f7}{receive\-Card} (uint8\-\_\-t \-\_\-cards\mbox{[}$\,$\mbox{]})
+\begin{DoxyCompactList}\small\item\em recieve\-Card \end{DoxyCompactList}\item 
+void \hyperlink{classplayer_aa0c13334b1c7bdea35078918fb3198e5}{set\-Name} ()
+\begin{DoxyCompactList}\small\item\em set\-Name \end{DoxyCompactList}\item 
+void \hyperlink{classplayer_a928c08e1f2c4a6d3bf7be82b51c6eba4}{reset\-Player} (uint16\-\_\-t \-\_\-money)
+\begin{DoxyCompactList}\small\item\em reset\-Player \end{DoxyCompactList}\item 
+void \hyperlink{classplayer_aa1f3e7d1db58e0756f36ed2e8a888569}{reset\-Cards} ()
+\begin{DoxyCompactList}\small\item\em reset\-Cards \end{DoxyCompactList}\item 
+uint16\-\_\-t \hyperlink{classplayer_a6c1cafca4e7eed2b73a49090f317695d}{get\-Money} ()
+\begin{DoxyCompactList}\small\item\em get\-Money \end{DoxyCompactList}\item 
+char $\ast$ \hyperlink{classplayer_af8419278f66879cf2758c17d84926095}{get\-Name} ()
+\begin{DoxyCompactList}\small\item\em get\-Name \end{DoxyCompactList}\item 
+void \hyperlink{classplayer_a2543237dd3945feaa342d5339a94e105}{join\-Game} ()
+\begin{DoxyCompactList}\small\item\em join\-Game \end{DoxyCompactList}\item 
+void \hyperlink{classplayer_a6f1fbcea3d7a24b52ca38894a2b06b39}{player\-Data\-Screen} ()
+\begin{DoxyCompactList}\small\item\em Player\-Data\-Screen. \end{DoxyCompactList}\item 
+void \hyperlink{classplayer_a448ed007acc9b0d0dd9f87afa24b761b}{set\-Max\-Card\-Limit} (uint8\-\_\-t \-\_\-max)
+\begin{DoxyCompactList}\small\item\em set\-Max\-Card\-Limit \end{DoxyCompactList}\item 
+\hyperlink{classplayer_a15b165c190c8b662950c3b1ecc8c43ab}{player} (unsigned int \-\_\-money, int \-\_\-card\-Num)
+\item 
+\hyperlink{classplayer_aab5d2e47b80e0481f09ca0df8b823057}{$\sim$player} ()
+\item 
+void \hyperlink{classplayer_ae4fa4a7b873325346863fb72fdfa652e}{place\-Bet} (unsigned int \-\_\-max, unsigned int \-\_\-min)
+\item 
+void \hyperlink{classplayer_a12b2974d663b2162b4e945b558caba3d}{receive\-Money} (unsigned int \-\_\-money)
+\item 
+void \hyperlink{classplayer_a08ecc20d3492b7510971b49793425138}{receive\-Card} ()
+\item 
+void \hyperlink{classplayer_aa0c13334b1c7bdea35078918fb3198e5}{set\-Name} ()
+\item 
+void \hyperlink{classplayer_a2bfb70686012dcb697113bd2fe8abe0b}{reset\-Player} (unsigned int \-\_\-money, unsigned int \-\_\-card\-Num)
+\item 
+void \hyperlink{classplayer_aa1f3e7d1db58e0756f36ed2e8a888569}{reset\-Cards} ()
+\item 
+unsigned int \hyperlink{classplayer_a6687f17d310e6d5c78639e633059e11a}{get\-Money} ()
+\end{DoxyCompactItemize}
+\subsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+std\-::string \hyperlink{classplayer_a628377063791d7bae76e87e4d8f9aa40}{m\-\_\-name}
+\item 
+int \hyperlink{classplayer_af39fefbc41390382877705aafe663e07}{m\-\_\-id}
+\item 
+\hyperlink{classcardStack}{card\-Stack} \hyperlink{classplayer_ab37cde9b3129e88e933d58378625ff15}{m\-\_\-cards}
+\item 
+\hyperlink{classcardStack}{card\-Stack} \hyperlink{classplayer_aa8dd9538f53046d07516e3a7cd12bca5}{m\-\_\-hand}
+\item 
+int \hyperlink{classplayer_a9f5cd35f681112a6d9dde60c4c2e3104}{m\-\_\-score}
+\item 
+int \hyperlink{classplayer_a8d94f5187090d4a2c9736f2c5a7fd6f8}{m\-\_\-kicker}
+\item 
+int \hyperlink{classplayer_acc48e66234bb330f9db34ca6dc91479b}{m\-\_\-money}
+\item 
+int \hyperlink{classplayer_acf065485c206c03823772ab5cb52aadc}{m\-\_\-bet}
+\item 
+bool \hyperlink{classplayer_af63e49f7ff0294e1b2afa1431e3bb9f6}{m\-\_\-fold}
+\item 
+uint16\-\_\-t \hyperlink{classplayer_a4581e0079269f9b01515df03c2619e53}{m\-\_\-money}
+\begin{DoxyCompactList}\small\item\em The player's money. \end{DoxyCompactList}\item 
+uint8\-\_\-t \hyperlink{classplayer_ab56ae76ad0ac3d440d3afcdceec6e72f}{m\-\_\-num\-Cards}
+\begin{DoxyCompactList}\small\item\em Number of cards being held by the player. \end{DoxyCompactList}\item 
+char \hyperlink{classplayer_abfcf5c8912c0d6dc30c534fb835d551d}{m\-\_\-player\-Name} \mbox{[}15\mbox{]}
+\begin{DoxyCompactList}\small\item\em Array of chars storing the players name. \end{DoxyCompactList}\item 
+\hyperlink{structcard}{card} \hyperlink{classplayer_a05fe561ee0d66a696d766bd08f1daae9}{m\-\_\-cards} \mbox{[}5\mbox{]}
+\begin{DoxyCompactList}\small\item\em Array of cards (up to 5 cards). \end{DoxyCompactList}\item 
+\hyperlink{classdisplay}{display} \hyperlink{classplayer_a2c9109b721f4eee6f13ae0f78954e1dd}{m\-\_\-display}
+\begin{DoxyCompactList}\small\item\em Display. \end{DoxyCompactList}\item 
+\hyperlink{classinput}{input} \hyperlink{classplayer_a0efa90b86bd8b5277ef349f3dc651782}{m\-\_\-button}
+\begin{DoxyCompactList}\small\item\em Input class variable. \end{DoxyCompactList}\item 
+uint8\-\_\-t \hyperlink{classplayer_a7d8f2e7568585a9129255cb6703ee233}{m\-\_\-max\-Num\-Cards}
+\begin{DoxyCompactList}\small\item\em Max number of cards the player can have. \end{DoxyCompactList}\item 
+unsigned int \hyperlink{classplayer_a8c0192ef483c0d137886b51fb8d1cc42}{m\-\_\-money}
+\item 
+int \hyperlink{classplayer_a6e99224ffd3657a51b56fbe24def6226}{m\-\_\-num\-Cards}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+player class 
+
+\begin{DoxyAuthor}{Author}
+Idris Miles 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+1.\-0 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+16/01/2015
+\end{DoxyDate}
+\begin{DoxyAuthor}{Author}
+George Madges, Michelle Wu 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+1.\-0 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+21/01/2015 
+\end{DoxyDate}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{classplayer_a97de83bce15f880241f561b55b016b02}{\index{player@{player}!player@{player}}
+\index{player@{player}!player@{player}}
+\subsubsection[{player}]{\setlength{\rightskip}{0pt plus 5cm}player\-::player (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classplayer_a97de83bce15f880241f561b55b016b02}
+\hypertarget{classplayer_aab5d2e47b80e0481f09ca0df8b823057}{\index{player@{player}!$\sim$player@{$\sim$player}}
+\index{$\sim$player@{$\sim$player}!player@{player}}
+\subsubsection[{$\sim$player}]{\setlength{\rightskip}{0pt plus 5cm}player\-::$\sim$player (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classplayer_aab5d2e47b80e0481f09ca0df8b823057}
+\hypertarget{classplayer_a97de83bce15f880241f561b55b016b02}{\index{player@{player}!player@{player}}
+\index{player@{player}!player@{player}}
+\subsubsection[{player}]{\setlength{\rightskip}{0pt plus 5cm}player\-::player (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classplayer_a97de83bce15f880241f561b55b016b02}
+
+
+ctor. 
+
+\hypertarget{classplayer_aab5d2e47b80e0481f09ca0df8b823057}{\index{player@{player}!$\sim$player@{$\sim$player}}
+\index{$\sim$player@{$\sim$player}!player@{player}}
+\subsubsection[{$\sim$player}]{\setlength{\rightskip}{0pt plus 5cm}player\-::$\sim$player (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classplayer_aab5d2e47b80e0481f09ca0df8b823057}
+
+
+dtor. 
+
+\hypertarget{classplayer_a15b165c190c8b662950c3b1ecc8c43ab}{\index{player@{player}!player@{player}}
+\index{player@{player}!player@{player}}
+\subsubsection[{player}]{\setlength{\rightskip}{0pt plus 5cm}player\-::player (
+\begin{DoxyParamCaption}
+\item[{unsigned int}]{\-\_\-money, }
+\item[{int}]{\-\_\-card\-Num}
+\end{DoxyParamCaption}
+)}}\label{classplayer_a15b165c190c8b662950c3b1ecc8c43ab}
+\hypertarget{classplayer_aab5d2e47b80e0481f09ca0df8b823057}{\index{player@{player}!$\sim$player@{$\sim$player}}
+\index{$\sim$player@{$\sim$player}!player@{player}}
+\subsubsection[{$\sim$player}]{\setlength{\rightskip}{0pt plus 5cm}player\-::$\sim$player (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classplayer_aab5d2e47b80e0481f09ca0df8b823057}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{classplayer_a74c3f50d0cf6f7b6870a9c7ae51526ac}{\index{player@{player}!empty\-Hand@{empty\-Hand}}
+\index{empty\-Hand@{empty\-Hand}!player@{player}}
+\subsubsection[{empty\-Hand}]{\setlength{\rightskip}{0pt plus 5cm}void player\-::empty\-Hand (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classplayer_a74c3f50d0cf6f7b6870a9c7ae51526ac}
+
+
+method to empty players Hand stack. 
+
+\hypertarget{classplayer_a8b7237e077e12918291397a10202c334}{\index{player@{player}!empty\-Hole@{empty\-Hole}}
+\index{empty\-Hole@{empty\-Hole}!player@{player}}
+\subsubsection[{empty\-Hole}]{\setlength{\rightskip}{0pt plus 5cm}void player\-::empty\-Hole (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classplayer_a8b7237e077e12918291397a10202c334}
+
+
+method to empty players Hole card stack. 
+
+\hypertarget{classplayer_a6c58c32e556a70d2f3f718bd477530ea}{\index{player@{player}!get\-Bet@{get\-Bet}}
+\index{get\-Bet@{get\-Bet}!player@{player}}
+\subsubsection[{get\-Bet}]{\setlength{\rightskip}{0pt plus 5cm}int player\-::get\-Bet (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}}\label{classplayer_a6c58c32e556a70d2f3f718bd477530ea}
+
+
+method to access the players bet amount (m\-\_\-bet) 
+
+\begin{DoxyReturn}{Returns}
+int 
+\end{DoxyReturn}
+\hypertarget{classplayer_a8fe96791d8b9f881c2bafd3f6f21b48e}{\index{player@{player}!get\-Hand@{get\-Hand}}
+\index{get\-Hand@{get\-Hand}!player@{player}}
+\subsubsection[{get\-Hand}]{\setlength{\rightskip}{0pt plus 5cm}{\bf card\-Stack} player\-::get\-Hand (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}}\label{classplayer_a8fe96791d8b9f881c2bafd3f6f21b48e}
+
+
+method to access the stack of players poker hand cards (m\-\_\-hand). 
+
+\begin{DoxyReturn}{Returns}
+\hyperlink{classcardStack}{card\-Stack} 
+\end{DoxyReturn}
+\hypertarget{classplayer_afd99bfe28c26ab807935fec5efeb50c6}{\index{player@{player}!get\-Hand\-Card@{get\-Hand\-Card}}
+\index{get\-Hand\-Card@{get\-Hand\-Card}!player@{player}}
+\subsubsection[{get\-Hand\-Card}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Playing\-Card} player\-::get\-Hand\-Card (
+\begin{DoxyParamCaption}
+\item[{const int \&}]{\-\_\-i}
+\end{DoxyParamCaption}
+) const}}\label{classplayer_afd99bfe28c26ab807935fec5efeb50c6}
+
+
+method to access a particular card from the players poker hand (m\-\_\-hand\mbox{[}i\mbox{]}). 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em const} & int \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\hyperlink{classPlayingCard}{Playing\-Card} 
+\end{DoxyReturn}
+\hypertarget{classplayer_a2f60d18753bce9b146d08e72b4a2346d}{\index{player@{player}!get\-Hole@{get\-Hole}}
+\index{get\-Hole@{get\-Hole}!player@{player}}
+\subsubsection[{get\-Hole}]{\setlength{\rightskip}{0pt plus 5cm}{\bf card\-Stack} player\-::get\-Hole (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}}\label{classplayer_a2f60d18753bce9b146d08e72b4a2346d}
+
+
+method to access the stack of players Hole cards (m\-\_\-cards). 
+
+\begin{DoxyReturn}{Returns}
+\hyperlink{classcardStack}{card\-Stack} 
+\end{DoxyReturn}
+\hypertarget{classplayer_a05454c8c5c86b9e554843303199ca5b9}{\index{player@{player}!get\-Hole\-Card@{get\-Hole\-Card}}
+\index{get\-Hole\-Card@{get\-Hole\-Card}!player@{player}}
+\subsubsection[{get\-Hole\-Card}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Playing\-Card} player\-::get\-Hole\-Card (
+\begin{DoxyParamCaption}
+\item[{const int \&}]{\-\_\-i}
+\end{DoxyParamCaption}
+) const}}\label{classplayer_a05454c8c5c86b9e554843303199ca5b9}
+
+
+method to access a particular card from players Hole cards (m\-\_\-cards\mbox{[}i\mbox{]}), 2 cards dealers gives player at start of game. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em const} & int \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\hyperlink{classPlayingCard}{Playing\-Card} 
+\end{DoxyReturn}
+\hypertarget{classplayer_a349d34f7e3875773b95ed391844f5037}{\index{player@{player}!get\-I\-D@{get\-I\-D}}
+\index{get\-I\-D@{get\-I\-D}!player@{player}}
+\subsubsection[{get\-I\-D}]{\setlength{\rightskip}{0pt plus 5cm}int player\-::get\-I\-D (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}}\label{classplayer_a349d34f7e3875773b95ed391844f5037}
+
+
+method to access the players id (m\-\_\-id) 
+
+\begin{DoxyReturn}{Returns}
+int 
+\end{DoxyReturn}
+\hypertarget{classplayer_acff004025f4728885327eda9197bcd61}{\index{player@{player}!get\-Kicker@{get\-Kicker}}
+\index{get\-Kicker@{get\-Kicker}!player@{player}}
+\subsubsection[{get\-Kicker}]{\setlength{\rightskip}{0pt plus 5cm}int player\-::get\-Kicker (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}}\label{classplayer_acff004025f4728885327eda9197bcd61}
+
+
+method to acces the players kicker (m\-\_\-kicker) 
+
+\begin{DoxyReturn}{Returns}
+int 
+\end{DoxyReturn}
+\hypertarget{classplayer_a6687f17d310e6d5c78639e633059e11a}{\index{player@{player}!get\-Money@{get\-Money}}
+\index{get\-Money@{get\-Money}!player@{player}}
+\subsubsection[{get\-Money}]{\setlength{\rightskip}{0pt plus 5cm}unsigned int player\-::get\-Money (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{classplayer_a6687f17d310e6d5c78639e633059e11a}
+\hypertarget{classplayer_a6c1cafca4e7eed2b73a49090f317695d}{\index{player@{player}!get\-Money@{get\-Money}}
+\index{get\-Money@{get\-Money}!player@{player}}
+\subsubsection[{get\-Money}]{\setlength{\rightskip}{0pt plus 5cm}uint16\-\_\-t player\-::get\-Money (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{classplayer_a6c1cafca4e7eed2b73a49090f317695d}
+
+
+get\-Money 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt out}  & {\em returns} & value of players money. \\
+\hline
+\end{DoxyParams}
+\hypertarget{classplayer_a17e4e4d85fb2d4e7335b2c1360af5612}{\index{player@{player}!get\-Money@{get\-Money}}
+\index{get\-Money@{get\-Money}!player@{player}}
+\subsubsection[{get\-Money}]{\setlength{\rightskip}{0pt plus 5cm}int player\-::get\-Money (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}}\label{classplayer_a17e4e4d85fb2d4e7335b2c1360af5612}
+
+
+method to access the players money (m\-\_\-money) 
+
+\begin{DoxyReturn}{Returns}
+int 
+\end{DoxyReturn}
+\hypertarget{classplayer_af8419278f66879cf2758c17d84926095}{\index{player@{player}!get\-Name@{get\-Name}}
+\index{get\-Name@{get\-Name}!player@{player}}
+\subsubsection[{get\-Name}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ player\-::get\-Name (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{classplayer_af8419278f66879cf2758c17d84926095}
+
+
+get\-Name 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt out}  & {\em returns} & pointer to name of player. \\
+\hline
+\end{DoxyParams}
+\hypertarget{classplayer_a5e049a8e910a35a70cc99578a73cc979}{\index{player@{player}!get\-Name@{get\-Name}}
+\index{get\-Name@{get\-Name}!player@{player}}
+\subsubsection[{get\-Name}]{\setlength{\rightskip}{0pt plus 5cm}std\-::string player\-::get\-Name (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}}\label{classplayer_a5e049a8e910a35a70cc99578a73cc979}
+
+
+method to access players name (m\-\_\-name). 
+
+\begin{DoxyReturn}{Returns}
+std\-::string 
+\end{DoxyReturn}
+\hypertarget{classplayer_a3a96a6a88b2ebeed6700cd6725f83f5a}{\index{player@{player}!get\-Num\-Cards@{get\-Num\-Cards}}
+\index{get\-Num\-Cards@{get\-Num\-Cards}!player@{player}}
+\subsubsection[{get\-Num\-Cards}]{\setlength{\rightskip}{0pt plus 5cm}int player\-::get\-Num\-Cards (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}}\label{classplayer_a3a96a6a88b2ebeed6700cd6725f83f5a}
+
+
+method to access the number of cards in the players poker hand. 
+
+\begin{DoxyReturn}{Returns}
+int 
+\end{DoxyReturn}
+\hypertarget{classplayer_a3663784b926e6df4b866bf3a25256adc}{\index{player@{player}!get\-Score@{get\-Score}}
+\index{get\-Score@{get\-Score}!player@{player}}
+\subsubsection[{get\-Score}]{\setlength{\rightskip}{0pt plus 5cm}int player\-::get\-Score (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}}\label{classplayer_a3663784b926e6df4b866bf3a25256adc}
+
+
+method to access the players score (m\-\_\-score) 
+
+\begin{DoxyReturn}{Returns}
+int 
+\end{DoxyReturn}
+\hypertarget{classplayer_aec2aa85b8acf8ba8f6dba3f7db0cc6d9}{\index{player@{player}!is\-Fold@{is\-Fold}}
+\index{is\-Fold@{is\-Fold}!player@{player}}
+\subsubsection[{is\-Fold}]{\setlength{\rightskip}{0pt plus 5cm}bool player\-::is\-Fold (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}}\label{classplayer_aec2aa85b8acf8ba8f6dba3f7db0cc6d9}
+
+
+method to check if player has fold 
+
+\begin{DoxyReturn}{Returns}
+bool 
+\end{DoxyReturn}
+\hypertarget{classplayer_a2543237dd3945feaa342d5339a94e105}{\index{player@{player}!join\-Game@{join\-Game}}
+\index{join\-Game@{join\-Game}!player@{player}}
+\subsubsection[{join\-Game}]{\setlength{\rightskip}{0pt plus 5cm}void player\-::join\-Game (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classplayer_a2543237dd3945feaa342d5339a94e105}
+
+
+join\-Game 
+
+Method task the player to join, stops them from carrying on unless they do. Infinite loop if they say no. \hypertarget{classplayer_ae4fa4a7b873325346863fb72fdfa652e}{\index{player@{player}!place\-Bet@{place\-Bet}}
+\index{place\-Bet@{place\-Bet}!player@{player}}
+\subsubsection[{place\-Bet}]{\setlength{\rightskip}{0pt plus 5cm}void player\-::place\-Bet (
+\begin{DoxyParamCaption}
+\item[{unsigned int}]{\-\_\-max, }
+\item[{unsigned int}]{\-\_\-min}
+\end{DoxyParamCaption}
+)}}\label{classplayer_ae4fa4a7b873325346863fb72fdfa652e}
+\hypertarget{classplayer_a9947ae2b627a57266c454c750b8586c1}{\index{player@{player}!place\-Bet@{place\-Bet}}
+\index{place\-Bet@{place\-Bet}!player@{player}}
+\subsubsection[{place\-Bet}]{\setlength{\rightskip}{0pt plus 5cm}uint16\-\_\-t player\-::place\-Bet (
+\begin{DoxyParamCaption}
+\item[{uint16\-\_\-t}]{\-\_\-max, }
+\item[{uint16\-\_\-t}]{\-\_\-min}
+\end{DoxyParamCaption}
+)}}\label{classplayer_a9947ae2b627a57266c454c750b8586c1}
+
+
+place\-Bet 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em \-\_\-max,maximum} & bet limit. \\
+\hline
+\mbox{\tt in}  & {\em \-\_\-min,minimum} & bet limit. \\
+\hline
+\mbox{\tt out}  & {\em amount} & of bet being placed. \\
+\hline
+\end{DoxyParams}
+\hypertarget{classplayer_a6f1fbcea3d7a24b52ca38894a2b06b39}{\index{player@{player}!player\-Data\-Screen@{player\-Data\-Screen}}
+\index{player\-Data\-Screen@{player\-Data\-Screen}!player@{player}}
+\subsubsection[{player\-Data\-Screen}]{\setlength{\rightskip}{0pt plus 5cm}void player\-::player\-Data\-Screen (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classplayer_a6f1fbcea3d7a24b52ca38894a2b06b39}
+
+
+Player\-Data\-Screen. 
+
+Method prints the players data on the screen. \hypertarget{classplayer_a019136df8e6ee2a429015927149f7750}{\index{player@{player}!print\-Info@{print\-Info}}
+\index{print\-Info@{print\-Info}!player@{player}}
+\subsubsection[{print\-Info}]{\setlength{\rightskip}{0pt plus 5cm}void player\-::print\-Info (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}}\label{classplayer_a019136df8e6ee2a429015927149f7750}
+
+
+method to print the players info including\-: players name (m\-\_\-name), score (m\-\_\-score), kicker (m\-\_\-kicker) and poker hand (m\-\_\-hand) 
+
+\hypertarget{classplayer_a08ecc20d3492b7510971b49793425138}{\index{player@{player}!receive\-Card@{receive\-Card}}
+\index{receive\-Card@{receive\-Card}!player@{player}}
+\subsubsection[{receive\-Card}]{\setlength{\rightskip}{0pt plus 5cm}void player\-::receive\-Card (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classplayer_a08ecc20d3492b7510971b49793425138}
+\hypertarget{classplayer_a1124798ec756d79667f54e390ee585f7}{\index{player@{player}!receive\-Card@{receive\-Card}}
+\index{receive\-Card@{receive\-Card}!player@{player}}
+\subsubsection[{receive\-Card}]{\setlength{\rightskip}{0pt plus 5cm}void player\-::receive\-Card (
+\begin{DoxyParamCaption}
+\item[{uint8\-\_\-t}]{\-\_\-cards\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}}\label{classplayer_a1124798ec756d79667f54e390ee585f7}
+
+
+recieve\-Card 
+
+Recieve card from dealer and add to the players own card array. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em \-\_\-cards\mbox{[}$\,$\mbox{]},array} & of cards sent by comms. \\
+\hline
+\end{DoxyParams}
+\hypertarget{classplayer_a12b2974d663b2162b4e945b558caba3d}{\index{player@{player}!receive\-Money@{receive\-Money}}
+\index{receive\-Money@{receive\-Money}!player@{player}}
+\subsubsection[{receive\-Money}]{\setlength{\rightskip}{0pt plus 5cm}void player\-::receive\-Money (
+\begin{DoxyParamCaption}
+\item[{unsigned int}]{\-\_\-money}
+\end{DoxyParamCaption}
+)}}\label{classplayer_a12b2974d663b2162b4e945b558caba3d}
+\hypertarget{classplayer_a60210e6c1d1d8f73b9717e85674b0d27}{\index{player@{player}!receive\-Money@{receive\-Money}}
+\index{receive\-Money@{receive\-Money}!player@{player}}
+\subsubsection[{receive\-Money}]{\setlength{\rightskip}{0pt plus 5cm}void player\-::receive\-Money (
+\begin{DoxyParamCaption}
+\item[{uint16\-\_\-t}]{\-\_\-money}
+\end{DoxyParamCaption}
+)}}\label{classplayer_a60210e6c1d1d8f73b9717e85674b0d27}
+
+
+receive\-Money 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em \-\_\-money,amount} & of money being given to the player. \\
+\hline
+\end{DoxyParams}
+\hypertarget{classplayer_ac136c0a01decf0c01919d4ccf5b9d26f}{\index{player@{player}!receive\-Pot@{receive\-Pot}}
+\index{receive\-Pot@{receive\-Pot}!player@{player}}
+\subsubsection[{receive\-Pot}]{\setlength{\rightskip}{0pt plus 5cm}void player\-::receive\-Pot (
+\begin{DoxyParamCaption}
+\item[{const int \&}]{\-\_\-pot}
+\end{DoxyParamCaption}
+)}}\label{classplayer_ac136c0a01decf0c01919d4ccf5b9d26f}
+
+
+method to add betting money to players money. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em const} & \hyperlink{classPlayingCard}{Playing\-Card} \\
+\hline
+\end{DoxyParams}
+\hypertarget{classplayer_a36309336bf0bb870f6889f788975d016}{\index{player@{player}!remove\-Bet@{remove\-Bet}}
+\index{remove\-Bet@{remove\-Bet}!player@{player}}
+\subsubsection[{remove\-Bet}]{\setlength{\rightskip}{0pt plus 5cm}void player\-::remove\-Bet (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classplayer_a36309336bf0bb870f6889f788975d016}
+
+
+method to set players bet (m\-\_\-bet) 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em const} & int \\
+\hline
+\end{DoxyParams}
+\hypertarget{classplayer_a326402ea79637f32e518800891a869db}{\index{player@{player}!remove\-Hand\-Card@{remove\-Hand\-Card}}
+\index{remove\-Hand\-Card@{remove\-Hand\-Card}!player@{player}}
+\subsubsection[{remove\-Hand\-Card}]{\setlength{\rightskip}{0pt plus 5cm}void player\-::remove\-Hand\-Card (
+\begin{DoxyParamCaption}
+\item[{const int}]{\-\_\-i}
+\end{DoxyParamCaption}
+)}}\label{classplayer_a326402ea79637f32e518800891a869db}
+
+
+method to remove particular card by index from players poker hand stack. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em const} & int \\
+\hline
+\end{DoxyParams}
+\hypertarget{classplayer_aafb28918145ad1d37a3b8309ecd59831}{\index{player@{player}!remove\-Hand\-Card@{remove\-Hand\-Card}}
+\index{remove\-Hand\-Card@{remove\-Hand\-Card}!player@{player}}
+\subsubsection[{remove\-Hand\-Card}]{\setlength{\rightskip}{0pt plus 5cm}void player\-::remove\-Hand\-Card (
+\begin{DoxyParamCaption}
+\item[{const {\bf Playing\-Card} \&}]{\-\_\-card}
+\end{DoxyParamCaption}
+)}}\label{classplayer_aafb28918145ad1d37a3b8309ecd59831}
+
+
+method to remove particular card from players poker hand stack. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em const} & \hyperlink{classPlayingCard}{Playing\-Card} \\
+\hline
+\end{DoxyParams}
+\hypertarget{classplayer_a71ff3c2a4096a35ab36ba74a3df1a3bc}{\index{player@{player}!remove\-Hole\-Card@{remove\-Hole\-Card}}
+\index{remove\-Hole\-Card@{remove\-Hole\-Card}!player@{player}}
+\subsubsection[{remove\-Hole\-Card}]{\setlength{\rightskip}{0pt plus 5cm}void player\-::remove\-Hole\-Card (
+\begin{DoxyParamCaption}
+\item[{const int}]{\-\_\-i}
+\end{DoxyParamCaption}
+)}}\label{classplayer_a71ff3c2a4096a35ab36ba74a3df1a3bc}
+
+
+method to remove particular card by index from the players Hole card stack. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em const} & int \\
+\hline
+\end{DoxyParams}
+\hypertarget{classplayer_a9b2df592e33e9c0e47ba72a41f3ecd92}{\index{player@{player}!remove\-Hole\-Card@{remove\-Hole\-Card}}
+\index{remove\-Hole\-Card@{remove\-Hole\-Card}!player@{player}}
+\subsubsection[{remove\-Hole\-Card}]{\setlength{\rightskip}{0pt plus 5cm}void player\-::remove\-Hole\-Card (
+\begin{DoxyParamCaption}
+\item[{const {\bf Playing\-Card} \&}]{\-\_\-card}
+\end{DoxyParamCaption}
+)}}\label{classplayer_a9b2df592e33e9c0e47ba72a41f3ecd92}
+
+
+method to remove particular card from the players Hole card stack. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em const} & \hyperlink{classPlayingCard}{Playing\-Card} \\
+\hline
+\end{DoxyParams}
+\hypertarget{classplayer_a41b6b7f8937227b2d0a50c4de9d21165}{\index{player@{player}!remove\-Last\-Hand\-Card@{remove\-Last\-Hand\-Card}}
+\index{remove\-Last\-Hand\-Card@{remove\-Last\-Hand\-Card}!player@{player}}
+\subsubsection[{remove\-Last\-Hand\-Card}]{\setlength{\rightskip}{0pt plus 5cm}void player\-::remove\-Last\-Hand\-Card (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classplayer_a41b6b7f8937227b2d0a50c4de9d21165}
+
+
+method to remove last card in players poker hand stack. 
+
+\hypertarget{classplayer_afaf3afa25cebc616d037d8bf80f606bb}{\index{player@{player}!remove\-Last\-Hole\-Card@{remove\-Last\-Hole\-Card}}
+\index{remove\-Last\-Hole\-Card@{remove\-Last\-Hole\-Card}!player@{player}}
+\subsubsection[{remove\-Last\-Hole\-Card}]{\setlength{\rightskip}{0pt plus 5cm}void player\-::remove\-Last\-Hole\-Card (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classplayer_afaf3afa25cebc616d037d8bf80f606bb}
+
+
+method to remove last card in players Hole card stack 
+
+\hypertarget{classplayer_aa1f3e7d1db58e0756f36ed2e8a888569}{\index{player@{player}!reset\-Cards@{reset\-Cards}}
+\index{reset\-Cards@{reset\-Cards}!player@{player}}
+\subsubsection[{reset\-Cards}]{\setlength{\rightskip}{0pt plus 5cm}void player\-::reset\-Cards (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classplayer_aa1f3e7d1db58e0756f36ed2e8a888569}
+\hypertarget{classplayer_aa1f3e7d1db58e0756f36ed2e8a888569}{\index{player@{player}!reset\-Cards@{reset\-Cards}}
+\index{reset\-Cards@{reset\-Cards}!player@{player}}
+\subsubsection[{reset\-Cards}]{\setlength{\rightskip}{0pt plus 5cm}void player\-::reset\-Cards (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classplayer_aa1f3e7d1db58e0756f36ed2e8a888569}
+
+
+reset\-Cards 
+
+reset only the cards. leave everything else. \hypertarget{classplayer_a2bfb70686012dcb697113bd2fe8abe0b}{\index{player@{player}!reset\-Player@{reset\-Player}}
+\index{reset\-Player@{reset\-Player}!player@{player}}
+\subsubsection[{reset\-Player}]{\setlength{\rightskip}{0pt plus 5cm}void player\-::reset\-Player (
+\begin{DoxyParamCaption}
+\item[{unsigned int}]{\-\_\-money, }
+\item[{unsigned int}]{\-\_\-card\-Num}
+\end{DoxyParamCaption}
+)}}\label{classplayer_a2bfb70686012dcb697113bd2fe8abe0b}
+\hypertarget{classplayer_a928c08e1f2c4a6d3bf7be82b51c6eba4}{\index{player@{player}!reset\-Player@{reset\-Player}}
+\index{reset\-Player@{reset\-Player}!player@{player}}
+\subsubsection[{reset\-Player}]{\setlength{\rightskip}{0pt plus 5cm}void player\-::reset\-Player (
+\begin{DoxyParamCaption}
+\item[{uint16\-\_\-t}]{\-\_\-money}
+\end{DoxyParamCaption}
+)}}\label{classplayer_a928c08e1f2c4a6d3bf7be82b51c6eba4}
+
+
+reset\-Player 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em \-\_\-money,amount} & of money the player starts with. \\
+\hline
+\end{DoxyParams}
+\hypertarget{classplayer_a6cbe2def15e91150ee02b830f6d5100c}{\index{player@{player}!set\-Bet@{set\-Bet}}
+\index{set\-Bet@{set\-Bet}!player@{player}}
+\subsubsection[{set\-Bet}]{\setlength{\rightskip}{0pt plus 5cm}void player\-::set\-Bet (
+\begin{DoxyParamCaption}
+\item[{const int \&}]{\-\_\-bet}
+\end{DoxyParamCaption}
+)}}\label{classplayer_a6cbe2def15e91150ee02b830f6d5100c}
+
+
+method to set players bet (m\-\_\-bet) 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em const} & int \\
+\hline
+\end{DoxyParams}
+\hypertarget{classplayer_a16a84dc7bb2aefb88569ffcded5a49b8}{\index{player@{player}!set\-Fold@{set\-Fold}}
+\index{set\-Fold@{set\-Fold}!player@{player}}
+\subsubsection[{set\-Fold}]{\setlength{\rightskip}{0pt plus 5cm}void player\-::set\-Fold (
+\begin{DoxyParamCaption}
+\item[{const bool \&}]{\-\_\-fold}
+\end{DoxyParamCaption}
+)}}\label{classplayer_a16a84dc7bb2aefb88569ffcded5a49b8}
+
+
+method to set players fold member, set true if they have fold 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em const} & bool \\
+\hline
+\end{DoxyParams}
+\hypertarget{classplayer_ace9ccadf69b140b94dae999299634057}{\index{player@{player}!set\-Hand\-Card@{set\-Hand\-Card}}
+\index{set\-Hand\-Card@{set\-Hand\-Card}!player@{player}}
+\subsubsection[{set\-Hand\-Card}]{\setlength{\rightskip}{0pt plus 5cm}void player\-::set\-Hand\-Card (
+\begin{DoxyParamCaption}
+\item[{const {\bf Playing\-Card} \&}]{\-\_\-card}
+\end{DoxyParamCaption}
+)}}\label{classplayer_ace9ccadf69b140b94dae999299634057}
+
+
+method to set players hand card (m\-\_\-hand), adds card to back of stack. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em const} & \hyperlink{classPlayingCard}{Playing\-Card} \\
+\hline
+\end{DoxyParams}
+\hypertarget{classplayer_ad66aadc84c419830fbae4388e1ba4a56}{\index{player@{player}!set\-Hole\-Card@{set\-Hole\-Card}}
+\index{set\-Hole\-Card@{set\-Hole\-Card}!player@{player}}
+\subsubsection[{set\-Hole\-Card}]{\setlength{\rightskip}{0pt plus 5cm}void player\-::set\-Hole\-Card (
+\begin{DoxyParamCaption}
+\item[{const {\bf Playing\-Card} \&}]{\-\_\-card}
+\end{DoxyParamCaption}
+)}}\label{classplayer_ad66aadc84c419830fbae4388e1ba4a56}
+
+
+method to set players Hole card (m\-\_\-cards), adds card to back of stack. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em const} & \hyperlink{classPlayingCard}{Playing\-Card} \\
+\hline
+\end{DoxyParams}
+\hypertarget{classplayer_ae16ccb54982aa257a59de10e8dd1b9cc}{\index{player@{player}!set\-I\-D@{set\-I\-D}}
+\index{set\-I\-D@{set\-I\-D}!player@{player}}
+\subsubsection[{set\-I\-D}]{\setlength{\rightskip}{0pt plus 5cm}void player\-::set\-I\-D (
+\begin{DoxyParamCaption}
+\item[{const int \&}]{\-\_\-id}
+\end{DoxyParamCaption}
+)}}\label{classplayer_ae16ccb54982aa257a59de10e8dd1b9cc}
+
+
+method to set players name (m\-\_\-name). 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em const} & std\-::string \\
+\hline
+\end{DoxyParams}
+\hypertarget{classplayer_a8b8eccf07f1b5e335dde68858c09dd86}{\index{player@{player}!set\-Kicker@{set\-Kicker}}
+\index{set\-Kicker@{set\-Kicker}!player@{player}}
+\subsubsection[{set\-Kicker}]{\setlength{\rightskip}{0pt plus 5cm}void player\-::set\-Kicker (
+\begin{DoxyParamCaption}
+\item[{const int \&}]{\-\_\-kicker}
+\end{DoxyParamCaption}
+)}}\label{classplayer_a8b8eccf07f1b5e335dde68858c09dd86}
+
+
+method to set playesr kicker (m\-\_\-kicker) 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em const} & int \\
+\hline
+\end{DoxyParams}
+\hypertarget{classplayer_a448ed007acc9b0d0dd9f87afa24b761b}{\index{player@{player}!set\-Max\-Card\-Limit@{set\-Max\-Card\-Limit}}
+\index{set\-Max\-Card\-Limit@{set\-Max\-Card\-Limit}!player@{player}}
+\subsubsection[{set\-Max\-Card\-Limit}]{\setlength{\rightskip}{0pt plus 5cm}void player\-::set\-Max\-Card\-Limit (
+\begin{DoxyParamCaption}
+\item[{uint8\-\_\-t}]{\-\_\-max}
+\end{DoxyParamCaption}
+)}}\label{classplayer_a448ed007acc9b0d0dd9f87afa24b761b}
+
+
+set\-Max\-Card\-Limit 
+
+Sets the maximum amount of cards the player can hold. \mbox{[}in\mbox{]} \-\_\-max, max number of cards. \hypertarget{classplayer_a9ed74ecf489c4e477cdc6a7e466a9bcb}{\index{player@{player}!set\-Money@{set\-Money}}
+\index{set\-Money@{set\-Money}!player@{player}}
+\subsubsection[{set\-Money}]{\setlength{\rightskip}{0pt plus 5cm}void player\-::set\-Money (
+\begin{DoxyParamCaption}
+\item[{const int \&}]{\-\_\-money}
+\end{DoxyParamCaption}
+)}}\label{classplayer_a9ed74ecf489c4e477cdc6a7e466a9bcb}
+
+
+method to set players money (m\-\_\-money) 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em const} & int \\
+\hline
+\end{DoxyParams}
+\hypertarget{classplayer_ae2f660aa48cbf4efe527918c86da49b8}{\index{player@{player}!set\-Money@{set\-Money}}
+\index{set\-Money@{set\-Money}!player@{player}}
+\subsubsection[{set\-Money}]{\setlength{\rightskip}{0pt plus 5cm}void player\-::set\-Money (
+\begin{DoxyParamCaption}
+\item[{uint16\-\_\-t}]{\-\_\-money}
+\end{DoxyParamCaption}
+)}}\label{classplayer_ae2f660aa48cbf4efe527918c86da49b8}
+
+
+set\-Money 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em \-\_\-money,set} & the money. \\
+\hline
+\end{DoxyParams}
+\hypertarget{classplayer_a7d80b7b79c7ed9b4970989e70fb8e3e4}{\index{player@{player}!set\-Name@{set\-Name}}
+\index{set\-Name@{set\-Name}!player@{player}}
+\subsubsection[{set\-Name}]{\setlength{\rightskip}{0pt plus 5cm}void player\-::set\-Name (
+\begin{DoxyParamCaption}
+\item[{const std\-::string \&}]{\-\_\-name}
+\end{DoxyParamCaption}
+)}}\label{classplayer_a7d80b7b79c7ed9b4970989e70fb8e3e4}
+
+
+method to set players name (m\-\_\-name). 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em const} & std\-::string \\
+\hline
+\end{DoxyParams}
+\hypertarget{classplayer_aa0c13334b1c7bdea35078918fb3198e5}{\index{player@{player}!set\-Name@{set\-Name}}
+\index{set\-Name@{set\-Name}!player@{player}}
+\subsubsection[{set\-Name}]{\setlength{\rightskip}{0pt plus 5cm}void player\-::set\-Name (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classplayer_aa0c13334b1c7bdea35078918fb3198e5}
+\hypertarget{classplayer_aa0c13334b1c7bdea35078918fb3198e5}{\index{player@{player}!set\-Name@{set\-Name}}
+\index{set\-Name@{set\-Name}!player@{player}}
+\subsubsection[{set\-Name}]{\setlength{\rightskip}{0pt plus 5cm}void player\-::set\-Name (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classplayer_aa0c13334b1c7bdea35078918fb3198e5}
+
+
+set\-Name 
+
+asks the player to set their name. \hypertarget{classplayer_a03776f08d7790746b174e4d39e02fd3d}{\index{player@{player}!set\-Score@{set\-Score}}
+\index{set\-Score@{set\-Score}!player@{player}}
+\subsubsection[{set\-Score}]{\setlength{\rightskip}{0pt plus 5cm}void player\-::set\-Score (
+\begin{DoxyParamCaption}
+\item[{const int \&}]{\-\_\-score}
+\end{DoxyParamCaption}
+)}}\label{classplayer_a03776f08d7790746b174e4d39e02fd3d}
+
+
+method to set players score (m\-\_\-score) 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em const} & int \\
+\hline
+\end{DoxyParams}
+\hypertarget{classplayer_ab982aaee95ec09f05828268b1eb5f7ea}{\index{player@{player}!take\-Bet@{take\-Bet}}
+\index{take\-Bet@{take\-Bet}!player@{player}}
+\subsubsection[{take\-Bet}]{\setlength{\rightskip}{0pt plus 5cm}void player\-::take\-Bet (
+\begin{DoxyParamCaption}
+\item[{const int \&}]{\-\_\-bet}
+\end{DoxyParamCaption}
+)}}\label{classplayer_ab982aaee95ec09f05828268b1eb5f7ea}
+
+
+method to set players bet (m\-\_\-bet) 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em const} & int \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Data Documentation}
+\hypertarget{classplayer_acf065485c206c03823772ab5cb52aadc}{\index{player@{player}!m\-\_\-bet@{m\-\_\-bet}}
+\index{m\-\_\-bet@{m\-\_\-bet}!player@{player}}
+\subsubsection[{m\-\_\-bet}]{\setlength{\rightskip}{0pt plus 5cm}int player\-::m\-\_\-bet\hspace{0.3cm}{\ttfamily [private]}}}\label{classplayer_acf065485c206c03823772ab5cb52aadc}
+\hypertarget{classplayer_a0efa90b86bd8b5277ef349f3dc651782}{\index{player@{player}!m\-\_\-button@{m\-\_\-button}}
+\index{m\-\_\-button@{m\-\_\-button}!player@{player}}
+\subsubsection[{m\-\_\-button}]{\setlength{\rightskip}{0pt plus 5cm}{\bf input} player\-::m\-\_\-button\hspace{0.3cm}{\ttfamily [private]}}}\label{classplayer_a0efa90b86bd8b5277ef349f3dc651782}
+
+
+Input class variable. 
+
+\hypertarget{classplayer_a05fe561ee0d66a696d766bd08f1daae9}{\index{player@{player}!m\-\_\-cards@{m\-\_\-cards}}
+\index{m\-\_\-cards@{m\-\_\-cards}!player@{player}}
+\subsubsection[{m\-\_\-cards}]{\setlength{\rightskip}{0pt plus 5cm}{\bf card} player\-::m\-\_\-cards\mbox{[}5\mbox{]}\hspace{0.3cm}{\ttfamily [private]}}}\label{classplayer_a05fe561ee0d66a696d766bd08f1daae9}
+
+
+Array of cards (up to 5 cards). 
+
+\hypertarget{classplayer_ab37cde9b3129e88e933d58378625ff15}{\index{player@{player}!m\-\_\-cards@{m\-\_\-cards}}
+\index{m\-\_\-cards@{m\-\_\-cards}!player@{player}}
+\subsubsection[{m\-\_\-cards}]{\setlength{\rightskip}{0pt plus 5cm}{\bf card\-Stack} player\-::m\-\_\-cards\hspace{0.3cm}{\ttfamily [private]}}}\label{classplayer_ab37cde9b3129e88e933d58378625ff15}
+\hypertarget{classplayer_a2c9109b721f4eee6f13ae0f78954e1dd}{\index{player@{player}!m\-\_\-display@{m\-\_\-display}}
+\index{m\-\_\-display@{m\-\_\-display}!player@{player}}
+\subsubsection[{m\-\_\-display}]{\setlength{\rightskip}{0pt plus 5cm}{\bf display} player\-::m\-\_\-display\hspace{0.3cm}{\ttfamily [private]}}}\label{classplayer_a2c9109b721f4eee6f13ae0f78954e1dd}
+
+
+Display. 
+
+\hypertarget{classplayer_af63e49f7ff0294e1b2afa1431e3bb9f6}{\index{player@{player}!m\-\_\-fold@{m\-\_\-fold}}
+\index{m\-\_\-fold@{m\-\_\-fold}!player@{player}}
+\subsubsection[{m\-\_\-fold}]{\setlength{\rightskip}{0pt plus 5cm}bool player\-::m\-\_\-fold\hspace{0.3cm}{\ttfamily [private]}}}\label{classplayer_af63e49f7ff0294e1b2afa1431e3bb9f6}
+\hypertarget{classplayer_aa8dd9538f53046d07516e3a7cd12bca5}{\index{player@{player}!m\-\_\-hand@{m\-\_\-hand}}
+\index{m\-\_\-hand@{m\-\_\-hand}!player@{player}}
+\subsubsection[{m\-\_\-hand}]{\setlength{\rightskip}{0pt plus 5cm}{\bf card\-Stack} player\-::m\-\_\-hand\hspace{0.3cm}{\ttfamily [private]}}}\label{classplayer_aa8dd9538f53046d07516e3a7cd12bca5}
+\hypertarget{classplayer_af39fefbc41390382877705aafe663e07}{\index{player@{player}!m\-\_\-id@{m\-\_\-id}}
+\index{m\-\_\-id@{m\-\_\-id}!player@{player}}
+\subsubsection[{m\-\_\-id}]{\setlength{\rightskip}{0pt plus 5cm}int player\-::m\-\_\-id\hspace{0.3cm}{\ttfamily [private]}}}\label{classplayer_af39fefbc41390382877705aafe663e07}
+\hypertarget{classplayer_a8d94f5187090d4a2c9736f2c5a7fd6f8}{\index{player@{player}!m\-\_\-kicker@{m\-\_\-kicker}}
+\index{m\-\_\-kicker@{m\-\_\-kicker}!player@{player}}
+\subsubsection[{m\-\_\-kicker}]{\setlength{\rightskip}{0pt plus 5cm}int player\-::m\-\_\-kicker\hspace{0.3cm}{\ttfamily [private]}}}\label{classplayer_a8d94f5187090d4a2c9736f2c5a7fd6f8}
+\hypertarget{classplayer_a7d8f2e7568585a9129255cb6703ee233}{\index{player@{player}!m\-\_\-max\-Num\-Cards@{m\-\_\-max\-Num\-Cards}}
+\index{m\-\_\-max\-Num\-Cards@{m\-\_\-max\-Num\-Cards}!player@{player}}
+\subsubsection[{m\-\_\-max\-Num\-Cards}]{\setlength{\rightskip}{0pt plus 5cm}uint8\-\_\-t player\-::m\-\_\-max\-Num\-Cards\hspace{0.3cm}{\ttfamily [private]}}}\label{classplayer_a7d8f2e7568585a9129255cb6703ee233}
+
+
+Max number of cards the player can have. 
+
+\hypertarget{classplayer_a8c0192ef483c0d137886b51fb8d1cc42}{\index{player@{player}!m\-\_\-money@{m\-\_\-money}}
+\index{m\-\_\-money@{m\-\_\-money}!player@{player}}
+\subsubsection[{m\-\_\-money}]{\setlength{\rightskip}{0pt plus 5cm}unsigned int player\-::m\-\_\-money\hspace{0.3cm}{\ttfamily [private]}}}\label{classplayer_a8c0192ef483c0d137886b51fb8d1cc42}
+\hypertarget{classplayer_a4581e0079269f9b01515df03c2619e53}{\index{player@{player}!m\-\_\-money@{m\-\_\-money}}
+\index{m\-\_\-money@{m\-\_\-money}!player@{player}}
+\subsubsection[{m\-\_\-money}]{\setlength{\rightskip}{0pt plus 5cm}uint16\-\_\-t player\-::m\-\_\-money\hspace{0.3cm}{\ttfamily [private]}}}\label{classplayer_a4581e0079269f9b01515df03c2619e53}
+
+
+The player's money. 
+
+\hypertarget{classplayer_acc48e66234bb330f9db34ca6dc91479b}{\index{player@{player}!m\-\_\-money@{m\-\_\-money}}
+\index{m\-\_\-money@{m\-\_\-money}!player@{player}}
+\subsubsection[{m\-\_\-money}]{\setlength{\rightskip}{0pt plus 5cm}int player\-::m\-\_\-money\hspace{0.3cm}{\ttfamily [private]}}}\label{classplayer_acc48e66234bb330f9db34ca6dc91479b}
+\hypertarget{classplayer_a628377063791d7bae76e87e4d8f9aa40}{\index{player@{player}!m\-\_\-name@{m\-\_\-name}}
+\index{m\-\_\-name@{m\-\_\-name}!player@{player}}
+\subsubsection[{m\-\_\-name}]{\setlength{\rightskip}{0pt plus 5cm}std\-::string player\-::m\-\_\-name\hspace{0.3cm}{\ttfamily [private]}}}\label{classplayer_a628377063791d7bae76e87e4d8f9aa40}
+\hypertarget{classplayer_a6e99224ffd3657a51b56fbe24def6226}{\index{player@{player}!m\-\_\-num\-Cards@{m\-\_\-num\-Cards}}
+\index{m\-\_\-num\-Cards@{m\-\_\-num\-Cards}!player@{player}}
+\subsubsection[{m\-\_\-num\-Cards}]{\setlength{\rightskip}{0pt plus 5cm}int player\-::m\-\_\-num\-Cards\hspace{0.3cm}{\ttfamily [private]}}}\label{classplayer_a6e99224ffd3657a51b56fbe24def6226}
+\hypertarget{classplayer_ab56ae76ad0ac3d440d3afcdceec6e72f}{\index{player@{player}!m\-\_\-num\-Cards@{m\-\_\-num\-Cards}}
+\index{m\-\_\-num\-Cards@{m\-\_\-num\-Cards}!player@{player}}
+\subsubsection[{m\-\_\-num\-Cards}]{\setlength{\rightskip}{0pt plus 5cm}uint8\-\_\-t player\-::m\-\_\-num\-Cards\hspace{0.3cm}{\ttfamily [private]}}}\label{classplayer_ab56ae76ad0ac3d440d3afcdceec6e72f}
+
+
+Number of cards being held by the player. 
+
+\hypertarget{classplayer_abfcf5c8912c0d6dc30c534fb835d551d}{\index{player@{player}!m\-\_\-player\-Name@{m\-\_\-player\-Name}}
+\index{m\-\_\-player\-Name@{m\-\_\-player\-Name}!player@{player}}
+\subsubsection[{m\-\_\-player\-Name}]{\setlength{\rightskip}{0pt plus 5cm}char player\-::m\-\_\-player\-Name\hspace{0.3cm}{\ttfamily [private]}}}\label{classplayer_abfcf5c8912c0d6dc30c534fb835d551d}
+
+
+Array of chars storing the players name. 
+
+\hypertarget{classplayer_a9f5cd35f681112a6d9dde60c4c2e3104}{\index{player@{player}!m\-\_\-score@{m\-\_\-score}}
+\index{m\-\_\-score@{m\-\_\-score}!player@{player}}
+\subsubsection[{m\-\_\-score}]{\setlength{\rightskip}{0pt plus 5cm}int player\-::m\-\_\-score\hspace{0.3cm}{\ttfamily [private]}}}\label{classplayer_a9f5cd35f681112a6d9dde60c4c2e3104}
+
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+include/dealer/\hyperlink{include_2dealer_2player_8h}{player.\-h}\item 
+src/dealer/\hyperlink{dealer_2player_8cpp}{player.\-cpp}\end{DoxyCompactItemize}

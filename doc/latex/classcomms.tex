@@ -1,0 +1,102 @@
+\hypertarget{classcomms}{\section{comms Class Reference}
+\label{classcomms}\index{comms@{comms}}
+}
+
+
+{\ttfamily \#include $<$comms.\-h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classcomms_aa541c6457fd88519ab04f7a8d36e21f7}{comms} ()
+\item 
+\hyperlink{classcomms_ac404616cacbf19cdde39823aada9c49d}{$\sim$comms} ()
+\item 
+bool \hyperlink{classcomms_a5732e61ac8d00acdec559688bc2a1577}{send\-Bet\-Limits} (\hyperlink{classplayer}{player} \-\_\-player, unsigned int \-\_\-min, unsigned int \-\_\-max)
+\item 
+bool \hyperlink{classcomms_af04ca6358d651fb6f1a136328566a68a}{send\-Money} (\hyperlink{classplayer}{player} \-\_\-player, unsigned int \-\_\-amount)
+\item 
+bool \hyperlink{classcomms_a96eb40e27a3e3095d5ea2393bb9b6e94}{send\-Card} (\hyperlink{classplayer}{player} \-\_\-player, \hyperlink{classPlayingCard}{Playing\-Card} \-\_\-card)
+\item 
+bool \hyperlink{classcomms_a4f6ede211bd95c89dfe26077237729c0}{receive\-Bet} (\hyperlink{classplayer}{player} \-\_\-player, uint16\-\_\-t \&\-\_\-betvalue, unsigned int \-\_\-timeout=4)
+\item 
+bool \hyperlink{classcomms_abd87b6b67848137b3cfb9aaf0f1a195e}{receive\-Name} (\hyperlink{classplayer}{player} \-\_\-player, std\-::string \&\-\_\-name, unsigned int \-\_\-timeout=4)
+\item 
+void \hyperlink{classcomms_a057f97840d6173efe46c0f893a5022f8}{wait\-For\-Response} ()
+\end{DoxyCompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{classcomms_aa541c6457fd88519ab04f7a8d36e21f7}{\index{comms@{comms}!comms@{comms}}
+\index{comms@{comms}!comms@{comms}}
+\subsubsection[{comms}]{\setlength{\rightskip}{0pt plus 5cm}comms\-::comms (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classcomms_aa541c6457fd88519ab04f7a8d36e21f7}
+\hypertarget{classcomms_ac404616cacbf19cdde39823aada9c49d}{\index{comms@{comms}!$\sim$comms@{$\sim$comms}}
+\index{$\sim$comms@{$\sim$comms}!comms@{comms}}
+\subsubsection[{$\sim$comms}]{\setlength{\rightskip}{0pt plus 5cm}comms\-::$\sim$comms (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classcomms_ac404616cacbf19cdde39823aada9c49d}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{classcomms_a4f6ede211bd95c89dfe26077237729c0}{\index{comms@{comms}!receive\-Bet@{receive\-Bet}}
+\index{receive\-Bet@{receive\-Bet}!comms@{comms}}
+\subsubsection[{receive\-Bet}]{\setlength{\rightskip}{0pt plus 5cm}bool comms\-::receive\-Bet (
+\begin{DoxyParamCaption}
+\item[{{\bf player}}]{\-\_\-player, }
+\item[{uint16\-\_\-t \&}]{\-\_\-betvalue, }
+\item[{unsigned int}]{\-\_\-timeout = {\ttfamily 4}}
+\end{DoxyParamCaption}
+)}}\label{classcomms_a4f6ede211bd95c89dfe26077237729c0}
+\hypertarget{classcomms_abd87b6b67848137b3cfb9aaf0f1a195e}{\index{comms@{comms}!receive\-Name@{receive\-Name}}
+\index{receive\-Name@{receive\-Name}!comms@{comms}}
+\subsubsection[{receive\-Name}]{\setlength{\rightskip}{0pt plus 5cm}bool comms\-::receive\-Name (
+\begin{DoxyParamCaption}
+\item[{{\bf player}}]{\-\_\-player, }
+\item[{std\-::string \&}]{\-\_\-name, }
+\item[{unsigned int}]{\-\_\-timeout = {\ttfamily 4}}
+\end{DoxyParamCaption}
+)}}\label{classcomms_abd87b6b67848137b3cfb9aaf0f1a195e}
+\hypertarget{classcomms_a5732e61ac8d00acdec559688bc2a1577}{\index{comms@{comms}!send\-Bet\-Limits@{send\-Bet\-Limits}}
+\index{send\-Bet\-Limits@{send\-Bet\-Limits}!comms@{comms}}
+\subsubsection[{send\-Bet\-Limits}]{\setlength{\rightskip}{0pt plus 5cm}bool comms\-::send\-Bet\-Limits (
+\begin{DoxyParamCaption}
+\item[{{\bf player}}]{\-\_\-player, }
+\item[{unsigned int}]{\-\_\-min, }
+\item[{unsigned int}]{\-\_\-max}
+\end{DoxyParamCaption}
+)}}\label{classcomms_a5732e61ac8d00acdec559688bc2a1577}
+\hypertarget{classcomms_a96eb40e27a3e3095d5ea2393bb9b6e94}{\index{comms@{comms}!send\-Card@{send\-Card}}
+\index{send\-Card@{send\-Card}!comms@{comms}}
+\subsubsection[{send\-Card}]{\setlength{\rightskip}{0pt plus 5cm}bool comms\-::send\-Card (
+\begin{DoxyParamCaption}
+\item[{{\bf player}}]{\-\_\-player, }
+\item[{{\bf Playing\-Card}}]{\-\_\-card}
+\end{DoxyParamCaption}
+)}}\label{classcomms_a96eb40e27a3e3095d5ea2393bb9b6e94}
+\hypertarget{classcomms_af04ca6358d651fb6f1a136328566a68a}{\index{comms@{comms}!send\-Money@{send\-Money}}
+\index{send\-Money@{send\-Money}!comms@{comms}}
+\subsubsection[{send\-Money}]{\setlength{\rightskip}{0pt plus 5cm}bool comms\-::send\-Money (
+\begin{DoxyParamCaption}
+\item[{{\bf player}}]{\-\_\-player, }
+\item[{unsigned int}]{\-\_\-amount}
+\end{DoxyParamCaption}
+)}}\label{classcomms_af04ca6358d651fb6f1a136328566a68a}
+\hypertarget{classcomms_a057f97840d6173efe46c0f893a5022f8}{\index{comms@{comms}!wait\-For\-Response@{wait\-For\-Response}}
+\index{wait\-For\-Response@{wait\-For\-Response}!comms@{comms}}
+\subsubsection[{wait\-For\-Response}]{\setlength{\rightskip}{0pt plus 5cm}void comms\-::wait\-For\-Response (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classcomms_a057f97840d6173efe46c0f893a5022f8}
+
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+include/dealer/\hyperlink{include_2dealer_2comms_8h}{comms.\-h}\item 
+src/dealer/\hyperlink{comms_8cpp}{comms.\-cpp}\end{DoxyCompactItemize}

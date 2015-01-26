@@ -1,0 +1,217 @@
+\hypertarget{include_2shared_2card_8h}{\section{include/shared/card.h File Reference}
+\label{include_2shared_2card_8h}\index{include/shared/card.\-h@{include/shared/card.\-h}}
+}
+\subsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{namespaceSUIT__NAMESPACE}{S\-U\-I\-T\-\_\-\-N\-A\-M\-E\-S\-P\-A\-C\-E}
+\item 
+\hyperlink{namespaceRank}{Rank}
+\end{DoxyCompactItemize}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{include_2shared_2card_8h_af6df13b24642f23711e31191179c7ec0}{S\-U\-I\-T\-\_\-\-N\-A\-M\-E\-S\-P\-A\-C\-E}~Suit
+\item 
+\#define \hyperlink{include_2shared_2card_8h_a7b422da2c062f36ca26362e8587460b1}{I\-S\-C\-L\-U\-B}(\hyperlink{structcard}{card})~(\hyperlink{structcard}{card} \& \hyperlink{namespaceSUIT__NAMESPACE_a363cc949dd5fa79f5e750cc081e4f18aa37e3e09d47431b80e5a140f5beab43d3}{S\-U\-I\-T\-\_\-\-N\-A\-M\-E\-S\-P\-A\-C\-E\-::\-C\-L\-U\-B})
+\begin{DoxyCompactList}\small\item\em Checks if card is of club suit. \end{DoxyCompactList}\item 
+\#define \hyperlink{include_2shared_2card_8h_a30236fa6808da5301dcba4f4cd198957}{I\-S\-H\-E\-A\-R\-T}(\hyperlink{structcard}{card})~(\hyperlink{structcard}{card} \& \hyperlink{namespaceSUIT__NAMESPACE_a363cc949dd5fa79f5e750cc081e4f18aa72845c87ce03a59c40515dfc45b13f1c}{S\-U\-I\-T\-\_\-\-N\-A\-M\-E\-S\-P\-A\-C\-E\-::\-H\-E\-A\-R\-T})
+\begin{DoxyCompactList}\small\item\em Checks if card is of heart suit. \end{DoxyCompactList}\item 
+\#define \hyperlink{include_2shared_2card_8h_a69ddca13195fde118d39a665ad55475d}{I\-S\-S\-P\-A\-D\-E}(\hyperlink{structcard}{card})~(\hyperlink{structcard}{card} \& \hyperlink{namespaceSUIT__NAMESPACE_a363cc949dd5fa79f5e750cc081e4f18aa1e7c4a99914c76c0bf845cfc9debca3c}{S\-U\-I\-T\-\_\-\-N\-A\-M\-E\-S\-P\-A\-C\-E\-::\-S\-P\-A\-D\-E})
+\begin{DoxyCompactList}\small\item\em Checks if card is of spade suit. \end{DoxyCompactList}\item 
+\#define \hyperlink{include_2shared_2card_8h_a0004d2c2920e977a23272cf5a267d33e}{I\-S\-D\-I\-A\-M\-O\-N\-D}(\hyperlink{structcard}{card})~(\hyperlink{structcard}{card} \& \hyperlink{namespaceSUIT__NAMESPACE_a363cc949dd5fa79f5e750cc081e4f18aa7c904312decd355f2346d6d59b5a4a70}{S\-U\-I\-T\-\_\-\-N\-A\-M\-E\-S\-P\-A\-C\-E\-::\-D\-I\-A\-M\-O\-N\-D})
+\begin{DoxyCompactList}\small\item\em Checks if card is of diamond suit. \end{DoxyCompactList}\item 
+\#define \hyperlink{include_2shared_2card_8h_ab3aa590b1a1e2f3b40b1354dec1b0f81}{S\-U\-I\-T\-M\-A\-S\-K}~(0x\-F0)
+\begin{DoxyCompactList}\small\item\em The playing card suit information is in the left nibble. \end{DoxyCompactList}\item 
+\#define \hyperlink{include_2shared_2card_8h_a83a09955b5e275fb5465ef0f5b795e42}{S\-U\-I\-T\-O\-F}(\hyperlink{structcard}{card})~(\hyperlink{structcard}{card} \& \hyperlink{src_2player_2MainSketch_2card_8h_ab3aa590b1a1e2f3b40b1354dec1b0f81}{S\-U\-I\-T\-M\-A\-S\-K})
+\begin{DoxyCompactList}\small\item\em Extracts the suit of the card. \end{DoxyCompactList}\item 
+\#define \hyperlink{include_2shared_2card_8h_a94b1c6b73c1c1b5bd9e3d644ad943aff}{I\-S\-S\-U\-I\-T}(\hyperlink{structcard}{card}, suit)~(\hyperlink{structcard}{card} \& suit)
+\begin{DoxyCompactList}\small\item\em Checks if card is a specific suit. \end{DoxyCompactList}\item 
+\#define \hyperlink{include_2shared_2card_8h_a95d8591764f9adceaec2fa865da645af}{R\-A\-N\-K\-M\-A\-S\-K}~(0x0\-F)
+\begin{DoxyCompactList}\small\item\em The playing card rank information is in the right nibble. \end{DoxyCompactList}\item 
+\#define \hyperlink{include_2shared_2card_8h_a4441510fb589c4627f92ed0c47e427da}{R\-A\-N\-K\-O\-F}(\hyperlink{structcard}{card})~(\hyperlink{structcard}{card} \& \hyperlink{src_2player_2MainSketch_2card_8h_a95d8591764f9adceaec2fa865da645af}{R\-A\-N\-K\-M\-A\-S\-K})
+\begin{DoxyCompactList}\small\item\em Extracts the rank of the card. \end{DoxyCompactList}\item 
+\#define \hyperlink{include_2shared_2card_8h_ad978fed20b529fc67af99caa70c1f3df}{U16\-\_\-\-T\-O\-\_\-\-B\-Y\-T\-E\-\_\-\-L}(U16)~( U16     \& 0x\-F\-F)
+\begin{DoxyCompactList}\small\item\em A macro to convert uint16\-\_\-t to 2 bytes. \end{DoxyCompactList}\item 
+\#define \hyperlink{include_2shared_2card_8h_ae10d2088557fa10f49e706a43575c6b4}{U16\-\_\-\-T\-O\-\_\-\-B\-Y\-T\-E\-\_\-\-H}(U16)~((U16$>$$>$8) \& 0x\-F\-F)
+\item 
+\#define \hyperlink{include_2shared_2card_8h_a5263fdc0d77782b4e8c9092f51d78a2a}{B\-Y\-T\-E\-\_\-\-T\-O\-\_\-\-U16}(byte1, byte2)~((((uint16\-\_\-t)byte1)$<$$<$8)$\vert$byte2)
+\begin{DoxyCompactList}\small\item\em A macro to convert 2 bytes to uint16\-\_\-t. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \hyperlink{namespaceSUIT__NAMESPACE_a363cc949dd5fa79f5e750cc081e4f18a}{S\-U\-I\-T\-\_\-\-N\-A\-M\-E\-S\-P\-A\-C\-E\-::\-Value} \{ \\*
+\hyperlink{namespaceSUIT__NAMESPACE_a363cc949dd5fa79f5e750cc081e4f18aa7c904312decd355f2346d6d59b5a4a70}{S\-U\-I\-T\-\_\-\-N\-A\-M\-E\-S\-P\-A\-C\-E\-::\-D\-I\-A\-M\-O\-N\-D} = (1$<$$<$4), 
+\hyperlink{namespaceSUIT__NAMESPACE_a363cc949dd5fa79f5e750cc081e4f18aa72845c87ce03a59c40515dfc45b13f1c}{S\-U\-I\-T\-\_\-\-N\-A\-M\-E\-S\-P\-A\-C\-E\-::\-H\-E\-A\-R\-T} = (1$<$$<$5), 
+\hyperlink{namespaceSUIT__NAMESPACE_a363cc949dd5fa79f5e750cc081e4f18aa37e3e09d47431b80e5a140f5beab43d3}{S\-U\-I\-T\-\_\-\-N\-A\-M\-E\-S\-P\-A\-C\-E\-::\-C\-L\-U\-B} = (1$<$$<$6), 
+\hyperlink{namespaceSUIT__NAMESPACE_a363cc949dd5fa79f5e750cc081e4f18aa1e7c4a99914c76c0bf845cfc9debca3c}{S\-U\-I\-T\-\_\-\-N\-A\-M\-E\-S\-P\-A\-C\-E\-::\-S\-P\-A\-D\-E} = (1$<$$<$7), 
+\\*
+\hyperlink{namespaceSUIT__NAMESPACE_a363cc949dd5fa79f5e750cc081e4f18aa7c904312decd355f2346d6d59b5a4a70}{S\-U\-I\-T\-\_\-\-N\-A\-M\-E\-S\-P\-A\-C\-E\-::\-D\-I\-A\-M\-O\-N\-D} = (1$<$$<$4), 
+\hyperlink{namespaceSUIT__NAMESPACE_a363cc949dd5fa79f5e750cc081e4f18aa72845c87ce03a59c40515dfc45b13f1c}{S\-U\-I\-T\-\_\-\-N\-A\-M\-E\-S\-P\-A\-C\-E\-::\-H\-E\-A\-R\-T} = (1$<$$<$5), 
+\hyperlink{namespaceSUIT__NAMESPACE_a363cc949dd5fa79f5e750cc081e4f18aa37e3e09d47431b80e5a140f5beab43d3}{S\-U\-I\-T\-\_\-\-N\-A\-M\-E\-S\-P\-A\-C\-E\-::\-C\-L\-U\-B} = (1$<$$<$6), 
+\hyperlink{namespaceSUIT__NAMESPACE_a363cc949dd5fa79f5e750cc081e4f18aa1e7c4a99914c76c0bf845cfc9debca3c}{S\-U\-I\-T\-\_\-\-N\-A\-M\-E\-S\-P\-A\-C\-E\-::\-S\-P\-A\-D\-E} = (1$<$$<$7)
+ \}
+\begin{DoxyCompactList}\small\item\em The Value enum stores a playing card suit in a nibble. \end{DoxyCompactList}\item 
+enum \hyperlink{namespaceRank_ac73ee8d855dc84f13c2d79ff5704e016}{Rank\-::\-Value} \{ \\*
+\hyperlink{namespaceRank_ac73ee8d855dc84f13c2d79ff5704e016af58277bf3dc4b781a1a468d27a6e0ede}{Rank\-::\-T\-W\-O} = (0x01), 
+\hyperlink{namespaceRank_ac73ee8d855dc84f13c2d79ff5704e016a204bdefeb190bb7ebcbac71f57dedaf1}{Rank\-::\-T\-H\-R\-E\-E} = (0x02), 
+\hyperlink{namespaceRank_ac73ee8d855dc84f13c2d79ff5704e016ac79849b3bbe7ce2ea6ea2bfd9d4b0db7}{Rank\-::\-F\-O\-U\-R} = (0x03), 
+\hyperlink{namespaceRank_ac73ee8d855dc84f13c2d79ff5704e016ada4de3aacaefeaf5b49a1adb952e8883}{Rank\-::\-F\-I\-V\-E} = (0x04), 
+\\*
+\hyperlink{namespaceRank_ac73ee8d855dc84f13c2d79ff5704e016a2ad422a46a0c144c2b29f118522f613f}{Rank\-::\-S\-I\-X} = (0x05), 
+\hyperlink{namespaceRank_ac73ee8d855dc84f13c2d79ff5704e016a0c4659e31e91dd9c7dd8278efc738eff}{Rank\-::\-S\-E\-V\-E\-N} = (0x06), 
+\hyperlink{namespaceRank_ac73ee8d855dc84f13c2d79ff5704e016a4596754f2b9c317d1bd5f20b786f6960}{Rank\-::\-E\-I\-G\-H\-T} = (0x07), 
+\hyperlink{namespaceRank_ac73ee8d855dc84f13c2d79ff5704e016a89cf245eb92670951d06a254fba81129}{Rank\-::\-N\-I\-N\-E} = (0x08), 
+\\*
+\hyperlink{namespaceRank_ac73ee8d855dc84f13c2d79ff5704e016ae14d27a99ba536a4e053f24f6b30477c}{Rank\-::\-T\-E\-N} = (0x09), 
+\hyperlink{namespaceRank_ac73ee8d855dc84f13c2d79ff5704e016a616c9bfb703243ef97aafd7a24af6f7f}{Rank\-::\-J\-A\-C\-K} = (0x0\-A), 
+\hyperlink{namespaceRank_ac73ee8d855dc84f13c2d79ff5704e016a91a5a34c64793e760d76557611ee1179}{Rank\-::\-Q\-U\-E\-E\-N} = (0x0\-B), 
+\hyperlink{namespaceRank_ac73ee8d855dc84f13c2d79ff5704e016ac9d9e29aba81c98a83103b76e53a6ffd}{Rank\-::\-K\-I\-N\-G} = (0x0\-C), 
+\\*
+\hyperlink{namespaceRank_ac73ee8d855dc84f13c2d79ff5704e016a03cbc358ef6437aa8626f192019c13a1}{Rank\-::\-A\-C\-E} = (0x0\-D), 
+\hyperlink{namespaceRank_ac73ee8d855dc84f13c2d79ff5704e016af58277bf3dc4b781a1a468d27a6e0ede}{Rank\-::\-T\-W\-O} = (0x01), 
+\hyperlink{namespaceRank_ac73ee8d855dc84f13c2d79ff5704e016a204bdefeb190bb7ebcbac71f57dedaf1}{Rank\-::\-T\-H\-R\-E\-E} = (0x02), 
+\hyperlink{namespaceRank_ac73ee8d855dc84f13c2d79ff5704e016ac79849b3bbe7ce2ea6ea2bfd9d4b0db7}{Rank\-::\-F\-O\-U\-R} = (0x03), 
+\\*
+\hyperlink{namespaceRank_ac73ee8d855dc84f13c2d79ff5704e016ada4de3aacaefeaf5b49a1adb952e8883}{Rank\-::\-F\-I\-V\-E} = (0x04), 
+\hyperlink{namespaceRank_ac73ee8d855dc84f13c2d79ff5704e016a2ad422a46a0c144c2b29f118522f613f}{Rank\-::\-S\-I\-X} = (0x05), 
+\hyperlink{namespaceRank_ac73ee8d855dc84f13c2d79ff5704e016a0c4659e31e91dd9c7dd8278efc738eff}{Rank\-::\-S\-E\-V\-E\-N} = (0x06), 
+\hyperlink{namespaceRank_ac73ee8d855dc84f13c2d79ff5704e016a4596754f2b9c317d1bd5f20b786f6960}{Rank\-::\-E\-I\-G\-H\-T} = (0x07), 
+\\*
+\hyperlink{namespaceRank_ac73ee8d855dc84f13c2d79ff5704e016a89cf245eb92670951d06a254fba81129}{Rank\-::\-N\-I\-N\-E} = (0x08), 
+\hyperlink{namespaceRank_ac73ee8d855dc84f13c2d79ff5704e016ae14d27a99ba536a4e053f24f6b30477c}{Rank\-::\-T\-E\-N} = (0x09), 
+\hyperlink{namespaceRank_ac73ee8d855dc84f13c2d79ff5704e016a616c9bfb703243ef97aafd7a24af6f7f}{Rank\-::\-J\-A\-C\-K} = (0x0\-A), 
+\hyperlink{namespaceRank_ac73ee8d855dc84f13c2d79ff5704e016a91a5a34c64793e760d76557611ee1179}{Rank\-::\-Q\-U\-E\-E\-N} = (0x0\-B), 
+\\*
+\hyperlink{namespaceRank_ac73ee8d855dc84f13c2d79ff5704e016ac9d9e29aba81c98a83103b76e53a6ffd}{Rank\-::\-K\-I\-N\-G} = (0x0\-C), 
+\hyperlink{namespaceRank_ac73ee8d855dc84f13c2d79ff5704e016a03cbc358ef6437aa8626f192019c13a1}{Rank\-::\-A\-C\-E} = (0x0\-D)
+ \}
+\begin{DoxyCompactList}\small\item\em The Value enum stores a playing card rank in a nibble. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\hypertarget{include_2shared_2card_8h_a5263fdc0d77782b4e8c9092f51d78a2a}{\index{include/shared/card.\-h@{include/shared/card.\-h}!B\-Y\-T\-E\-\_\-\-T\-O\-\_\-\-U16@{B\-Y\-T\-E\-\_\-\-T\-O\-\_\-\-U16}}
+\index{B\-Y\-T\-E\-\_\-\-T\-O\-\_\-\-U16@{B\-Y\-T\-E\-\_\-\-T\-O\-\_\-\-U16}!include/shared/card.h@{include/shared/card.\-h}}
+\subsubsection[{B\-Y\-T\-E\-\_\-\-T\-O\-\_\-\-U16}]{\setlength{\rightskip}{0pt plus 5cm}\#define B\-Y\-T\-E\-\_\-\-T\-O\-\_\-\-U16(
+\begin{DoxyParamCaption}
+\item[{}]{byte1, }
+\item[{}]{byte2}
+\end{DoxyParamCaption}
+)~((((uint16\-\_\-t)byte1)$<$$<$8)$\vert$byte2)}}\label{include_2shared_2card_8h_a5263fdc0d77782b4e8c9092f51d78a2a}
+
+
+A macro to convert 2 bytes to uint16\-\_\-t. 
+
+\hypertarget{include_2shared_2card_8h_a7b422da2c062f36ca26362e8587460b1}{\index{include/shared/card.\-h@{include/shared/card.\-h}!I\-S\-C\-L\-U\-B@{I\-S\-C\-L\-U\-B}}
+\index{I\-S\-C\-L\-U\-B@{I\-S\-C\-L\-U\-B}!include/shared/card.h@{include/shared/card.\-h}}
+\subsubsection[{I\-S\-C\-L\-U\-B}]{\setlength{\rightskip}{0pt plus 5cm}\#define I\-S\-C\-L\-U\-B(
+\begin{DoxyParamCaption}
+\item[{}]{{\bf card}}
+\end{DoxyParamCaption}
+)~({\bf card} \& {\bf S\-U\-I\-T\-\_\-\-N\-A\-M\-E\-S\-P\-A\-C\-E\-::\-C\-L\-U\-B})}}\label{include_2shared_2card_8h_a7b422da2c062f36ca26362e8587460b1}
+
+
+Checks if card is of club suit. 
+
+\hypertarget{include_2shared_2card_8h_a0004d2c2920e977a23272cf5a267d33e}{\index{include/shared/card.\-h@{include/shared/card.\-h}!I\-S\-D\-I\-A\-M\-O\-N\-D@{I\-S\-D\-I\-A\-M\-O\-N\-D}}
+\index{I\-S\-D\-I\-A\-M\-O\-N\-D@{I\-S\-D\-I\-A\-M\-O\-N\-D}!include/shared/card.h@{include/shared/card.\-h}}
+\subsubsection[{I\-S\-D\-I\-A\-M\-O\-N\-D}]{\setlength{\rightskip}{0pt plus 5cm}\#define I\-S\-D\-I\-A\-M\-O\-N\-D(
+\begin{DoxyParamCaption}
+\item[{}]{{\bf card}}
+\end{DoxyParamCaption}
+)~({\bf card} \& {\bf S\-U\-I\-T\-\_\-\-N\-A\-M\-E\-S\-P\-A\-C\-E\-::\-D\-I\-A\-M\-O\-N\-D})}}\label{include_2shared_2card_8h_a0004d2c2920e977a23272cf5a267d33e}
+
+
+Checks if card is of diamond suit. 
+
+\hypertarget{include_2shared_2card_8h_a30236fa6808da5301dcba4f4cd198957}{\index{include/shared/card.\-h@{include/shared/card.\-h}!I\-S\-H\-E\-A\-R\-T@{I\-S\-H\-E\-A\-R\-T}}
+\index{I\-S\-H\-E\-A\-R\-T@{I\-S\-H\-E\-A\-R\-T}!include/shared/card.h@{include/shared/card.\-h}}
+\subsubsection[{I\-S\-H\-E\-A\-R\-T}]{\setlength{\rightskip}{0pt plus 5cm}\#define I\-S\-H\-E\-A\-R\-T(
+\begin{DoxyParamCaption}
+\item[{}]{{\bf card}}
+\end{DoxyParamCaption}
+)~({\bf card} \& {\bf S\-U\-I\-T\-\_\-\-N\-A\-M\-E\-S\-P\-A\-C\-E\-::\-H\-E\-A\-R\-T})}}\label{include_2shared_2card_8h_a30236fa6808da5301dcba4f4cd198957}
+
+
+Checks if card is of heart suit. 
+
+\hypertarget{include_2shared_2card_8h_a69ddca13195fde118d39a665ad55475d}{\index{include/shared/card.\-h@{include/shared/card.\-h}!I\-S\-S\-P\-A\-D\-E@{I\-S\-S\-P\-A\-D\-E}}
+\index{I\-S\-S\-P\-A\-D\-E@{I\-S\-S\-P\-A\-D\-E}!include/shared/card.h@{include/shared/card.\-h}}
+\subsubsection[{I\-S\-S\-P\-A\-D\-E}]{\setlength{\rightskip}{0pt plus 5cm}\#define I\-S\-S\-P\-A\-D\-E(
+\begin{DoxyParamCaption}
+\item[{}]{{\bf card}}
+\end{DoxyParamCaption}
+)~({\bf card} \& {\bf S\-U\-I\-T\-\_\-\-N\-A\-M\-E\-S\-P\-A\-C\-E\-::\-S\-P\-A\-D\-E})}}\label{include_2shared_2card_8h_a69ddca13195fde118d39a665ad55475d}
+
+
+Checks if card is of spade suit. 
+
+\hypertarget{include_2shared_2card_8h_a94b1c6b73c1c1b5bd9e3d644ad943aff}{\index{include/shared/card.\-h@{include/shared/card.\-h}!I\-S\-S\-U\-I\-T@{I\-S\-S\-U\-I\-T}}
+\index{I\-S\-S\-U\-I\-T@{I\-S\-S\-U\-I\-T}!include/shared/card.h@{include/shared/card.\-h}}
+\subsubsection[{I\-S\-S\-U\-I\-T}]{\setlength{\rightskip}{0pt plus 5cm}\#define I\-S\-S\-U\-I\-T(
+\begin{DoxyParamCaption}
+\item[{}]{{\bf card}, }
+\item[{}]{suit}
+\end{DoxyParamCaption}
+)~({\bf card} \& suit)}}\label{include_2shared_2card_8h_a94b1c6b73c1c1b5bd9e3d644ad943aff}
+
+
+Checks if card is a specific suit. 
+
+\hypertarget{include_2shared_2card_8h_a95d8591764f9adceaec2fa865da645af}{\index{include/shared/card.\-h@{include/shared/card.\-h}!R\-A\-N\-K\-M\-A\-S\-K@{R\-A\-N\-K\-M\-A\-S\-K}}
+\index{R\-A\-N\-K\-M\-A\-S\-K@{R\-A\-N\-K\-M\-A\-S\-K}!include/shared/card.h@{include/shared/card.\-h}}
+\subsubsection[{R\-A\-N\-K\-M\-A\-S\-K}]{\setlength{\rightskip}{0pt plus 5cm}\#define R\-A\-N\-K\-M\-A\-S\-K~(0x0\-F)}}\label{include_2shared_2card_8h_a95d8591764f9adceaec2fa865da645af}
+
+
+The playing card rank information is in the right nibble. 
+
+\hypertarget{include_2shared_2card_8h_a4441510fb589c4627f92ed0c47e427da}{\index{include/shared/card.\-h@{include/shared/card.\-h}!R\-A\-N\-K\-O\-F@{R\-A\-N\-K\-O\-F}}
+\index{R\-A\-N\-K\-O\-F@{R\-A\-N\-K\-O\-F}!include/shared/card.h@{include/shared/card.\-h}}
+\subsubsection[{R\-A\-N\-K\-O\-F}]{\setlength{\rightskip}{0pt plus 5cm}\#define R\-A\-N\-K\-O\-F(
+\begin{DoxyParamCaption}
+\item[{}]{{\bf card}}
+\end{DoxyParamCaption}
+)~({\bf card} \& {\bf R\-A\-N\-K\-M\-A\-S\-K})}}\label{include_2shared_2card_8h_a4441510fb589c4627f92ed0c47e427da}
+
+
+Extracts the rank of the card. 
+
+\hypertarget{include_2shared_2card_8h_af6df13b24642f23711e31191179c7ec0}{\index{include/shared/card.\-h@{include/shared/card.\-h}!S\-U\-I\-T\-\_\-\-N\-A\-M\-E\-S\-P\-A\-C\-E@{S\-U\-I\-T\-\_\-\-N\-A\-M\-E\-S\-P\-A\-C\-E}}
+\index{S\-U\-I\-T\-\_\-\-N\-A\-M\-E\-S\-P\-A\-C\-E@{S\-U\-I\-T\-\_\-\-N\-A\-M\-E\-S\-P\-A\-C\-E}!include/shared/card.h@{include/shared/card.\-h}}
+\subsubsection[{S\-U\-I\-T\-\_\-\-N\-A\-M\-E\-S\-P\-A\-C\-E}]{\setlength{\rightskip}{0pt plus 5cm}\#define S\-U\-I\-T\-\_\-\-N\-A\-M\-E\-S\-P\-A\-C\-E~Suit}}\label{include_2shared_2card_8h_af6df13b24642f23711e31191179c7ec0}
+\hypertarget{include_2shared_2card_8h_ab3aa590b1a1e2f3b40b1354dec1b0f81}{\index{include/shared/card.\-h@{include/shared/card.\-h}!S\-U\-I\-T\-M\-A\-S\-K@{S\-U\-I\-T\-M\-A\-S\-K}}
+\index{S\-U\-I\-T\-M\-A\-S\-K@{S\-U\-I\-T\-M\-A\-S\-K}!include/shared/card.h@{include/shared/card.\-h}}
+\subsubsection[{S\-U\-I\-T\-M\-A\-S\-K}]{\setlength{\rightskip}{0pt plus 5cm}\#define S\-U\-I\-T\-M\-A\-S\-K~(0x\-F0)}}\label{include_2shared_2card_8h_ab3aa590b1a1e2f3b40b1354dec1b0f81}
+
+
+The playing card suit information is in the left nibble. 
+
+\hypertarget{include_2shared_2card_8h_a83a09955b5e275fb5465ef0f5b795e42}{\index{include/shared/card.\-h@{include/shared/card.\-h}!S\-U\-I\-T\-O\-F@{S\-U\-I\-T\-O\-F}}
+\index{S\-U\-I\-T\-O\-F@{S\-U\-I\-T\-O\-F}!include/shared/card.h@{include/shared/card.\-h}}
+\subsubsection[{S\-U\-I\-T\-O\-F}]{\setlength{\rightskip}{0pt plus 5cm}\#define S\-U\-I\-T\-O\-F(
+\begin{DoxyParamCaption}
+\item[{}]{{\bf card}}
+\end{DoxyParamCaption}
+)~({\bf card} \& {\bf S\-U\-I\-T\-M\-A\-S\-K})}}\label{include_2shared_2card_8h_a83a09955b5e275fb5465ef0f5b795e42}
+
+
+Extracts the suit of the card. 
+
+\hypertarget{include_2shared_2card_8h_ae10d2088557fa10f49e706a43575c6b4}{\index{include/shared/card.\-h@{include/shared/card.\-h}!U16\-\_\-\-T\-O\-\_\-\-B\-Y\-T\-E\-\_\-\-H@{U16\-\_\-\-T\-O\-\_\-\-B\-Y\-T\-E\-\_\-\-H}}
+\index{U16\-\_\-\-T\-O\-\_\-\-B\-Y\-T\-E\-\_\-\-H@{U16\-\_\-\-T\-O\-\_\-\-B\-Y\-T\-E\-\_\-\-H}!include/shared/card.h@{include/shared/card.\-h}}
+\subsubsection[{U16\-\_\-\-T\-O\-\_\-\-B\-Y\-T\-E\-\_\-\-H}]{\setlength{\rightskip}{0pt plus 5cm}\#define U16\-\_\-\-T\-O\-\_\-\-B\-Y\-T\-E\-\_\-\-H(
+\begin{DoxyParamCaption}
+\item[{}]{U16}
+\end{DoxyParamCaption}
+)~((U16$>$$>$8) \& 0x\-F\-F)}}\label{include_2shared_2card_8h_ae10d2088557fa10f49e706a43575c6b4}
+\hypertarget{include_2shared_2card_8h_ad978fed20b529fc67af99caa70c1f3df}{\index{include/shared/card.\-h@{include/shared/card.\-h}!U16\-\_\-\-T\-O\-\_\-\-B\-Y\-T\-E\-\_\-\-L@{U16\-\_\-\-T\-O\-\_\-\-B\-Y\-T\-E\-\_\-\-L}}
+\index{U16\-\_\-\-T\-O\-\_\-\-B\-Y\-T\-E\-\_\-\-L@{U16\-\_\-\-T\-O\-\_\-\-B\-Y\-T\-E\-\_\-\-L}!include/shared/card.h@{include/shared/card.\-h}}
+\subsubsection[{U16\-\_\-\-T\-O\-\_\-\-B\-Y\-T\-E\-\_\-\-L}]{\setlength{\rightskip}{0pt plus 5cm}\#define U16\-\_\-\-T\-O\-\_\-\-B\-Y\-T\-E\-\_\-\-L(
+\begin{DoxyParamCaption}
+\item[{}]{U16}
+\end{DoxyParamCaption}
+)~( U16     \& 0x\-F\-F)}}\label{include_2shared_2card_8h_ad978fed20b529fc67af99caa70c1f3df}
+
+
+A macro to convert uint16\-\_\-t to 2 bytes. 
+

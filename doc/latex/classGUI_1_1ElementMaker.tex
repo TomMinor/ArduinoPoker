@@ -1,0 +1,202 @@
+\hypertarget{classGUI_1_1ElementMaker}{\section{G\-U\-I\-:\-:Element\-Maker Class Reference}
+\label{classGUI_1_1ElementMaker}\index{G\-U\-I\-::\-Element\-Maker@{G\-U\-I\-::\-Element\-Maker}}
+}
+
+
+This class serves as a factory for dynamically allocated visual elements.  
+
+
+
+
+{\ttfamily \#include $<$gui\-\_\-elementmaker.\-h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classGUI_1_1ElementMaker_a5511a914978a82248057d5e12f2d4782}{Element\-Maker} (const \hyperlink{structGUI_1_1CardInfo}{Card\-Info} $\ast$\-\_\-card\-Info, const \hyperlink{structGUI_1_1LabelFormat}{Label\-Format} $\ast$\-\_\-label\-Format)
+\begin{DoxyCompactList}\small\item\em The constructor. \end{DoxyCompactList}\item 
+\hyperlink{classGUI_1_1Element}{Element} $\ast$ \hyperlink{classGUI_1_1ElementMaker_adc28a4059d3ae86c2dcb56dcc7edf728}{make\-Element} (S\-D\-L\-\_\-\-Texture $\ast$\-\_\-tex, const \hyperlink{namespaceGUI_a1a3a8094d47f7be06ce123fab38abf6a}{Orientation} \&\-\_\-orient=\hyperlink{namespaceGUI_a1a3a8094d47f7be06ce123fab38abf6aafb2c9cf323a63df7a7ac4ade2e4e63e5}{B\-O\-T\-T\-O\-M})
+\begin{DoxyCompactList}\small\item\em Constructs a dynamically allocated element using the given parameters. This function assumes the entire texture will be drawn 1\-:1, as opposed to the other \hyperlink{classGUI_1_1ElementMaker_adc28a4059d3ae86c2dcb56dcc7edf728}{make\-Element()} function. \end{DoxyCompactList}\item 
+\hyperlink{classGUI_1_1Element}{Element} $\ast$ \hyperlink{classGUI_1_1ElementMaker_a84d3cb57312c959849b4cfd5f210eeab}{make\-Element} (S\-D\-L\-\_\-\-Texture $\ast$\-\_\-tex, const S\-D\-L\-\_\-\-Rect \&\-\_\-src\-Rect, const S\-D\-L\-\_\-\-Rect \&\-\_\-dest\-Rect, const \hyperlink{namespaceGUI_a1a3a8094d47f7be06ce123fab38abf6a}{Orientation} \&\-\_\-orient=\hyperlink{namespaceGUI_a1a3a8094d47f7be06ce123fab38abf6aafb2c9cf323a63df7a7ac4ade2e4e63e5}{B\-O\-T\-T\-O\-M})
+\begin{DoxyCompactList}\small\item\em Constructs a dynamically allocated element using the given parameters. This function lets you specify which part of the texture to use, as opposed to the other \hyperlink{classGUI_1_1ElementMaker_adc28a4059d3ae86c2dcb56dcc7edf728}{make\-Element()} function. \end{DoxyCompactList}\item 
+\hyperlink{classGUI_1_1Element}{Element} $\ast$ \hyperlink{classGUI_1_1ElementMaker_acd4edd22fa072d8f3ebb7358563c7c68}{make\-Element} (\hyperlink{classGUI_1_1Element}{Element} $\ast$\-\_\-input\-Element)
+\begin{DoxyCompactList}\small\item\em Constructs a dynamically allocated copy of the given element. \end{DoxyCompactList}\item 
+\hyperlink{classGUI_1_1Card}{Card} $\ast$ \hyperlink{classGUI_1_1ElementMaker_a4dabb3d89ccb1b10e7de81e0681adaf3}{make\-Card} (const \hyperlink{classPlayingCard}{Playing\-Card} \&\-\_\-type, const \hyperlink{namespaceGUI_a1a3a8094d47f7be06ce123fab38abf6a}{Orientation} \&\-\_\-orient=\hyperlink{namespaceGUI_a1a3a8094d47f7be06ce123fab38abf6aafb2c9cf323a63df7a7ac4ade2e4e63e5}{B\-O\-T\-T\-O\-M})
+\begin{DoxyCompactList}\small\item\em Constructs a dynamically allocated card with the given parameters. \end{DoxyCompactList}\item 
+\hyperlink{classGUI_1_1Label}{Label} $\ast$ \hyperlink{classGUI_1_1ElementMaker_aa2ec4f63848cc27d751d91012f67279a}{make\-Label} (const std\-::string \&\-\_\-input\-String, const \hyperlink{namespaceGUI_a1a3a8094d47f7be06ce123fab38abf6a}{Orientation} \&\-\_\-orient=\hyperlink{namespaceGUI_a1a3a8094d47f7be06ce123fab38abf6aafb2c9cf323a63df7a7ac4ade2e4e63e5}{B\-O\-T\-T\-O\-M}, const int \&\-\_\-lifetime=0)
+\begin{DoxyCompactList}\small\item\em Constructs a dynamically allocated label with the given parameters. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+const \hyperlink{structGUI_1_1CardInfo}{Card\-Info} $\ast$ \hyperlink{classGUI_1_1ElementMaker_a4bd43024c59761045dad982d0c5d5242}{m\-\_\-card\-Info}
+\begin{DoxyCompactList}\small\item\em A pointer to a struct containing constant info about all cards, so this info will not have to be used in any of the maker's function parameters. \end{DoxyCompactList}\item 
+const \hyperlink{structGUI_1_1LabelFormat}{Label\-Format} $\ast$ \hyperlink{classGUI_1_1ElementMaker_aa6cdbf98c0890111f13b305c0eecdaff}{m\-\_\-label\-Format}
+\begin{DoxyCompactList}\small\item\em A pointer to a struct containing constant info about all labels, so this info will not have to be used in any of the maker's function parameters. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+This class serves as a factory for dynamically allocated visual elements. 
+
+This layer of abstraction is needed because each type of visual element should ideally have a specialised constructor, but they are derived from the same class and C++ does not support virtual constructors. 
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{classGUI_1_1ElementMaker_a5511a914978a82248057d5e12f2d4782}{\index{G\-U\-I\-::\-Element\-Maker@{G\-U\-I\-::\-Element\-Maker}!Element\-Maker@{Element\-Maker}}
+\index{Element\-Maker@{Element\-Maker}!GUI::ElementMaker@{G\-U\-I\-::\-Element\-Maker}}
+\subsubsection[{Element\-Maker}]{\setlength{\rightskip}{0pt plus 5cm}G\-U\-I\-::\-Element\-Maker\-::\-Element\-Maker (
+\begin{DoxyParamCaption}
+\item[{const {\bf Card\-Info} $\ast$}]{\-\_\-card\-Info, }
+\item[{const {\bf Label\-Format} $\ast$}]{\-\_\-label\-Format}
+\end{DoxyParamCaption}
+)}}\label{classGUI_1_1ElementMaker_a5511a914978a82248057d5e12f2d4782}
+
+
+The constructor. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \-\_\-card\-Info} & A pointer to a struct containing all the constant information for cards so we don't have to receive it every time we make a card. \\
+\hline
+{\em \-\_\-card\-Info} & A pointer to a struct containing all the constant information for labels so we don't have to receive it every time we make a label. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+An \hyperlink{classGUI_1_1ElementMaker}{Element\-Maker} object. 
+\end{DoxyReturn}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{classGUI_1_1ElementMaker_a4dabb3d89ccb1b10e7de81e0681adaf3}{\index{G\-U\-I\-::\-Element\-Maker@{G\-U\-I\-::\-Element\-Maker}!make\-Card@{make\-Card}}
+\index{make\-Card@{make\-Card}!GUI::ElementMaker@{G\-U\-I\-::\-Element\-Maker}}
+\subsubsection[{make\-Card}]{\setlength{\rightskip}{0pt plus 5cm}{\bf G\-U\-I\-::\-Card} $\ast$ G\-U\-I\-::\-Element\-Maker\-::make\-Card (
+\begin{DoxyParamCaption}
+\item[{const {\bf Playing\-Card} \&}]{\-\_\-type, }
+\item[{const {\bf Orientation} \&}]{\-\_\-orient = {\ttfamily {\bf B\-O\-T\-T\-O\-M}}}
+\end{DoxyParamCaption}
+)}}\label{classGUI_1_1ElementMaker_a4dabb3d89ccb1b10e7de81e0681adaf3}
+
+
+Constructs a dynamically allocated card with the given parameters. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \-\_\-type} & The type of card to produce (its rank and suit). \\
+\hline
+{\em \-\_\-orient} & The edge of the screen this card will face. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A pointer to the new card. 
+\end{DoxyReturn}
+\hypertarget{classGUI_1_1ElementMaker_adc28a4059d3ae86c2dcb56dcc7edf728}{\index{G\-U\-I\-::\-Element\-Maker@{G\-U\-I\-::\-Element\-Maker}!make\-Element@{make\-Element}}
+\index{make\-Element@{make\-Element}!GUI::ElementMaker@{G\-U\-I\-::\-Element\-Maker}}
+\subsubsection[{make\-Element}]{\setlength{\rightskip}{0pt plus 5cm}{\bf G\-U\-I\-::\-Element} $\ast$ G\-U\-I\-::\-Element\-Maker\-::make\-Element (
+\begin{DoxyParamCaption}
+\item[{S\-D\-L\-\_\-\-Texture $\ast$}]{\-\_\-tex, }
+\item[{const {\bf Orientation} \&}]{\-\_\-orient = {\ttfamily {\bf B\-O\-T\-T\-O\-M}}}
+\end{DoxyParamCaption}
+)}}\label{classGUI_1_1ElementMaker_adc28a4059d3ae86c2dcb56dcc7edf728}
+
+
+Constructs a dynamically allocated element using the given parameters. This function assumes the entire texture will be drawn 1\-:1, as opposed to the other \hyperlink{classGUI_1_1ElementMaker_adc28a4059d3ae86c2dcb56dcc7edf728}{make\-Element()} function. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \-\_\-tex} & The texture this element will use. \\
+\hline
+{\em \-\_\-orient} & The edge of the screen this element will face. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A pointer to the new element. 
+\end{DoxyReturn}
+\hypertarget{classGUI_1_1ElementMaker_a84d3cb57312c959849b4cfd5f210eeab}{\index{G\-U\-I\-::\-Element\-Maker@{G\-U\-I\-::\-Element\-Maker}!make\-Element@{make\-Element}}
+\index{make\-Element@{make\-Element}!GUI::ElementMaker@{G\-U\-I\-::\-Element\-Maker}}
+\subsubsection[{make\-Element}]{\setlength{\rightskip}{0pt plus 5cm}{\bf G\-U\-I\-::\-Element} $\ast$ G\-U\-I\-::\-Element\-Maker\-::make\-Element (
+\begin{DoxyParamCaption}
+\item[{S\-D\-L\-\_\-\-Texture $\ast$}]{\-\_\-tex, }
+\item[{const S\-D\-L\-\_\-\-Rect \&}]{\-\_\-src\-Rect, }
+\item[{const S\-D\-L\-\_\-\-Rect \&}]{\-\_\-dest\-Rect, }
+\item[{const {\bf Orientation} \&}]{\-\_\-orient = {\ttfamily {\bf B\-O\-T\-T\-O\-M}}}
+\end{DoxyParamCaption}
+)}}\label{classGUI_1_1ElementMaker_a84d3cb57312c959849b4cfd5f210eeab}
+
+
+Constructs a dynamically allocated element using the given parameters. This function lets you specify which part of the texture to use, as opposed to the other \hyperlink{classGUI_1_1ElementMaker_adc28a4059d3ae86c2dcb56dcc7edf728}{make\-Element()} function. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \-\_\-tex} & The texture this element will use. \\
+\hline
+{\em \-\_\-orient} & The edge of the screen this element will face. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A pointer to the new element. 
+\end{DoxyReturn}
+\hypertarget{classGUI_1_1ElementMaker_acd4edd22fa072d8f3ebb7358563c7c68}{\index{G\-U\-I\-::\-Element\-Maker@{G\-U\-I\-::\-Element\-Maker}!make\-Element@{make\-Element}}
+\index{make\-Element@{make\-Element}!GUI::ElementMaker@{G\-U\-I\-::\-Element\-Maker}}
+\subsubsection[{make\-Element}]{\setlength{\rightskip}{0pt plus 5cm}{\bf G\-U\-I\-::\-Element} $\ast$ G\-U\-I\-::\-Element\-Maker\-::make\-Element (
+\begin{DoxyParamCaption}
+\item[{{\bf Element} $\ast$}]{\-\_\-input\-Element}
+\end{DoxyParamCaption}
+)}}\label{classGUI_1_1ElementMaker_acd4edd22fa072d8f3ebb7358563c7c68}
+
+
+Constructs a dynamically allocated copy of the given element. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \-\_\-input\-Element} & A pointer to the element to copy. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A pointer to the new element. 
+\end{DoxyReturn}
+\hypertarget{classGUI_1_1ElementMaker_aa2ec4f63848cc27d751d91012f67279a}{\index{G\-U\-I\-::\-Element\-Maker@{G\-U\-I\-::\-Element\-Maker}!make\-Label@{make\-Label}}
+\index{make\-Label@{make\-Label}!GUI::ElementMaker@{G\-U\-I\-::\-Element\-Maker}}
+\subsubsection[{make\-Label}]{\setlength{\rightskip}{0pt plus 5cm}{\bf G\-U\-I\-::\-Label} $\ast$ G\-U\-I\-::\-Element\-Maker\-::make\-Label (
+\begin{DoxyParamCaption}
+\item[{const std\-::string \&}]{\-\_\-input\-String, }
+\item[{const {\bf Orientation} \&}]{\-\_\-orient = {\ttfamily {\bf B\-O\-T\-T\-O\-M}}, }
+\item[{const int \&}]{\-\_\-lifetime = {\ttfamily 0}}
+\end{DoxyParamCaption}
+)}}\label{classGUI_1_1ElementMaker_aa2ec4f63848cc27d751d91012f67279a}
+
+
+Constructs a dynamically allocated label with the given parameters. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \-\_\-input\-String} & The text on the label. \\
+\hline
+{\em \-\_\-orient} & The edge of the screen this label will face. \\
+\hline
+{\em \-\_\-lifetime} & The number of update() calls this label will last until it is marked for removal. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A pointer to the new label. 
+\end{DoxyReturn}
+
+
+\subsection{Member Data Documentation}
+\hypertarget{classGUI_1_1ElementMaker_a4bd43024c59761045dad982d0c5d5242}{\index{G\-U\-I\-::\-Element\-Maker@{G\-U\-I\-::\-Element\-Maker}!m\-\_\-card\-Info@{m\-\_\-card\-Info}}
+\index{m\-\_\-card\-Info@{m\-\_\-card\-Info}!GUI::ElementMaker@{G\-U\-I\-::\-Element\-Maker}}
+\subsubsection[{m\-\_\-card\-Info}]{\setlength{\rightskip}{0pt plus 5cm}const {\bf Card\-Info}$\ast$ G\-U\-I\-::\-Element\-Maker\-::m\-\_\-card\-Info\hspace{0.3cm}{\ttfamily [private]}}}\label{classGUI_1_1ElementMaker_a4bd43024c59761045dad982d0c5d5242}
+
+
+A pointer to a struct containing constant info about all cards, so this info will not have to be used in any of the maker's function parameters. 
+
+\hypertarget{classGUI_1_1ElementMaker_aa6cdbf98c0890111f13b305c0eecdaff}{\index{G\-U\-I\-::\-Element\-Maker@{G\-U\-I\-::\-Element\-Maker}!m\-\_\-label\-Format@{m\-\_\-label\-Format}}
+\index{m\-\_\-label\-Format@{m\-\_\-label\-Format}!GUI::ElementMaker@{G\-U\-I\-::\-Element\-Maker}}
+\subsubsection[{m\-\_\-label\-Format}]{\setlength{\rightskip}{0pt plus 5cm}const {\bf Label\-Format}$\ast$ G\-U\-I\-::\-Element\-Maker\-::m\-\_\-label\-Format\hspace{0.3cm}{\ttfamily [private]}}}\label{classGUI_1_1ElementMaker_aa6cdbf98c0890111f13b305c0eecdaff}
+
+
+A pointer to a struct containing constant info about all labels, so this info will not have to be used in any of the maker's function parameters. 
+
+
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+include/gui/\hyperlink{gui__elementmaker_8h}{gui\-\_\-elementmaker.\-h}\item 
+src/gui/\hyperlink{gui__elementmaker_8cpp}{gui\-\_\-elementmaker.\-cpp}\end{DoxyCompactItemize}

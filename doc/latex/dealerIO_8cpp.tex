@@ -1,0 +1,46 @@
+\hypertarget{dealerIO_8cpp}{\section{src/comms/dealer\-I\-O.cpp File Reference}
+\label{dealerIO_8cpp}\index{src/comms/dealer\-I\-O.\-cpp@{src/comms/dealer\-I\-O.\-cpp}}
+}
+{\ttfamily \#include \char`\"{}comms/dealer\-I\-O.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}comms/\-Serial\-Port.\-h\char`\"{}}\\*
+\subsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{namespaceComms}{Comms}
+\end{DoxyCompactItemize}
+\subsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \hyperlink{namespaceComms_a2c437ccb25ec06a8a5b10960c31b7246}{Comms\-::\-Packet\-Header} \{ \\*
+\hyperlink{namespaceComms_a2c437ccb25ec06a8a5b10960c31b7246add58fa1f1478570d3eadbcf0971657e3}{Comms\-::\-P\-\_\-\-C\-A\-R\-D\-S} = 0x10 $\vert$ 0x01, 
+\hyperlink{namespaceComms_a2c437ccb25ec06a8a5b10960c31b7246a2906edd04bd6403dbc11ed6fde335163}{Comms\-::\-P\-\_\-\-N\-A\-M\-E} = 0x20 $\vert$ 0x0\-F, 
+\hyperlink{namespaceComms_a2c437ccb25ec06a8a5b10960c31b7246aa32646badac9e48c28b0bc346f2accf7}{Comms\-::\-P\-\_\-\-M\-O\-N\-E\-Y} = 0x30 $\vert$ 0x02, 
+\hyperlink{namespaceComms_a2c437ccb25ec06a8a5b10960c31b7246aa54b779d4d6301190ad850c6be56a1e2}{Comms\-::\-P\-\_\-\-L\-I\-M\-I\-T\-S} = 0x40 $\vert$ 0x04, 
+\\*
+\hyperlink{namespaceComms_a2c437ccb25ec06a8a5b10960c31b7246a1cacc7a34b8d25f0d613dac5d56bbcfb}{Comms\-::\-P\-\_\-\-R\-E\-S\-E\-T\-P\-L\-A\-Y\-E\-R} = 0x50 $\vert$ 0x00, 
+\hyperlink{namespaceComms_a2c437ccb25ec06a8a5b10960c31b7246a03009ce4e9078e238b8a5443a02edbd2}{Comms\-::\-P\-\_\-\-R\-E\-Q\-U\-E\-S\-T\-B\-E\-T} = 0x60 $\vert$ 0x01, 
+\hyperlink{namespaceComms_a2c437ccb25ec06a8a5b10960c31b7246a6cc2be410adb6ff1a221428f9b1f8754}{Comms\-::\-P\-\_\-\-R\-E\-C\-I\-E\-V\-E\-W\-I\-N\-N\-I\-N\-G\-S} = 0x70 $\vert$ 0x02, 
+\hyperlink{namespaceComms_a2c437ccb25ec06a8a5b10960c31b7246a5032f14e699e1725c9fa0d2b5e1213fc}{Comms\-::\-P\-\_\-\-B\-E\-T\-A\-M\-O\-U\-N\-T} = 0x80 $\vert$ 0x01, 
+\\*
+\hyperlink{namespaceComms_a2c437ccb25ec06a8a5b10960c31b7246ac6f5cfbe40a9f647dbb91ecda768f782}{Comms\-::\-P\-\_\-\-R\-E\-S\-E\-T\-C\-A\-R\-D} = 0x90 $\vert$ 0x00
+ \}
+\begin{DoxyCompactList}\small\item\em The Packet\-Type enum values store all the information needed for each packet type, the left nibble stores the type and the right nibble stores the payload size. They can just be sent directly along the serial port and the Player should be capable of understanding what data they contain. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool \hyperlink{namespaceComms_ad8554008bce28b575ab7a46ae1c4b821}{Comms\-::set\-Player} (const std\-::string \&\-\_\-port, const std\-::vector$<$ \hyperlink{classPlayingCard}{Playing\-Card} $>$ \&\-\_\-cards, uint16\-\_\-t \-\_\-money)
+\begin{DoxyCompactList}\small\item\em set\-Player Initialises the player connected to \-\_\-port with the data from \-\_\-cards and \-\_\-money. \end{DoxyCompactList}\item 
+bool \hyperlink{namespaceComms_a7d6a864c4776b2549220680a3a91d562}{Comms\-::send\-Money} (const std\-::string \&\-\_\-port, uint16\-\_\-t \-\_\-amount)
+\begin{DoxyCompactList}\small\item\em send\-Money Sets the money of the player on \-\_\-port. \end{DoxyCompactList}\item 
+bool \hyperlink{namespaceComms_ab5667910ab1e165e1ce83df355f3211e}{Comms\-::send\-Card} (const std\-::string \&\-\_\-port, \hyperlink{classPlayingCard}{Playing\-Card} \-\_\-card)
+\begin{DoxyCompactList}\small\item\em send\-Card Sends a card to the player on \-\_\-port. \end{DoxyCompactList}\item 
+bool \hyperlink{namespaceComms_a4dbb12818b660021ffb944c9f6f84a82}{Comms\-::send\-Win} (const std\-::string \&\-\_\-port, uint16\-\_\-t \-\_\-money)
+\begin{DoxyCompactList}\small\item\em send\-Win Tells the player on \-\_\-port that they've win and sends a money reward. \end{DoxyCompactList}\item 
+bool \hyperlink{namespaceComms_ac0e4a7381fc5fe570d69fea503489fba}{Comms\-::send\-Reset\-Player} (const std\-::string \&\-\_\-port)
+\begin{DoxyCompactList}\small\item\em send\-Reset\-Player Resets the player on \-\_\-port. \end{DoxyCompactList}\item 
+bool \hyperlink{namespaceComms_a081887fecdeda4f6a1e9f5d593b015a1}{Comms\-::send\-Reset\-Cards} (const std\-::string \&\-\_\-port)
+\begin{DoxyCompactList}\small\item\em send\-Reset\-Cards Resets the cards of the player on \-\_\-port. \end{DoxyCompactList}\item 
+bool \hyperlink{namespaceComms_a89d7a587eb06b38621bc16c99ae0ede6}{Comms\-::receive\-Bet} (const std\-::string \&\-\_\-port, uint16\-\_\-t \&\-\_\-data, uint16\-\_\-t \-\_\-min, uint16\-\_\-t \-\_\-max, unsigned int \-\_\-timeout=4)
+\begin{DoxyCompactList}\small\item\em receive\-Bet Asks the player on \-\_\-port to input a bet and blocks until the result is recieved. \end{DoxyCompactList}\item 
+bool \hyperlink{namespaceComms_a70a2eabc41885572c59dfd6fb6dffc9d}{Comms\-::receive\-Name} (const std\-::string \&\-\_\-port, std\-::string \&\-\_\-data, unsigned int \-\_\-timeout=4)
+\begin{DoxyCompactList}\small\item\em receive\-Name Asks the player on \-\_\-port to input a name (max 15 bytes long) and blocks until the result is recieved. \end{DoxyCompactList}\end{DoxyCompactItemize}

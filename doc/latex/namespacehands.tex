@@ -1,0 +1,202 @@
+\hypertarget{namespacehands}{\section{hands Namespace Reference}
+\label{namespacehands}\index{hands@{hands}}
+}
+
+
+encapsulates all methods used to find players best hand and ecide winner of Poker.  
+
+
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classcardStack}{card\-Stack} \hyperlink{namespacehands_a0d09bd6ca9e5b63f66ed66ccd9df34ab}{find\-Spare\-Cards} (const \hyperlink{classplayer}{player} \&\-\_\-player, const \hyperlink{classcardStack}{card\-Stack} \&\-\_\-river)
+\begin{DoxyCompactList}\small\item\em method to find spare cards not already being used in players hand \end{DoxyCompactList}\item 
+void \hyperlink{namespacehands_a352ccbaca5c71fdccbefbfe4daceb122}{add\-Highest\-Card} (\hyperlink{classplayer}{player} \&\-\_\-player, const \hyperlink{classcardStack}{card\-Stack} \&\-\_\-river)
+\item 
+void \hyperlink{namespacehands_acb821259e4d0fc9e34539618a7332a97}{find\-Pair} (\hyperlink{classplayer}{player} \&\-\_\-player, const \hyperlink{classcardStack}{card\-Stack} \&\-\_\-river)
+\item 
+void \hyperlink{namespacehands_a976446f5c58424efbb3e7e832f3267c2}{fill\-Hand} (\hyperlink{classplayer}{player} \&\-\_\-player, const \hyperlink{classcardStack}{card\-Stack} \&\-\_\-river)
+\item 
+bool \hyperlink{namespacehands_a587b3f74a5e856caf2001832e04c3138}{check\-Straight\-Has\-Flush} (\hyperlink{classplayer}{player} \&\-\_\-player, const \hyperlink{classcardStack}{card\-Stack} \&\-\_\-river, const Suit\-::\-Value \-\_\-suit, unsigned int \-\_\-num\-Suit)
+\item 
+void \hyperlink{namespacehands_acba666e02d860de8bcb62a42d3421bb4}{highest\-Card} (\hyperlink{classplayer}{player} \&\-\_\-player, const \hyperlink{classcardStack}{card\-Stack} \&\-\_\-river)
+\item 
+void \hyperlink{namespacehands_a79af06da728563131bce6f3cb1f9c669}{pairs} (\hyperlink{classplayer}{player} \&\-\_\-player, const \hyperlink{classcardStack}{card\-Stack} \&\-\_\-river)
+\item 
+void \hyperlink{namespacehands_ad1d6dbad028c83769dca51fc62d65969}{three} (\hyperlink{classplayer}{player} \&\-\_\-player, const \hyperlink{classcardStack}{card\-Stack} \&\-\_\-river)
+\item 
+void \hyperlink{namespacehands_a049d77b8152d001be0df8f3d733d9e71}{straight} (\hyperlink{classplayer}{player} \&\-\_\-player, const \hyperlink{classcardStack}{card\-Stack} \&\-\_\-river)
+\item 
+void \hyperlink{namespacehands_a96b3a32f0fd760e7542148042b01697f}{flush} (\hyperlink{classplayer}{player} \&\-\_\-player, const \hyperlink{classcardStack}{card\-Stack} \&\-\_\-river)
+\item 
+void \hyperlink{namespacehands_ad07dc24f489e0883880047c448bc8237}{full\-House} (\hyperlink{classplayer}{player} \&\-\_\-player, const \hyperlink{classcardStack}{card\-Stack} \&\-\_\-river)
+\item 
+void \hyperlink{namespacehands_aa2871b87380a2a7340e800a47c919cc5}{four} (\hyperlink{classplayer}{player} \&\-\_\-player, const \hyperlink{classcardStack}{card\-Stack} \&\-\_\-river)
+\item 
+void \hyperlink{namespacehands_a42bd5b3d774d397c4ce67ba39af4af36}{straight\-Flush} (\hyperlink{classplayer}{player} \&\-\_\-player, const \hyperlink{classcardStack}{card\-Stack} \&\-\_\-river)
+\item 
+void \hyperlink{namespacehands_abf4446a1a0ec86dd9367c5372847b76f}{best\-Hand} (\hyperlink{classplayer}{player} \&\-\_\-player, const \hyperlink{classcardStack}{card\-Stack} \&\-\_\-river)
+\item 
+std\-::vector$<$ \hyperlink{classplayer}{player} $>$ \hyperlink{namespacehands_aa5c02c0f440cbd185e7fc2280ead6072}{tie\-Break} (std\-::vector$<$ \hyperlink{classplayer}{player} $>$ \&\-\_\-live\-Players, const std\-::vector$<$ int $>$ \-\_\-\-I\-D)
+\item 
+std\-::vector$<$ \hyperlink{classplayer}{player} $>$ \hyperlink{namespacehands_a058800342cbc5d20baf94496f5565019}{winner} (std\-::vector$<$ \hyperlink{classplayer}{player} $>$ \&\-\_\-live\-Players, const \hyperlink{classcardStack}{card\-Stack} \&\-\_\-river)
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+encapsulates all methods used to find players best hand and ecide winner of Poker. \begin{DoxyAuthor}{Author}
+Idris Miles 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+1.\-0 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+16/01/2015 
+\end{DoxyDate}
+
+
+\subsection{Function Documentation}
+\hypertarget{namespacehands_a352ccbaca5c71fdccbefbfe4daceb122}{\index{hands@{hands}!add\-Highest\-Card@{add\-Highest\-Card}}
+\index{add\-Highest\-Card@{add\-Highest\-Card}!hands@{hands}}
+\subsubsection[{add\-Highest\-Card}]{\setlength{\rightskip}{0pt plus 5cm}void hands\-::add\-Highest\-Card (
+\begin{DoxyParamCaption}
+\item[{{\bf player} \&}]{\-\_\-player, }
+\item[{const {\bf card\-Stack} \&}]{\-\_\-river}
+\end{DoxyParamCaption}
+)}}\label{namespacehands_a352ccbaca5c71fdccbefbfe4daceb122}
+\hypertarget{namespacehands_abf4446a1a0ec86dd9367c5372847b76f}{\index{hands@{hands}!best\-Hand@{best\-Hand}}
+\index{best\-Hand@{best\-Hand}!hands@{hands}}
+\subsubsection[{best\-Hand}]{\setlength{\rightskip}{0pt plus 5cm}void hands\-::best\-Hand (
+\begin{DoxyParamCaption}
+\item[{{\bf player} \&}]{\-\_\-player, }
+\item[{const {\bf card\-Stack} \&}]{\-\_\-river}
+\end{DoxyParamCaption}
+)}}\label{namespacehands_abf4446a1a0ec86dd9367c5372847b76f}
+\hypertarget{namespacehands_a587b3f74a5e856caf2001832e04c3138}{\index{hands@{hands}!check\-Straight\-Has\-Flush@{check\-Straight\-Has\-Flush}}
+\index{check\-Straight\-Has\-Flush@{check\-Straight\-Has\-Flush}!hands@{hands}}
+\subsubsection[{check\-Straight\-Has\-Flush}]{\setlength{\rightskip}{0pt plus 5cm}bool hands\-::check\-Straight\-Has\-Flush (
+\begin{DoxyParamCaption}
+\item[{{\bf player} \&}]{\-\_\-player, }
+\item[{const {\bf card\-Stack} \&}]{\-\_\-river, }
+\item[{const Suit\-::\-Value}]{\-\_\-suit, }
+\item[{unsigned int}]{\-\_\-num\-Suit}
+\end{DoxyParamCaption}
+)}}\label{namespacehands_a587b3f74a5e856caf2001832e04c3138}
+\hypertarget{namespacehands_a976446f5c58424efbb3e7e832f3267c2}{\index{hands@{hands}!fill\-Hand@{fill\-Hand}}
+\index{fill\-Hand@{fill\-Hand}!hands@{hands}}
+\subsubsection[{fill\-Hand}]{\setlength{\rightskip}{0pt plus 5cm}void hands\-::fill\-Hand (
+\begin{DoxyParamCaption}
+\item[{{\bf player} \&}]{\-\_\-player, }
+\item[{const {\bf card\-Stack} \&}]{\-\_\-river}
+\end{DoxyParamCaption}
+)}}\label{namespacehands_a976446f5c58424efbb3e7e832f3267c2}
+\hypertarget{namespacehands_acb821259e4d0fc9e34539618a7332a97}{\index{hands@{hands}!find\-Pair@{find\-Pair}}
+\index{find\-Pair@{find\-Pair}!hands@{hands}}
+\subsubsection[{find\-Pair}]{\setlength{\rightskip}{0pt plus 5cm}void hands\-::find\-Pair (
+\begin{DoxyParamCaption}
+\item[{{\bf player} \&}]{\-\_\-player, }
+\item[{const {\bf card\-Stack} \&}]{\-\_\-river}
+\end{DoxyParamCaption}
+)}}\label{namespacehands_acb821259e4d0fc9e34539618a7332a97}
+\hypertarget{namespacehands_a0d09bd6ca9e5b63f66ed66ccd9df34ab}{\index{hands@{hands}!find\-Spare\-Cards@{find\-Spare\-Cards}}
+\index{find\-Spare\-Cards@{find\-Spare\-Cards}!hands@{hands}}
+\subsubsection[{find\-Spare\-Cards}]{\setlength{\rightskip}{0pt plus 5cm}{\bf card\-Stack} hands\-::find\-Spare\-Cards (
+\begin{DoxyParamCaption}
+\item[{const {\bf player} \&}]{\-\_\-player, }
+\item[{const {\bf card\-Stack} \&}]{\-\_\-river}
+\end{DoxyParamCaption}
+)}}\label{namespacehands_a0d09bd6ca9e5b63f66ed66ccd9df34ab}
+
+
+method to find spare cards not already being used in players hand 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em const} & Player \\
+\hline
+\mbox{\tt in}  & {\em const} & \hyperlink{classcardStack}{card\-Stack} \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\mbox{[}out\mbox{]} \hyperlink{classcardStack}{card\-Stack} 
+\end{DoxyReturn}
+\hypertarget{namespacehands_a96b3a32f0fd760e7542148042b01697f}{\index{hands@{hands}!flush@{flush}}
+\index{flush@{flush}!hands@{hands}}
+\subsubsection[{flush}]{\setlength{\rightskip}{0pt plus 5cm}void hands\-::flush (
+\begin{DoxyParamCaption}
+\item[{{\bf player} \&}]{\-\_\-player, }
+\item[{const {\bf card\-Stack} \&}]{\-\_\-river}
+\end{DoxyParamCaption}
+)}}\label{namespacehands_a96b3a32f0fd760e7542148042b01697f}
+\hypertarget{namespacehands_aa2871b87380a2a7340e800a47c919cc5}{\index{hands@{hands}!four@{four}}
+\index{four@{four}!hands@{hands}}
+\subsubsection[{four}]{\setlength{\rightskip}{0pt plus 5cm}void hands\-::four (
+\begin{DoxyParamCaption}
+\item[{{\bf player} \&}]{\-\_\-player, }
+\item[{const {\bf card\-Stack} \&}]{\-\_\-river}
+\end{DoxyParamCaption}
+)}}\label{namespacehands_aa2871b87380a2a7340e800a47c919cc5}
+\hypertarget{namespacehands_ad07dc24f489e0883880047c448bc8237}{\index{hands@{hands}!full\-House@{full\-House}}
+\index{full\-House@{full\-House}!hands@{hands}}
+\subsubsection[{full\-House}]{\setlength{\rightskip}{0pt plus 5cm}void hands\-::full\-House (
+\begin{DoxyParamCaption}
+\item[{{\bf player} \&}]{\-\_\-player, }
+\item[{const {\bf card\-Stack} \&}]{\-\_\-river}
+\end{DoxyParamCaption}
+)}}\label{namespacehands_ad07dc24f489e0883880047c448bc8237}
+\hypertarget{namespacehands_acba666e02d860de8bcb62a42d3421bb4}{\index{hands@{hands}!highest\-Card@{highest\-Card}}
+\index{highest\-Card@{highest\-Card}!hands@{hands}}
+\subsubsection[{highest\-Card}]{\setlength{\rightskip}{0pt plus 5cm}void hands\-::highest\-Card (
+\begin{DoxyParamCaption}
+\item[{{\bf player} \&}]{\-\_\-player, }
+\item[{const {\bf card\-Stack} \&}]{\-\_\-river}
+\end{DoxyParamCaption}
+)}}\label{namespacehands_acba666e02d860de8bcb62a42d3421bb4}
+\hypertarget{namespacehands_a79af06da728563131bce6f3cb1f9c669}{\index{hands@{hands}!pairs@{pairs}}
+\index{pairs@{pairs}!hands@{hands}}
+\subsubsection[{pairs}]{\setlength{\rightskip}{0pt plus 5cm}void hands\-::pairs (
+\begin{DoxyParamCaption}
+\item[{{\bf player} \&}]{\-\_\-player, }
+\item[{const {\bf card\-Stack} \&}]{\-\_\-river}
+\end{DoxyParamCaption}
+)}}\label{namespacehands_a79af06da728563131bce6f3cb1f9c669}
+\hypertarget{namespacehands_a049d77b8152d001be0df8f3d733d9e71}{\index{hands@{hands}!straight@{straight}}
+\index{straight@{straight}!hands@{hands}}
+\subsubsection[{straight}]{\setlength{\rightskip}{0pt plus 5cm}void hands\-::straight (
+\begin{DoxyParamCaption}
+\item[{{\bf player} \&}]{\-\_\-player, }
+\item[{const {\bf card\-Stack} \&}]{\-\_\-river}
+\end{DoxyParamCaption}
+)}}\label{namespacehands_a049d77b8152d001be0df8f3d733d9e71}
+\hypertarget{namespacehands_a42bd5b3d774d397c4ce67ba39af4af36}{\index{hands@{hands}!straight\-Flush@{straight\-Flush}}
+\index{straight\-Flush@{straight\-Flush}!hands@{hands}}
+\subsubsection[{straight\-Flush}]{\setlength{\rightskip}{0pt plus 5cm}void hands\-::straight\-Flush (
+\begin{DoxyParamCaption}
+\item[{{\bf player} \&}]{\-\_\-player, }
+\item[{const {\bf card\-Stack} \&}]{\-\_\-river}
+\end{DoxyParamCaption}
+)}}\label{namespacehands_a42bd5b3d774d397c4ce67ba39af4af36}
+\hypertarget{namespacehands_ad1d6dbad028c83769dca51fc62d65969}{\index{hands@{hands}!three@{three}}
+\index{three@{three}!hands@{hands}}
+\subsubsection[{three}]{\setlength{\rightskip}{0pt plus 5cm}void hands\-::three (
+\begin{DoxyParamCaption}
+\item[{{\bf player} \&}]{\-\_\-player, }
+\item[{const {\bf card\-Stack} \&}]{\-\_\-river}
+\end{DoxyParamCaption}
+)}}\label{namespacehands_ad1d6dbad028c83769dca51fc62d65969}
+\hypertarget{namespacehands_aa5c02c0f440cbd185e7fc2280ead6072}{\index{hands@{hands}!tie\-Break@{tie\-Break}}
+\index{tie\-Break@{tie\-Break}!hands@{hands}}
+\subsubsection[{tie\-Break}]{\setlength{\rightskip}{0pt plus 5cm}std\-::vector$<$ {\bf player} $>$ hands\-::tie\-Break (
+\begin{DoxyParamCaption}
+\item[{std\-::vector$<$ {\bf player} $>$ \&}]{\-\_\-live\-Players, }
+\item[{const std\-::vector$<$ int $>$}]{\-\_\-\-I\-D}
+\end{DoxyParamCaption}
+)}}\label{namespacehands_aa5c02c0f440cbd185e7fc2280ead6072}
+\hypertarget{namespacehands_a058800342cbc5d20baf94496f5565019}{\index{hands@{hands}!winner@{winner}}
+\index{winner@{winner}!hands@{hands}}
+\subsubsection[{winner}]{\setlength{\rightskip}{0pt plus 5cm}std\-::vector$<$ {\bf player} $>$ hands\-::winner (
+\begin{DoxyParamCaption}
+\item[{std\-::vector$<$ {\bf player} $>$ \&}]{\-\_\-live\-Players, }
+\item[{const {\bf card\-Stack} \&}]{\-\_\-river}
+\end{DoxyParamCaption}
+)}}\label{namespacehands_a058800342cbc5d20baf94496f5565019}

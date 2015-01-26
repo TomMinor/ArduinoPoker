@@ -1,0 +1,192 @@
+\hypertarget{src_2player_2MainSketch_2comms_8h}{\section{src/player/\-Main\-Sketch/comms.h File Reference}
+\label{src_2player_2MainSketch_2comms_8h}\index{src/player/\-Main\-Sketch/comms.\-h@{src/player/\-Main\-Sketch/comms.\-h}}
+}
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structdata}{data}
+\begin{DoxyCompactList}\small\item\em comms.\-h \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{namespaceDEALER__CALLS}{D\-E\-A\-L\-E\-R\-\_\-\-C\-A\-L\-L\-S}
+\begin{DoxyCompactList}\small\item\em a namespace that is used to return dealer\-\_\-calls according to the data recieved \end{DoxyCompactList}\item 
+\hyperlink{namespaceBET}{B\-E\-T}
+\begin{DoxyCompactList}\small\item\em a bet enum setup by the player side that is shared by comms and player \end{DoxyCompactList}\item 
+\hyperlink{namespacePLAYER__SENDS}{P\-L\-A\-Y\-E\-R\-\_\-\-S\-E\-N\-D\-S}
+\begin{DoxyCompactList}\small\item\em a enum setup to indicate the player\-\_\-actions \end{DoxyCompactList}\item 
+\hyperlink{namespaceDATA}{D\-A\-T\-A}
+\begin{DoxyCompactList}\small\item\em a enum to indicate the different packet sizes for a data type \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{src_2player_2MainSketch_2comms_8h_ad978fed20b529fc67af99caa70c1f3df}{U16\-\_\-\-T\-O\-\_\-\-B\-Y\-T\-E\-\_\-\-L}(U16)~( U16     \& \hyperlink{src_2player_2MainSketch_2comms_8h_ae51208c7fd555e7e63cd809a89e4220daca50e81f7255723b8cb439fcd90ab28f}{B\-Y\-T\-E\-\_\-\-M\-A\-S\-K})
+\begin{DoxyCompactList}\small\item\em macros to convert U16 to bytes \end{DoxyCompactList}\item 
+\#define \hyperlink{src_2player_2MainSketch_2comms_8h_ae10d2088557fa10f49e706a43575c6b4}{U16\-\_\-\-T\-O\-\_\-\-B\-Y\-T\-E\-\_\-\-H}(U16)~((U16$>$$>$8) \& \hyperlink{src_2player_2MainSketch_2comms_8h_ae51208c7fd555e7e63cd809a89e4220daca50e81f7255723b8cb439fcd90ab28f}{B\-Y\-T\-E\-\_\-\-M\-A\-S\-K})
+\item 
+\#define \hyperlink{src_2player_2MainSketch_2comms_8h_a5263fdc0d77782b4e8c9092f51d78a2a}{B\-Y\-T\-E\-\_\-\-T\-O\-\_\-\-U16}(byte1, byte2)~((((uint16\-\_\-t)byte1)$<$$<$8)$\vert$byte2)
+\begin{DoxyCompactList}\small\item\em A macro to convert bytes U16. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct \hyperlink{structdata}{data} \hyperlink{src_2player_2MainSketch_2comms_8h_a493583f6fc164cf849745e01e4c04ab5}{data}
+\begin{DoxyCompactList}\small\item\em comms.\-h \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \hyperlink{namespaceDEALER__CALLS_a2f28c146c5dfa6101ca6ea262f0d95ba}{D\-E\-A\-L\-E\-R\-\_\-\-C\-A\-L\-L\-S\-::\-C\-A\-L\-L\-S} \{ \\*
+\hyperlink{namespaceDEALER__CALLS_a2f28c146c5dfa6101ca6ea262f0d95baa882bad0a295c8836aaf2f08e9d3a22b8}{D\-E\-A\-L\-E\-R\-\_\-\-C\-A\-L\-L\-S\-::\-S\-E\-T\-\_\-\-C\-A\-R\-D\-S} =1, 
+\hyperlink{namespaceDEALER__CALLS_a2f28c146c5dfa6101ca6ea262f0d95baaccdda4a3017d5031cd11179d08476e4b}{D\-E\-A\-L\-E\-R\-\_\-\-C\-A\-L\-L\-S\-::\-S\-E\-T\-\_\-\-N\-A\-M\-E} =2, 
+\hyperlink{namespaceDEALER__CALLS_a2f28c146c5dfa6101ca6ea262f0d95baaaa87c98d565cb591900f0606cd170cc5}{D\-E\-A\-L\-E\-R\-\_\-\-C\-A\-L\-L\-S\-::\-S\-E\-T\-\_\-\-M\-O\-N\-E\-Y} =3, 
+\hyperlink{namespaceDEALER__CALLS_a2f28c146c5dfa6101ca6ea262f0d95baa5963c56b2097e4c86a8708c0934b79da}{D\-E\-A\-L\-E\-R\-\_\-\-C\-A\-L\-L\-S\-::\-S\-E\-T\-\_\-\-L\-I\-M\-I\-T} =4, 
+\\*
+\hyperlink{namespaceDEALER__CALLS_a2f28c146c5dfa6101ca6ea262f0d95baab3a2f3281689e63e34bb39ea306ad100}{D\-E\-A\-L\-E\-R\-\_\-\-C\-A\-L\-L\-S\-::\-R\-O\-U\-N\-D\-\_\-\-S\-T\-A\-T\-E} =5, 
+\hyperlink{namespaceDEALER__CALLS_a2f28c146c5dfa6101ca6ea262f0d95baa2cb41452c0bcc1048ce66f26c937154b}{D\-E\-A\-L\-E\-R\-\_\-\-C\-A\-L\-L\-S\-::\-I\-N\-I\-T\-I\-A\-T\-E\-\_\-\-B\-E\-T} =6, 
+\hyperlink{namespaceDEALER__CALLS_a2f28c146c5dfa6101ca6ea262f0d95baada38e4c50341caa14b35b043dc17f31c}{D\-E\-A\-L\-E\-R\-\_\-\-C\-A\-L\-L\-S\-::\-W\-I\-N\-\_\-\-M\-O\-N\-E\-Y} =7, 
+\hyperlink{namespaceDEALER__CALLS_a2f28c146c5dfa6101ca6ea262f0d95baa047961c93c7e2f5b5e42759b7a372d6a}{D\-E\-A\-L\-E\-R\-\_\-\-C\-A\-L\-L\-S\-::\-R\-E\-S\-E\-T\-\_\-\-C\-A\-R\-D\-S} =8, 
+\\*
+\hyperlink{namespaceDEALER__CALLS_a2f28c146c5dfa6101ca6ea262f0d95baafb6fccae05e55c3ea4ace36eb1463777}{D\-E\-A\-L\-E\-R\-\_\-\-C\-A\-L\-L\-S\-::\-R\-E\-S\-E\-T\-\_\-\-P\-L\-A\-Y\-E\-R} =9
+ \}
+\item 
+enum \hyperlink{namespaceBET_ac53dea9da5d253fe318a94e39406f866}{B\-E\-T\-::\-T\-Y\-P\-E} \{ \hyperlink{namespaceBET_ac53dea9da5d253fe318a94e39406f866a09f4f61481b3a5161c54018c248021eb}{B\-E\-T\-::\-N\-A\-M\-E} = 1, 
+\hyperlink{namespaceBET_ac53dea9da5d253fe318a94e39406f866a1210d30e425edb9c60391107b1ad4e27}{B\-E\-T\-::\-B\-E\-T} = 2, 
+\hyperlink{namespaceBET_ac53dea9da5d253fe318a94e39406f866abddb7128262c2b4c052bce2a39502100}{B\-E\-T\-::\-F\-O\-L\-D} = 65534
+ \}
+\item 
+enum \hyperlink{namespacePLAYER__SENDS_a04b35bdc248faeec2b84ffc4417acd1b}{P\-L\-A\-Y\-E\-R\-\_\-\-S\-E\-N\-D\-S\-::\-S\-E\-N\-D\-S} \{ \hyperlink{namespacePLAYER__SENDS_a04b35bdc248faeec2b84ffc4417acd1ba2bac6154901696ab889f3b2bff6cec74}{P\-L\-A\-Y\-E\-R\-\_\-\-S\-E\-N\-D\-S\-::\-N\-A\-M\-E} =1, 
+\hyperlink{namespacePLAYER__SENDS_a04b35bdc248faeec2b84ffc4417acd1ba4bbc90f96af4198691f2700316126077}{P\-L\-A\-Y\-E\-R\-\_\-\-S\-E\-N\-D\-S\-::\-B\-E\-T} =2, 
+\hyperlink{namespacePLAYER__SENDS_a04b35bdc248faeec2b84ffc4417acd1ba2e080d1d9000064fb7877495be2f3c8f}{P\-L\-A\-Y\-E\-R\-\_\-\-S\-E\-N\-D\-S\-::\-F\-O\-L\-D} =3
+ \}
+\item 
+enum \hyperlink{namespaceDATA_afea3c4ba3d52fd5a891ad43a8dd5e14b}{D\-A\-T\-A\-::\-S\-I\-Z\-E} \{ \\*
+\hyperlink{namespaceDATA_afea3c4ba3d52fd5a891ad43a8dd5e14ba4e0d7a0787f6c2ff1bf5948bad3ec594}{D\-A\-T\-A\-::\-R\-E\-C\-I\-E\-V\-E\-D} =1, 
+\hyperlink{namespaceDATA_afea3c4ba3d52fd5a891ad43a8dd5e14ba665b1f18ef1c4ad7c65f51016b44a59e}{D\-A\-T\-A\-::\-N\-O\-N\-E} =0, 
+\hyperlink{namespaceDATA_afea3c4ba3d52fd5a891ad43a8dd5e14babe85d3ae61464479149b9d9f1c916f2b}{D\-A\-T\-A\-::\-B\-O\-O\-L} =1, 
+\hyperlink{namespaceDATA_afea3c4ba3d52fd5a891ad43a8dd5e14ba5153076cd7a27382f8e53a9b0b909102}{D\-A\-T\-A\-::\-N\-A\-M\-E} =15, 
+\\*
+\hyperlink{namespaceDATA_afea3c4ba3d52fd5a891ad43a8dd5e14baffee9f305ff525f7f322246b140a163a}{D\-A\-T\-A\-::\-B\-E\-T} =2, 
+\hyperlink{namespaceDATA_afea3c4ba3d52fd5a891ad43a8dd5e14ba75b166f2085fa3bf8f36fdc32c9edede}{D\-A\-T\-A\-::\-F\-O\-L\-D} =2
+ \}
+\item 
+enum \hyperlink{src_2player_2MainSketch_2comms_8h_ae51208c7fd555e7e63cd809a89e4220d}{M\-A\-S\-K} \{ \hyperlink{src_2player_2MainSketch_2comms_8h_ae51208c7fd555e7e63cd809a89e4220da395f7a4e1cdc78ba300dc6a44d9eb573}{H\-I\-G\-H\-\_\-\-N\-I\-B\-B\-L\-E} = 0x\-F0, 
+\hyperlink{src_2player_2MainSketch_2comms_8h_ae51208c7fd555e7e63cd809a89e4220da075bd02117ebd47f824ad7189040ddf8}{L\-O\-W\-\_\-\-N\-I\-B\-B\-L\-E} = 0x0\-F, 
+\hyperlink{src_2player_2MainSketch_2comms_8h_ae51208c7fd555e7e63cd809a89e4220daca50e81f7255723b8cb439fcd90ab28f}{B\-Y\-T\-E\-\_\-\-M\-A\-S\-K} =0x\-F\-F
+ \}
+\begin{DoxyCompactList}\small\item\em a mask to extract high and low nibble \end{DoxyCompactList}\item 
+enum \hyperlink{src_2player_2MainSketch_2comms_8h_a652fb7d1d6d443208b11e7d296fb845a}{H\-E\-A\-D\-E\-R} \{ \\*
+\hyperlink{src_2player_2MainSketch_2comms_8h_a652fb7d1d6d443208b11e7d296fb845aa94b74e5242d7fa1f8c375756a8e09376}{C\-A\-R\-D\-S} =0x10, 
+\hyperlink{src_2player_2MainSketch_2comms_8h_a652fb7d1d6d443208b11e7d296fb845aa67bc2ced260a8e43805d2480a785d312}{N\-A\-M\-E} =0x20, 
+\hyperlink{src_2player_2MainSketch_2comms_8h_a652fb7d1d6d443208b11e7d296fb845aafbf7e82d9551a181f32f99564541f312}{M\-O\-N\-E\-Y} =0x30, 
+\hyperlink{src_2player_2MainSketch_2comms_8h_a652fb7d1d6d443208b11e7d296fb845aa65e40d6713b6de1580982bf7afacc826}{L\-I\-M\-I\-T\-S} =0x40, 
+\\*
+\hyperlink{src_2player_2MainSketch_2comms_8h_a652fb7d1d6d443208b11e7d296fb845aaaca8a37f05d268169d12278b381affe0}{R\-O\-U\-N\-D\-\_\-\-S\-T\-A\-T\-E} =0x50, 
+\hyperlink{src_2player_2MainSketch_2comms_8h_a652fb7d1d6d443208b11e7d296fb845aa32f0d6827defff9e87e3ba743068ca61}{R\-E\-Q\-U\-E\-S\-T\-\_\-\-B\-E\-T} =0x60, 
+\hyperlink{src_2player_2MainSketch_2comms_8h_a652fb7d1d6d443208b11e7d296fb845aafa6abe4ba2e9ff883381b435e48a52d1}{R\-E\-C\-I\-V\-\_\-\-W\-I\-N\-N\-I\-N\-G\-S} =0\-X70, 
+\hyperlink{src_2player_2MainSketch_2comms_8h_a652fb7d1d6d443208b11e7d296fb845aa670258801aee6136325f321a72652685}{B\-E\-T\-\_\-\-A\-M\-T} =0x80, 
+\\*
+\hyperlink{src_2player_2MainSketch_2comms_8h_a652fb7d1d6d443208b11e7d296fb845aab86e705ab92ba51471d0e046f10079b0}{R\-E\-S\-E\-T\-\_\-\-C\-A\-R\-D\-S} =0x90
+ \}
+\begin{DoxyCompactList}\small\item\em a header enum to define the different header different content that is sent in the header \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\hypertarget{src_2player_2MainSketch_2comms_8h_a5263fdc0d77782b4e8c9092f51d78a2a}{\index{src/player/\-Main\-Sketch/comms.\-h@{src/player/\-Main\-Sketch/comms.\-h}!B\-Y\-T\-E\-\_\-\-T\-O\-\_\-\-U16@{B\-Y\-T\-E\-\_\-\-T\-O\-\_\-\-U16}}
+\index{B\-Y\-T\-E\-\_\-\-T\-O\-\_\-\-U16@{B\-Y\-T\-E\-\_\-\-T\-O\-\_\-\-U16}!src/player/MainSketch/comms.h@{src/player/\-Main\-Sketch/comms.\-h}}
+\subsubsection[{B\-Y\-T\-E\-\_\-\-T\-O\-\_\-\-U16}]{\setlength{\rightskip}{0pt plus 5cm}\#define B\-Y\-T\-E\-\_\-\-T\-O\-\_\-\-U16(
+\begin{DoxyParamCaption}
+\item[{}]{byte1, }
+\item[{}]{byte2}
+\end{DoxyParamCaption}
+)~((((uint16\-\_\-t)byte1)$<$$<$8)$\vert$byte2)}}\label{src_2player_2MainSketch_2comms_8h_a5263fdc0d77782b4e8c9092f51d78a2a}
+
+
+A macro to convert bytes U16. 
+
+\hypertarget{src_2player_2MainSketch_2comms_8h_ae10d2088557fa10f49e706a43575c6b4}{\index{src/player/\-Main\-Sketch/comms.\-h@{src/player/\-Main\-Sketch/comms.\-h}!U16\-\_\-\-T\-O\-\_\-\-B\-Y\-T\-E\-\_\-\-H@{U16\-\_\-\-T\-O\-\_\-\-B\-Y\-T\-E\-\_\-\-H}}
+\index{U16\-\_\-\-T\-O\-\_\-\-B\-Y\-T\-E\-\_\-\-H@{U16\-\_\-\-T\-O\-\_\-\-B\-Y\-T\-E\-\_\-\-H}!src/player/MainSketch/comms.h@{src/player/\-Main\-Sketch/comms.\-h}}
+\subsubsection[{U16\-\_\-\-T\-O\-\_\-\-B\-Y\-T\-E\-\_\-\-H}]{\setlength{\rightskip}{0pt plus 5cm}\#define U16\-\_\-\-T\-O\-\_\-\-B\-Y\-T\-E\-\_\-\-H(
+\begin{DoxyParamCaption}
+\item[{}]{U16}
+\end{DoxyParamCaption}
+)~((U16$>$$>$8) \& {\bf B\-Y\-T\-E\-\_\-\-M\-A\-S\-K})}}\label{src_2player_2MainSketch_2comms_8h_ae10d2088557fa10f49e706a43575c6b4}
+\hypertarget{src_2player_2MainSketch_2comms_8h_ad978fed20b529fc67af99caa70c1f3df}{\index{src/player/\-Main\-Sketch/comms.\-h@{src/player/\-Main\-Sketch/comms.\-h}!U16\-\_\-\-T\-O\-\_\-\-B\-Y\-T\-E\-\_\-\-L@{U16\-\_\-\-T\-O\-\_\-\-B\-Y\-T\-E\-\_\-\-L}}
+\index{U16\-\_\-\-T\-O\-\_\-\-B\-Y\-T\-E\-\_\-\-L@{U16\-\_\-\-T\-O\-\_\-\-B\-Y\-T\-E\-\_\-\-L}!src/player/MainSketch/comms.h@{src/player/\-Main\-Sketch/comms.\-h}}
+\subsubsection[{U16\-\_\-\-T\-O\-\_\-\-B\-Y\-T\-E\-\_\-\-L}]{\setlength{\rightskip}{0pt plus 5cm}\#define U16\-\_\-\-T\-O\-\_\-\-B\-Y\-T\-E\-\_\-\-L(
+\begin{DoxyParamCaption}
+\item[{}]{U16}
+\end{DoxyParamCaption}
+)~( U16     \& {\bf B\-Y\-T\-E\-\_\-\-M\-A\-S\-K})}}\label{src_2player_2MainSketch_2comms_8h_ad978fed20b529fc67af99caa70c1f3df}
+
+
+macros to convert U16 to bytes 
+
+
+
+\subsection{Typedef Documentation}
+\hypertarget{src_2player_2MainSketch_2comms_8h_a493583f6fc164cf849745e01e4c04ab5}{\index{src/player/\-Main\-Sketch/comms.\-h@{src/player/\-Main\-Sketch/comms.\-h}!data@{data}}
+\index{data@{data}!src/player/MainSketch/comms.h@{src/player/\-Main\-Sketch/comms.\-h}}
+\subsubsection[{data}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf data} {\bf data}}}\label{src_2player_2MainSketch_2comms_8h_a493583f6fc164cf849745e01e4c04ab5}
+
+
+comms.\-h 
+
+\begin{DoxyAuthor}{Author}
+Eddy chen 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+2.\-0 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+21/01/2015 a structure that stores data that will be drawn by the player class 
+\end{DoxyDate}
+
+
+\subsection{Enumeration Type Documentation}
+\hypertarget{src_2player_2MainSketch_2comms_8h_a652fb7d1d6d443208b11e7d296fb845a}{\index{src/player/\-Main\-Sketch/comms.\-h@{src/player/\-Main\-Sketch/comms.\-h}!H\-E\-A\-D\-E\-R@{H\-E\-A\-D\-E\-R}}
+\index{H\-E\-A\-D\-E\-R@{H\-E\-A\-D\-E\-R}!src/player/MainSketch/comms.h@{src/player/\-Main\-Sketch/comms.\-h}}
+\subsubsection[{H\-E\-A\-D\-E\-R}]{\setlength{\rightskip}{0pt plus 5cm}enum {\bf H\-E\-A\-D\-E\-R}}}\label{src_2player_2MainSketch_2comms_8h_a652fb7d1d6d443208b11e7d296fb845a}
+
+
+a header enum to define the different header different content that is sent in the header 
+
+\begin{Desc}
+\item[Enumerator]\par
+\begin{description}
+\index{C\-A\-R\-D\-S@{C\-A\-R\-D\-S}!src/player/\-Main\-Sketch/comms.\-h@{src/player/\-Main\-Sketch/comms.\-h}}\index{src/player/\-Main\-Sketch/comms.\-h@{src/player/\-Main\-Sketch/comms.\-h}!C\-A\-R\-D\-S@{C\-A\-R\-D\-S}}\item[{\em 
+\hypertarget{src_2player_2MainSketch_2comms_8h_a652fb7d1d6d443208b11e7d296fb845aa94b74e5242d7fa1f8c375756a8e09376}{C\-A\-R\-D\-S}\label{src_2player_2MainSketch_2comms_8h_a652fb7d1d6d443208b11e7d296fb845aa94b74e5242d7fa1f8c375756a8e09376}
+}]\index{N\-A\-M\-E@{N\-A\-M\-E}!src/player/\-Main\-Sketch/comms.\-h@{src/player/\-Main\-Sketch/comms.\-h}}\index{src/player/\-Main\-Sketch/comms.\-h@{src/player/\-Main\-Sketch/comms.\-h}!N\-A\-M\-E@{N\-A\-M\-E}}\item[{\em 
+\hypertarget{src_2player_2MainSketch_2comms_8h_a652fb7d1d6d443208b11e7d296fb845aa67bc2ced260a8e43805d2480a785d312}{N\-A\-M\-E}\label{src_2player_2MainSketch_2comms_8h_a652fb7d1d6d443208b11e7d296fb845aa67bc2ced260a8e43805d2480a785d312}
+}]\index{M\-O\-N\-E\-Y@{M\-O\-N\-E\-Y}!src/player/\-Main\-Sketch/comms.\-h@{src/player/\-Main\-Sketch/comms.\-h}}\index{src/player/\-Main\-Sketch/comms.\-h@{src/player/\-Main\-Sketch/comms.\-h}!M\-O\-N\-E\-Y@{M\-O\-N\-E\-Y}}\item[{\em 
+\hypertarget{src_2player_2MainSketch_2comms_8h_a652fb7d1d6d443208b11e7d296fb845aafbf7e82d9551a181f32f99564541f312}{M\-O\-N\-E\-Y}\label{src_2player_2MainSketch_2comms_8h_a652fb7d1d6d443208b11e7d296fb845aafbf7e82d9551a181f32f99564541f312}
+}]\index{L\-I\-M\-I\-T\-S@{L\-I\-M\-I\-T\-S}!src/player/\-Main\-Sketch/comms.\-h@{src/player/\-Main\-Sketch/comms.\-h}}\index{src/player/\-Main\-Sketch/comms.\-h@{src/player/\-Main\-Sketch/comms.\-h}!L\-I\-M\-I\-T\-S@{L\-I\-M\-I\-T\-S}}\item[{\em 
+\hypertarget{src_2player_2MainSketch_2comms_8h_a652fb7d1d6d443208b11e7d296fb845aa65e40d6713b6de1580982bf7afacc826}{L\-I\-M\-I\-T\-S}\label{src_2player_2MainSketch_2comms_8h_a652fb7d1d6d443208b11e7d296fb845aa65e40d6713b6de1580982bf7afacc826}
+}]\index{R\-O\-U\-N\-D\-\_\-\-S\-T\-A\-T\-E@{R\-O\-U\-N\-D\-\_\-\-S\-T\-A\-T\-E}!src/player/\-Main\-Sketch/comms.\-h@{src/player/\-Main\-Sketch/comms.\-h}}\index{src/player/\-Main\-Sketch/comms.\-h@{src/player/\-Main\-Sketch/comms.\-h}!R\-O\-U\-N\-D\-\_\-\-S\-T\-A\-T\-E@{R\-O\-U\-N\-D\-\_\-\-S\-T\-A\-T\-E}}\item[{\em 
+\hypertarget{src_2player_2MainSketch_2comms_8h_a652fb7d1d6d443208b11e7d296fb845aaaca8a37f05d268169d12278b381affe0}{R\-O\-U\-N\-D\-\_\-\-S\-T\-A\-T\-E}\label{src_2player_2MainSketch_2comms_8h_a652fb7d1d6d443208b11e7d296fb845aaaca8a37f05d268169d12278b381affe0}
+}]\index{R\-E\-Q\-U\-E\-S\-T\-\_\-\-B\-E\-T@{R\-E\-Q\-U\-E\-S\-T\-\_\-\-B\-E\-T}!src/player/\-Main\-Sketch/comms.\-h@{src/player/\-Main\-Sketch/comms.\-h}}\index{src/player/\-Main\-Sketch/comms.\-h@{src/player/\-Main\-Sketch/comms.\-h}!R\-E\-Q\-U\-E\-S\-T\-\_\-\-B\-E\-T@{R\-E\-Q\-U\-E\-S\-T\-\_\-\-B\-E\-T}}\item[{\em 
+\hypertarget{src_2player_2MainSketch_2comms_8h_a652fb7d1d6d443208b11e7d296fb845aa32f0d6827defff9e87e3ba743068ca61}{R\-E\-Q\-U\-E\-S\-T\-\_\-\-B\-E\-T}\label{src_2player_2MainSketch_2comms_8h_a652fb7d1d6d443208b11e7d296fb845aa32f0d6827defff9e87e3ba743068ca61}
+}]\index{R\-E\-C\-I\-V\-\_\-\-W\-I\-N\-N\-I\-N\-G\-S@{R\-E\-C\-I\-V\-\_\-\-W\-I\-N\-N\-I\-N\-G\-S}!src/player/\-Main\-Sketch/comms.\-h@{src/player/\-Main\-Sketch/comms.\-h}}\index{src/player/\-Main\-Sketch/comms.\-h@{src/player/\-Main\-Sketch/comms.\-h}!R\-E\-C\-I\-V\-\_\-\-W\-I\-N\-N\-I\-N\-G\-S@{R\-E\-C\-I\-V\-\_\-\-W\-I\-N\-N\-I\-N\-G\-S}}\item[{\em 
+\hypertarget{src_2player_2MainSketch_2comms_8h_a652fb7d1d6d443208b11e7d296fb845aafa6abe4ba2e9ff883381b435e48a52d1}{R\-E\-C\-I\-V\-\_\-\-W\-I\-N\-N\-I\-N\-G\-S}\label{src_2player_2MainSketch_2comms_8h_a652fb7d1d6d443208b11e7d296fb845aafa6abe4ba2e9ff883381b435e48a52d1}
+}]\index{B\-E\-T\-\_\-\-A\-M\-T@{B\-E\-T\-\_\-\-A\-M\-T}!src/player/\-Main\-Sketch/comms.\-h@{src/player/\-Main\-Sketch/comms.\-h}}\index{src/player/\-Main\-Sketch/comms.\-h@{src/player/\-Main\-Sketch/comms.\-h}!B\-E\-T\-\_\-\-A\-M\-T@{B\-E\-T\-\_\-\-A\-M\-T}}\item[{\em 
+\hypertarget{src_2player_2MainSketch_2comms_8h_a652fb7d1d6d443208b11e7d296fb845aa670258801aee6136325f321a72652685}{B\-E\-T\-\_\-\-A\-M\-T}\label{src_2player_2MainSketch_2comms_8h_a652fb7d1d6d443208b11e7d296fb845aa670258801aee6136325f321a72652685}
+}]\index{R\-E\-S\-E\-T\-\_\-\-C\-A\-R\-D\-S@{R\-E\-S\-E\-T\-\_\-\-C\-A\-R\-D\-S}!src/player/\-Main\-Sketch/comms.\-h@{src/player/\-Main\-Sketch/comms.\-h}}\index{src/player/\-Main\-Sketch/comms.\-h@{src/player/\-Main\-Sketch/comms.\-h}!R\-E\-S\-E\-T\-\_\-\-C\-A\-R\-D\-S@{R\-E\-S\-E\-T\-\_\-\-C\-A\-R\-D\-S}}\item[{\em 
+\hypertarget{src_2player_2MainSketch_2comms_8h_a652fb7d1d6d443208b11e7d296fb845aab86e705ab92ba51471d0e046f10079b0}{R\-E\-S\-E\-T\-\_\-\-C\-A\-R\-D\-S}\label{src_2player_2MainSketch_2comms_8h_a652fb7d1d6d443208b11e7d296fb845aab86e705ab92ba51471d0e046f10079b0}
+}]\end{description}
+\end{Desc}
+\hypertarget{src_2player_2MainSketch_2comms_8h_ae51208c7fd555e7e63cd809a89e4220d}{\index{src/player/\-Main\-Sketch/comms.\-h@{src/player/\-Main\-Sketch/comms.\-h}!M\-A\-S\-K@{M\-A\-S\-K}}
+\index{M\-A\-S\-K@{M\-A\-S\-K}!src/player/MainSketch/comms.h@{src/player/\-Main\-Sketch/comms.\-h}}
+\subsubsection[{M\-A\-S\-K}]{\setlength{\rightskip}{0pt plus 5cm}enum {\bf M\-A\-S\-K}}}\label{src_2player_2MainSketch_2comms_8h_ae51208c7fd555e7e63cd809a89e4220d}
+
+
+a mask to extract high and low nibble 
+
+\begin{Desc}
+\item[Enumerator]\par
+\begin{description}
+\index{H\-I\-G\-H\-\_\-\-N\-I\-B\-B\-L\-E@{H\-I\-G\-H\-\_\-\-N\-I\-B\-B\-L\-E}!src/player/\-Main\-Sketch/comms.\-h@{src/player/\-Main\-Sketch/comms.\-h}}\index{src/player/\-Main\-Sketch/comms.\-h@{src/player/\-Main\-Sketch/comms.\-h}!H\-I\-G\-H\-\_\-\-N\-I\-B\-B\-L\-E@{H\-I\-G\-H\-\_\-\-N\-I\-B\-B\-L\-E}}\item[{\em 
+\hypertarget{src_2player_2MainSketch_2comms_8h_ae51208c7fd555e7e63cd809a89e4220da395f7a4e1cdc78ba300dc6a44d9eb573}{H\-I\-G\-H\-\_\-\-N\-I\-B\-B\-L\-E}\label{src_2player_2MainSketch_2comms_8h_ae51208c7fd555e7e63cd809a89e4220da395f7a4e1cdc78ba300dc6a44d9eb573}
+}]\index{L\-O\-W\-\_\-\-N\-I\-B\-B\-L\-E@{L\-O\-W\-\_\-\-N\-I\-B\-B\-L\-E}!src/player/\-Main\-Sketch/comms.\-h@{src/player/\-Main\-Sketch/comms.\-h}}\index{src/player/\-Main\-Sketch/comms.\-h@{src/player/\-Main\-Sketch/comms.\-h}!L\-O\-W\-\_\-\-N\-I\-B\-B\-L\-E@{L\-O\-W\-\_\-\-N\-I\-B\-B\-L\-E}}\item[{\em 
+\hypertarget{src_2player_2MainSketch_2comms_8h_ae51208c7fd555e7e63cd809a89e4220da075bd02117ebd47f824ad7189040ddf8}{L\-O\-W\-\_\-\-N\-I\-B\-B\-L\-E}\label{src_2player_2MainSketch_2comms_8h_ae51208c7fd555e7e63cd809a89e4220da075bd02117ebd47f824ad7189040ddf8}
+}]\index{B\-Y\-T\-E\-\_\-\-M\-A\-S\-K@{B\-Y\-T\-E\-\_\-\-M\-A\-S\-K}!src/player/\-Main\-Sketch/comms.\-h@{src/player/\-Main\-Sketch/comms.\-h}}\index{src/player/\-Main\-Sketch/comms.\-h@{src/player/\-Main\-Sketch/comms.\-h}!B\-Y\-T\-E\-\_\-\-M\-A\-S\-K@{B\-Y\-T\-E\-\_\-\-M\-A\-S\-K}}\item[{\em 
+\hypertarget{src_2player_2MainSketch_2comms_8h_ae51208c7fd555e7e63cd809a89e4220daca50e81f7255723b8cb439fcd90ab28f}{B\-Y\-T\-E\-\_\-\-M\-A\-S\-K}\label{src_2player_2MainSketch_2comms_8h_ae51208c7fd555e7e63cd809a89e4220daca50e81f7255723b8cb439fcd90ab28f}
+}]\end{description}
+\end{Desc}

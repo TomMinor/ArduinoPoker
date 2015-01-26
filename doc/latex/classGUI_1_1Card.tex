@@ -1,0 +1,203 @@
+\hypertarget{classGUI_1_1Card}{\section{G\-U\-I\-:\-:Card Class Reference}
+\label{classGUI_1_1Card}\index{G\-U\-I\-::\-Card@{G\-U\-I\-::\-Card}}
+}
+
+
+A visual representation of a playing card that can be flipped, burned and moved around.  
+
+
+
+
+{\ttfamily \#include $<$gui\-\_\-card.\-h$>$}
+
+Inheritance diagram for G\-U\-I\-:\-:Card\-:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classGUI_1_1Card}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classGUI_1_1Card_a511235d4851e0c43853fd78580b86d75}{Card} (S\-D\-L\-\_\-\-Renderer $\ast$\-\_\-ren, S\-D\-L\-\_\-\-Texture $\ast$\-\_\-tex, const S\-D\-L\-\_\-\-Rect \&\-\_\-src\-Rect, const S\-D\-L\-\_\-\-Rect \&\-\_\-dest\-Rect, const \hyperlink{namespaceGUI_a1a3a8094d47f7be06ce123fab38abf6a}{Orientation} \&\-\_\-orient, const S\-D\-L\-\_\-\-Point \&\-\_\-origin, const \hyperlink{classPlayingCard}{Playing\-Card} \&\-\_\-card)
+\begin{DoxyCompactList}\small\item\em The card constructor. This probably won't need to be changed much since it is only called automatically by the \hyperlink{classGUI_1_1ElementMaker}{Element\-Maker} class. \end{DoxyCompactList}\item 
+void \hyperlink{classGUI_1_1Card_a7acad65637340ffd23cf28e20560247b}{set\-Flipped} (const bool \&\-\_\-is\-Flipped, const bool \&\-\_\-instantly=false)
+\begin{DoxyCompactList}\small\item\em Animates the card turning the specified way up. \end{DoxyCompactList}\item 
+void \hyperlink{classGUI_1_1Card_aeef961e8d12c728ec49e68e15a1ab888}{burn} ()
+\begin{DoxyCompactList}\small\item\em Turns the card face-\/down, plays a burning animation and then marks the card for removal from the game. \end{DoxyCompactList}\item 
+virtual bool \hyperlink{classGUI_1_1Card_a678aebdd57e220cbada5e15996743a10}{update} ()
+\begin{DoxyCompactList}\small\item\em A card-\/specific update function that is needed to implement flipping and burning. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{classGUI_1_1Card_a61be895bc983f561ecc7bd1c9ee555fb}{continue\-Flip} ()
+\begin{DoxyCompactList}\small\item\em Go a step further through the flipping animation. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+bool \hyperlink{classGUI_1_1Card_ab7003a9c8f143d8c7043cf571220fb4f}{m\-\_\-is\-Flipped}
+\begin{DoxyCompactList}\small\item\em True if the card should be face-\/down, false otherwise. \end{DoxyCompactList}\item 
+float \hyperlink{classGUI_1_1Card_aae7758b01b93defe544558f4b8b4b976}{m\-\_\-flipped\-Amount}
+\begin{DoxyCompactList}\small\item\em Represents how far the card is through its flipping animation. -\/1 is fully face-\/up, 0 is on its edge, and 1 is fully face-\/down. \end{DoxyCompactList}\item 
+\hyperlink{classPlayingCard}{Playing\-Card} \hyperlink{classGUI_1_1Card_a1823124410a8235ef0afbb0b51420f41}{m\-\_\-card\-Type}
+\begin{DoxyCompactList}\small\item\em A \char`\"{}pure data\char`\"{} \hyperlink{classPlayingCard}{Playing\-Card} object from which we can tell the rank and the suit to use. \end{DoxyCompactList}\item 
+bool \hyperlink{classGUI_1_1Card_aed05e56f3810f9175504587a4eee601d}{m\-\_\-should\-Burn}
+\begin{DoxyCompactList}\small\item\em Whether the card should be in its burning state. If true, it will turn face-\/down and play through its burning animation during \hyperlink{classGUI_1_1Card_a678aebdd57e220cbada5e15996743a10}{update()} calls. \end{DoxyCompactList}\item 
+int \hyperlink{classGUI_1_1Card_a5558831a2e8f343229fa9288a0e2a3d3}{m\-\_\-burn\-Level}
+\begin{DoxyCompactList}\small\item\em Which frame of the burning animation to use. \end{DoxyCompactList}\item 
+int \hyperlink{classGUI_1_1Card_a2a1360126f9b6e21043347762d360aca}{m\-\_\-x\-Offset}
+\begin{DoxyCompactList}\small\item\em The flipping animation is done by scaling the card's S\-D\-L rectangle in the x direction, but unfortunately the way S\-D\-L modifies the rectangle makes it difficult to scale about its centre rather than its left edge. This variable is used to push the rectangle to the right before it is drawn to give the illusion of scaling about the centre (believe me, I've tried other ways). \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Detailed Description}
+A visual representation of a playing card that can be flipped, burned and moved around. 
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{classGUI_1_1Card_a511235d4851e0c43853fd78580b86d75}{\index{G\-U\-I\-::\-Card@{G\-U\-I\-::\-Card}!Card@{Card}}
+\index{Card@{Card}!GUI::Card@{G\-U\-I\-::\-Card}}
+\subsubsection[{Card}]{\setlength{\rightskip}{0pt plus 5cm}G\-U\-I\-::\-Card\-::\-Card (
+\begin{DoxyParamCaption}
+\item[{S\-D\-L\-\_\-\-Renderer $\ast$}]{\-\_\-ren, }
+\item[{S\-D\-L\-\_\-\-Texture $\ast$}]{\-\_\-tex, }
+\item[{const S\-D\-L\-\_\-\-Rect \&}]{\-\_\-src\-Rect, }
+\item[{const S\-D\-L\-\_\-\-Rect \&}]{\-\_\-dest\-Rect, }
+\item[{const {\bf Orientation} \&}]{\-\_\-orient, }
+\item[{const S\-D\-L\-\_\-\-Point \&}]{\-\_\-origin, }
+\item[{const {\bf Playing\-Card} \&}]{\-\_\-card}
+\end{DoxyParamCaption}
+)}}\label{classGUI_1_1Card_a511235d4851e0c43853fd78580b86d75}
+
+
+The card constructor. This probably won't need to be changed much since it is only called automatically by the \hyperlink{classGUI_1_1ElementMaker}{Element\-Maker} class. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \-\_\-ren} & A pointer to the S\-D\-L rendering context. \\
+\hline
+{\em \-\_\-tex} & A pointer to the S\-D\-L texture to use. \\
+\hline
+{\em \-\_\-src\-Rect} & An S\-D\-L rectangle that covers the part of the texture the card uses. \\
+\hline
+{\em \-\_\-dest\-Rect} & An S\-D\-L rectangle that specifies the part of the screen to draw the previous rectangle to. \\
+\hline
+{\em \-\_\-orientation} & An enum specifying which edge of the screen this card should face. \\
+\hline
+{\em \-\_\-origin} & An S\-D\-L point specifying the exact location this card should be created. Making sure this is in the centre of \-\_\-dest\-Rect is handled by the \hyperlink{classGUI_1_1ElementMaker}{Element\-Maker} class. \\
+\hline
+{\em \-\_\-card} & A \char`\"{}pure data\char`\"{} \hyperlink{classPlayingCard}{Playing\-Card} object from which we can tell the rank and the suit to use. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A drawable \hyperlink{classGUI_1_1Card}{Card} object. 
+\end{DoxyReturn}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{classGUI_1_1Card_aeef961e8d12c728ec49e68e15a1ab888}{\index{G\-U\-I\-::\-Card@{G\-U\-I\-::\-Card}!burn@{burn}}
+\index{burn@{burn}!GUI::Card@{G\-U\-I\-::\-Card}}
+\subsubsection[{burn}]{\setlength{\rightskip}{0pt plus 5cm}void G\-U\-I\-::\-Card\-::burn (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{classGUI_1_1Card_aeef961e8d12c728ec49e68e15a1ab888}
+
+
+Turns the card face-\/down, plays a burning animation and then marks the card for removal from the game. 
+
+\hypertarget{classGUI_1_1Card_a61be895bc983f561ecc7bd1c9ee555fb}{\index{G\-U\-I\-::\-Card@{G\-U\-I\-::\-Card}!continue\-Flip@{continue\-Flip}}
+\index{continue\-Flip@{continue\-Flip}!GUI::Card@{G\-U\-I\-::\-Card}}
+\subsubsection[{continue\-Flip}]{\setlength{\rightskip}{0pt plus 5cm}void G\-U\-I\-::\-Card\-::continue\-Flip (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [private]}}}\label{classGUI_1_1Card_a61be895bc983f561ecc7bd1c9ee555fb}
+
+
+Go a step further through the flipping animation. 
+
+\hypertarget{classGUI_1_1Card_a7acad65637340ffd23cf28e20560247b}{\index{G\-U\-I\-::\-Card@{G\-U\-I\-::\-Card}!set\-Flipped@{set\-Flipped}}
+\index{set\-Flipped@{set\-Flipped}!GUI::Card@{G\-U\-I\-::\-Card}}
+\subsubsection[{set\-Flipped}]{\setlength{\rightskip}{0pt plus 5cm}void G\-U\-I\-::\-Card\-::set\-Flipped (
+\begin{DoxyParamCaption}
+\item[{const bool \&}]{\-\_\-is\-Flipped, }
+\item[{const bool \&}]{\-\_\-instantly = {\ttfamily false}}
+\end{DoxyParamCaption}
+)}}\label{classGUI_1_1Card_a7acad65637340ffd23cf28e20560247b}
+
+
+Animates the card turning the specified way up. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \-\_\-is\-Flipped} & True to turn the card face-\/down, false for face-\/up. \\
+\hline
+{\em \-\_\-instantly} & True to skip the flipping animation. Useful for setting a card's initial flip state. \\
+\hline
+\end{DoxyParams}
+\hypertarget{classGUI_1_1Card_a678aebdd57e220cbada5e15996743a10}{\index{G\-U\-I\-::\-Card@{G\-U\-I\-::\-Card}!update@{update}}
+\index{update@{update}!GUI::Card@{G\-U\-I\-::\-Card}}
+\subsubsection[{update}]{\setlength{\rightskip}{0pt plus 5cm}bool G\-U\-I\-::\-Card\-::update (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [virtual]}}}\label{classGUI_1_1Card_a678aebdd57e220cbada5e15996743a10}
+
+
+A card-\/specific update function that is needed to implement flipping and burning. 
+
+
+
+Reimplemented from \hyperlink{classGUI_1_1Element_ac33ecb92a9f9cb810bea83f31e4c14c9}{G\-U\-I\-::\-Element}.
+
+
+
+\subsection{Member Data Documentation}
+\hypertarget{classGUI_1_1Card_a5558831a2e8f343229fa9288a0e2a3d3}{\index{G\-U\-I\-::\-Card@{G\-U\-I\-::\-Card}!m\-\_\-burn\-Level@{m\-\_\-burn\-Level}}
+\index{m\-\_\-burn\-Level@{m\-\_\-burn\-Level}!GUI::Card@{G\-U\-I\-::\-Card}}
+\subsubsection[{m\-\_\-burn\-Level}]{\setlength{\rightskip}{0pt plus 5cm}int G\-U\-I\-::\-Card\-::m\-\_\-burn\-Level\hspace{0.3cm}{\ttfamily [private]}}}\label{classGUI_1_1Card_a5558831a2e8f343229fa9288a0e2a3d3}
+
+
+Which frame of the burning animation to use. 
+
+\hypertarget{classGUI_1_1Card_a1823124410a8235ef0afbb0b51420f41}{\index{G\-U\-I\-::\-Card@{G\-U\-I\-::\-Card}!m\-\_\-card\-Type@{m\-\_\-card\-Type}}
+\index{m\-\_\-card\-Type@{m\-\_\-card\-Type}!GUI::Card@{G\-U\-I\-::\-Card}}
+\subsubsection[{m\-\_\-card\-Type}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Playing\-Card} G\-U\-I\-::\-Card\-::m\-\_\-card\-Type\hspace{0.3cm}{\ttfamily [private]}}}\label{classGUI_1_1Card_a1823124410a8235ef0afbb0b51420f41}
+
+
+A \char`\"{}pure data\char`\"{} \hyperlink{classPlayingCard}{Playing\-Card} object from which we can tell the rank and the suit to use. 
+
+\hypertarget{classGUI_1_1Card_aae7758b01b93defe544558f4b8b4b976}{\index{G\-U\-I\-::\-Card@{G\-U\-I\-::\-Card}!m\-\_\-flipped\-Amount@{m\-\_\-flipped\-Amount}}
+\index{m\-\_\-flipped\-Amount@{m\-\_\-flipped\-Amount}!GUI::Card@{G\-U\-I\-::\-Card}}
+\subsubsection[{m\-\_\-flipped\-Amount}]{\setlength{\rightskip}{0pt plus 5cm}float G\-U\-I\-::\-Card\-::m\-\_\-flipped\-Amount\hspace{0.3cm}{\ttfamily [private]}}}\label{classGUI_1_1Card_aae7758b01b93defe544558f4b8b4b976}
+
+
+Represents how far the card is through its flipping animation. -\/1 is fully face-\/up, 0 is on its edge, and 1 is fully face-\/down. 
+
+\hypertarget{classGUI_1_1Card_ab7003a9c8f143d8c7043cf571220fb4f}{\index{G\-U\-I\-::\-Card@{G\-U\-I\-::\-Card}!m\-\_\-is\-Flipped@{m\-\_\-is\-Flipped}}
+\index{m\-\_\-is\-Flipped@{m\-\_\-is\-Flipped}!GUI::Card@{G\-U\-I\-::\-Card}}
+\subsubsection[{m\-\_\-is\-Flipped}]{\setlength{\rightskip}{0pt plus 5cm}bool G\-U\-I\-::\-Card\-::m\-\_\-is\-Flipped\hspace{0.3cm}{\ttfamily [private]}}}\label{classGUI_1_1Card_ab7003a9c8f143d8c7043cf571220fb4f}
+
+
+True if the card should be face-\/down, false otherwise. 
+
+\hypertarget{classGUI_1_1Card_aed05e56f3810f9175504587a4eee601d}{\index{G\-U\-I\-::\-Card@{G\-U\-I\-::\-Card}!m\-\_\-should\-Burn@{m\-\_\-should\-Burn}}
+\index{m\-\_\-should\-Burn@{m\-\_\-should\-Burn}!GUI::Card@{G\-U\-I\-::\-Card}}
+\subsubsection[{m\-\_\-should\-Burn}]{\setlength{\rightskip}{0pt plus 5cm}bool G\-U\-I\-::\-Card\-::m\-\_\-should\-Burn\hspace{0.3cm}{\ttfamily [private]}}}\label{classGUI_1_1Card_aed05e56f3810f9175504587a4eee601d}
+
+
+Whether the card should be in its burning state. If true, it will turn face-\/down and play through its burning animation during \hyperlink{classGUI_1_1Card_a678aebdd57e220cbada5e15996743a10}{update()} calls. 
+
+\hypertarget{classGUI_1_1Card_a2a1360126f9b6e21043347762d360aca}{\index{G\-U\-I\-::\-Card@{G\-U\-I\-::\-Card}!m\-\_\-x\-Offset@{m\-\_\-x\-Offset}}
+\index{m\-\_\-x\-Offset@{m\-\_\-x\-Offset}!GUI::Card@{G\-U\-I\-::\-Card}}
+\subsubsection[{m\-\_\-x\-Offset}]{\setlength{\rightskip}{0pt plus 5cm}int G\-U\-I\-::\-Card\-::m\-\_\-x\-Offset\hspace{0.3cm}{\ttfamily [private]}}}\label{classGUI_1_1Card_a2a1360126f9b6e21043347762d360aca}
+
+
+The flipping animation is done by scaling the card's S\-D\-L rectangle in the x direction, but unfortunately the way S\-D\-L modifies the rectangle makes it difficult to scale about its centre rather than its left edge. This variable is used to push the rectangle to the right before it is drawn to give the illusion of scaling about the centre (believe me, I've tried other ways). 
+
+
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+include/gui/\hyperlink{gui__card_8h}{gui\-\_\-card.\-h}\item 
+src/gui/\hyperlink{gui__card_8cpp}{gui\-\_\-card.\-cpp}\end{DoxyCompactItemize}

@@ -1,0 +1,470 @@
+\hypertarget{classGUI_1_1Element}{\section{G\-U\-I\-:\-:Element Class Reference}
+\label{classGUI_1_1Element}\index{G\-U\-I\-::\-Element@{G\-U\-I\-::\-Element}}
+}
+
+
+The base class for any visual elements on the screen.  
+
+
+
+
+{\ttfamily \#include $<$gui\-\_\-element.\-h$>$}
+
+Inheritance diagram for G\-U\-I\-:\-:Element\-:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classGUI_1_1Element}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classGUI_1_1Element_a32d19575ac974b7d34ef5cb77f9ef6a6}{Element} (S\-D\-L\-\_\-\-Renderer $\ast$\-\_\-ren, S\-D\-L\-\_\-\-Texture $\ast$\-\_\-tex, const S\-D\-L\-\_\-\-Rect \&\-\_\-src\-Rect, const S\-D\-L\-\_\-\-Rect \&\-\_\-dest\-Rect, const \hyperlink{namespaceGUI_a1a3a8094d47f7be06ce123fab38abf6a}{Orientation} \&\-\_\-orient, const S\-D\-L\-\_\-\-Point \&\-\_\-origin, const int \&\-\_\-lifetime=0)
+\begin{DoxyCompactList}\small\item\em The basic element constructor. This probably won't need to be changed much since it is only called automatically by the \hyperlink{classGUI_1_1ElementMaker}{Element\-Maker} class. \end{DoxyCompactList}\item 
+virtual \hyperlink{classGUI_1_1Element_a4beaf3aba9b32e77684910baba5f43bc}{$\sim$\-Element} ()
+\item 
+void \hyperlink{classGUI_1_1Element_acb86e75c5d90e302b0c27c01106168a9}{set\-Pos} (const S\-D\-L\-\_\-\-Point \&\-\_\-p, const bool \&\-\_\-update\-Rect=true)
+\begin{DoxyCompactList}\small\item\em Moves the element to the specified location instantly. \end{DoxyCompactList}\item 
+void \hyperlink{classGUI_1_1Element_a6f7171736744f64faf428c17c74695df}{move\-To} (const S\-D\-L\-\_\-\-Point \&\-\_\-p)
+\begin{DoxyCompactList}\small\item\em Sets this element's \char`\"{}target\char`\"{} location which it will move closer to with cosine interpolation every time \hyperlink{classGUI_1_1Element_ac33ecb92a9f9cb810bea83f31e4c14c9}{update()} is called. \end{DoxyCompactList}\item 
+void \hyperlink{classGUI_1_1Element_aff9657e904abf6a3d8fc5ef0c23d1e03}{kill} ()
+\begin{DoxyCompactList}\small\item\em Marks this element for removal (so \hyperlink{classGUI_1_1DealerGUI}{Dealer\-G\-U\-I} can remove it from its element array) as soon as it gets to its target location. \end{DoxyCompactList}\item 
+void \hyperlink{classGUI_1_1Element_a41c2c102d41148d09980bfc22c591d5a}{kill\-Now} ()
+\begin{DoxyCompactList}\small\item\em Marks this element for removal (so \hyperlink{classGUI_1_1DealerGUI}{Dealer\-G\-U\-I} can remove it from its element array) immediately. \end{DoxyCompactList}\item 
+void \hyperlink{classGUI_1_1Element_ae66b54c217ca3e5ae724212c2902734c}{align} (const \hyperlink{namespaceGUI_a1a3a8094d47f7be06ce123fab38abf6a}{Orientation} \&\-\_\-orient, const bool \&\-\_\-instantly=false, const bool \&\-\_\-update\-Rect=true)
+\begin{DoxyCompactList}\small\item\em Moves this element to the specified edge of the screen. \end{DoxyCompactList}\item 
+void \hyperlink{classGUI_1_1Element_a9c65cf73bd7de194324f0e27737ad2aa}{centre} (const bool \&\-\_\-instantly=false, const bool \&\-\_\-update\-Rect=true)
+\begin{DoxyCompactList}\small\item\em Moves this element to the centre of the screen. \end{DoxyCompactList}\item 
+S\-D\-L\-\_\-\-Point \hyperlink{classGUI_1_1Element_a356e0d191ac5fb0c8862ed7061b4afd8}{aligned} (const \hyperlink{namespaceGUI_a1a3a8094d47f7be06ce123fab38abf6a}{Orientation} \&\-\_\-orient)
+\begin{DoxyCompactList}\small\item\em Returns the point this element would move to to line up with the specified edge of the screen. \end{DoxyCompactList}\item 
+S\-D\-L\-\_\-\-Point \hyperlink{classGUI_1_1Element_ac63b5aa7f11dd212514e6225fe7e3b0b}{get\-Centre} ()
+\begin{DoxyCompactList}\small\item\em Returns the centre of the screen.. \end{DoxyCompactList}\item 
+bool \hyperlink{classGUI_1_1Element_a70bb69d6bfe2546a05be445a758344af}{should\-Kill\-Now} () const 
+\begin{DoxyCompactList}\small\item\em Returns whether this element should be destroyed now -\/ \hyperlink{classGUI_1_1DealerGUI}{Dealer\-G\-U\-I} uses this to tell whether to remove the element from its array and deallocate the memory. \end{DoxyCompactList}\item 
+unsigned int \hyperlink{classGUI_1_1Element_a736e4a8e961689ab334d8c00b58a8793}{get\-Height} () const 
+\begin{DoxyCompactList}\small\item\em Returns the screenwise \char`\"{}height\char`\"{} of this element i.\-e. the number of pixels it takes up in the S\-C\-R\-E\-E\-N's y direction, not its own. \end{DoxyCompactList}\item 
+unsigned int \hyperlink{classGUI_1_1Element_a0b2100060dab00523e363f0923b4fdcf}{get\-Width} () const 
+\begin{DoxyCompactList}\small\item\em Returns the screenwise \char`\"{}width\char`\"{} of this element i.\-e. the number of pixels it takes up in the S\-C\-R\-E\-E\-N's x direction, not its own. \end{DoxyCompactList}\item 
+S\-D\-L\-\_\-\-Point \hyperlink{classGUI_1_1Element_a5a4bc2bd60b123dd57c8ab5c401dedfe}{get\-Pos} ()
+\begin{DoxyCompactList}\small\item\em Returns the position of this element's origin (which its S\-D\-L rectangle should be centered around). \end{DoxyCompactList}\item 
+S\-D\-L\-\_\-\-Renderer $\ast$ \hyperlink{classGUI_1_1Element_a516b53954c5ba16bac5b9b9ddeaa6eb3}{get\-Renderer} ()
+\begin{DoxyCompactList}\small\item\em Returns a pointer to the S\-D\-L rendering context this element is using (not sure why I needed this but oh well). \end{DoxyCompactList}\item 
+void \hyperlink{classGUI_1_1Element_aabff5bfcbb607c58600b056b2200c047}{print\-Rect} ()
+\begin{DoxyCompactList}\small\item\em Prints the bounds of this element's S\-D\-L rectangle -\/ for debug purposes. \end{DoxyCompactList}\item 
+virtual bool \hyperlink{classGUI_1_1Element_ac33ecb92a9f9cb810bea83f31e4c14c9}{update} ()
+\begin{DoxyCompactList}\small\item\em Moves the element closer to its target point, and if that's done decreases the element's lifetime or marks it for removal. \end{DoxyCompactList}\item 
+void \hyperlink{classGUI_1_1Element_adf034ad835dcf131f4cd4cc6d5bea774}{update\-Rect} ()
+\begin{DoxyCompactList}\small\item\em Updates the elephant's S\-D\-L rectangle to move with its origin. \end{DoxyCompactList}\item 
+void \hyperlink{classGUI_1_1Element_ab6b8e34ae9f4e86976134074d124c814}{draw} () const 
+\begin{DoxyCompactList}\small\item\em Draw's the element to the screen in its current state. Should probably always be called directly after \hyperlink{classGUI_1_1Element_ac33ecb92a9f9cb810bea83f31e4c14c9}{update()} unless you're doing something fancy with different update and draw frequencies. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+S\-D\-L\-\_\-\-Renderer $\ast$ \hyperlink{classGUI_1_1Element_a32340ae04789b6ea8037fdb1fb440ae1}{m\-\_\-ren}
+\begin{DoxyCompactList}\small\item\em A pointer to the S\-D\-L rendering context. \end{DoxyCompactList}\item 
+S\-D\-L\-\_\-\-Texture $\ast$ \hyperlink{classGUI_1_1Element_a2e63212ae641d8af447d62ede6c2c831}{m\-\_\-texture}
+\begin{DoxyCompactList}\small\item\em A pointer to the S\-D\-L texture this element uses. \end{DoxyCompactList}\item 
+S\-D\-L\-\_\-\-Rect \hyperlink{classGUI_1_1Element_a7a4a307f67ce1e23f313791ba032dc77}{m\-\_\-src\-Rect}
+\begin{DoxyCompactList}\small\item\em An S\-D\-L rectangle covering the part of the texture to use. \end{DoxyCompactList}\item 
+S\-D\-L\-\_\-\-Rect \hyperlink{classGUI_1_1Element_a999f0693d9a2205ef0c4aebd3771e7c8}{m\-\_\-dest\-Rect}
+\begin{DoxyCompactList}\small\item\em An S\-D\-L rectangle covering the part of the screen to draw this element to. \end{DoxyCompactList}\item 
+\hyperlink{namespaceGUI_a1a3a8094d47f7be06ce123fab38abf6a}{Orientation} \hyperlink{classGUI_1_1Element_a7c189466d4d240eb13aa461887a70142}{m\-\_\-orientation}
+\begin{DoxyCompactList}\small\item\em Which edge of the screen this element should face. \end{DoxyCompactList}\item 
+S\-D\-L\-\_\-\-Point \hyperlink{classGUI_1_1Element_a7661fce6fff7da3d308cdb604f7a417a}{m\-\_\-origin}
+\begin{DoxyCompactList}\small\item\em The \char`\"{}centre of mass\char`\"{} of this element on which movement/position calculations are performed. \end{DoxyCompactList}\item 
+S\-D\-L\-\_\-\-Point \hyperlink{classGUI_1_1Element_abc7a9c575911f5260732cdb0d63afb58}{m\-\_\-point\-Prev}
+\begin{DoxyCompactList}\small\item\em The point this element was at when \hyperlink{classGUI_1_1Element_a6f7171736744f64faf428c17c74695df}{move\-To()} was last called. \end{DoxyCompactList}\item 
+S\-D\-L\-\_\-\-Point \hyperlink{classGUI_1_1Element_a10ec38c0cf88fddea487644c1de45e1e}{m\-\_\-point\-Dest}
+\begin{DoxyCompactList}\small\item\em The point this element is moving to i.\-e. the argument used in the last call to \hyperlink{classGUI_1_1Element_a6f7171736744f64faf428c17c74695df}{move\-To()}. \end{DoxyCompactList}\item 
+float \hyperlink{classGUI_1_1Element_ae695e5eedb37b27ef5d8542a15908f1e}{m\-\_\-progress\-Amount}
+\begin{DoxyCompactList}\small\item\em A value between 0 and 1 representing how far this element has travelled between the previous position and the destination position. Used in cosine interpolation calculations. \end{DoxyCompactList}\item 
+bool \hyperlink{classGUI_1_1Element_a5a4b537de0a51fa11eb4c59b43980092}{m\-\_\-should\-Kill\-Soon}
+\begin{DoxyCompactList}\small\item\em If true, the element will set should\-Kill\-Now to true as soon as it finishes moving and life runs out. \end{DoxyCompactList}\item 
+bool \hyperlink{classGUI_1_1Element_ac3c14a4ae96ff31f2e0a59b6ebc1d076}{m\-\_\-should\-Kill\-Now}
+\begin{DoxyCompactList}\small\item\em If true, the element will be deleted on the next \hyperlink{classGUI_1_1Element_ac33ecb92a9f9cb810bea83f31e4c14c9}{update()} of the \hyperlink{classGUI_1_1DealerGUI}{Dealer\-G\-U\-I}. \end{DoxyCompactList}\item 
+bool \hyperlink{classGUI_1_1Element_a724c299bdb208b5ee7812fa1827de631}{m\-\_\-is\-Immortal}
+\begin{DoxyCompactList}\small\item\em If true, the element will never decrement life and thus have an indefinite lifetime. \end{DoxyCompactList}\item 
+int \hyperlink{classGUI_1_1Element_a432a31b103b55c3c8d14636368b449d1}{m\-\_\-life}
+\begin{DoxyCompactList}\small\item\em How many \hyperlink{classGUI_1_1Element_ac33ecb92a9f9cb810bea83f31e4c14c9}{update()} cycles the element should last while stationary before should\-Kill\-Now is set to true. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+The base class for any visual elements on the screen. 
+
+It and any derived classes include functions to move the element to a point on the screen (optionally aligned with an edge of the screen) instantly or with cosine interpolation. The lifetime of the element (after which it will be destroyed automatically) can be set in the constructor. 
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{classGUI_1_1Element_a32d19575ac974b7d34ef5cb77f9ef6a6}{\index{G\-U\-I\-::\-Element@{G\-U\-I\-::\-Element}!Element@{Element}}
+\index{Element@{Element}!GUI::Element@{G\-U\-I\-::\-Element}}
+\subsubsection[{Element}]{\setlength{\rightskip}{0pt plus 5cm}G\-U\-I\-::\-Element\-::\-Element (
+\begin{DoxyParamCaption}
+\item[{S\-D\-L\-\_\-\-Renderer $\ast$}]{\-\_\-ren, }
+\item[{S\-D\-L\-\_\-\-Texture $\ast$}]{\-\_\-tex, }
+\item[{const S\-D\-L\-\_\-\-Rect \&}]{\-\_\-src\-Rect, }
+\item[{const S\-D\-L\-\_\-\-Rect \&}]{\-\_\-dest\-Rect, }
+\item[{const {\bf Orientation} \&}]{\-\_\-orient, }
+\item[{const S\-D\-L\-\_\-\-Point \&}]{\-\_\-origin, }
+\item[{const int \&}]{\-\_\-lifetime = {\ttfamily 0}}
+\end{DoxyParamCaption}
+)}}\label{classGUI_1_1Element_a32d19575ac974b7d34ef5cb77f9ef6a6}
+
+
+The basic element constructor. This probably won't need to be changed much since it is only called automatically by the \hyperlink{classGUI_1_1ElementMaker}{Element\-Maker} class. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \-\_\-ren} & A pointer to the S\-D\-L rendering context. \\
+\hline
+{\em \-\_\-tex} & A pointer to the S\-D\-L texture to use. \\
+\hline
+{\em \-\_\-src\-Rect} & An S\-D\-L rectangle that covers the part of the texture to use. \\
+\hline
+{\em \-\_\-dest\-Rect} & An S\-D\-L rectangle that specifies the part of the screen to draw the previous rectangle to. \\
+\hline
+{\em \-\_\-orientation} & An enum specifying which edge of the screen this element should face. \\
+\hline
+{\em \-\_\-origin} & An S\-D\-L point specifying the exact location this card should be created. Making sure this is in the centre of \-\_\-dest\-Rect is handled by the \hyperlink{classGUI_1_1ElementMaker}{Element\-Maker} class. \\
+\hline
+{\em \-\_\-lifetime} & How many \hyperlink{classGUI_1_1Element_ac33ecb92a9f9cb810bea83f31e4c14c9}{update()} calls this element should last until it is destroyed. Passing 0 makes this lifetime indefinite. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A drawable object. 
+\end{DoxyReturn}
+\hypertarget{classGUI_1_1Element_a4beaf3aba9b32e77684910baba5f43bc}{\index{G\-U\-I\-::\-Element@{G\-U\-I\-::\-Element}!$\sim$\-Element@{$\sim$\-Element}}
+\index{$\sim$\-Element@{$\sim$\-Element}!GUI::Element@{G\-U\-I\-::\-Element}}
+\subsubsection[{$\sim$\-Element}]{\setlength{\rightskip}{0pt plus 5cm}G\-U\-I\-::\-Element\-::$\sim$\-Element (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [virtual]}}}\label{classGUI_1_1Element_a4beaf3aba9b32e77684910baba5f43bc}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{classGUI_1_1Element_ae66b54c217ca3e5ae724212c2902734c}{\index{G\-U\-I\-::\-Element@{G\-U\-I\-::\-Element}!align@{align}}
+\index{align@{align}!GUI::Element@{G\-U\-I\-::\-Element}}
+\subsubsection[{align}]{\setlength{\rightskip}{0pt plus 5cm}void G\-U\-I\-::\-Element\-::align (
+\begin{DoxyParamCaption}
+\item[{const {\bf Orientation} \&}]{\-\_\-orient, }
+\item[{const bool \&}]{\-\_\-instantly = {\ttfamily false}, }
+\item[{const bool \&}]{\-\_\-update\-Rect = {\ttfamily true}}
+\end{DoxyParamCaption}
+)}}\label{classGUI_1_1Element_ae66b54c217ca3e5ae724212c2902734c}
+
+
+Moves this element to the specified edge of the screen. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \-\_\-orient} & The edge to move the element to. \\
+\hline
+{\em \-\_\-instantly} & True to move instantly, false to interpolate the position on each update. \\
+\hline
+\end{DoxyParams}
+\hypertarget{classGUI_1_1Element_a356e0d191ac5fb0c8862ed7061b4afd8}{\index{G\-U\-I\-::\-Element@{G\-U\-I\-::\-Element}!aligned@{aligned}}
+\index{aligned@{aligned}!GUI::Element@{G\-U\-I\-::\-Element}}
+\subsubsection[{aligned}]{\setlength{\rightskip}{0pt plus 5cm}S\-D\-L\-\_\-\-Point G\-U\-I\-::\-Element\-::aligned (
+\begin{DoxyParamCaption}
+\item[{const {\bf Orientation} \&}]{\-\_\-orient}
+\end{DoxyParamCaption}
+)}}\label{classGUI_1_1Element_a356e0d191ac5fb0c8862ed7061b4afd8}
+
+
+Returns the point this element would move to to line up with the specified edge of the screen. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \-\_\-orient} & The edge of the screen this element would move to. \\
+\hline
+\end{DoxyParams}
+\hypertarget{classGUI_1_1Element_a9c65cf73bd7de194324f0e27737ad2aa}{\index{G\-U\-I\-::\-Element@{G\-U\-I\-::\-Element}!centre@{centre}}
+\index{centre@{centre}!GUI::Element@{G\-U\-I\-::\-Element}}
+\subsubsection[{centre}]{\setlength{\rightskip}{0pt plus 5cm}void G\-U\-I\-::\-Element\-::centre (
+\begin{DoxyParamCaption}
+\item[{const bool \&}]{\-\_\-instantly = {\ttfamily false}, }
+\item[{const bool \&}]{\-\_\-update\-Rect = {\ttfamily true}}
+\end{DoxyParamCaption}
+)}}\label{classGUI_1_1Element_a9c65cf73bd7de194324f0e27737ad2aa}
+
+
+Moves this element to the centre of the screen. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \-\_\-instantly} & True to move instantly, false to interpolate the position on each update. \\
+\hline
+\end{DoxyParams}
+\hypertarget{classGUI_1_1Element_ab6b8e34ae9f4e86976134074d124c814}{\index{G\-U\-I\-::\-Element@{G\-U\-I\-::\-Element}!draw@{draw}}
+\index{draw@{draw}!GUI::Element@{G\-U\-I\-::\-Element}}
+\subsubsection[{draw}]{\setlength{\rightskip}{0pt plus 5cm}void G\-U\-I\-::\-Element\-::draw (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}}\label{classGUI_1_1Element_ab6b8e34ae9f4e86976134074d124c814}
+
+
+Draw's the element to the screen in its current state. Should probably always be called directly after \hyperlink{classGUI_1_1Element_ac33ecb92a9f9cb810bea83f31e4c14c9}{update()} unless you're doing something fancy with different update and draw frequencies. 
+
+\hypertarget{classGUI_1_1Element_ac63b5aa7f11dd212514e6225fe7e3b0b}{\index{G\-U\-I\-::\-Element@{G\-U\-I\-::\-Element}!get\-Centre@{get\-Centre}}
+\index{get\-Centre@{get\-Centre}!GUI::Element@{G\-U\-I\-::\-Element}}
+\subsubsection[{get\-Centre}]{\setlength{\rightskip}{0pt plus 5cm}S\-D\-L\-\_\-\-Point G\-U\-I\-::\-Element\-::get\-Centre (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classGUI_1_1Element_ac63b5aa7f11dd212514e6225fe7e3b0b}
+
+
+Returns the centre of the screen.. 
+
+\hypertarget{classGUI_1_1Element_a736e4a8e961689ab334d8c00b58a8793}{\index{G\-U\-I\-::\-Element@{G\-U\-I\-::\-Element}!get\-Height@{get\-Height}}
+\index{get\-Height@{get\-Height}!GUI::Element@{G\-U\-I\-::\-Element}}
+\subsubsection[{get\-Height}]{\setlength{\rightskip}{0pt plus 5cm}unsigned int G\-U\-I\-::\-Element\-::get\-Height (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}}\label{classGUI_1_1Element_a736e4a8e961689ab334d8c00b58a8793}
+
+
+Returns the screenwise \char`\"{}height\char`\"{} of this element i.\-e. the number of pixels it takes up in the S\-C\-R\-E\-E\-N's y direction, not its own. 
+
+\hypertarget{classGUI_1_1Element_a5a4bc2bd60b123dd57c8ab5c401dedfe}{\index{G\-U\-I\-::\-Element@{G\-U\-I\-::\-Element}!get\-Pos@{get\-Pos}}
+\index{get\-Pos@{get\-Pos}!GUI::Element@{G\-U\-I\-::\-Element}}
+\subsubsection[{get\-Pos}]{\setlength{\rightskip}{0pt plus 5cm}S\-D\-L\-\_\-\-Point G\-U\-I\-::\-Element\-::get\-Pos (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{classGUI_1_1Element_a5a4bc2bd60b123dd57c8ab5c401dedfe}
+
+
+Returns the position of this element's origin (which its S\-D\-L rectangle should be centered around). 
+
+\hypertarget{classGUI_1_1Element_a516b53954c5ba16bac5b9b9ddeaa6eb3}{\index{G\-U\-I\-::\-Element@{G\-U\-I\-::\-Element}!get\-Renderer@{get\-Renderer}}
+\index{get\-Renderer@{get\-Renderer}!GUI::Element@{G\-U\-I\-::\-Element}}
+\subsubsection[{get\-Renderer}]{\setlength{\rightskip}{0pt plus 5cm}S\-D\-L\-\_\-\-Renderer$\ast$ G\-U\-I\-::\-Element\-::get\-Renderer (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{classGUI_1_1Element_a516b53954c5ba16bac5b9b9ddeaa6eb3}
+
+
+Returns a pointer to the S\-D\-L rendering context this element is using (not sure why I needed this but oh well). 
+
+\hypertarget{classGUI_1_1Element_a0b2100060dab00523e363f0923b4fdcf}{\index{G\-U\-I\-::\-Element@{G\-U\-I\-::\-Element}!get\-Width@{get\-Width}}
+\index{get\-Width@{get\-Width}!GUI::Element@{G\-U\-I\-::\-Element}}
+\subsubsection[{get\-Width}]{\setlength{\rightskip}{0pt plus 5cm}unsigned int G\-U\-I\-::\-Element\-::get\-Width (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}}\label{classGUI_1_1Element_a0b2100060dab00523e363f0923b4fdcf}
+
+
+Returns the screenwise \char`\"{}width\char`\"{} of this element i.\-e. the number of pixels it takes up in the S\-C\-R\-E\-E\-N's x direction, not its own. 
+
+\hypertarget{classGUI_1_1Element_aff9657e904abf6a3d8fc5ef0c23d1e03}{\index{G\-U\-I\-::\-Element@{G\-U\-I\-::\-Element}!kill@{kill}}
+\index{kill@{kill}!GUI::Element@{G\-U\-I\-::\-Element}}
+\subsubsection[{kill}]{\setlength{\rightskip}{0pt plus 5cm}void G\-U\-I\-::\-Element\-::kill (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{classGUI_1_1Element_aff9657e904abf6a3d8fc5ef0c23d1e03}
+
+
+Marks this element for removal (so \hyperlink{classGUI_1_1DealerGUI}{Dealer\-G\-U\-I} can remove it from its element array) as soon as it gets to its target location. 
+
+\hypertarget{classGUI_1_1Element_a41c2c102d41148d09980bfc22c591d5a}{\index{G\-U\-I\-::\-Element@{G\-U\-I\-::\-Element}!kill\-Now@{kill\-Now}}
+\index{kill\-Now@{kill\-Now}!GUI::Element@{G\-U\-I\-::\-Element}}
+\subsubsection[{kill\-Now}]{\setlength{\rightskip}{0pt plus 5cm}void G\-U\-I\-::\-Element\-::kill\-Now (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{classGUI_1_1Element_a41c2c102d41148d09980bfc22c591d5a}
+
+
+Marks this element for removal (so \hyperlink{classGUI_1_1DealerGUI}{Dealer\-G\-U\-I} can remove it from its element array) immediately. 
+
+\hypertarget{classGUI_1_1Element_a6f7171736744f64faf428c17c74695df}{\index{G\-U\-I\-::\-Element@{G\-U\-I\-::\-Element}!move\-To@{move\-To}}
+\index{move\-To@{move\-To}!GUI::Element@{G\-U\-I\-::\-Element}}
+\subsubsection[{move\-To}]{\setlength{\rightskip}{0pt plus 5cm}void G\-U\-I\-::\-Element\-::move\-To (
+\begin{DoxyParamCaption}
+\item[{const S\-D\-L\-\_\-\-Point \&}]{\-\_\-p}
+\end{DoxyParamCaption}
+)}}\label{classGUI_1_1Element_a6f7171736744f64faf428c17c74695df}
+
+
+Sets this element's \char`\"{}target\char`\"{} location which it will move closer to with cosine interpolation every time \hyperlink{classGUI_1_1Element_ac33ecb92a9f9cb810bea83f31e4c14c9}{update()} is called. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \-\_\-p} & The point to move to. \\
+\hline
+\end{DoxyParams}
+\hypertarget{classGUI_1_1Element_aabff5bfcbb607c58600b056b2200c047}{\index{G\-U\-I\-::\-Element@{G\-U\-I\-::\-Element}!print\-Rect@{print\-Rect}}
+\index{print\-Rect@{print\-Rect}!GUI::Element@{G\-U\-I\-::\-Element}}
+\subsubsection[{print\-Rect}]{\setlength{\rightskip}{0pt plus 5cm}void G\-U\-I\-::\-Element\-::print\-Rect (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classGUI_1_1Element_aabff5bfcbb607c58600b056b2200c047}
+
+
+Prints the bounds of this element's S\-D\-L rectangle -\/ for debug purposes. 
+
+\hypertarget{classGUI_1_1Element_acb86e75c5d90e302b0c27c01106168a9}{\index{G\-U\-I\-::\-Element@{G\-U\-I\-::\-Element}!set\-Pos@{set\-Pos}}
+\index{set\-Pos@{set\-Pos}!GUI::Element@{G\-U\-I\-::\-Element}}
+\subsubsection[{set\-Pos}]{\setlength{\rightskip}{0pt plus 5cm}void G\-U\-I\-::\-Element\-::set\-Pos (
+\begin{DoxyParamCaption}
+\item[{const S\-D\-L\-\_\-\-Point \&}]{\-\_\-p, }
+\item[{const bool \&}]{\-\_\-update\-Rect = {\ttfamily true}}
+\end{DoxyParamCaption}
+)}}\label{classGUI_1_1Element_acb86e75c5d90e302b0c27c01106168a9}
+
+
+Moves the element to the specified location instantly. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \-\_\-p} & The S\-D\-L point to move the element to. \\
+\hline
+{\em \-\_\-update\-Rect} & True if you want to update the element's S\-D\-L rectangle along with the unrendered origin, which you will 99\% of the time. \\
+\hline
+\end{DoxyParams}
+\hypertarget{classGUI_1_1Element_a70bb69d6bfe2546a05be445a758344af}{\index{G\-U\-I\-::\-Element@{G\-U\-I\-::\-Element}!should\-Kill\-Now@{should\-Kill\-Now}}
+\index{should\-Kill\-Now@{should\-Kill\-Now}!GUI::Element@{G\-U\-I\-::\-Element}}
+\subsubsection[{should\-Kill\-Now}]{\setlength{\rightskip}{0pt plus 5cm}bool G\-U\-I\-::\-Element\-::should\-Kill\-Now (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [inline]}}}\label{classGUI_1_1Element_a70bb69d6bfe2546a05be445a758344af}
+
+
+Returns whether this element should be destroyed now -\/ \hyperlink{classGUI_1_1DealerGUI}{Dealer\-G\-U\-I} uses this to tell whether to remove the element from its array and deallocate the memory. 
+
+\hypertarget{classGUI_1_1Element_ac33ecb92a9f9cb810bea83f31e4c14c9}{\index{G\-U\-I\-::\-Element@{G\-U\-I\-::\-Element}!update@{update}}
+\index{update@{update}!GUI::Element@{G\-U\-I\-::\-Element}}
+\subsubsection[{update}]{\setlength{\rightskip}{0pt plus 5cm}bool G\-U\-I\-::\-Element\-::update (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [virtual]}}}\label{classGUI_1_1Element_ac33ecb92a9f9cb810bea83f31e4c14c9}
+
+
+Moves the element closer to its target point, and if that's done decreases the element's lifetime or marks it for removal. 
+
+\begin{DoxyReturn}{Returns}
+True if the element needs an update before it completes its current activity, false otherwise. 
+\end{DoxyReturn}
+
+
+Reimplemented in \hyperlink{classGUI_1_1Card_a678aebdd57e220cbada5e15996743a10}{G\-U\-I\-::\-Card}.
+
+\hypertarget{classGUI_1_1Element_adf034ad835dcf131f4cd4cc6d5bea774}{\index{G\-U\-I\-::\-Element@{G\-U\-I\-::\-Element}!update\-Rect@{update\-Rect}}
+\index{update\-Rect@{update\-Rect}!GUI::Element@{G\-U\-I\-::\-Element}}
+\subsubsection[{update\-Rect}]{\setlength{\rightskip}{0pt plus 5cm}void G\-U\-I\-::\-Element\-::update\-Rect (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{classGUI_1_1Element_adf034ad835dcf131f4cd4cc6d5bea774}
+
+
+Updates the elephant's S\-D\-L rectangle to move with its origin. 
+
+
+
+\subsection{Member Data Documentation}
+\hypertarget{classGUI_1_1Element_a999f0693d9a2205ef0c4aebd3771e7c8}{\index{G\-U\-I\-::\-Element@{G\-U\-I\-::\-Element}!m\-\_\-dest\-Rect@{m\-\_\-dest\-Rect}}
+\index{m\-\_\-dest\-Rect@{m\-\_\-dest\-Rect}!GUI::Element@{G\-U\-I\-::\-Element}}
+\subsubsection[{m\-\_\-dest\-Rect}]{\setlength{\rightskip}{0pt plus 5cm}S\-D\-L\-\_\-\-Rect G\-U\-I\-::\-Element\-::m\-\_\-dest\-Rect\hspace{0.3cm}{\ttfamily [protected]}}}\label{classGUI_1_1Element_a999f0693d9a2205ef0c4aebd3771e7c8}
+
+
+An S\-D\-L rectangle covering the part of the screen to draw this element to. 
+
+\hypertarget{classGUI_1_1Element_a724c299bdb208b5ee7812fa1827de631}{\index{G\-U\-I\-::\-Element@{G\-U\-I\-::\-Element}!m\-\_\-is\-Immortal@{m\-\_\-is\-Immortal}}
+\index{m\-\_\-is\-Immortal@{m\-\_\-is\-Immortal}!GUI::Element@{G\-U\-I\-::\-Element}}
+\subsubsection[{m\-\_\-is\-Immortal}]{\setlength{\rightskip}{0pt plus 5cm}bool G\-U\-I\-::\-Element\-::m\-\_\-is\-Immortal\hspace{0.3cm}{\ttfamily [protected]}}}\label{classGUI_1_1Element_a724c299bdb208b5ee7812fa1827de631}
+
+
+If true, the element will never decrement life and thus have an indefinite lifetime. 
+
+\hypertarget{classGUI_1_1Element_a432a31b103b55c3c8d14636368b449d1}{\index{G\-U\-I\-::\-Element@{G\-U\-I\-::\-Element}!m\-\_\-life@{m\-\_\-life}}
+\index{m\-\_\-life@{m\-\_\-life}!GUI::Element@{G\-U\-I\-::\-Element}}
+\subsubsection[{m\-\_\-life}]{\setlength{\rightskip}{0pt plus 5cm}int G\-U\-I\-::\-Element\-::m\-\_\-life\hspace{0.3cm}{\ttfamily [protected]}}}\label{classGUI_1_1Element_a432a31b103b55c3c8d14636368b449d1}
+
+
+How many \hyperlink{classGUI_1_1Element_ac33ecb92a9f9cb810bea83f31e4c14c9}{update()} cycles the element should last while stationary before should\-Kill\-Now is set to true. 
+
+\hypertarget{classGUI_1_1Element_a7c189466d4d240eb13aa461887a70142}{\index{G\-U\-I\-::\-Element@{G\-U\-I\-::\-Element}!m\-\_\-orientation@{m\-\_\-orientation}}
+\index{m\-\_\-orientation@{m\-\_\-orientation}!GUI::Element@{G\-U\-I\-::\-Element}}
+\subsubsection[{m\-\_\-orientation}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Orientation} G\-U\-I\-::\-Element\-::m\-\_\-orientation\hspace{0.3cm}{\ttfamily [protected]}}}\label{classGUI_1_1Element_a7c189466d4d240eb13aa461887a70142}
+
+
+Which edge of the screen this element should face. 
+
+\hypertarget{classGUI_1_1Element_a7661fce6fff7da3d308cdb604f7a417a}{\index{G\-U\-I\-::\-Element@{G\-U\-I\-::\-Element}!m\-\_\-origin@{m\-\_\-origin}}
+\index{m\-\_\-origin@{m\-\_\-origin}!GUI::Element@{G\-U\-I\-::\-Element}}
+\subsubsection[{m\-\_\-origin}]{\setlength{\rightskip}{0pt plus 5cm}S\-D\-L\-\_\-\-Point G\-U\-I\-::\-Element\-::m\-\_\-origin\hspace{0.3cm}{\ttfamily [protected]}}}\label{classGUI_1_1Element_a7661fce6fff7da3d308cdb604f7a417a}
+
+
+The \char`\"{}centre of mass\char`\"{} of this element on which movement/position calculations are performed. 
+
+\hypertarget{classGUI_1_1Element_a10ec38c0cf88fddea487644c1de45e1e}{\index{G\-U\-I\-::\-Element@{G\-U\-I\-::\-Element}!m\-\_\-point\-Dest@{m\-\_\-point\-Dest}}
+\index{m\-\_\-point\-Dest@{m\-\_\-point\-Dest}!GUI::Element@{G\-U\-I\-::\-Element}}
+\subsubsection[{m\-\_\-point\-Dest}]{\setlength{\rightskip}{0pt plus 5cm}S\-D\-L\-\_\-\-Point G\-U\-I\-::\-Element\-::m\-\_\-point\-Dest\hspace{0.3cm}{\ttfamily [protected]}}}\label{classGUI_1_1Element_a10ec38c0cf88fddea487644c1de45e1e}
+
+
+The point this element is moving to i.\-e. the argument used in the last call to \hyperlink{classGUI_1_1Element_a6f7171736744f64faf428c17c74695df}{move\-To()}. 
+
+\hypertarget{classGUI_1_1Element_abc7a9c575911f5260732cdb0d63afb58}{\index{G\-U\-I\-::\-Element@{G\-U\-I\-::\-Element}!m\-\_\-point\-Prev@{m\-\_\-point\-Prev}}
+\index{m\-\_\-point\-Prev@{m\-\_\-point\-Prev}!GUI::Element@{G\-U\-I\-::\-Element}}
+\subsubsection[{m\-\_\-point\-Prev}]{\setlength{\rightskip}{0pt plus 5cm}S\-D\-L\-\_\-\-Point G\-U\-I\-::\-Element\-::m\-\_\-point\-Prev\hspace{0.3cm}{\ttfamily [protected]}}}\label{classGUI_1_1Element_abc7a9c575911f5260732cdb0d63afb58}
+
+
+The point this element was at when \hyperlink{classGUI_1_1Element_a6f7171736744f64faf428c17c74695df}{move\-To()} was last called. 
+
+\hypertarget{classGUI_1_1Element_ae695e5eedb37b27ef5d8542a15908f1e}{\index{G\-U\-I\-::\-Element@{G\-U\-I\-::\-Element}!m\-\_\-progress\-Amount@{m\-\_\-progress\-Amount}}
+\index{m\-\_\-progress\-Amount@{m\-\_\-progress\-Amount}!GUI::Element@{G\-U\-I\-::\-Element}}
+\subsubsection[{m\-\_\-progress\-Amount}]{\setlength{\rightskip}{0pt plus 5cm}float G\-U\-I\-::\-Element\-::m\-\_\-progress\-Amount\hspace{0.3cm}{\ttfamily [protected]}}}\label{classGUI_1_1Element_ae695e5eedb37b27ef5d8542a15908f1e}
+
+
+A value between 0 and 1 representing how far this element has travelled between the previous position and the destination position. Used in cosine interpolation calculations. 
+
+\hypertarget{classGUI_1_1Element_a32340ae04789b6ea8037fdb1fb440ae1}{\index{G\-U\-I\-::\-Element@{G\-U\-I\-::\-Element}!m\-\_\-ren@{m\-\_\-ren}}
+\index{m\-\_\-ren@{m\-\_\-ren}!GUI::Element@{G\-U\-I\-::\-Element}}
+\subsubsection[{m\-\_\-ren}]{\setlength{\rightskip}{0pt plus 5cm}S\-D\-L\-\_\-\-Renderer$\ast$ G\-U\-I\-::\-Element\-::m\-\_\-ren\hspace{0.3cm}{\ttfamily [protected]}}}\label{classGUI_1_1Element_a32340ae04789b6ea8037fdb1fb440ae1}
+
+
+A pointer to the S\-D\-L rendering context. 
+
+\hypertarget{classGUI_1_1Element_ac3c14a4ae96ff31f2e0a59b6ebc1d076}{\index{G\-U\-I\-::\-Element@{G\-U\-I\-::\-Element}!m\-\_\-should\-Kill\-Now@{m\-\_\-should\-Kill\-Now}}
+\index{m\-\_\-should\-Kill\-Now@{m\-\_\-should\-Kill\-Now}!GUI::Element@{G\-U\-I\-::\-Element}}
+\subsubsection[{m\-\_\-should\-Kill\-Now}]{\setlength{\rightskip}{0pt plus 5cm}bool G\-U\-I\-::\-Element\-::m\-\_\-should\-Kill\-Now\hspace{0.3cm}{\ttfamily [protected]}}}\label{classGUI_1_1Element_ac3c14a4ae96ff31f2e0a59b6ebc1d076}
+
+
+If true, the element will be deleted on the next \hyperlink{classGUI_1_1Element_ac33ecb92a9f9cb810bea83f31e4c14c9}{update()} of the \hyperlink{classGUI_1_1DealerGUI}{Dealer\-G\-U\-I}. 
+
+\hypertarget{classGUI_1_1Element_a5a4b537de0a51fa11eb4c59b43980092}{\index{G\-U\-I\-::\-Element@{G\-U\-I\-::\-Element}!m\-\_\-should\-Kill\-Soon@{m\-\_\-should\-Kill\-Soon}}
+\index{m\-\_\-should\-Kill\-Soon@{m\-\_\-should\-Kill\-Soon}!GUI::Element@{G\-U\-I\-::\-Element}}
+\subsubsection[{m\-\_\-should\-Kill\-Soon}]{\setlength{\rightskip}{0pt plus 5cm}bool G\-U\-I\-::\-Element\-::m\-\_\-should\-Kill\-Soon\hspace{0.3cm}{\ttfamily [protected]}}}\label{classGUI_1_1Element_a5a4b537de0a51fa11eb4c59b43980092}
+
+
+If true, the element will set should\-Kill\-Now to true as soon as it finishes moving and life runs out. 
+
+\hypertarget{classGUI_1_1Element_a7a4a307f67ce1e23f313791ba032dc77}{\index{G\-U\-I\-::\-Element@{G\-U\-I\-::\-Element}!m\-\_\-src\-Rect@{m\-\_\-src\-Rect}}
+\index{m\-\_\-src\-Rect@{m\-\_\-src\-Rect}!GUI::Element@{G\-U\-I\-::\-Element}}
+\subsubsection[{m\-\_\-src\-Rect}]{\setlength{\rightskip}{0pt plus 5cm}S\-D\-L\-\_\-\-Rect G\-U\-I\-::\-Element\-::m\-\_\-src\-Rect\hspace{0.3cm}{\ttfamily [protected]}}}\label{classGUI_1_1Element_a7a4a307f67ce1e23f313791ba032dc77}
+
+
+An S\-D\-L rectangle covering the part of the texture to use. 
+
+\hypertarget{classGUI_1_1Element_a2e63212ae641d8af447d62ede6c2c831}{\index{G\-U\-I\-::\-Element@{G\-U\-I\-::\-Element}!m\-\_\-texture@{m\-\_\-texture}}
+\index{m\-\_\-texture@{m\-\_\-texture}!GUI::Element@{G\-U\-I\-::\-Element}}
+\subsubsection[{m\-\_\-texture}]{\setlength{\rightskip}{0pt plus 5cm}S\-D\-L\-\_\-\-Texture$\ast$ G\-U\-I\-::\-Element\-::m\-\_\-texture\hspace{0.3cm}{\ttfamily [protected]}}}\label{classGUI_1_1Element_a2e63212ae641d8af447d62ede6c2c831}
+
+
+A pointer to the S\-D\-L texture this element uses. 
+
+
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+include/gui/\hyperlink{gui__element_8h}{gui\-\_\-element.\-h}\item 
+src/gui/\hyperlink{gui__element_8cpp}{gui\-\_\-element.\-cpp}\end{DoxyCompactItemize}

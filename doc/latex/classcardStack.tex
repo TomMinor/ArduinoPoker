@@ -1,0 +1,325 @@
+\hypertarget{classcardStack}{\section{card\-Stack Class Reference}
+\label{classcardStack}\index{card\-Stack@{card\-Stack}}
+}
+
+
+{\ttfamily \#include $<$card\-Stack.\-h$>$}
+
+Inheritance diagram for card\-Stack\-:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classcardStack}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classcardStack_ac423c45c944d35af268d5e2f7051d88f}{card\-Stack} ()
+\item 
+\hyperlink{classcardStack_a4149feb89fe3e883c17da819269ef874}{$\sim$card\-Stack} ()
+\item 
+void \hyperlink{classcardStack_acd88e764e2871f8362d36f916a3f5d5e}{add\-Card} (const \hyperlink{classPlayingCard}{Playing\-Card} \&\-\_\-card)
+\begin{DoxyCompactList}\small\item\em method to add card to stack. \end{DoxyCompactList}\item 
+void \hyperlink{classcardStack_ac2f3ea0eeddfad56a602597dc88d158d}{print\-Stack} () const 
+\begin{DoxyCompactList}\small\item\em method to print all cards in stack to standard output stream. \end{DoxyCompactList}\item 
+\hyperlink{classPlayingCard}{Playing\-Card} \hyperlink{classcardStack_ac905f0caffa958349f3bee6367133e65}{get\-Highest\-Card} ()
+\begin{DoxyCompactList}\small\item\em method to access highest card in stack \end{DoxyCompactList}\item 
+int \hyperlink{classcardStack_a29ea492190b96147f9d9a7097279505d}{find\-Card} (const \hyperlink{classPlayingCard}{Playing\-Card} \&\-\_\-card)
+\begin{DoxyCompactList}\small\item\em method to find array I\-D of a particular card. \end{DoxyCompactList}\item 
+int \hyperlink{classcardStack_a639fe6ff39303f2654de3bdcdaf85707}{find\-Rank\-In\-Stack} (const int \-\_\-rank)
+\begin{DoxyCompactList}\small\item\em method to find array I\-D of a particular rank the first time it appears in stack. \end{DoxyCompactList}\item 
+int \hyperlink{classcardStack_aabfa328b26f8d79b211278e691e6bfb4}{find\-Suit\-In\-Stack} (const int \-\_\-suit)
+\begin{DoxyCompactList}\small\item\em method to find array I\-D of a particular suit the first time it appears in the stack. \end{DoxyCompactList}\item 
+void \hyperlink{classcardStack_a249c4de515785a81fd19e2c23535fd8e}{remove\-Card} (const \hyperlink{classPlayingCard}{Playing\-Card} \&\-\_\-card)
+\begin{DoxyCompactList}\small\item\em method to remove a particular card from the stack. \end{DoxyCompactList}\item 
+void \hyperlink{classcardStack_aaf7d09e9de876ab4757451ba16aef984}{remove\-Card} (const int \-\_\-i)
+\begin{DoxyCompactList}\small\item\em method to remove a card at a particular index from the stack. \end{DoxyCompactList}\item 
+void \hyperlink{classcardStack_a9b8066aebb82891f1eca0c43d1b71d97}{empty\-Stack} ()
+\begin{DoxyCompactList}\small\item\em method to empty the stack. \end{DoxyCompactList}\item 
+void \hyperlink{classcardStack_acb6eb23ed3e22aebee2afd493ffacda6}{replace\-Card} (const int \-\_\-i, const \hyperlink{classPlayingCard}{Playing\-Card} \&\-\_\-card)
+\begin{DoxyCompactList}\small\item\em method to replace a card at a particular index with a particular card. \end{DoxyCompactList}\item 
+void \hyperlink{classcardStack_ab9d64e6e9d98270c7d67ab6d1abda31f}{sort} ()
+\begin{DoxyCompactList}\small\item\em method to sort the stack of cards in order of highest first. \end{DoxyCompactList}\item 
+void \hyperlink{classcardStack_a02e2d031a74c553e2132188ece48b661}{reverse\-Sort} ()
+\begin{DoxyCompactList}\small\item\em method to sort the stack of cards in order of lowest first. \end{DoxyCompactList}\item 
+void \hyperlink{classcardStack_a3a345e0362dafd7f137e5441c3213419}{sort\-Ace\-Low} ()
+\begin{DoxyCompactList}\small\item\em method to sort the stack of cards in order of highest first with A\-C\-E's being low and put at the end. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classPlayingCard}{Playing\-Card} \hyperlink{classcardStack_a90bb8b2932df8cc4309e71f4acd5c4c0}{get\-Card} (const int \-\_\-i) const 
+\begin{DoxyCompactList}\small\item\em method to access a particular card in the stack at index \-\_\-i. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Static Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static bool \hyperlink{classcardStack_a687e7be25a00b5f00f673adccb2a033a}{low\-To\-High} (const \hyperlink{classPlayingCard}{Playing\-Card} \&\-\_\-a, const \hyperlink{classPlayingCard}{Playing\-Card} \&\-\_\-b)
+\begin{DoxyCompactList}\small\item\em method to check if rank of \hyperlink{classPlayingCard}{Playing\-Card} \-\_\-a is lower than rank of Playing Card \-\_\-b. \end{DoxyCompactList}\item 
+static bool \hyperlink{classcardStack_a09187668decae078e6ca2c6887d69e63}{high\-To\-Low} (const \hyperlink{classPlayingCard}{Playing\-Card} \&\-\_\-a, const \hyperlink{classPlayingCard}{Playing\-Card} \&\-\_\-b)
+\begin{DoxyCompactList}\small\item\em method to check if rank of \hyperlink{classPlayingCard}{Playing\-Card} \-\_\-a is bigger than rank of Playing Card \-\_\-b. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\begin{DoxyAuthor}{Author}
+Idris Miles 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+1.\-0 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+16/01/2015 
+\end{DoxyDate}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{classcardStack_ac423c45c944d35af268d5e2f7051d88f}{\index{card\-Stack@{card\-Stack}!card\-Stack@{card\-Stack}}
+\index{card\-Stack@{card\-Stack}!cardStack@{card\-Stack}}
+\subsubsection[{card\-Stack}]{\setlength{\rightskip}{0pt plus 5cm}card\-Stack\-::card\-Stack (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classcardStack_ac423c45c944d35af268d5e2f7051d88f}
+\begin{DoxyReturn}{Returns}
+static bool 
+\end{DoxyReturn}
+\hypertarget{classcardStack_a4149feb89fe3e883c17da819269ef874}{\index{card\-Stack@{card\-Stack}!$\sim$card\-Stack@{$\sim$card\-Stack}}
+\index{$\sim$card\-Stack@{$\sim$card\-Stack}!cardStack@{card\-Stack}}
+\subsubsection[{$\sim$card\-Stack}]{\setlength{\rightskip}{0pt plus 5cm}card\-Stack\-::$\sim$card\-Stack (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classcardStack_a4149feb89fe3e883c17da819269ef874}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{classcardStack_acd88e764e2871f8362d36f916a3f5d5e}{\index{card\-Stack@{card\-Stack}!add\-Card@{add\-Card}}
+\index{add\-Card@{add\-Card}!cardStack@{card\-Stack}}
+\subsubsection[{add\-Card}]{\setlength{\rightskip}{0pt plus 5cm}void card\-Stack\-::add\-Card (
+\begin{DoxyParamCaption}
+\item[{const {\bf Playing\-Card} \&}]{\-\_\-card}
+\end{DoxyParamCaption}
+)}}\label{classcardStack_acd88e764e2871f8362d36f916a3f5d5e}
+
+
+method to add card to stack. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em const} & \hyperlink{classPlayingCard}{Playing\-Card} \\
+\hline
+\end{DoxyParams}
+\hypertarget{classcardStack_a9b8066aebb82891f1eca0c43d1b71d97}{\index{card\-Stack@{card\-Stack}!empty\-Stack@{empty\-Stack}}
+\index{empty\-Stack@{empty\-Stack}!cardStack@{card\-Stack}}
+\subsubsection[{empty\-Stack}]{\setlength{\rightskip}{0pt plus 5cm}void card\-Stack\-::empty\-Stack (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classcardStack_a9b8066aebb82891f1eca0c43d1b71d97}
+
+
+method to empty the stack. 
+
+\hypertarget{classcardStack_a29ea492190b96147f9d9a7097279505d}{\index{card\-Stack@{card\-Stack}!find\-Card@{find\-Card}}
+\index{find\-Card@{find\-Card}!cardStack@{card\-Stack}}
+\subsubsection[{find\-Card}]{\setlength{\rightskip}{0pt plus 5cm}int card\-Stack\-::find\-Card (
+\begin{DoxyParamCaption}
+\item[{const {\bf Playing\-Card} \&}]{\-\_\-card}
+\end{DoxyParamCaption}
+)}}\label{classcardStack_a29ea492190b96147f9d9a7097279505d}
+
+
+method to find array I\-D of a particular card. 
+
+\begin{DoxyReturn}{Returns}
+int (returns -\/1 if not found) 
+\end{DoxyReturn}
+\hypertarget{classcardStack_a639fe6ff39303f2654de3bdcdaf85707}{\index{card\-Stack@{card\-Stack}!find\-Rank\-In\-Stack@{find\-Rank\-In\-Stack}}
+\index{find\-Rank\-In\-Stack@{find\-Rank\-In\-Stack}!cardStack@{card\-Stack}}
+\subsubsection[{find\-Rank\-In\-Stack}]{\setlength{\rightskip}{0pt plus 5cm}int card\-Stack\-::find\-Rank\-In\-Stack (
+\begin{DoxyParamCaption}
+\item[{const int}]{\-\_\-rank}
+\end{DoxyParamCaption}
+)}}\label{classcardStack_a639fe6ff39303f2654de3bdcdaf85707}
+
+
+method to find array I\-D of a particular rank the first time it appears in stack. 
+
+\begin{DoxyReturn}{Returns}
+int (returns -\/1 if not found) 
+\end{DoxyReturn}
+\hypertarget{classcardStack_aabfa328b26f8d79b211278e691e6bfb4}{\index{card\-Stack@{card\-Stack}!find\-Suit\-In\-Stack@{find\-Suit\-In\-Stack}}
+\index{find\-Suit\-In\-Stack@{find\-Suit\-In\-Stack}!cardStack@{card\-Stack}}
+\subsubsection[{find\-Suit\-In\-Stack}]{\setlength{\rightskip}{0pt plus 5cm}int card\-Stack\-::find\-Suit\-In\-Stack (
+\begin{DoxyParamCaption}
+\item[{const int}]{\-\_\-suit}
+\end{DoxyParamCaption}
+)}}\label{classcardStack_aabfa328b26f8d79b211278e691e6bfb4}
+
+
+method to find array I\-D of a particular suit the first time it appears in the stack. 
+
+\begin{DoxyReturn}{Returns}
+int (returns -\/1 if not found) 
+\end{DoxyReturn}
+\hypertarget{classcardStack_a90bb8b2932df8cc4309e71f4acd5c4c0}{\index{card\-Stack@{card\-Stack}!get\-Card@{get\-Card}}
+\index{get\-Card@{get\-Card}!cardStack@{card\-Stack}}
+\subsubsection[{get\-Card}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Playing\-Card} card\-Stack\-::get\-Card (
+\begin{DoxyParamCaption}
+\item[{const int}]{\-\_\-i}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [private]}}}\label{classcardStack_a90bb8b2932df8cc4309e71f4acd5c4c0}
+
+
+method to access a particular card in the stack at index \-\_\-i. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em const} & int \\
+\hline
+\end{DoxyParams}
+\hypertarget{classcardStack_ac905f0caffa958349f3bee6367133e65}{\index{card\-Stack@{card\-Stack}!get\-Highest\-Card@{get\-Highest\-Card}}
+\index{get\-Highest\-Card@{get\-Highest\-Card}!cardStack@{card\-Stack}}
+\subsubsection[{get\-Highest\-Card}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Playing\-Card} card\-Stack\-::get\-Highest\-Card (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classcardStack_ac905f0caffa958349f3bee6367133e65}
+
+
+method to access highest card in stack 
+
+\begin{DoxyReturn}{Returns}
+\hyperlink{classPlayingCard}{Playing\-Card} 
+\end{DoxyReturn}
+\hypertarget{classcardStack_a09187668decae078e6ca2c6887d69e63}{\index{card\-Stack@{card\-Stack}!high\-To\-Low@{high\-To\-Low}}
+\index{high\-To\-Low@{high\-To\-Low}!cardStack@{card\-Stack}}
+\subsubsection[{high\-To\-Low}]{\setlength{\rightskip}{0pt plus 5cm}bool card\-Stack\-::high\-To\-Low (
+\begin{DoxyParamCaption}
+\item[{const {\bf Playing\-Card} \&}]{\-\_\-a, }
+\item[{const {\bf Playing\-Card} \&}]{\-\_\-b}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [private]}}}\label{classcardStack_a09187668decae078e6ca2c6887d69e63}
+
+
+method to check if rank of \hyperlink{classPlayingCard}{Playing\-Card} \-\_\-a is bigger than rank of Playing Card \-\_\-b. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em const} & \hyperlink{classPlayingCard}{Playing\-Card} \\
+\hline
+\mbox{\tt in}  & {\em const} & \hyperlink{classPlayingCard}{Playing\-Card} \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+static bool 
+\end{DoxyReturn}
+\hypertarget{classcardStack_a687e7be25a00b5f00f673adccb2a033a}{\index{card\-Stack@{card\-Stack}!low\-To\-High@{low\-To\-High}}
+\index{low\-To\-High@{low\-To\-High}!cardStack@{card\-Stack}}
+\subsubsection[{low\-To\-High}]{\setlength{\rightskip}{0pt plus 5cm}bool card\-Stack\-::low\-To\-High (
+\begin{DoxyParamCaption}
+\item[{const {\bf Playing\-Card} \&}]{\-\_\-a, }
+\item[{const {\bf Playing\-Card} \&}]{\-\_\-b}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [private]}}}\label{classcardStack_a687e7be25a00b5f00f673adccb2a033a}
+
+
+method to check if rank of \hyperlink{classPlayingCard}{Playing\-Card} \-\_\-a is lower than rank of Playing Card \-\_\-b. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em const} & \hyperlink{classPlayingCard}{Playing\-Card} \\
+\hline
+\mbox{\tt in}  & {\em const} & \hyperlink{classPlayingCard}{Playing\-Card} \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+static bool 
+\end{DoxyReturn}
+\hypertarget{classcardStack_ac2f3ea0eeddfad56a602597dc88d158d}{\index{card\-Stack@{card\-Stack}!print\-Stack@{print\-Stack}}
+\index{print\-Stack@{print\-Stack}!cardStack@{card\-Stack}}
+\subsubsection[{print\-Stack}]{\setlength{\rightskip}{0pt plus 5cm}void card\-Stack\-::print\-Stack (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}}\label{classcardStack_ac2f3ea0eeddfad56a602597dc88d158d}
+
+
+method to print all cards in stack to standard output stream. 
+
+\hypertarget{classcardStack_a249c4de515785a81fd19e2c23535fd8e}{\index{card\-Stack@{card\-Stack}!remove\-Card@{remove\-Card}}
+\index{remove\-Card@{remove\-Card}!cardStack@{card\-Stack}}
+\subsubsection[{remove\-Card}]{\setlength{\rightskip}{0pt plus 5cm}void card\-Stack\-::remove\-Card (
+\begin{DoxyParamCaption}
+\item[{const {\bf Playing\-Card} \&}]{\-\_\-card}
+\end{DoxyParamCaption}
+)}}\label{classcardStack_a249c4de515785a81fd19e2c23535fd8e}
+
+
+method to remove a particular card from the stack. 
+
+\hypertarget{classcardStack_aaf7d09e9de876ab4757451ba16aef984}{\index{card\-Stack@{card\-Stack}!remove\-Card@{remove\-Card}}
+\index{remove\-Card@{remove\-Card}!cardStack@{card\-Stack}}
+\subsubsection[{remove\-Card}]{\setlength{\rightskip}{0pt plus 5cm}void card\-Stack\-::remove\-Card (
+\begin{DoxyParamCaption}
+\item[{const int}]{\-\_\-i}
+\end{DoxyParamCaption}
+)}}\label{classcardStack_aaf7d09e9de876ab4757451ba16aef984}
+
+
+method to remove a card at a particular index from the stack. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em const} & int \\
+\hline
+\end{DoxyParams}
+\hypertarget{classcardStack_acb6eb23ed3e22aebee2afd493ffacda6}{\index{card\-Stack@{card\-Stack}!replace\-Card@{replace\-Card}}
+\index{replace\-Card@{replace\-Card}!cardStack@{card\-Stack}}
+\subsubsection[{replace\-Card}]{\setlength{\rightskip}{0pt plus 5cm}void card\-Stack\-::replace\-Card (
+\begin{DoxyParamCaption}
+\item[{const int}]{\-\_\-i, }
+\item[{const {\bf Playing\-Card} \&}]{\-\_\-card}
+\end{DoxyParamCaption}
+)}}\label{classcardStack_acb6eb23ed3e22aebee2afd493ffacda6}
+
+
+method to replace a card at a particular index with a particular card. 
+
+\hypertarget{classcardStack_a02e2d031a74c553e2132188ece48b661}{\index{card\-Stack@{card\-Stack}!reverse\-Sort@{reverse\-Sort}}
+\index{reverse\-Sort@{reverse\-Sort}!cardStack@{card\-Stack}}
+\subsubsection[{reverse\-Sort}]{\setlength{\rightskip}{0pt plus 5cm}void card\-Stack\-::reverse\-Sort (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classcardStack_a02e2d031a74c553e2132188ece48b661}
+
+
+method to sort the stack of cards in order of lowest first. 
+
+\hypertarget{classcardStack_ab9d64e6e9d98270c7d67ab6d1abda31f}{\index{card\-Stack@{card\-Stack}!sort@{sort}}
+\index{sort@{sort}!cardStack@{card\-Stack}}
+\subsubsection[{sort}]{\setlength{\rightskip}{0pt plus 5cm}void card\-Stack\-::sort (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classcardStack_ab9d64e6e9d98270c7d67ab6d1abda31f}
+
+
+method to sort the stack of cards in order of highest first. 
+
+\hypertarget{classcardStack_a3a345e0362dafd7f137e5441c3213419}{\index{card\-Stack@{card\-Stack}!sort\-Ace\-Low@{sort\-Ace\-Low}}
+\index{sort\-Ace\-Low@{sort\-Ace\-Low}!cardStack@{card\-Stack}}
+\subsubsection[{sort\-Ace\-Low}]{\setlength{\rightskip}{0pt plus 5cm}void card\-Stack\-::sort\-Ace\-Low (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classcardStack_a3a345e0362dafd7f137e5441c3213419}
+
+
+method to sort the stack of cards in order of highest first with A\-C\-E's being low and put at the end. 
+
+
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+include/dealer/\hyperlink{cardStack_8h}{card\-Stack.\-h}\item 
+src/dealer/\hyperlink{cardStack_8cpp}{card\-Stack.\-cpp}\end{DoxyCompactItemize}

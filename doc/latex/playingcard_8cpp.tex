@@ -1,0 +1,83 @@
+\hypertarget{playingcard_8cpp}{\section{src/dealer/playingcard.cpp File Reference}
+\label{playingcard_8cpp}\index{src/dealer/playingcard.\-cpp@{src/dealer/playingcard.\-cpp}}
+}
+{\ttfamily \#include $<$assert.\-h$>$}\\*
+{\ttfamily \#include $<$iostream$>$}\\*
+{\ttfamily \#include \char`\"{}dealer/playingcard.\-h\char`\"{}}\\*
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+std\-::ostream \& \hyperlink{playingcard_8cpp_aa42bbb7ad79fb6c9d174d1b3b59714fb}{operator$<$$<$} (std\-::ostream \&\-\_\-stream, const \hyperlink{classPlayingCard}{Playing\-Card} \&\-\_\-card)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+const std\-::string \hyperlink{playingcard_8cpp_a66530d7db80aff5be44d1eed7df282e7}{Rank\-Lookup} \mbox{[}$\,$\mbox{]}
+\begin{DoxyCompactList}\small\item\em Rank\-Lookup A lookup for table for the rank's string representation. \end{DoxyCompactList}\item 
+const std\-::string \hyperlink{playingcard_8cpp_a1ac6e7a1b0805e39ad315d049c5ba43e}{Suit\-Lookup} \mbox{[}$\,$\mbox{]}
+\begin{DoxyCompactList}\small\item\em Suit\-Lookup A lookup for table for the suit's string representation. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\hypertarget{playingcard_8cpp_aa42bbb7ad79fb6c9d174d1b3b59714fb}{\index{playingcard.\-cpp@{playingcard.\-cpp}!operator$<$$<$@{operator$<$$<$}}
+\index{operator$<$$<$@{operator$<$$<$}!playingcard.cpp@{playingcard.\-cpp}}
+\subsubsection[{operator$<$$<$}]{\setlength{\rightskip}{0pt plus 5cm}std\-::ostream\& operator$<$$<$ (
+\begin{DoxyParamCaption}
+\item[{std\-::ostream \&}]{\-\_\-stream, }
+\item[{const {\bf Playing\-Card} \&}]{\-\_\-card}
+\end{DoxyParamCaption}
+)}}\label{playingcard_8cpp_aa42bbb7ad79fb6c9d174d1b3b59714fb}
+
+\begin{DoxyParams}{Parameters}
+{\em \-\_\-stream} & \\
+\hline
+{\em \-\_\-card} & The card whose value will be printed. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+a reference to a stream. 
+\end{DoxyReturn}
+
+
+\subsection{Variable Documentation}
+\hypertarget{playingcard_8cpp_a66530d7db80aff5be44d1eed7df282e7}{\index{playingcard.\-cpp@{playingcard.\-cpp}!Rank\-Lookup@{Rank\-Lookup}}
+\index{Rank\-Lookup@{Rank\-Lookup}!playingcard.cpp@{playingcard.\-cpp}}
+\subsubsection[{Rank\-Lookup}]{\setlength{\rightskip}{0pt plus 5cm}const std\-::string Rank\-Lookup\mbox{[}$\,$\mbox{]}}}\label{playingcard_8cpp_a66530d7db80aff5be44d1eed7df282e7}
+{\bfseries Initial value\-:}
+\begin{DoxyCode}
+= \{
+    \textcolor{stringliteral}{"2"},
+    \textcolor{stringliteral}{"3"},
+    \textcolor{stringliteral}{"4"},
+    \textcolor{stringliteral}{"5"},
+    \textcolor{stringliteral}{"6"},
+    \textcolor{stringliteral}{"7"},
+    \textcolor{stringliteral}{"8"},
+    \textcolor{stringliteral}{"9"},
+    \textcolor{stringliteral}{"10"},
+    \textcolor{stringliteral}{"Jack"},
+    \textcolor{stringliteral}{"Queen"},
+    \textcolor{stringliteral}{"King"},
+    \textcolor{stringliteral}{"Ace"}
+\}
+\end{DoxyCode}
+
+
+Rank\-Lookup A lookup for table for the rank's string representation. 
+
+\hypertarget{playingcard_8cpp_a1ac6e7a1b0805e39ad315d049c5ba43e}{\index{playingcard.\-cpp@{playingcard.\-cpp}!Suit\-Lookup@{Suit\-Lookup}}
+\index{Suit\-Lookup@{Suit\-Lookup}!playingcard.cpp@{playingcard.\-cpp}}
+\subsubsection[{Suit\-Lookup}]{\setlength{\rightskip}{0pt plus 5cm}const std\-::string Suit\-Lookup\mbox{[}$\,$\mbox{]}}}\label{playingcard_8cpp_a1ac6e7a1b0805e39ad315d049c5ba43e}
+{\bfseries Initial value\-:}
+\begin{DoxyCode}
+= \{
+    \textcolor{stringliteral}{"Diamond"},
+    \textcolor{stringliteral}{"Heart"},
+    \textcolor{stringliteral}{"Club"},
+    \textcolor{stringliteral}{"Spade"}
+\}
+\end{DoxyCode}
+
+
+Suit\-Lookup A lookup for table for the suit's string representation. 
+

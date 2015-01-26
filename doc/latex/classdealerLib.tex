@@ -1,0 +1,456 @@
+\hypertarget{classdealerLib}{\section{dealer\-Lib Class Reference}
+\label{classdealerLib}\index{dealer\-Lib@{dealer\-Lib}}
+}
+
+
+{\ttfamily \#include $<$dealer\-Lib.\-h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classdealerLib_a672938057486d6916efcb3ae5cb53ea2}{dealer\-Lib} ()
+\begin{DoxyCompactList}\small\item\em \hyperlink{classdealerLib}{dealer\-Lib} The constructor for the dealer which will initialise the deck \end{DoxyCompactList}\item 
+\hyperlink{classdealerLib_ae4f26ca24eb2ffee9e93558f3c4634a4}{$\sim$dealer\-Lib} ()
+\item 
+void \hyperlink{classdealerLib_a846d61ce1080938cab74c82afeca23bb}{Betting} ()
+\begin{DoxyCompactList}\small\item\em Betting. \end{DoxyCompactList}\item 
+void \hyperlink{classdealerLib_a4580832480ff12ddfcd91852ccef85a9}{bet} ()
+\begin{DoxyCompactList}\small\item\em bet implements the whole betting loop \end{DoxyCompactList}\item 
+bool \hyperlink{classdealerLib_a221f9fb86831e0b5c9f0ac997f7f6a80}{check\-Bool\-Array} (bool \-\_\-array\mbox{[}$\,$\mbox{]}) const 
+\begin{DoxyCompactList}\small\item\em check\-Bool\-Array checks if all elements in the array are true \end{DoxyCompactList}\item 
+void \hyperlink{classdealerLib_a7e2dfc44e542046043b2387b12b5a0c2}{add\-Bet\-To\-Pot} (const int \&\-\_\-bet)
+\begin{DoxyCompactList}\small\item\em add\-Bet\-To\-Pot adds players bet to the pot \end{DoxyCompactList}\item 
+void \hyperlink{classdealerLib_a328a5d21d3bdf0686fe5bcfba2f7015b}{deal\-Hands} ()
+\begin{DoxyCompactList}\small\item\em deal\-Hands Appends a card to each player's vector of hole cards \end{DoxyCompactList}\item 
+void \hyperlink{classdealerLib_a950bb045bf57da8e864c4d175230db2c}{deal\-Flop} ()
+\begin{DoxyCompactList}\small\item\em deal\-Flop Adds the first three cards to the vector of community cards \end{DoxyCompactList}\item 
+void \hyperlink{classdealerLib_a4cd945f94cf450808f8c3400c323819c}{deal\-River\-Turn} ()
+\begin{DoxyCompactList}\small\item\em deal\-River\-Turn Adds the 4th and 5th cards to the vector of community cards \end{DoxyCompactList}\item 
+int \hyperlink{classdealerLib_ab4761cf75f036955ff707d30eab5733b}{check\-Max\-Bet} ()
+\begin{DoxyCompactList}\small\item\em check\-Max\-Bet The maximum bet is the smallest amount of money a player has. The function iterates through all the live players and works out who has the least money. This value is then used as the maximum allowance a player can bet \end{DoxyCompactList}\item 
+void \hyperlink{classdealerLib_adde6b485d725ef6c121f820fceb656c1}{reset} ()
+\begin{DoxyCompactList}\small\item\em reset Removes all cards from the game and resets the deck. It also updates player information to the m\-\_\-table vector from the more temporary m\-\_\-live\-Players vector and resets all the player's fold booleans to false \end{DoxyCompactList}\item 
+void \hyperlink{classdealerLib_ac0455246849f0b14c217d14ccca5af4f}{update} ()
+\begin{DoxyCompactList}\small\item\em update Calls the guis update and draw functions \end{DoxyCompactList}\item 
+void \hyperlink{classdealerLib_a3904a233153d0b6c7437ecd221b7db9d}{init} ()
+\begin{DoxyCompactList}\small\item\em init Initialises gui and player and sets up a std\-::map that maps the player\-Id to a serial\-Port \end{DoxyCompactList}\item 
+void \hyperlink{classdealerLib_a6947167bb1dd66d30786cf6b5a98f96d}{init\-Player} (const int \&\-\_\-id)
+\begin{DoxyCompactList}\small\item\em init\-Player Initialises a vector of players, m\-\_\-table, and sets the players Ids and name \end{DoxyCompactList}\item 
+void \hyperlink{classdealerLib_acb8f77a5e89baa3a270eef4583174c05}{remove\-Player} (std\-::vector$<$ \hyperlink{classplayer}{player} $>$\-::iterator it)
+\begin{DoxyCompactList}\small\item\em remove\-Player removes the player from a vector. This will be called when a player runs out of money and when a player folds \end{DoxyCompactList}\item 
+bool \hyperlink{classdealerLib_a3949e823778c930990f40ebc453429ed}{check\-If\-Lost} (\hyperlink{classplayer}{player} \-\_\-player)
+\begin{DoxyCompactList}\small\item\em check\-If\-Lost Checks if a player has ran out of money \end{DoxyCompactList}\item 
+void \hyperlink{classdealerLib_ac9ce461a32b7312615d47be5e5c8cb5a}{kick\-Broke\-Player} ()
+\begin{DoxyCompactList}\small\item\em kick\-Broke\-Player Removes a player that has ran out of money. Its used after calling the \hyperlink{classdealerLib_a3949e823778c930990f40ebc453429ed}{check\-If\-Lost()} function \end{DoxyCompactList}\item 
+void \hyperlink{classdealerLib_af172da91f337b8fdc9b60a6463f4ff21}{decide\-Winners} ()
+\begin{DoxyCompactList}\small\item\em decide\-Winners Calculates which players have won and creates a vector of winners It also passes the money in the pot to these winners. If there is more than one winner, the pot is split. If it can't be split evenly,the remainder is left in the pot to be won the next round \end{DoxyCompactList}\item 
+bool \hyperlink{classdealerLib_a356e873aabf48a03316d7c9dd3508818}{is\-Remainder} (int \-\_\-remainder)
+\begin{DoxyCompactList}\small\item\em is\-Remainder Checks if there is a remainder leftover from splitting the pot \end{DoxyCompactList}\item 
+void \hyperlink{classdealerLib_aac11d5e45a71a0635e0952bd9116b9cf}{update\-Player} (int \-\_\-element)
+\begin{DoxyCompactList}\small\item\em update\-Player Passes the player information from a vector of m\-\_\-live\-Players (not folded players), whose life only lasts for the betting loop to a more permanent vector of players m\-\_\-table which holds players still in the game. \end{DoxyCompactList}\item 
+int \hyperlink{classdealerLib_a9d7c83f1ebcab5be17c2d3a8a81b4f9b}{get\-Num\-Players} () const 
+\begin{DoxyCompactList}\small\item\em get\-Num\-Players method to access number of players m\-\_\-num\-Players \end{DoxyCompactList}\item 
+std\-::vector$<$ \hyperlink{classplayer}{player} $>$ \hyperlink{classdealerLib_a94ae52ae83e14513e73abe728a71c58e}{get\-Live\-Players} () const 
+\begin{DoxyCompactList}\small\item\em get\-Live\-Players method to access the vector of players that haven't folded \end{DoxyCompactList}\item 
+std\-::vector$<$ unsigned int $>$ \hyperlink{classdealerLib_a35715124d438c8934448c5fa99af441f}{get\-Winner\-Ids} (std\-::vector$<$ \hyperlink{classplayer}{player} $>$ \-\_\-winners)
+\begin{DoxyCompactList}\small\item\em get\-Winners\-Ids method to create a vector of the winning players player\-Ids \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classcardStack}{card\-Stack} \hyperlink{classdealerLib_a8e0f7695dfb0064d41f0be114f602fd1}{m\-\_\-community\-Cards}
+\begin{DoxyCompactList}\small\item\em m\-\_\-community\-Cards A vector that stores the 5 public cards \end{DoxyCompactList}\item 
+int \hyperlink{classdealerLib_ab67ad8aae4bd1d568f7ff544e77637ad}{m\-\_\-num\-Players}
+\begin{DoxyCompactList}\small\item\em m\-\_\-num\-Players Number of players in the game \end{DoxyCompactList}\item 
+unsigned int \hyperlink{classdealerLib_a44da7b0e66a001b5ee6d79892bf1760d}{m\-\_\-pot}
+\begin{DoxyCompactList}\small\item\em m\-\_\-pot The money to be won int the pot \end{DoxyCompactList}\item 
+\hyperlink{classdeck}{deck} \hyperlink{classdealerLib_af93b35d9721bd502dbfb466992dcb55d}{m\-\_\-deck}
+\begin{DoxyCompactList}\small\item\em m\-\_\-deck The deck of cards \end{DoxyCompactList}\item 
+\hyperlink{classGUI_1_1DealerGUI}{G\-U\-I\-::\-Dealer\-G\-U\-I} \hyperlink{classdealerLib_a04b7aa090dc5a23264e77418946db4d3}{m\-\_\-dealer\-Gui}
+\begin{DoxyCompactList}\small\item\em m\-\_\-dealer\-Gui An instance of \hyperlink{namespaceGUI}{G\-U\-I} \end{DoxyCompactList}\item 
+\hyperlink{namespaceComms_ae7f8ecf87c32fe890069143ff75f2885}{Comms\-::\-Player\-Devices} \hyperlink{classdealerLib_a3e872bd8878756753531b3cc3d3a93aa}{m\-\_\-device\-Map}
+\begin{DoxyCompactList}\small\item\em m\-\_\-device\-Map \end{DoxyCompactList}\item 
+std\-::vector$<$ \hyperlink{classplayer}{player} $>$ \hyperlink{classdealerLib_a7d30ff8c4afd94b5db2b12759bbf60cc}{m\-\_\-table}
+\begin{DoxyCompactList}\small\item\em m\-\_\-table A vector of players still in the game \end{DoxyCompactList}\item 
+std\-::vector$<$ \hyperlink{classplayer}{player} $>$ \hyperlink{classdealerLib_a09924daffb60be0817dbdceb7e66cdfd}{m\-\_\-live\-Players}
+\begin{DoxyCompactList}\small\item\em m\-\_\-live\-Players A vector of players who haven't folded \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{classdealerLib_a672938057486d6916efcb3ae5cb53ea2}{\index{dealer\-Lib@{dealer\-Lib}!dealer\-Lib@{dealer\-Lib}}
+\index{dealer\-Lib@{dealer\-Lib}!dealerLib@{dealer\-Lib}}
+\subsubsection[{dealer\-Lib}]{\setlength{\rightskip}{0pt plus 5cm}dealer\-Lib\-::dealer\-Lib (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classdealerLib_a672938057486d6916efcb3ae5cb53ea2}
+
+
+\hyperlink{classdealerLib}{dealer\-Lib} The constructor for the dealer which will initialise the deck 
+
+\hypertarget{classdealerLib_ae4f26ca24eb2ffee9e93558f3c4634a4}{\index{dealer\-Lib@{dealer\-Lib}!$\sim$dealer\-Lib@{$\sim$dealer\-Lib}}
+\index{$\sim$dealer\-Lib@{$\sim$dealer\-Lib}!dealerLib@{dealer\-Lib}}
+\subsubsection[{$\sim$dealer\-Lib}]{\setlength{\rightskip}{0pt plus 5cm}dealer\-Lib\-::$\sim$dealer\-Lib (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classdealerLib_ae4f26ca24eb2ffee9e93558f3c4634a4}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{classdealerLib_a7e2dfc44e542046043b2387b12b5a0c2}{\index{dealer\-Lib@{dealer\-Lib}!add\-Bet\-To\-Pot@{add\-Bet\-To\-Pot}}
+\index{add\-Bet\-To\-Pot@{add\-Bet\-To\-Pot}!dealerLib@{dealer\-Lib}}
+\subsubsection[{add\-Bet\-To\-Pot}]{\setlength{\rightskip}{0pt plus 5cm}void dealer\-Lib\-::add\-Bet\-To\-Pot (
+\begin{DoxyParamCaption}
+\item[{const int \&}]{\-\_\-bet}
+\end{DoxyParamCaption}
+)}}\label{classdealerLib_a7e2dfc44e542046043b2387b12b5a0c2}
+
+
+add\-Bet\-To\-Pot adds players bet to the pot 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \-\_\-bet} & This is the amount the player has bet \\
+\hline
+\end{DoxyParams}
+\hypertarget{classdealerLib_a4580832480ff12ddfcd91852ccef85a9}{\index{dealer\-Lib@{dealer\-Lib}!bet@{bet}}
+\index{bet@{bet}!dealerLib@{dealer\-Lib}}
+\subsubsection[{bet}]{\setlength{\rightskip}{0pt plus 5cm}void dealer\-Lib\-::bet (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classdealerLib_a4580832480ff12ddfcd91852ccef85a9}
+
+
+bet implements the whole betting loop 
+
+\hypertarget{classdealerLib_a846d61ce1080938cab74c82afeca23bb}{\index{dealer\-Lib@{dealer\-Lib}!Betting@{Betting}}
+\index{Betting@{Betting}!dealerLib@{dealer\-Lib}}
+\subsubsection[{Betting}]{\setlength{\rightskip}{0pt plus 5cm}void dealer\-Lib\-::\-Betting (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classdealerLib_a846d61ce1080938cab74c82afeca23bb}
+
+
+Betting. 
+
+\hypertarget{classdealerLib_a221f9fb86831e0b5c9f0ac997f7f6a80}{\index{dealer\-Lib@{dealer\-Lib}!check\-Bool\-Array@{check\-Bool\-Array}}
+\index{check\-Bool\-Array@{check\-Bool\-Array}!dealerLib@{dealer\-Lib}}
+\subsubsection[{check\-Bool\-Array}]{\setlength{\rightskip}{0pt plus 5cm}bool dealer\-Lib\-::check\-Bool\-Array (
+\begin{DoxyParamCaption}
+\item[{bool}]{\-\_\-array\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+) const}}\label{classdealerLib_a221f9fb86831e0b5c9f0ac997f7f6a80}
+
+
+check\-Bool\-Array checks if all elements in the array are true 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \-\_\-array} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+boolean This is used as the condition of a while loop. Betting ends when all elements of the array are the same (true) 
+\end{DoxyReturn}
+\hypertarget{classdealerLib_a3949e823778c930990f40ebc453429ed}{\index{dealer\-Lib@{dealer\-Lib}!check\-If\-Lost@{check\-If\-Lost}}
+\index{check\-If\-Lost@{check\-If\-Lost}!dealerLib@{dealer\-Lib}}
+\subsubsection[{check\-If\-Lost}]{\setlength{\rightskip}{0pt plus 5cm}bool dealer\-Lib\-::check\-If\-Lost (
+\begin{DoxyParamCaption}
+\item[{{\bf player}}]{\-\_\-player}
+\end{DoxyParamCaption}
+)}}\label{classdealerLib_a3949e823778c930990f40ebc453429ed}
+
+
+check\-If\-Lost Checks if a player has ran out of money 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \-\_\-player} & The player who is being checked \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+boolean If the player has no money, its set to true 
+\end{DoxyReturn}
+\hypertarget{classdealerLib_ab4761cf75f036955ff707d30eab5733b}{\index{dealer\-Lib@{dealer\-Lib}!check\-Max\-Bet@{check\-Max\-Bet}}
+\index{check\-Max\-Bet@{check\-Max\-Bet}!dealerLib@{dealer\-Lib}}
+\subsubsection[{check\-Max\-Bet}]{\setlength{\rightskip}{0pt plus 5cm}int dealer\-Lib\-::check\-Max\-Bet (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classdealerLib_ab4761cf75f036955ff707d30eab5733b}
+
+
+check\-Max\-Bet The maximum bet is the smallest amount of money a player has. The function iterates through all the live players and works out who has the least money. This value is then used as the maximum allowance a player can bet 
+
+\begin{DoxyReturn}{Returns}
+int max\-Bet The maximum amount of money a player can bet 
+\end{DoxyReturn}
+\hypertarget{classdealerLib_a950bb045bf57da8e864c4d175230db2c}{\index{dealer\-Lib@{dealer\-Lib}!deal\-Flop@{deal\-Flop}}
+\index{deal\-Flop@{deal\-Flop}!dealerLib@{dealer\-Lib}}
+\subsubsection[{deal\-Flop}]{\setlength{\rightskip}{0pt plus 5cm}void dealer\-Lib\-::deal\-Flop (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classdealerLib_a950bb045bf57da8e864c4d175230db2c}
+
+
+deal\-Flop Adds the first three cards to the vector of community cards 
+
+\hypertarget{classdealerLib_a328a5d21d3bdf0686fe5bcfba2f7015b}{\index{dealer\-Lib@{dealer\-Lib}!deal\-Hands@{deal\-Hands}}
+\index{deal\-Hands@{deal\-Hands}!dealerLib@{dealer\-Lib}}
+\subsubsection[{deal\-Hands}]{\setlength{\rightskip}{0pt plus 5cm}void dealer\-Lib\-::deal\-Hands (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classdealerLib_a328a5d21d3bdf0686fe5bcfba2f7015b}
+
+
+deal\-Hands Appends a card to each player's vector of hole cards 
+
+\hypertarget{classdealerLib_a4cd945f94cf450808f8c3400c323819c}{\index{dealer\-Lib@{dealer\-Lib}!deal\-River\-Turn@{deal\-River\-Turn}}
+\index{deal\-River\-Turn@{deal\-River\-Turn}!dealerLib@{dealer\-Lib}}
+\subsubsection[{deal\-River\-Turn}]{\setlength{\rightskip}{0pt plus 5cm}void dealer\-Lib\-::deal\-River\-Turn (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classdealerLib_a4cd945f94cf450808f8c3400c323819c}
+
+
+deal\-River\-Turn Adds the 4th and 5th cards to the vector of community cards 
+
+\hypertarget{classdealerLib_af172da91f337b8fdc9b60a6463f4ff21}{\index{dealer\-Lib@{dealer\-Lib}!decide\-Winners@{decide\-Winners}}
+\index{decide\-Winners@{decide\-Winners}!dealerLib@{dealer\-Lib}}
+\subsubsection[{decide\-Winners}]{\setlength{\rightskip}{0pt plus 5cm}void dealer\-Lib\-::decide\-Winners (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classdealerLib_af172da91f337b8fdc9b60a6463f4ff21}
+
+
+decide\-Winners Calculates which players have won and creates a vector of winners It also passes the money in the pot to these winners. If there is more than one winner, the pot is split. If it can't be split evenly,the remainder is left in the pot to be won the next round 
+
+\hypertarget{classdealerLib_a94ae52ae83e14513e73abe728a71c58e}{\index{dealer\-Lib@{dealer\-Lib}!get\-Live\-Players@{get\-Live\-Players}}
+\index{get\-Live\-Players@{get\-Live\-Players}!dealerLib@{dealer\-Lib}}
+\subsubsection[{get\-Live\-Players}]{\setlength{\rightskip}{0pt plus 5cm}std\-::vector$<$ {\bf player} $>$ dealer\-Lib\-::get\-Live\-Players (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}}\label{classdealerLib_a94ae52ae83e14513e73abe728a71c58e}
+
+
+get\-Live\-Players method to access the vector of players that haven't folded 
+
+\begin{DoxyReturn}{Returns}
+m\-\_\-live\-Players 
+\end{DoxyReturn}
+\hypertarget{classdealerLib_a9d7c83f1ebcab5be17c2d3a8a81b4f9b}{\index{dealer\-Lib@{dealer\-Lib}!get\-Num\-Players@{get\-Num\-Players}}
+\index{get\-Num\-Players@{get\-Num\-Players}!dealerLib@{dealer\-Lib}}
+\subsubsection[{get\-Num\-Players}]{\setlength{\rightskip}{0pt plus 5cm}int dealer\-Lib\-::get\-Num\-Players (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}}\label{classdealerLib_a9d7c83f1ebcab5be17c2d3a8a81b4f9b}
+
+
+get\-Num\-Players method to access number of players m\-\_\-num\-Players 
+
+\begin{DoxyReturn}{Returns}
+int m\-\_\-num\-Players 
+\end{DoxyReturn}
+\hypertarget{classdealerLib_a35715124d438c8934448c5fa99af441f}{\index{dealer\-Lib@{dealer\-Lib}!get\-Winner\-Ids@{get\-Winner\-Ids}}
+\index{get\-Winner\-Ids@{get\-Winner\-Ids}!dealerLib@{dealer\-Lib}}
+\subsubsection[{get\-Winner\-Ids}]{\setlength{\rightskip}{0pt plus 5cm}std\-::vector$<$ unsigned int $>$ dealer\-Lib\-::get\-Winner\-Ids (
+\begin{DoxyParamCaption}
+\item[{std\-::vector$<$ {\bf player} $>$}]{\-\_\-winners}
+\end{DoxyParamCaption}
+)}}\label{classdealerLib_a35715124d438c8934448c5fa99af441f}
+
+
+get\-Winners\-Ids method to create a vector of the winning players player\-Ids 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \-\_\-winners} & A vector of the winning players \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+winner\-Ids A vector of the winners player\-I\-Ds 
+\end{DoxyReturn}
+\hypertarget{classdealerLib_a3904a233153d0b6c7437ecd221b7db9d}{\index{dealer\-Lib@{dealer\-Lib}!init@{init}}
+\index{init@{init}!dealerLib@{dealer\-Lib}}
+\subsubsection[{init}]{\setlength{\rightskip}{0pt plus 5cm}void dealer\-Lib\-::init (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classdealerLib_a3904a233153d0b6c7437ecd221b7db9d}
+
+
+init Initialises gui and player and sets up a std\-::map that maps the player\-Id to a serial\-Port 
+
+\hypertarget{classdealerLib_a6947167bb1dd66d30786cf6b5a98f96d}{\index{dealer\-Lib@{dealer\-Lib}!init\-Player@{init\-Player}}
+\index{init\-Player@{init\-Player}!dealerLib@{dealer\-Lib}}
+\subsubsection[{init\-Player}]{\setlength{\rightskip}{0pt plus 5cm}void dealer\-Lib\-::init\-Player (
+\begin{DoxyParamCaption}
+\item[{const int \&}]{\-\_\-id}
+\end{DoxyParamCaption}
+)}}\label{classdealerLib_a6947167bb1dd66d30786cf6b5a98f96d}
+
+
+init\-Player Initialises a vector of players, m\-\_\-table, and sets the players Ids and name 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \-\_\-id} & The position in the vector is used to set the players I\-D \\
+\hline
+\end{DoxyParams}
+\hypertarget{classdealerLib_a356e873aabf48a03316d7c9dd3508818}{\index{dealer\-Lib@{dealer\-Lib}!is\-Remainder@{is\-Remainder}}
+\index{is\-Remainder@{is\-Remainder}!dealerLib@{dealer\-Lib}}
+\subsubsection[{is\-Remainder}]{\setlength{\rightskip}{0pt plus 5cm}bool dealer\-Lib\-::is\-Remainder (
+\begin{DoxyParamCaption}
+\item[{int}]{\-\_\-remainder}
+\end{DoxyParamCaption}
+)}}\label{classdealerLib_a356e873aabf48a03316d7c9dd3508818}
+
+
+is\-Remainder Checks if there is a remainder leftover from splitting the pot 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \-\_\-remainder} & The result of a modulus function \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A boolean true is returned if there is a remainder 
+\end{DoxyReturn}
+\hypertarget{classdealerLib_ac9ce461a32b7312615d47be5e5c8cb5a}{\index{dealer\-Lib@{dealer\-Lib}!kick\-Broke\-Player@{kick\-Broke\-Player}}
+\index{kick\-Broke\-Player@{kick\-Broke\-Player}!dealerLib@{dealer\-Lib}}
+\subsubsection[{kick\-Broke\-Player}]{\setlength{\rightskip}{0pt plus 5cm}void dealer\-Lib\-::kick\-Broke\-Player (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classdealerLib_ac9ce461a32b7312615d47be5e5c8cb5a}
+
+
+kick\-Broke\-Player Removes a player that has ran out of money. Its used after calling the \hyperlink{classdealerLib_a3949e823778c930990f40ebc453429ed}{check\-If\-Lost()} function 
+
+\hypertarget{classdealerLib_acb8f77a5e89baa3a270eef4583174c05}{\index{dealer\-Lib@{dealer\-Lib}!remove\-Player@{remove\-Player}}
+\index{remove\-Player@{remove\-Player}!dealerLib@{dealer\-Lib}}
+\subsubsection[{remove\-Player}]{\setlength{\rightskip}{0pt plus 5cm}void dealer\-Lib\-::remove\-Player (
+\begin{DoxyParamCaption}
+\item[{std\-::vector$<$ {\bf player} $>$\-::iterator}]{it}
+\end{DoxyParamCaption}
+)}}\label{classdealerLib_acb8f77a5e89baa3a270eef4583174c05}
+
+
+remove\-Player removes the player from a vector. This will be called when a player runs out of money and when a player folds 
+
+
+\begin{DoxyParams}{Parameters}
+{\em it} & The iterator of a vector of players \\
+\hline
+\end{DoxyParams}
+\hypertarget{classdealerLib_adde6b485d725ef6c121f820fceb656c1}{\index{dealer\-Lib@{dealer\-Lib}!reset@{reset}}
+\index{reset@{reset}!dealerLib@{dealer\-Lib}}
+\subsubsection[{reset}]{\setlength{\rightskip}{0pt plus 5cm}void dealer\-Lib\-::reset (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classdealerLib_adde6b485d725ef6c121f820fceb656c1}
+
+
+reset Removes all cards from the game and resets the deck. It also updates player information to the m\-\_\-table vector from the more temporary m\-\_\-live\-Players vector and resets all the player's fold booleans to false 
+
+\hypertarget{classdealerLib_ac0455246849f0b14c217d14ccca5af4f}{\index{dealer\-Lib@{dealer\-Lib}!update@{update}}
+\index{update@{update}!dealerLib@{dealer\-Lib}}
+\subsubsection[{update}]{\setlength{\rightskip}{0pt plus 5cm}void dealer\-Lib\-::update (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classdealerLib_ac0455246849f0b14c217d14ccca5af4f}
+
+
+update Calls the guis update and draw functions 
+
+\hypertarget{classdealerLib_aac11d5e45a71a0635e0952bd9116b9cf}{\index{dealer\-Lib@{dealer\-Lib}!update\-Player@{update\-Player}}
+\index{update\-Player@{update\-Player}!dealerLib@{dealer\-Lib}}
+\subsubsection[{update\-Player}]{\setlength{\rightskip}{0pt plus 5cm}void dealer\-Lib\-::update\-Player (
+\begin{DoxyParamCaption}
+\item[{int}]{\-\_\-element}
+\end{DoxyParamCaption}
+)}}\label{classdealerLib_aac11d5e45a71a0635e0952bd9116b9cf}
+
+
+update\-Player Passes the player information from a vector of m\-\_\-live\-Players (not folded players), whose life only lasts for the betting loop to a more permanent vector of players m\-\_\-table which holds players still in the game. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \-\_\-element} & allows the element of one vector to be matched with the correct player id of the other vector \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Data Documentation}
+\hypertarget{classdealerLib_a8e0f7695dfb0064d41f0be114f602fd1}{\index{dealer\-Lib@{dealer\-Lib}!m\-\_\-community\-Cards@{m\-\_\-community\-Cards}}
+\index{m\-\_\-community\-Cards@{m\-\_\-community\-Cards}!dealerLib@{dealer\-Lib}}
+\subsubsection[{m\-\_\-community\-Cards}]{\setlength{\rightskip}{0pt plus 5cm}{\bf card\-Stack} dealer\-Lib\-::m\-\_\-community\-Cards\hspace{0.3cm}{\ttfamily [private]}}}\label{classdealerLib_a8e0f7695dfb0064d41f0be114f602fd1}
+
+
+m\-\_\-community\-Cards A vector that stores the 5 public cards 
+
+\hypertarget{classdealerLib_a04b7aa090dc5a23264e77418946db4d3}{\index{dealer\-Lib@{dealer\-Lib}!m\-\_\-dealer\-Gui@{m\-\_\-dealer\-Gui}}
+\index{m\-\_\-dealer\-Gui@{m\-\_\-dealer\-Gui}!dealerLib@{dealer\-Lib}}
+\subsubsection[{m\-\_\-dealer\-Gui}]{\setlength{\rightskip}{0pt plus 5cm}{\bf G\-U\-I\-::\-Dealer\-G\-U\-I} dealer\-Lib\-::m\-\_\-dealer\-Gui\hspace{0.3cm}{\ttfamily [private]}}}\label{classdealerLib_a04b7aa090dc5a23264e77418946db4d3}
+
+
+m\-\_\-dealer\-Gui An instance of \hyperlink{namespaceGUI}{G\-U\-I} 
+
+\hypertarget{classdealerLib_af93b35d9721bd502dbfb466992dcb55d}{\index{dealer\-Lib@{dealer\-Lib}!m\-\_\-deck@{m\-\_\-deck}}
+\index{m\-\_\-deck@{m\-\_\-deck}!dealerLib@{dealer\-Lib}}
+\subsubsection[{m\-\_\-deck}]{\setlength{\rightskip}{0pt plus 5cm}{\bf deck} dealer\-Lib\-::m\-\_\-deck\hspace{0.3cm}{\ttfamily [private]}}}\label{classdealerLib_af93b35d9721bd502dbfb466992dcb55d}
+
+
+m\-\_\-deck The deck of cards 
+
+\hypertarget{classdealerLib_a3e872bd8878756753531b3cc3d3a93aa}{\index{dealer\-Lib@{dealer\-Lib}!m\-\_\-device\-Map@{m\-\_\-device\-Map}}
+\index{m\-\_\-device\-Map@{m\-\_\-device\-Map}!dealerLib@{dealer\-Lib}}
+\subsubsection[{m\-\_\-device\-Map}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Comms\-::\-Player\-Devices} dealer\-Lib\-::m\-\_\-device\-Map\hspace{0.3cm}{\ttfamily [private]}}}\label{classdealerLib_a3e872bd8878756753531b3cc3d3a93aa}
+
+
+m\-\_\-device\-Map 
+
+\hypertarget{classdealerLib_a09924daffb60be0817dbdceb7e66cdfd}{\index{dealer\-Lib@{dealer\-Lib}!m\-\_\-live\-Players@{m\-\_\-live\-Players}}
+\index{m\-\_\-live\-Players@{m\-\_\-live\-Players}!dealerLib@{dealer\-Lib}}
+\subsubsection[{m\-\_\-live\-Players}]{\setlength{\rightskip}{0pt plus 5cm}std\-::vector$<${\bf player}$>$ dealer\-Lib\-::m\-\_\-live\-Players\hspace{0.3cm}{\ttfamily [private]}}}\label{classdealerLib_a09924daffb60be0817dbdceb7e66cdfd}
+
+
+m\-\_\-live\-Players A vector of players who haven't folded 
+
+\hypertarget{classdealerLib_ab67ad8aae4bd1d568f7ff544e77637ad}{\index{dealer\-Lib@{dealer\-Lib}!m\-\_\-num\-Players@{m\-\_\-num\-Players}}
+\index{m\-\_\-num\-Players@{m\-\_\-num\-Players}!dealerLib@{dealer\-Lib}}
+\subsubsection[{m\-\_\-num\-Players}]{\setlength{\rightskip}{0pt plus 5cm}int dealer\-Lib\-::m\-\_\-num\-Players\hspace{0.3cm}{\ttfamily [private]}}}\label{classdealerLib_ab67ad8aae4bd1d568f7ff544e77637ad}
+
+
+m\-\_\-num\-Players Number of players in the game 
+
+\hypertarget{classdealerLib_a44da7b0e66a001b5ee6d79892bf1760d}{\index{dealer\-Lib@{dealer\-Lib}!m\-\_\-pot@{m\-\_\-pot}}
+\index{m\-\_\-pot@{m\-\_\-pot}!dealerLib@{dealer\-Lib}}
+\subsubsection[{m\-\_\-pot}]{\setlength{\rightskip}{0pt plus 5cm}unsigned int dealer\-Lib\-::m\-\_\-pot\hspace{0.3cm}{\ttfamily [private]}}}\label{classdealerLib_a44da7b0e66a001b5ee6d79892bf1760d}
+
+
+m\-\_\-pot The money to be won int the pot 
+
+\hypertarget{classdealerLib_a7d30ff8c4afd94b5db2b12759bbf60cc}{\index{dealer\-Lib@{dealer\-Lib}!m\-\_\-table@{m\-\_\-table}}
+\index{m\-\_\-table@{m\-\_\-table}!dealerLib@{dealer\-Lib}}
+\subsubsection[{m\-\_\-table}]{\setlength{\rightskip}{0pt plus 5cm}std\-::vector$<${\bf player}$>$ dealer\-Lib\-::m\-\_\-table\hspace{0.3cm}{\ttfamily [private]}}}\label{classdealerLib_a7d30ff8c4afd94b5db2b12759bbf60cc}
+
+
+m\-\_\-table A vector of players still in the game 
+
+
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+include/dealer/\hyperlink{dealerLib_8h}{dealer\-Lib.\-h}\item 
+src/dealer/\hyperlink{dealerLib_8cpp}{dealer\-Lib.\-cpp}\end{DoxyCompactItemize}
