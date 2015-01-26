@@ -4,9 +4,8 @@
 
 player::player()
 {
-  //hardcoded woop
+  // Initialise the variables
   m_button.setPin(0);
-  
   m_money = 0;
   m_numCards = 0;
   m_maxNumCards = 0;
@@ -27,40 +26,57 @@ uint16_t player::placeBet(uint16_t _max, uint16_t _min)
    bool quit = false;
    bool fold = false;
    
-   
-   //check if they have enough money, shouldnt happen.
+   //check if they have enough money, other return FOLD.
    if(m_money < _min)
    {
      return BET::FOLD;  
    }
    
+   //main betting loop
    while(!quit)
    {
      bool exit = false;
      bool showData = false;
      fold = false;
+     
+     //set bet to the min bet range.
      uint16_t bet = _min;
      
      lcd.clear();
-
      lcd.print("Place bet:");
-      
+     
      delay(500);
      
      while(!exit)
      {
+      // updates value for button value.
       m_button.updateValue();
-  
+      
+      // press right to return from seeing player data.
       if      (m_button.right())                                                  { lcd.clear();lcd.print("Place bet:");showData = false;    }
+      
+      // press left to see players data, money and cards.
       else if (m_button.left())                                                   { lcd.clear(); this->playerDataScreen(); showData = true;  }
+      
+      // press up whilst on the data screen to show name.
       else if (m_button.up() && showData == true )                                { lcd.clear(); m_display.displayName(getName());           }
+      
+      // press down to return back to money and cards from name.
       else if (m_button.down() && showData == true )                              { this->playerDataScreen();                                }
+      
+      // press up on the place bet screen to increase bet value. will not go beyond bet max or players own money.
       else if (m_button.up()   && bet < _max && bet < m_money && showData==false) { bet++; fold = false;                                     }
+      
+      // press down on place bet screen to decrease bet value.
       else if (m_button.down() && bet > _min && bet <= m_money && showData==false){ bet--; fold = false;                                     }
+      
+      // keep pressing down to get to FOLD
       else if (m_button.down() && bet == _min && showData==false)                 { fold = true;                                             }
+      
+      // press select whilst on bet screen to continue.
       else if (m_button.select() && showData == false)                            { exit = true;                                             }
 
-      // have to use delay, not ideal
+      // have to use delay, not ideal to slow button press
       delay(125);
 
       // print the bet or fold
@@ -72,6 +88,7 @@ uint16_t player::placeBet(uint16_t _max, uint16_t _min)
 
      lcd.clear();
      
+     // ask to confirm choice and the return the appropriate value.
      if(fold == true)      { lcd.print("FOLD?:");                         }  
      else if(fold == false){ lcd.print("Confirm: "+String(bet))+"?";  }
       
@@ -90,7 +107,10 @@ uint16_t player::placeBet(uint16_t _max, uint16_t _min)
 
 void player::receiveMoney(uint16_t _money)
 {
+    // Add money to players money
     m_money = m_money + _money;
+    
+    // display winner message.
     m_display.winner(_money);
 
 }

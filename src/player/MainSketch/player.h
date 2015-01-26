@@ -3,6 +3,8 @@
 /// @version 1.0
 /// @date 21/01/2015
 
+
+
 #ifndef PLAYER_H__
 #define PLAYER_H__
 
@@ -12,6 +14,8 @@
 #include "pokerDisplay.h"
 #include "Arduino.h"
 #include <LiquidCrystal.h>
+
+// LOOK AT PLAYER RESET
 
 
 class player
