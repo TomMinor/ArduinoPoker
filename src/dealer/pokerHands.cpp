@@ -17,7 +17,7 @@ cardStack hands::findSpareCards( const player &_player, const cardStack &_river)
           if(_player.getHoleCard(i)==_player.getHandCard(j))
           {cardInHand = true;}
       }
-      if(!cardInHand)
+      if(!cardInHand) //if card was not present add to spareCards
       {spareCards.addCard(_player.getHoleCard(i));}
     }
 
@@ -30,13 +30,12 @@ cardStack hands::findSpareCards( const player &_player, const cardStack &_river)
           if(_river[i]==_player.getHandCard(j))
           {cardInHand = true;}
       }
-      if(!cardInHand)
+      if(!cardInHand) //if card was not present add to spareCards
       {spareCards.addCard(_river[i]);}
     }
 
     return spareCards;
 }
-
 
 //--------------------------------------------------------------------------------------
 void hands::addHighestCard(player &_player, const cardStack &_river)

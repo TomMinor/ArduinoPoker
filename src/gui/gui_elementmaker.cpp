@@ -66,7 +66,7 @@ GUI::Label *GUI::ElementMaker::makeLabel(const std::string &_inputString, const 
        exit(1);
     }
 
-    std::cout << std::hex << std::uppercase << &m_labelFormat->ren << " adress of renderer\n";
+    //std::cout << std::hex << std::uppercase << &m_labelFormat->ren << " adress of renderer\n";
 
     //make texture from surface
     SDL_Texture *tex = NULL;

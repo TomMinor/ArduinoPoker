@@ -9,21 +9,19 @@
 
 
 
-Uint32 updateComms(Uint32 interval, void *parm)
-{
-  static bool lock = false;
+//Uint32 updateComms(Uint32 interval, void *parm)
+//{
+//  static bool lock = false;
 
-  if(!lock)
-  {
-      lock = true;
+//  if(!lock)
+//  {
+//      lock = true;
 
-      dealerLib* myTable = reinterpret_cast<dealerLib*>(parm);
+//      dealerLib* myTable = reinterpret_cast<dealerLib*>(parm);
 
-      //myTable->update();
-
+//      //myTable->update();
 //      myTable->dealHands();
 //      myTable->bet();
-
 //      myTable->dealFlop();
 //      myTable->bet();
 //      myTable->dealRiverTurn();
@@ -31,28 +29,24 @@ Uint32 updateComms(Uint32 interval, void *parm)
 //      myTable->dealRiverTurn();
 //      myTable->bet();
 
-      printf("HNNGGH!");
-      SDL_Delay(1000);
-      lock= false;
-  }
+//      printf("testing lock!");
+//      SDL_Delay(1000);
+//      lock= false;
+//  }
 
-  return interval;
-}
+//  return interval;
+//}
 
 int main()
 {
 
-  //  std::srand( unsigned ( std::time(0) ) );
+//  std::srand( unsigned ( std::time(0) ) );
     SDL_Event event;
 
     dealerLib table;
     table.init();
 
     int running = 1;
-    int last_time = 0;
-    int cur_time = 0;
-    int diff_time = 0;
-    int accumulator = 0;
 
     setbuf(stdout, NULL);
 
@@ -75,13 +69,21 @@ int main()
             }
         }
 
-        //usleep(10 * 5000);
-
         table.dealHands();
+        table.update();
         table.bet();
+        table.update();
         table.dealFlop();
-
-        last_time = cur_time;
+        table.update();
+        table.bet();
+        table.update();
+        table.dealRiverTurn();
+        table.update();
+        table.bet();
+        table.update();
+        table.dealRiverTurn();
+        table.update();
+        table.bet();
         table.update();
 
     }

@@ -25,8 +25,7 @@ dealerLib::~dealerLib()
 //  unsigned int currentBet = 0;
 
 //// initialise betting iterators
-//  firstPlayersBet = playerBets.begin();
-//  otherPlayersBet = playerBets.begin();
+//  firstPlayersBet = playerBets.begin(); //  otherPlayersBet = playerBets.begin();
 
 ////initialise vector of bets
 //  for(int i=0;i<m_numPlayers;i++)
@@ -417,7 +416,7 @@ void dealerLib::initPlayer(const int &_id)
       //error request name again
   }
 
-  playerName = static_cast<std::ostringstream*>( &(std::ostringstream() <<_id) )->str();
+  //playerName = static_cast<std::ostringstream*>( &(std::ostringstream() <<_id) )->str();
 
   //set players name as his input
   std::cout<<"we have a name: "<<playerName<<"\n";
