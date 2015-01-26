@@ -88,16 +88,6 @@ bool GUI::Element::update()
 
 void GUI::Element::draw() const
 {
-    //wow this bit is bloody useless huh
-    //m_destRect.x += static_cast<int>(m_destination.x-m_destRect.x*0.1f);
-    //m_destRect.y += static_cast<int>(m_destination.y-m_destRect.y*0.1f);
-    //SDL_Point centre;
-    //SDL_RenderGetLogicalSize(m_ren,&centre.x,&centre.y);
-    //centre.x/=2;
-    //centre.y/=2;
-    //centre.x = m_destRect.x;
-    //centre.y = m_destRect.y;
-
     double angle = static_cast<double>(static_cast<int>(m_orientation)*90);
     SDL_Point centre = {m_origin.x - m_destRect.x, m_origin.y - m_destRect.y};
 

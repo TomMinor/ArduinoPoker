@@ -1,6 +1,8 @@
 #include <math.h>
 #include "gui/gui_dealergui.h"
 
+//a fairly simple GUI test program that "simulates" how the Dealer would use the DealerGUI class
+
 int main()
 {
     GUI::DealerGUI gui;
@@ -8,16 +10,16 @@ int main()
     std::vector<const player*> players;
 
     player p1;
-    p1.setName(std::string("LONGNAMETEST"));
+    p1.setName(std::string("Player 1"));
     players.push_back(&p1);
     player p2;
-    p2.setName(std::string("dickbutt"));
+    p2.setName(std::string("Player 2"));
     players.push_back(&p2);
     player p3;
-    p3.setName(std::string("@Horse_ebooks"));
+    p3.setName(std::string("Player 3"));
     players.push_back(&p3);
     player p4;
-    p4.setName(std::string("Michael Rosen"));
+    p4.setName(std::string("Player 4"));
     players.push_back(&p4);
 
     PlayingCard aceOfSpades = PlayingCard(Rank::KING,Suit::HEART);
@@ -98,11 +100,11 @@ int main()
                         case SDLK_b : gui.m_publicCards->burn(); break;
                         case SDLK_n : gui.receiveBetFrom(rand()%4,amount); break;
                         case SDLK_v : gui.dealCardTo(rand()%4,aceOfSpades); gui.dealCardTo(rand()%4,aceOfSpades); break;
-                        case SDLK_m : gui.broadcastMessage(std::string("Oh hey look a message")); break;
-                        case SDLK_t : gui.setPlayerName(0,std::string("dickfuck")); break;
+                        case SDLK_m : gui.broadcastMessage(std::string("Look, a message")); break;
+                        case SDLK_t : gui.setPlayerName(0,std::string("Changed name")); break;
                         case SDLK_z : gui.addPublicCard(PlayingCard(Rank::ACE,Suit::SPADE));  break;
                         case SDLK_x : gui.showWinner(winningIDs,false,amount); break;
-                        case SDLK_r : gui.reset(players,cardList); break;
+                        case SDLK_r : gui.reset(players,cardList); break;//will literally break the program in some cases
                         //case SDLK_UP : gui.m_deckCard->setFlipped(true); break;
                         //case SDLK_DOWN : gui.m_deckCard->setFlipped(false); break;
                         default : break;
@@ -115,9 +117,9 @@ int main()
 
         gui.runUntilStationary();
 
-        SDL_RenderClear(gui.m_renderer);
-        SDL_RenderPresent(gui.m_renderer);
-        SDL_Delay(1000);
+//        SDL_RenderClear(gui.m_renderer);
+//        SDL_RenderPresent(gui.m_renderer);
+//        SDL_Delay(1000);
     }
     return EXIT_SUCCESS;
 }
