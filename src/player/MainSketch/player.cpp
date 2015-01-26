@@ -1,5 +1,6 @@
 #include "player.h"
 
+//---------------------------------------------------------------------------------------------------------
 
 player::player()
 {
@@ -7,17 +8,19 @@ player::player()
   m_button.setPin(0);
   
   m_money = 0;
-  
   m_numCards = 0;
-  
   m_maxNumCards = 0;
   
 }
+
+//---------------------------------------------------------------------------------------------------------
 
 player::~player()
 {
 
 }
+
+//---------------------------------------------------------------------------------------------------------
 
 uint16_t player::placeBet(uint16_t _max, uint16_t _min)
 {
@@ -83,6 +86,7 @@ uint16_t player::placeBet(uint16_t _max, uint16_t _min)
   }
 }
 
+//---------------------------------------------------------------------------------------------------------
 
 void player::receiveMoney(uint16_t _money)
 {
@@ -91,15 +95,18 @@ void player::receiveMoney(uint16_t _money)
 
 }
 
+//---------------------------------------------------------------------------------------------------------
+
 void player::setMoney(uint16_t _money)
 {
   m_money = _money;
 }
 
+//---------------------------------------------------------------------------------------------------------
 	
 void player::receiveCard(uint8_t _cards[])
 {
-     
+  //if not reached max card limit, receive card
   if(m_numCards < m_maxNumCards)
   {
     m_cards[m_numCards].rank = _cards[0];
@@ -113,12 +120,10 @@ void player::receiveCard(uint8_t _cards[])
   }
 }
 
-
-
+//---------------------------------------------------------------------------------------------------------
 
 void player::setName()
 {
-    
     bool exit = false;
     
     while( !exit )
@@ -140,47 +145,51 @@ void player::setName()
             m_button.updateValue();
             lcd.setCursor( currentPosX, currentPosY );
             
-            if ( m_button.right() ) {
+            //shift cursor of one position to the right
+            if ( m_button.right() ) 
+            {
                 currentPosX += 1;
                 lcd.setCursor( currentPosX, currentPosY );
+                //start again the alphabet
                 index = 26;
                 delay( 400 );
+                //count letters in the name
                 ++nLetters;
             }
-            else if ( m_button.up() ) {
-                
+            else if ( m_button.up() ) 
+            {   
+                //up through the alphabet, checks if Z is reached to start again from A
                 if ( alphabet[ index ] == 'Z'|| alphabet[ index ] == '\0' ) { index = 0; }
                 else { index+=1; }
                 lcd.print( alphabet[ index ] );
                 tmp[ currentPosX ] = alphabet[ index ];
                 delay( 400 );
-                
             }
-            else if ( m_button.down() ) {
-                
+            else if ( m_button.down() ) 
+            {
+                //down through the alphabet, checks if A is reached to start again from Z
                 if ( alphabet[ index ] == 'A'|| alphabet[ index ] == '\0' ) { index = 25; }
                 else { index-=1; }
                 lcd.print( alphabet[ index ] );
                 tmp[ currentPosX ] = alphabet[ index ];
                 delay( 400 );
-                
             }
-            else if ( m_button.left() ) {
-                
+            else if ( m_button.left() ) //shift cursor of one position to the left
+            {
                 currentPosX -= 1;
                 lcd.setCursor(currentPosX,currentPosY);
                 delay( 400 );
-                
             }
             else if ( m_button.select() ) { select = true; }
-            
         }
         
+        // copy name just set to m_playerName array
         for ( int i = 0; i < nLetters; ++i )
         {
             m_playerName[ i ] = tmp[ i ];
         }
         
+        //confirm name
         lcd.clear();
         lcd.print( "Confirm: "+ String( m_playerName ) );
         
@@ -192,12 +201,11 @@ void player::setName()
             lcd.print( "Welcome " + String( m_playerName ) + "!" );
             delay( 2000 );
             exit = true;
-        }
-        
+        }   
     }
-    
 }
 
+//---------------------------------------------------------------------------------------------------------
 
 void player::resetPlayer(uint16_t _money)
 {
@@ -205,6 +213,7 @@ void player::resetPlayer(uint16_t _money)
     this->resetCards();
 }
 
+//---------------------------------------------------------------------------------------------------------
 
 void player::resetCards()
 {
@@ -217,6 +226,7 @@ void player::resetCards()
     m_numCards = 0;
 }
 
+//---------------------------------------------------------------------------------------------------------
 
 void player::joinGame()
 {
@@ -237,17 +247,16 @@ void player::joinGame()
     m_display.screenReset();
   }
 }
-    
+
+//---------------------------------------------------------------------------------------------------------    
 
 void player::playerDataScreen()
-{
-  //lcd.clear();
-  
+{ 
   m_display.displayCards(0, m_numCards, m_cards);
-  
   m_display.displayMoney(1, m_money);
- 
 }
+
+//---------------------------------------------------------------------------------------------------------
 
 void player::setMaxCardLimit(uint8_t _max)
 {
