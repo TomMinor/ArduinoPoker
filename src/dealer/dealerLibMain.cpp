@@ -86,7 +86,7 @@ int main()
         table.bet();
         table.decideWinners();
 
-        last_time = cur_time;
+//        last_time = cur_time;
         table.update();
         table.bet();
         table.update();

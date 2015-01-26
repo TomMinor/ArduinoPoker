@@ -1,4 +1,4 @@
-/// \file dealerIO.h
+///     \file dealerIO.h
 /// \brief An interface for the Dealer team to communicate with the Arduino players,
 /// provides utility functions for all the data that needs to be sent/recieved.
 /// \author Tom Minor
