@@ -152,7 +152,7 @@ public:
   /// \param _winners A vector of the winning players
   /// \return winnerIds A vector of the winners playerIDs
   ///
-  std::vector<int> getWinnerIds(std::vector<player> _winners);
+  std::vector<unsigned int> getWinnerIds(std::vector<player> _winners);
 
 
 private:
