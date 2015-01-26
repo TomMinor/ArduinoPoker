@@ -1,21 +1,27 @@
 #include "pokerDisplay.h"
 
+//---------------------------------------------------------------------------------------------------------
+
 display::display()
 {
   this->createCustomChar();
 }
+
+//---------------------------------------------------------------------------------------------------------
 
 display::~display()
 {
 
 }
 
+//---------------------------------------------------------------------------------------------------------
 
 void display::createCustomChar()
 {
-    //Custom characters created using http://omerk.github.io/lcdchargen/
+    //Creating custom char using http://omerk.github.io/lcdchargen/
     
-    byte diamond[8] = {
+    byte diamond[8] = 
+    {
         0b00000,
         0b00100,
         0b01110,
@@ -26,7 +32,8 @@ void display::createCustomChar()
         0b00000
     };
     
-    byte heart[8] = {
+    byte heart[8] = 
+    {
         0b00000,
         0b01010,
         0b11111,
@@ -37,7 +44,8 @@ void display::createCustomChar()
         0b00000
     };
     
-    byte club[8] = {
+    byte club[8] = 
+    {
         0b01010,
         0b00100,
         0b10101,
@@ -48,7 +56,8 @@ void display::createCustomChar()
         0b00000
     };
     
-    byte spade[8] = {
+    byte spade[8] = 
+    {
         0b00000,
         0b00100,
         0b01110,
@@ -66,11 +75,45 @@ void display::createCustomChar()
     
 }
 
+//---------------------------------------------------------------------------------------------------------
+
+void display::displayMoney(uint8_t _line, uint16_t _money)
+{
+  lcd.setCursor(0, _line);
+  
+  lcd.print("Money: ");
+  
+  if(_money == 0)
+  {
+    lcd.print("NO MONEY");
+  }
+  else
+  {
+    // poorly hacked together
+    lcd.print("$"+String(_money)+"    ");
+  }
+
+}
+
+//---------------------------------------------------------------------------------------------------------
+
+void display::displayName(char* _name)
+{
+  lcd.clear();
+  lcd.print("Name:");
+  lcd.setCursor(0,1);
+  lcd.print(_name);
+}
+
+//---------------------------------------------------------------------------------------------------------
 
 void display::displayCard( uint8_t _rank, uint8_t _suit, int _x, int _y, int _nCard, int _totCards )
 {
 
-   switch( _suit ) {
+  // Compare _suit value and print corresponding card suit
+  
+   switch( _suit ) 
+   {
      case Suit::DIAMOND:
      {
        lcd.setCursor( _x, _y );
@@ -103,7 +146,10 @@ void display::displayCard( uint8_t _rank, uint8_t _suit, int _x, int _y, int _nC
      }
    }
      
-    switch( _rank ) {
+   // Compare _rank value and print corresponding card rank
+   
+   switch( _rank ) 
+   {
      case byte( Rank::TWO ):
      {
        lcd.setCursor( _x + 1, _y );
@@ -190,38 +236,62 @@ void display::displayCard( uint8_t _rank, uint8_t _suit, int _x, int _y, int _nC
      }
    }
    
-    if(_nCard != _totCards)
-    {
-        lcd.setCursor( _x + 2, 0 );
-        lcd.print( "|" );
-    }
+   // Print a vertical bar after card to separate it from the following one
+   
+   if(_nCard != _totCards)
+   {
+     lcd.setCursor( _x + 2, 0 );
+     lcd.print( "|" );
+   }
    
 }
 
+//---------------------------------------------------------------------------------------------------------
 
-void display::waitCards()
+bool display::checkForCard(card _card)
 {
-  lcd.clear();
-  lcd.print( " Waiting cards" );
-  
-  int pos = 6;
-  for( int i = 0; i < 3 ; ++i )
+  if(_card.suit == 0 || _card.rank == 0)
   {
-    for ( int posCounter = 0; posCounter < 3; ++posCounter )
-    {
-      lcd.setCursor( pos, 1 );
-      lcd.print( "." );
-      ++pos;
-      delay( 700 );
-    }
-    pos = 6;
-    lcd.setCursor( pos, 1);
-    lcd.print("   ");
-    delay( 200 );
-    
+    return false;
+  }
+  else 
+  {
+    return true;
   }
 }
 
+//---------------------------------------------------------------------------------------------------------
+
+void display::displayCards(uint8_t _line, uint8_t _numCards,card _cards[])
+{  
+  lcd.setCursor(0, _line);  
+  lcd.print("Cards: ");
+  
+  // check if there is first card, if true, display it
+  
+  if(checkForCard(_cards[0]) == true)
+  {
+    displayCard( _cards[0].rank, _cards[0].suit, 7, 0, 1, _numCards);
+    
+    // go on checking other possible cards in the array and display them
+    
+    for(int i = 1; i < _numCards; ++i)
+    {
+      if(checkForCard(_cards[i]) == true)
+      {
+        displayCard( _cards[i].rank, _cards[i].suit, 7+(3*i), 0, i+1, _numCards);
+        lcd.print("    ");
+      }
+    }
+  }
+  else
+  {
+    lcd.print("NO CARDS");
+  }
+}
+
+
+//---------------------------------------------------------------------------------------------------------
 
 void display::winner(uint16_t _money)
 {
@@ -240,6 +310,8 @@ void display::winner(uint16_t _money)
 
 }
 
+//---------------------------------------------------------------------------------------------------------
+
 void display::screenReset()
 {
   lcd.clear();
@@ -248,70 +320,5 @@ void display::screenReset()
   lcd.print("to try again.");
 }
 
-void display::displayMoney(uint8_t _line, uint16_t _money)
-{
-  lcd.setCursor(0, _line);
-  
-  lcd.print("Money: ");
-  
-  if(_money == 0)
-  {
-    lcd.print("NO MONEY");
-  }
-  else
-  {
-    // poorly hacked together
-    lcd.print("$"+String(_money)+"    ");
-  }
-
-}
-
-void display::displayName(char* _name)
-{
-  lcd.clear();
-  lcd.print("Name:");
-  lcd.setCursor(0,1);
-  lcd.print(_name);
-}
-
-bool display::checkForCard(card _card)
-{
-  if(_card.suit == 0 || _card.rank == 0)
-  {
-    return false;
-  }
-  else 
-  {
-    return true;
-  }
-}
-
-
-void display::displayCards(uint8_t _line, uint8_t _numCards,card _cards[])
-{  
-  lcd.setCursor(0, _line);  
-  lcd.print("Cards: ");
-  
-  if(checkForCard(_cards[0]) == true)
-  {
-    displayCard( _cards[0].rank, _cards[0].suit, 7, 0, 1, _numCards);
-    
-    for(int i = 1; i < _numCards; ++i)
-    {
-      if(checkForCard(_cards[i]) == true)
-      {
-        displayCard( _cards[i].rank, _cards[i].suit, 7+(3*i), 0, i+1, _numCards);
-        lcd.print("    ");
-      }
-    }
-  }
-  else
-  {
-    lcd.print("NO CARDS");
-  }
-  
-
-}
-
-
+//---------------------------------------------------------------------------------------------------------
 
