@@ -15,8 +15,6 @@
 #include "Arduino.h"
 #include <LiquidCrystal.h>
 
-// LOOK AT PLAYER RESET
-
 
 class player
 {

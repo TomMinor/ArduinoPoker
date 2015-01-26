@@ -72,16 +72,19 @@ bool input::menuYesNo(int _line)
 {
     int check = 0;
 
+    //start a loop waits for a yes no repsonse.
     while(true)
     {
       this->updateValue();
-
+      
+      //print yes and no.
       lcd.setCursor(0,_line);
       lcd.print("yes:");
 
       lcd.setCursor(7,_line);
       lcd.print("no:");
-
+      
+      // change the X depending on their option with left and right.
       if(this->right())
       {
         lcd.setCursor(5,_line);
@@ -98,6 +101,7 @@ bool input::menuYesNo(int _line)
         lcd.print(" ");
         if(check != 1) {check = 1;}
       }
+      // if select is pressed return their choice
       else if(this->select() && check==1)
       {
         return true;

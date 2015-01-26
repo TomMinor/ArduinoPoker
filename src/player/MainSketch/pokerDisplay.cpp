@@ -89,7 +89,6 @@ void display::displayMoney(uint8_t _line, uint16_t _money)
   }
   else
   {
-    // poorly hacked together
     lcd.print("$"+String(_money)+"    ");
   }
 
