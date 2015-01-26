@@ -232,7 +232,7 @@ qmake_all: FORCE
 
 dist: 
 	@test -d obj/comms1.0.0 || mkdir -p obj/comms1.0.0
-	$(COPY_FILE) --parents $(DIST) obj/comms1.0.0/ && $(COPY_FILE) --parents include/card.h include/dealer/playingcard.h include/comms/packet.h include/comms/PacketTypes.h include/comms/PacketErrors.h include/comms/SerialPort.h include/shared/card.h include/comms/dealerIO.h obj/comms1.0.0/ && $(COPY_FILE) --parents src/dealer/playingcard.cpp src/dealer/player.cpp src/dealer/cardStack.cpp src/comms/comms_main.cpp src/comms/SerialPort.cpp src/comms/dealerIO.cpp obj/comms1.0.0/ && (cd `dirname obj/comms1.0.0` && $(TAR) comms1.0.0.tar comms1.0.0 && $(COMPRESS) comms1.0.0.tar) && $(MOVE) `dirname obj/comms1.0.0`/comms1.0.0.tar.gz . && $(DEL_FILE) -r obj/comms1.0.0
+	$(COPY_FILE) --parents $(DIST) obj/comms1.0.0/ && $(COPY_FILE) --parents include/card.h include/dealer/playingcard.h include/comms/SerialPort.h include/shared/card.h include/comms/dealerIO.h obj/comms1.0.0/ && $(COPY_FILE) --parents src/dealer/playingcard.cpp src/dealer/player.cpp src/dealer/cardStack.cpp src/comms/comms_main.cpp src/comms/SerialPort.cpp src/comms/dealerIO.cpp obj/comms1.0.0/ && (cd `dirname obj/comms1.0.0` && $(TAR) comms1.0.0.tar comms1.0.0 && $(COMPRESS) comms1.0.0.tar) && $(MOVE) `dirname obj/comms1.0.0`/comms1.0.0.tar.gz . && $(DEL_FILE) -r obj/comms1.0.0
 
 
 clean:compiler_clean 
@@ -285,17 +285,14 @@ obj/cardStack.o: src/dealer/cardStack.cpp include/dealer/cardStack.h \
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o obj/cardStack.o src/dealer/cardStack.cpp
 
 obj/comms_main.o: src/comms/comms_main.cpp include/comms/SerialPort.h \
-		include/comms/PacketErrors.h \
 		include/comms/dealerIO.h \
 		include/dealer/player.h \
 		include/dealer/playingcard.h \
 		include/shared/card.h \
-		include/dealer/cardStack.h \
-		include/comms/PacketTypes.h
+		include/dealer/cardStack.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o obj/comms_main.o src/comms/comms_main.cpp
 
 obj/SerialPort.o: src/comms/SerialPort.cpp include/comms/SerialPort.h \
-		include/comms/PacketErrors.h \
 		include/comms/dealerIO.h \
 		include/dealer/player.h \
 		include/dealer/playingcard.h \
@@ -308,9 +305,7 @@ obj/dealerIO.o: src/comms/dealerIO.cpp include/comms/dealerIO.h \
 		include/dealer/playingcard.h \
 		include/shared/card.h \
 		include/dealer/cardStack.h \
-		include/comms/SerialPort.h \
-		include/comms/PacketErrors.h \
-		include/comms/PacketTypes.h
+		include/comms/SerialPort.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o obj/dealerIO.o src/comms/dealerIO.cpp
 
 ####### Install

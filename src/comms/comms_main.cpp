@@ -5,19 +5,15 @@
 #include <fcntl.h>
 #include <termios.h>
 
-#include "comms/SerialPort.h"
-#include "comms/PacketTypes.h"
-
 #include "dealer/playingcard.h"
 #include "dealer/player.h"
 #include "comms/dealerIO.h"
+#include "comms/SerialPort.h"
 
-
-
+/* This is just a test main() for comms, the real stuff happens in dealerLib which merges everything together. */
 int main()
 {
     const char* port = "/dev/ttyACM0";
-
 
     Comms::sendMoney(port, 2050);
 
@@ -49,6 +45,7 @@ int main()
     {
       std::cout << "Fold\n";
     }
+
     //while(true)
     //{
       //Comms::receiveBet(port, bet, 1000, 1600);

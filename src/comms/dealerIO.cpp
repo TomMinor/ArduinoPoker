@@ -1,11 +1,29 @@
 #include "comms/dealerIO.h"
 #include "comms/SerialPort.h"
-#include "comms/PacketTypes.h"
 
-//@todo More error checking
+//@todo More indepth error checks
 
 namespace Comms
 {
+
+///
+/// \brief The PacketType enum values store all the information needed for each packet type,
+/// the left nibble stores the type and the right nibble stores the payload size.
+/// They can just be sent directly along the serial port and the Player should be capable of
+/// understanding what data they contain.
+///
+enum PacketHeader
+{                   /*  Type | Payload (Number of bytes to send/expect) */
+  P_CARDS           = 0x10 | 0x01,
+  P_NAME            = 0x20 | 0x0F,
+  P_MONEY           = 0x30 | 0x02,
+  P_LIMITS          = 0x40 | 0x04,
+  P_RESETPLAYER     = 0x50 | 0x00,
+  P_REQUESTBET      = 0x60 | 0x01,
+  P_RECIEVEWINNINGS = 0x70 | 0x02,
+  P_BETAMOUNT       = 0x80 | 0x01,
+  P_RESETCARD       = 0x90 | 0x00,
+};
 
 bool setPlayer(const std::string& _port, const std::vector<PlayingCard>& _cards, uint16_t _money)
 {
@@ -24,41 +42,6 @@ bool setPlayer(const std::string& _port, const std::vector<PlayingCard>& _cards,
 
     return true;
 }
-
-//bool sendBetLimits(const std::string& _port, uint16_t _min, uint16_t _max)
-//{
-//    try
-//    {
-
-
-//        Comms::SerialPort packet(_port);
-//        Comms::BytePayload data;
-
-//        //@todo Make this a macro
-//        /* Split into 2 bytes for transfer (player will reconstruct the int from these 2 bytes) */
-//        uint8_t right = (uint8_t)_min;
-//        uint8_t left = (uint8_t)(_min >> 8);
-
-//        data.push_back( Comms::P_LIMITS | 0x04 );
-//        data.push_back( right );
-//        data.push_back( left );
-
-//        right = (uint8_t)_max;
-//        left = (uint8_t)(_max >> 8);
-
-//        data.push_back( right );
-//        data.push_back( left );
-
-//        packet.SendData(data);
-//    }
-//    catch(boost::system::system_error& e)
-//    {
-//        std::cout << "Error " << e.what() << std::endl;
-//        return false;
-//    }
-
-//    return true;
-//}
 
 bool sendMoney(const std::string& _port, uint16_t _amount)
 {
@@ -86,8 +69,6 @@ bool sendMoney(const std::string& _port, uint16_t _amount)
 
     return true;
 }
-
-
 
 bool sendCard(const std::string& _port, PlayingCard _card)
 {
