@@ -63,6 +63,8 @@ void GUI::DealerGUI::initialise(std::vector<const player *> _players,
                                 const unsigned int &_windowHeight,
                                 const unsigned int &_pixelScale)
 {
+    //==================== This section of code is modified from a section originally written by Jon Macey ====================
+
     //-----------------------------------------------------------------------------
     // First thing we need to do is initialise SDL in this case we are
     // setting up just the video subsystem if we need audio or timer etc
@@ -157,6 +159,8 @@ void GUI::DealerGUI::initialise(std::vector<const player *> _players,
         exit(1);
     }
     SDL_FreeSurface(temp);
+
+    //==================== End of modified code section ====================
 
     //set the standard formatting for most of our labels
     const SDL_Color text_color = {255,255,255,255};
@@ -336,7 +340,8 @@ void GUI::DealerGUI::draw()
 {
     SDL_SetRenderTarget(m_renderer, m_renderTarget);
 
-    clearScreen(2,180,2);
+    SDL_SetRenderDrawColor(m_renderer, 2, 180, 2, 255);
+    SDL_RenderClear(m_renderer);
 
 //    for (std::vector< boost::shared_ptr<Element> >::iterator it; it!=m_elements.end(); ++it)
 //    {
@@ -542,18 +547,13 @@ GUI::Element* GUI::DealerGUI::uniqueElement(Element* _inputElement)
     return temp.get();
 }
 
+//Originally written by Jon Macey
 void GUI::DealerGUI::SDLErrorExit(const std::string &_msg)
 {
   std::cerr<<_msg<<"\n";
   std::cerr<<SDL_GetError()<<"\n";
   SDL_Quit();
   exit(EXIT_FAILURE);
-}
-
-void GUI::DealerGUI::clearScreen(Uint8 _r, Uint8 _g, Uint8 _b	)
-{
-    SDL_SetRenderDrawColor(m_renderer, _r,_g,_b,255);
-    SDL_RenderClear(m_renderer);
 }
 
 //void GUI::DealerGUI::setPlayerName(const unsigned int &_playerID, std::string _name)

@@ -241,15 +241,9 @@ private:
     /// \param _players A vector containing pointers to all the dealer-side player objects.
     void setUpPlayers(std::vector<const player*> _players);
 
-    /// \brief A convenient function to quit SDL and print a message if an error is encountered.
+    /// \brief A convenience function to quit SDL and print a message if an error is encountered. Originally written by Jon Macey.
     /// \param _msg The error message to print to cerr.
     void SDLErrorExit(const std::string &_msg);
-
-    /// \brief Turns the whole window one colour. Used just before drawing all the elements to prevent trails behind moving elements.
-    /// \param _r The R value of the colour to use.
-    /// \param _g The G value of the colour to use.
-    /// \param _b The B value of the colour to use.
-    void clearScreen(Uint8 _r,Uint8 _g,Uint8 _b);
 };
 
 }
