@@ -58,6 +58,8 @@ int main()
     while (!quit)
     {
         //gui.runUntilStationary();
+        gui.update();
+        gui.draw();
 
         while ( SDL_PollEvent(&event) )
         {
@@ -99,7 +101,7 @@ int main()
                         case SDLK_PAGEUP : gui.addPlayerBack(0); break;
                         case SDLK_b : gui.m_publicCards->burn(); break;
                         case SDLK_n : gui.receiveBetFrom(rand()%4,amount); break;
-                        case SDLK_v : gui.dealCardTo(rand()%4,aceOfSpades); gui.dealCardTo(rand()%4,aceOfSpades); break;
+                        case SDLK_v : gui.dealCardTo(rand()%4,aceOfSpades); break;
                         case SDLK_m : gui.broadcastMessage(std::string("Look, a message")); break;
                         case SDLK_t : gui.setPlayerName(0,std::string("Changed name")); break;
                         case SDLK_z : gui.addPublicCard(PlayingCard(Rank::ACE,Suit::SPADE));  break;
@@ -115,11 +117,11 @@ int main()
             }
         }
 
-        gui.runUntilStationary();
+//        gui.runUntilStationary();
 
 //        SDL_RenderClear(gui.m_renderer);
 //        SDL_RenderPresent(gui.m_renderer);
-//        SDL_Delay(1000);
+        SDL_Delay(32);
     }
     return EXIT_SUCCESS;
 }
